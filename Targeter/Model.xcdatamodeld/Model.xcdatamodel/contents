@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16A323" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Schedule" representedClassName="Schedule" syncable="YES">
+        <attribute name="friday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="monday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="saturday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="sunday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="thursday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="tuesday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="wednesday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <relationship name="target" maxCount="1" deletionRule="Nullify" destinationEntity="Target" inverseName="schedule" inverseEntity="Target" syncable="YES"/>
+    </entity>
+    <entity name="Success" representedClassName="Success" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="success" optional="YES" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <relationship name="target" maxCount="1" deletionRule="Nullify" destinationEntity="Target" inverseName="successList" inverseEntity="Target" syncable="YES"/>
+    </entity>
+    <entity name="Target" representedClassName="Target" syncable="YES">
+        <attribute name="active" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="dayBeginning" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="dayEnding" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="descriptionCompletion" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" indexed="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="schedule" maxCount="1" deletionRule="Cascade" destinationEntity="Schedule" inverseName="target" inverseEntity="Schedule" syncable="YES"/>
+        <relationship name="successList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Success" inverseName="target" inverseEntity="Success" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Target" positionX="-36" positionY="9" width="128" height="195"/>
+        <element name="Schedule" positionX="0" positionY="108" width="128" height="165"/>
+        <element name="Success" positionX="27" positionY="153" width="128" height="90"/>
+    </elements>
+</model>
