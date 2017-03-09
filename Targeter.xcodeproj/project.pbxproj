@@ -16,6 +16,12 @@
 		041EE5501E70C012006D623B /* TargeterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE54F1E70C012006D623B /* TargeterUITests.swift */; };
 		041EE5631E70C1CD006D623B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 041EE5611E70C1CD006D623B /* Model.xcdatamodeld */; };
 		041EE5651E70C23B006D623B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE5641E70C23B006D623B /* CoreDataStack.swift */; };
+		041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE5661E70D05B006D623B /* Success+CoreDataClass.swift */; };
+		041EE56D1E70D05C006D623B /* Success+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE5671E70D05C006D623B /* Success+CoreDataProperties.swift */; };
+		041EE56E1E70D05C006D623B /* Target+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE5681E70D05C006D623B /* Target+CoreDataClass.swift */; };
+		041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE5691E70D05C006D623B /* Target+CoreDataProperties.swift */; };
+		041EE5701E70D05C006D623B /* Schedule+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE56A1E70D05C006D623B /* Schedule+CoreDataClass.swift */; };
+		041EE5711E70D05C006D623B /* Schedule+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE56B1E70D05C006D623B /* Schedule+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,12 @@
 		041EE5511E70C012006D623B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		041EE5621E70C1CD006D623B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		041EE5641E70C23B006D623B /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		041EE5661E70D05B006D623B /* Success+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Success+CoreDataClass.swift"; path = "../Success+CoreDataClass.swift"; sourceTree = "<group>"; };
+		041EE5671E70D05C006D623B /* Success+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Success+CoreDataProperties.swift"; path = "../Success+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		041EE5681E70D05C006D623B /* Target+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Target+CoreDataClass.swift"; path = "../Target+CoreDataClass.swift"; sourceTree = "<group>"; };
+		041EE5691E70D05C006D623B /* Target+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Target+CoreDataProperties.swift"; path = "../Target+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		041EE56A1E70D05C006D623B /* Schedule+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Schedule+CoreDataClass.swift"; path = "../Schedule+CoreDataClass.swift"; sourceTree = "<group>"; };
+		041EE56B1E70D05C006D623B /* Schedule+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Schedule+CoreDataProperties.swift"; path = "../Schedule+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +155,12 @@
 		041EE55E1E70C0F6006D623B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				041EE5661E70D05B006D623B /* Success+CoreDataClass.swift */,
+				041EE5671E70D05C006D623B /* Success+CoreDataProperties.swift */,
+				041EE5681E70D05C006D623B /* Target+CoreDataClass.swift */,
+				041EE5691E70D05C006D623B /* Target+CoreDataProperties.swift */,
+				041EE56A1E70D05C006D623B /* Schedule+CoreDataClass.swift */,
+				041EE56B1E70D05C006D623B /* Schedule+CoreDataProperties.swift */,
 				041EE5611E70C1CD006D623B /* Model.xcdatamodeld */,
 				041EE5641E70C23B006D623B /* CoreDataStack.swift */,
 			);
@@ -301,7 +319,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				041EE5321E70C011006D623B /* ViewController.swift in Sources */,
+				041EE5701E70D05C006D623B /* Schedule+CoreDataClass.swift in Sources */,
+				041EE5711E70D05C006D623B /* Schedule+CoreDataProperties.swift in Sources */,
 				041EE5301E70C010006D623B /* AppDelegate.swift in Sources */,
+				041EE56D1E70D05C006D623B /* Success+CoreDataProperties.swift in Sources */,
+				041EE56E1E70D05C006D623B /* Target+CoreDataClass.swift in Sources */,
+				041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */,
+				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
 				041EE5631E70C1CD006D623B /* Model.xcdatamodeld in Sources */,
 				041EE5651E70C23B006D623B /* CoreDataStack.swift in Sources */,
 			);
