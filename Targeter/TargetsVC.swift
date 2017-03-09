@@ -24,6 +24,31 @@ class TargetsVC: UITableViewController {
             tableView.reloadData()
         }
     }
+
+    // MARK: Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Get the stack
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let stack = delegate.stack
+        
+        // Create a fetchrequest
+        let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
+        fr.sortDescriptors = [NSSortDescriptor(key: "active", ascending: true),
+                              NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        // Create the FetchedResultsController
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadData()
+
+        
+    }
     
     // MARK: Initializers
     
@@ -51,21 +76,24 @@ class TargetsVC: UITableViewController {
 
 extension TargetsVC {
     
-    // TODO: return cell
-    // Find the right notebook for this indexpath
-    //let nb = fetchedResultsController!.object(at: indexPath) as! Notebook
-    
-    // Create the cell
-    //let cell = tableView.dequeueReusableCell(withIdentifier: "NotebookCell", for: indexPath)
-    
-    // Sync notebook -> cell
-    //cell.textLabel?.text = nb.name
-    //cell.detailTextLabel?.text = String(format: "%d notes", nb.notes!.count)
-    
-    //return cell
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        fatalError("This method MUST be implemented by a subclass of CoreDataTableViewController")
+        
+        // This method must be implemented by our subclass. There's no way
+        // CoreDataTableViewController can know what type of cell we want to
+        // use.
+        
+        // Find the right notebook for this indexpath
+        let target = fetchedResultsController!.object(at: indexPath) as! Target
+        
+        // Create the cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        // Sync notebook -> cell
+        cell.textLabel?.text = target.title
+        cell.detailTextLabel?.text = target.descriptionCompletion
+        
+        return cell
     }
 }
 

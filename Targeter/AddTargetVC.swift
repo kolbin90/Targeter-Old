@@ -11,6 +11,9 @@ import CoreData
 
 class AddTargetVC: UIViewController {
     
+    //MARK: - Variables
+    let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+    
     //MARK: - Outlets
     
     @IBOutlet weak var titleTF: UITextField!
@@ -21,5 +24,9 @@ class AddTargetVC: UIViewController {
     //MARK: - Actions
     
     @IBAction func doneButton(_ sender: Any) {
+        let date = Date()
+        let newTarget = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: date, dayEnding: date, picture: nil, active: true, completed: false, context: stack.context)
+        print(newTarget)
+        stack.save()
     }
 }
