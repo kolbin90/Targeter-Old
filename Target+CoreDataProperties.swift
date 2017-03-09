@@ -24,7 +24,7 @@ extension Target {
     @NSManaged public var picture: Data?
     @NSManaged public var active: Bool
     @NSManaged public var completed: Bool
-    @NSManaged public var schedule: Schedule
+    @NSManaged public var schedule: Schedule?
     @NSManaged public var successList: NSSet?
 
 }
