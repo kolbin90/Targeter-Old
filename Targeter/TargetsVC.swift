@@ -87,11 +87,12 @@ extension TargetsVC {
         let target = fetchedResultsController!.object(at: indexPath) as! Target
         
         // Create the cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
         
         // Sync notebook -> cell
-        cell.textLabel?.text = target.title
-        cell.detailTextLabel?.text = target.descriptionCompletion
+        //cell.textLabel?.text = target.title
+        //cell.detailTextLabel?.text = target.descriptionCompletion
+        cell.label.text = target.title
         
         return cell
     }

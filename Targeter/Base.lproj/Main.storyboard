@@ -29,18 +29,121 @@
         <scene sceneID="fwP-Dj-BvL">
             <objects>
                 <tableViewController id="G0Z-9T-gTx" customClass="TargetsVC" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="eNq-SN-pYz">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="130" sectionHeaderHeight="28" sectionFooterHeight="28" id="eNq-SN-pYz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="wct-af-Ah5">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="130" id="wct-af-Ah5" customClass="TargetCell" customModule="Targeter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wct-af-Ah5" id="h3y-Bg-I6h">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zakat" translatesAutoresizingMaskIntoConstraints="NO" id="9bM-cm-m6P">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
+                                        </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8m0-ky-A8H">
+                                            <rect key="frame" x="20" y="20" width="335" height="89.5"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fRq-Mw-Pwd">
+                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="89.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabelLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogn-7N-T7Z">
+                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5Vj-2J-rKG">
+                                                            <rect key="frame" x="0.0" y="45" width="335" height="44.5"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="sYm-Mn-W9c">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="7BH-Fa-RsY">
+                                                                    <rect key="frame" x="24" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="VLc-2o-hvg">
+                                                                    <rect key="frame" x="48" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="eqx-tL-nV1">
+                                                                    <rect key="frame" x="72" y="0.0" width="23.5" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="i2X-KI-Kj1">
+                                                                    <rect key="frame" x="95.5" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="iDU-Km-lag">
+                                                                    <rect key="frame" x="119.5" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="bYz-f5-fSN">
+                                                                    <rect key="frame" x="143.5" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="qde-bV-iuz">
+                                                                    <rect key="frame" x="167.5" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="HyR-B7-wC4">
+                                                                    <rect key="frame" x="191.5" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="7fc-vW-47g">
+                                                                    <rect key="frame" x="215.5" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="QNI-ox-81P">
+                                                                    <rect key="frame" x="239.5" y="0.0" width="23.5" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-7s-n1b">
+                                                                    <rect key="frame" x="263" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="AXD-2C-qzv">
+                                                                    <rect key="frame" x="287" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="77l-Hd-A3h">
+                                                                    <rect key="frame" x="311" y="0.0" width="24" height="44.5"/>
+                                                                </imageView>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="fRq-Mw-Pwd" secondAttribute="trailing" id="K1w-kU-XaV"/>
+                                                <constraint firstItem="fRq-Mw-Pwd" firstAttribute="top" secondItem="8m0-ky-A8H" secondAttribute="top" id="Zmk-7W-1eg"/>
+                                                <constraint firstAttribute="bottom" secondItem="fRq-Mw-Pwd" secondAttribute="bottom" id="bDY-Bh-Sgz"/>
+                                                <constraint firstItem="fRq-Mw-Pwd" firstAttribute="leading" secondItem="8m0-ky-A8H" secondAttribute="leading" id="uSa-7w-EDZ"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="8m0-ky-A8H" secondAttribute="trailing" constant="20" id="JrD-2b-hYx"/>
+                                        <constraint firstItem="8m0-ky-A8H" firstAttribute="leading" secondItem="h3y-Bg-I6h" secondAttribute="leading" constant="20" id="Lm6-t8-gPR"/>
+                                        <constraint firstItem="8m0-ky-A8H" firstAttribute="top" secondItem="h3y-Bg-I6h" secondAttribute="top" constant="20" id="afE-9b-xrk"/>
+                                        <constraint firstItem="9bM-cm-m6P" firstAttribute="top" secondItem="h3y-Bg-I6h" secondAttribute="top" id="j2x-Gy-n9z"/>
+                                        <constraint firstAttribute="bottom" secondItem="8m0-ky-A8H" secondAttribute="bottom" constant="20" id="lNe-wF-L3X"/>
+                                        <constraint firstAttribute="trailing" secondItem="9bM-cm-m6P" secondAttribute="trailing" id="n3k-V7-QuG"/>
+                                        <constraint firstAttribute="bottom" secondItem="9bM-cm-m6P" secondAttribute="bottom" id="oLN-E6-NHD"/>
+                                        <constraint firstItem="9bM-cm-m6P" firstAttribute="leading" secondItem="h3y-Bg-I6h" secondAttribute="leading" id="z58-fd-xZD"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dot1" destination="sYm-Mn-W9c" id="3FY-VM-yth"/>
+                                    <outlet property="dot10" destination="7fc-vW-47g" id="S9d-HJ-Uaz"/>
+                                    <outlet property="dot11" destination="QNI-ox-81P" id="OXD-Zk-VRI"/>
+                                    <outlet property="dot12" destination="PSS-7s-n1b" id="c3n-j5-knT"/>
+                                    <outlet property="dot13" destination="AXD-2C-qzv" id="0Ji-eJ-sfT"/>
+                                    <outlet property="dot14" destination="77l-Hd-A3h" id="RL0-Hj-Hjv"/>
+                                    <outlet property="dot2" destination="7BH-Fa-RsY" id="cvW-ke-87M"/>
+                                    <outlet property="dot3" destination="VLc-2o-hvg" id="71U-YQ-npN"/>
+                                    <outlet property="dot4" destination="eqx-tL-nV1" id="g7c-t5-nzN"/>
+                                    <outlet property="dot5" destination="i2X-KI-Kj1" id="D5d-8s-mYV"/>
+                                    <outlet property="dot6" destination="iDU-Km-lag" id="Mku-EB-mtd"/>
+                                    <outlet property="dot7" destination="bYz-f5-fSN" id="WuB-W7-Xly"/>
+                                    <outlet property="dot8" destination="qde-bV-iuz" id="5Uk-WG-eyp"/>
+                                    <outlet property="dot9" destination="HyR-B7-wC4" id="5mt-Lh-fEK"/>
+                                    <outlet property="label" destination="ogn-7N-T7Z" id="yPi-Xs-iDM"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -64,7 +167,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZp-gJ-vc2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="479" y="79"/>
+            <point key="canvasLocation" x="477.60000000000002" y="78.710644677661179"/>
         </scene>
         <!--New Target-->
         <scene sceneID="1Yg-mI-jWc">
@@ -186,6 +289,10 @@
             <point key="canvasLocation" x="1318" y="-641"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="dot" width="100" height="100"/>
+        <image name="zakat" width="349" height="218"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6WO-wG-h2K"/>
     </inferredMetricsTieBreakers>
