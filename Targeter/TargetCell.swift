@@ -26,4 +26,19 @@ class TargetCell: UITableViewCell {
     @IBOutlet weak var dot13: UIImageView!
     @IBOutlet weak var dot14: UIImageView!
     
+    @IBOutlet weak var day1: UILabel!
+    @IBOutlet weak var day2: UILabel!
+    @IBOutlet weak var day3: UILabel!
+    @IBOutlet weak var day4: UILabel!
+    @IBOutlet weak var day5: UILabel!
+    @IBOutlet weak var day6: UILabel!
+    @IBOutlet weak var day7: UILabel!
+    @IBOutlet weak var day8: UILabel!
+    @IBOutlet weak var day9: UILabel!
+    @IBOutlet weak var day10: UILabel!
+    @IBOutlet weak var day11: UILabel!
+    @IBOutlet weak var day12: UILabel!
+    @IBOutlet weak var day13: UILabel!
+    @IBOutlet weak var day14: UILabel!
+    
 }
