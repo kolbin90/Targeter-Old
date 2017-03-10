@@ -24,15 +24,18 @@ class TargetsVC: UITableViewController {
             tableView.reloadData()
         }
     }
+    
+    let stack = (UIApplication.shared.delegate as! AppDelegate).stack
 
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Get the stack
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        let stack = delegate.stack
+        /* do {
+            try stack.dropAllData()
+        } catch {
+            print("Ebat' error")
+        } */
         
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
@@ -78,18 +81,38 @@ extension TargetsVC {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         // Find the right notebook for this indexpath
         let target = fetchedResultsController!.object(at: indexPath) as! Target
         
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
         
+        //let currentTarget = fetchedResultsController?.object(at: indexPath) as? Target
+        if let successList = target.successList as? Set<Success>{
+            print(successList)
+            print("________")
+            print(target.successList!)
+            for day in successList {
+                // let successDay = day as? Success
+                if let daySuccess = day as? Success {
+                    if daySuccess.success {
+                        cell.dot1.tintColor = .green
+                        cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                        
+                    } else {
+                        cell.dot1.tintColor = .red
+                        cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                    }
+                }
+                
+            }
+        }
         // Sync notebook -> cell
         //cell.textLabel?.text = target.title
         //cell.detailTextLabel?.text = target.descriptionCompletion
-        cell.dot1.tintColor = .green
-        cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+       // cell.dot1.tintColor = .green
+        //cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
         cell.label.text = target.title
         
         
@@ -108,21 +131,30 @@ extension TargetsVC {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-       // if (editingStyle == UITableViewCellEditingStyle.delete) {
-            
-            
-        //}
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        var deleteAction = UITableViewRowAction(style: .default, title: "Delete") {action in
+        
+        let currentTarget = fetchedResultsController?.object(at: indexPath) as? Target
+
+        let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
             //handle delete
+            let date = Date()
+            let success = Success.init(date: date, success: false, context: self.stack.context)
+            currentTarget?.addToSuccessList(success)
+            self.stack.save()
         }
         
-        var editAction = UITableViewRowAction(style: .normal, title: "Edit") {action in
+        let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
             //handle edit
+            let date = Date()
+            let success = Success.init(date: date, success: true, context: self.stack.context)
+            currentTarget?.addToSuccessList(success)
+            self.stack.save()
         }
-        return [deleteAction, editAction]
+        successAction.backgroundColor! = .green
+        
+        return [failAction, successAction]
     }
 }
 
