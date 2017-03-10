@@ -72,17 +72,13 @@ class TargetsVC: UITableViewController {
     }
 }
 
-// MARK: - CoreDataTableViewController (Subclass Must Implement)
+// MARK: - CoreDataTableViewController
 
 extension TargetsVC {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // This method must be implemented by our subclass. There's no way
-        // CoreDataTableViewController can know what type of cell we want to
-        // use.
-        
+
         // Find the right notebook for this indexpath
         let target = fetchedResultsController!.object(at: indexPath) as! Target
         
@@ -92,9 +88,41 @@ extension TargetsVC {
         // Sync notebook -> cell
         //cell.textLabel?.text = target.title
         //cell.detailTextLabel?.text = target.descriptionCompletion
+        cell.dot1.tintColor = .green
+        cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
         cell.label.text = target.title
         
+        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+    //detailVC.meme = memes[indexPath.row]
+    //navigationController!.pushViewController(detailVC, animated: true)
+    //    tableView.deselectRow(at: indexPath, animated: false)
+    }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+       return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+       // if (editingStyle == UITableViewCellEditingStyle.delete) {
+            
+            
+        //}
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        var deleteAction = UITableViewRowAction(style: .default, title: "Delete") {action in
+            //handle delete
+        }
+        
+        var editAction = UITableViewRowAction(style: .normal, title: "Edit") {action in
+            //handle edit
+        }
+        return [deleteAction, editAction]
     }
 }
 

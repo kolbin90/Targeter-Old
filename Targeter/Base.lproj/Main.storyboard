@@ -41,10 +41,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zakat" translatesAutoresizingMaskIntoConstraints="NO" id="9bM-cm-m6P">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zakat" translatesAutoresizingMaskIntoConstraints="NO" id="9bM-cm-m6P">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
                                         </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8m0-ky-A8H">
+                                        <view clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8m0-ky-A8H">
                                             <rect key="frame" x="20" y="20" width="335" height="89.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fRq-Mw-Pwd">

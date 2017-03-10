@@ -41,4 +41,23 @@ class TargetCell: UITableViewCell {
     @IBOutlet weak var day13: UILabel!
     @IBOutlet weak var day14: UILabel!
     
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        let dotsArray = [dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8, dot9, dot10, dot11, dot12, dot13, dot14]()
+        let daysArray = [day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14]()
+
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        
+    }
 }
