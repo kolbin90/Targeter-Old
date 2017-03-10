@@ -26,16 +26,16 @@ class TargetsVC: UITableViewController {
     }
     
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
-
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         /* do {
-            try stack.dropAllData()
-        } catch {
-            print("Ebat' error")
-        } */
+         try stack.dropAllData()
+         } catch {
+         print("Ebat' error")
+         } */
         
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
@@ -49,7 +49,7 @@ class TargetsVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         tableView.reloadData()
-
+        
         
     }
     
@@ -88,7 +88,6 @@ extension TargetsVC {
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
         
-        //let currentTarget = fetchedResultsController?.object(at: indexPath) as? Target
         if let successList = target.successList as? Set<Success>{
             print(successList)
             print("________")
@@ -111,7 +110,7 @@ extension TargetsVC {
         // Sync notebook -> cell
         //cell.textLabel?.text = target.title
         //cell.detailTextLabel?.text = target.descriptionCompletion
-       // cell.dot1.tintColor = .green
+        // cell.dot1.tintColor = .green
         //cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
         cell.label.text = target.title
         
@@ -120,14 +119,14 @@ extension TargetsVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-    //detailVC.meme = memes[indexPath.row]
-    //navigationController!.pushViewController(detailVC, animated: true)
-    //    tableView.deselectRow(at: indexPath, animated: false)
+        //let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        //detailVC.meme = memes[indexPath.row]
+        //navigationController!.pushViewController(detailVC, animated: true)
+        //    tableView.deselectRow(at: indexPath, animated: false)
     }
-
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-       return true
+        return true
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -135,26 +134,58 @@ extension TargetsVC {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let currentTarget = fetchedResultsController?.object(at: indexPath) as? Target
-
-        let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
-            //handle delete
-            let date = Date()
-            let success = Success.init(date: date, success: false, context: self.stack.context)
-            currentTarget?.addToSuccessList(success)
-            self.stack.save()
-        }
+        let target = fetchedResultsController?.object(at: indexPath) as! Target
         
-        let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
-            //handle edit
-            let date = Date()
-            let success = Success.init(date: date, success: true, context: self.stack.context)
-            currentTarget?.addToSuccessList(success)
-            self.stack.save()
-        }
-        successAction.backgroundColor! = .green
         
-        return [failAction, successAction]
+        if let successList = target.successList as? Set<Success>{
+            if successList.count > 0 {
+                /*  for day in successList {
+                 // let successDay = day as? Success
+                 if let daySuccess = day as? Success {
+                 if daySuccess.success {
+                 cell.dot1.tintColor = .green
+                 cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                 
+                 } else {
+                 cell.dot1.tintColor = .red
+                 cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                 }
+                 }
+                 
+                 } */
+                let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action in
+                    for day in successList {
+                        let successDay = day
+                        self.stack.context.delete(successDay)
+                        self.stack.save()
+                    }
+                }
+                return [unmarkAction]
+                
+            } else {
+                
+                let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
+                    //handle delete
+                    let date = Date()
+                    let success = Success.init(date: date, success: false, context: self.stack.context)
+                    target.addToSuccessList(success)
+                    self.stack.save()
+                }
+                
+                let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
+                    //handle edit
+                    let date = Date()
+                    let success = Success.init(date: date, success: true, context: self.stack.context)
+                    target.addToSuccessList(success)
+                    self.stack.save()
+                }
+                successAction.backgroundColor! = .green
+                
+                return [failAction, successAction]
+                
+            }
+        }
+        return nil
     }
 }
 
