@@ -88,14 +88,10 @@ extension TargetsVC {
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
         
-        if let successList = target.successList as? Set<Success>{
-            print(successList)
-            print("________")
-            print(target.successList!)
+        if let successList = target.successList as? Set<Success>, (successList.count > 0) {
             for day in successList {
-                // let successDay = day as? Success
-                if let daySuccess = day as? Success {
-                    if daySuccess.success {
+                //if let daySuccess = day as? Success {
+                    if day.success {
                         cell.dot1.tintColor = .green
                         cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
                         
@@ -103,9 +99,13 @@ extension TargetsVC {
                         cell.dot1.tintColor = .red
                         cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
                     }
-                }
+                
                 
             }
+        } else {
+            cell.dot1.tintColor = .black
+            cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+            
         }
         // Sync notebook -> cell
         //cell.textLabel?.text = target.title
@@ -137,55 +137,52 @@ extension TargetsVC {
         let target = fetchedResultsController?.object(at: indexPath) as! Target
         
         
-        if let successList = target.successList as? Set<Success>{
-            if successList.count > 0 {
-                /*  for day in successList {
-                 // let successDay = day as? Success
-                 if let daySuccess = day as? Success {
-                 if daySuccess.success {
-                 cell.dot1.tintColor = .green
-                 cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                 
-                 } else {
-                 cell.dot1.tintColor = .red
-                 cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                 }
-                 }
-                 
-                 } */
-                let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action in
-                    for day in successList {
-                        let successDay = day
-                        self.stack.context.delete(successDay)
-                        self.stack.save()
-                    }
-                }
-                return [unmarkAction]
-                
-            } else {
-                
-                let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
-                    //handle delete
-                    let date = Date()
-                    let success = Success.init(date: date, success: false, context: self.stack.context)
-                    target.addToSuccessList(success)
+        if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+            /*  for day in successList {
+             // let successDay = day as? Success
+             if let daySuccess = day as? Success {
+             if daySuccess.success {
+             cell.dot1.tintColor = .green
+             cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+             
+             } else {
+             cell.dot1.tintColor = .red
+             cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+             }
+             }
+             
+             } */
+            let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action in
+                for day in successList {
+                    let successDay = day
+                    self.stack.context.delete(successDay)
                     self.stack.save()
                 }
-                
-                let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
-                    //handle edit
-                    let date = Date()
-                    let success = Success.init(date: date, success: true, context: self.stack.context)
-                    target.addToSuccessList(success)
-                    self.stack.save()
-                }
-                successAction.backgroundColor! = .green
-                
-                return [failAction, successAction]
-                
             }
+            return [unmarkAction]
+            
+        } else {
+            
+            let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
+                //handle delete
+                let date = Date()
+                let success = Success.init(date: date, success: false, context: self.stack.context)
+                target.addToSuccessList(success)
+                self.stack.save()
+            }
+            
+            let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
+                //handle edit
+                let date = Date()
+                let success = Success.init(date: date, success: true, context: self.stack.context)
+                target.addToSuccessList(success)
+                self.stack.save()
+            }
+            successAction.backgroundColor! = .green
+            
+            return [failAction, successAction]
+            
         }
-        return nil
     }
 }
 
