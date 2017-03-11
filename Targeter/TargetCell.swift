@@ -10,7 +10,9 @@ import UIKit
 
 class TargetCell: UITableViewCell {
     
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var label: UILabel!
+    
     @IBOutlet weak var dot1: UIImageView!
     @IBOutlet weak var dot2: UIImageView!
     @IBOutlet weak var dot3: UIImageView!
@@ -40,18 +42,24 @@ class TargetCell: UITableViewCell {
     @IBOutlet weak var day12: UILabel!
     @IBOutlet weak var day13: UILabel!
     @IBOutlet weak var day14: UILabel!
-    
+    /*
+    var dotsArray:[UIImageView]!
+    var daysArray:[UILabel]!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        let dotsArray:[UIImageView] = [dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8, dot9, dot10, dot11, dot12, dot13, dot14]
-        let daysArray:[UILabel] = [day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14]
+        dotsArray = [dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8, dot9, dot10, dot11, dot12, dot13, dot14]
+        daysArray = [day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14]
+        print("Generic Cell Initialization Done")
         //let vodnik = "vodnik"
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
+        dotsArray = [dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8, dot9, dot10, dot11, dot12, dot13, dot14]
+        daysArray = [day1, day2, day3, day4, day5, day6, day7, day8, day9, day10, day11, day12, day13, day14]
+        print("Generic Cell Initialization Done")
+    } */
     
     
     override func setSelected(_ selected: Bool, animated: Bool) {

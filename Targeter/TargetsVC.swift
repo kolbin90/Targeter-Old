@@ -31,11 +31,13 @@ class TargetsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /* do {
+        /*
+         do {
          try stack.dropAllData()
          } catch {
          print("Ebat' error")
-         } */
+         } 
+        */
         
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
@@ -87,6 +89,26 @@ extension TargetsVC {
         
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
+        var today = Date()
+        
+        var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
+        var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
+        //print(dotsArray)
+        //var cellDays = cell.daysArray!
+        if let imageData = target.picture {
+            if let image = UIImage(data: imageData) {
+                 cell.backgroundImage.image! = image
+            }
+        }
+        
+        
+        for dayLabel in daysArray {
+            print("I'm here")
+            let day = Calendar.current.component(.day, from: today)
+            dayLabel.text! = String(day)
+            today = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+        } 
+        
         
         if let successList = target.successList as? Set<Success>, (successList.count > 0) {
             for day in successList {
@@ -107,11 +129,7 @@ extension TargetsVC {
             cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
             
         }
-        // Sync notebook -> cell
-        //cell.textLabel?.text = target.title
-        //cell.detailTextLabel?.text = target.descriptionCompletion
-        // cell.dot1.tintColor = .green
-        //cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+        
         cell.label.text = target.title
         
         
