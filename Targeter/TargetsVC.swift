@@ -48,11 +48,10 @@ class TargetsVC: UITableViewController {
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         tableView.reloadData()
-        
-        
+
     }
     
     // MARK: Initializers
@@ -119,22 +118,29 @@ extension TargetsVC {
                 case "failed":
                     dotColor = .red
                 case "nothing":
-                    dotColor = .black
+                    dotColor = .darkGray
                 default:
-                    dotColor = .black
+                    dotColor = .darkGray
                     print("Error!")
                 }
                 dayImageView.tintColor = dotColor
                 dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
             } else {
-                dayImageView.tintColor = .black
+                dayImageView.tintColor = .darkGray
                 dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
             }
             
             // Give labels name of last 14 days
             let dayLabel = daysArray[num]
             let day = Calendar.current.component(.day, from: today)
-            dayLabel.text! = String(day)
+            if Calendar.current.isDate(today, equalTo: Date(), toGranularity:.day) {
+                let month = Calendar.current.component(.month, from: today)
+                let year = Calendar.current.component(.year, from: today)
+                dayLabel.text! = "\(day)/\(month)\n\(year)"
+            } else {
+                dayLabel.text! = String(day)
+            }
+
             today = Calendar.current.date(byAdding: .day, value: -1, to: today)!
             num += 1
         }
@@ -182,7 +188,8 @@ extension TargetsVC {
                 self.stack.context.delete(todayInSuccessList!)
                 self.stack.save()
             }
-                        switch success {
+            unmarkAction.backgroundColor = .darkGray
+            switch success {
             case "succeed",
                  "failed":
                 return [unmarkAction]
@@ -193,7 +200,7 @@ extension TargetsVC {
                 return [failAction, successAction]
             }
         } else {
-        return [failAction, successAction]
+            return [failAction, successAction]
         }
     }
     //MARK: Assist func
