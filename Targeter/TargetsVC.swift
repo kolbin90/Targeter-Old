@@ -36,8 +36,8 @@ class TargetsVC: UITableViewController {
          try stack.dropAllData()
          } catch {
          print("Ebat' error")
-         } 
-        */
+         }
+         */
         
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
@@ -105,14 +105,14 @@ extension TargetsVC {
         while num < numberOfMarksInCell {
             // Color images on success and fail
             let dayImageView = dotsArray[num]
-
+            
             //calendar.timeZone = TimeZone(secondsFromGMT: 0)!
-
+            
             // Check if Success list contains anyrhing
             
             if let successList = target.successList as? Set<Success>, (successList.count > 0) {
                 let dotColor:UIColor!
-                let success = todayIn(successList: successList, today: today)
+                let success = todayIn(successList: successList, today: today).0
                 switch success {
                 case "succeed":
                     dotColor = .green
@@ -157,57 +157,59 @@ extension TargetsVC {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
         let target = fetchedResultsController?.object(at: indexPath) as! Target
+        let today = Date()
+        let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
+            //handle delete
+            let date = Date()
+            let success = Success.init(date: date, success: false, context: self.stack.context)
+            target.addToSuccessList(success)
+            self.stack.save()
+        }
         
+        let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
+            //handle edit
+            let date = Date()
+            let success = Success.init(date: date, success: true, context: self.stack.context)
+            target.addToSuccessList(success)
+            self.stack.save()
+        }
+        successAction.backgroundColor! = .green
         
         if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+            let (success, todayInSuccessList) = todayIn(successList: successList, today: today)
             let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action in
-                for day in successList {
-                    let successDay = day
-                    self.stack.context.delete(successDay)
-                    self.stack.save()
-                }
+                self.stack.context.delete(todayInSuccessList!)
+                self.stack.save()
             }
-            return [unmarkAction]
-            
+                        switch success {
+            case "succeed",
+                 "failed":
+                return [unmarkAction]
+            case "nothing":
+                return [failAction, successAction]
+            default:
+                print("Error!")
+                return [failAction, successAction]
+            }
         } else {
-            
-            let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
-                //handle delete
-                let date = Date()
-                let success = Success.init(date: date, success: false, context: self.stack.context)
-                target.addToSuccessList(success)
-                self.stack.save()
-            }
-            
-            let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
-                //handle edit
-                let date = Date()
-                let success = Success.init(date: date, success: true, context: self.stack.context)
-                target.addToSuccessList(success)
-                self.stack.save()
-            }
-            successAction.backgroundColor! = .green
-            
-            return [failAction, successAction]
-            
+        return [failAction, successAction]
         }
     }
     //MARK: Assist func
     
-    func todayIn(successList:Set<Success>,today:Date) -> String{
+    func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
         for day in successList {
             if Calendar.current.isDate(day.date, equalTo: today, toGranularity:.day) {
                 if day.success {
-                    return "succeed"
+                    return ("succeed", day)
                     //dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
                 } else {
-                    return "failed"
+                    return ("failed", day)
                 }
             }
         }
-        return "nothing"
+        return ("nothing", nil)
     }
 }
 
