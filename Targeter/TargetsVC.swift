@@ -90,49 +90,55 @@ extension TargetsVC {
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
         var today = Date()
-        
+        let numberOfMarksInCell = 14
+        var num = 0
         var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
         var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
         //print(dotsArray)
         //var cellDays = cell.daysArray!
         if let imageData = target.picture {
             if let image = UIImage(data: imageData) {
-                 cell.backgroundImage.image! = image
+                cell.backgroundImage.image! = image
             }
         }
-        
-        
-        for dayLabel in daysArray {
-            print("I'm here")
+        //
+        while num < numberOfMarksInCell {
+            // Color images on success and fail
+            let dayImageView = dotsArray[num]
+
+            //calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+
+            // Check if Success list contains anyrhing
+            
+            if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+                let dotColor:UIColor!
+                let success = todayIn(successList: successList, today: today)
+                switch success {
+                case "succeed":
+                    dotColor = .green
+                case "failed":
+                    dotColor = .red
+                case "nothing":
+                    dotColor = .black
+                default:
+                    dotColor = .black
+                    print("Error!")
+                }
+                dayImageView.tintColor = dotColor
+                dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+            } else {
+                dayImageView.tintColor = .black
+                dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+            }
+            
+            // Give labels name of last 14 days
+            let dayLabel = daysArray[num]
             let day = Calendar.current.component(.day, from: today)
             dayLabel.text! = String(day)
             today = Calendar.current.date(byAdding: .day, value: -1, to: today)!
-        } 
-        
-        
-        if let successList = target.successList as? Set<Success>, (successList.count > 0) {
-            for day in successList {
-                //if let daySuccess = day as? Success {
-                    if day.success {
-                        cell.dot1.tintColor = .green
-                        cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                        
-                    } else {
-                        cell.dot1.tintColor = .red
-                        cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                    }
-                
-                
-            }
-        } else {
-            cell.dot1.tintColor = .black
-            cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-            
+            num += 1
         }
-        
         cell.label.text = target.title
-        
-        
         return cell
     }
     
@@ -156,20 +162,6 @@ extension TargetsVC {
         
         
         if let successList = target.successList as? Set<Success>, (successList.count > 0) {
-            /*  for day in successList {
-             // let successDay = day as? Success
-             if let daySuccess = day as? Success {
-             if daySuccess.success {
-             cell.dot1.tintColor = .green
-             cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-             
-             } else {
-             cell.dot1.tintColor = .red
-             cell.dot1.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-             }
-             }
-             
-             } */
             let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action in
                 for day in successList {
                     let successDay = day
@@ -201,6 +193,21 @@ extension TargetsVC {
             return [failAction, successAction]
             
         }
+    }
+    //MARK: Assist func
+    
+    func todayIn(successList:Set<Success>,today:Date) -> String{
+        for day in successList {
+            if Calendar.current.isDate(day.date, equalTo: today, toGranularity:.day) {
+                if day.success {
+                    return "succeed"
+                    //dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                } else {
+                    return "failed"
+                }
+            }
+        }
+        return "nothing"
     }
 }
 
