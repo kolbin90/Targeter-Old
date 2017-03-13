@@ -108,8 +108,11 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             self.imagePicker(.camera)
             
         })
-
-        actionSheet.addAction(UIAlertAction(title: "Download from Flickr", style: .default, handler: nil))
+        
+        actionSheet.addAction(UIAlertAction(title: "Download from Flickr", style: .default) { action in
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "ImageFromFlickerVC") as! ImageFromFlickerVC
+            self.navigationController?.pushViewController(controller, animated: true)
+        })
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true, completion: nil)

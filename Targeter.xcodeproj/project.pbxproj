@@ -23,6 +23,7 @@
 		041EE5711E70D05C006D623B /* Schedule+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE56B1E70D05C006D623B /* Schedule+CoreDataProperties.swift */; };
 		041EE5731E70E4A7006D623B /* TargetsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE5721E70E4A7006D623B /* TargetsVC.swift */; };
 		041EE5751E70FD6F006D623B /* AddTargetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EE5741E70FD6F006D623B /* AddTargetVC.swift */; };
+		044ED1441E77362800F61A33 /* ImageFromFlickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */; };
 		047A353E1E712CFB0084AD68 /* TargetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A353D1E712CFB0084AD68 /* TargetCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		041EE56B1E70D05C006D623B /* Schedule+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Schedule+CoreDataProperties.swift"; path = "../Schedule+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		041EE5721E70E4A7006D623B /* TargetsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetsVC.swift; sourceTree = "<group>"; };
 		041EE5741E70FD6F006D623B /* AddTargetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTargetVC.swift; sourceTree = "<group>"; };
+		044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFromFlickerVC.swift; sourceTree = "<group>"; };
 		047A353D1E712CFB0084AD68 /* TargetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +185,7 @@
 			children = (
 				041EE5721E70E4A7006D623B /* TargetsVC.swift */,
 				041EE5741E70FD6F006D623B /* AddTargetVC.swift */,
+				044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				041EE56E1E70D05C006D623B /* Target+CoreDataClass.swift in Sources */,
 				041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */,
 				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
+				044ED1441E77362800F61A33 /* ImageFromFlickerVC.swift in Sources */,
 				041EE5751E70FD6F006D623B /* AddTargetVC.swift in Sources */,
 				041EE5631E70C1CD006D623B /* Model.xcdatamodeld in Sources */,
 				041EE5651E70C23B006D623B /* CoreDataStack.swift in Sources */,
