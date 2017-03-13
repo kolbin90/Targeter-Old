@@ -46,7 +46,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            tergetImageView.image? = image
+            tergetImageView.image = image
         }
         dismiss(animated: true, completion: nil)
         

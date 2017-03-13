@@ -89,6 +89,7 @@ extension TargetsVC {
         
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
+
         var today = Date()
         let numberOfMarksInCell = 14
         var num = 0
