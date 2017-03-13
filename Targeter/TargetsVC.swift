@@ -27,6 +27,7 @@ class TargetsVC: UITableViewController {
     
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -95,9 +96,10 @@ extension TargetsVC {
         var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
         //print(dotsArray)
         //var cellDays = cell.daysArray!
+        cell.backgroundImage.image = nil
         if let imageData = target.picture {
             if let image = UIImage(data: imageData) {
-                cell.backgroundImage.image! = image
+                cell.backgroundImage.image = image
             }
         }
         //
@@ -118,15 +120,15 @@ extension TargetsVC {
                 case "failed":
                     dotColor = .red
                 case "nothing":
-                    dotColor = .darkGray
+                    dotColor = .black
                 default:
-                    dotColor = .darkGray
+                    dotColor = .black
                     print("Error!")
                 }
                 dayImageView.tintColor = dotColor
                 dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
             } else {
-                dayImageView.tintColor = .darkGray
+                dayImageView.tintColor = .black
                 dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
             }
             
@@ -172,6 +174,11 @@ extension TargetsVC {
             target.addToSuccessList(success)
             self.stack.save()
         }
+        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") {action in
+            //handle delete
+            self.stack.context.delete(target)
+            self.stack.save()
+        }
         
         let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
             //handle edit
@@ -192,15 +199,15 @@ extension TargetsVC {
             switch success {
             case "succeed",
                  "failed":
-                return [unmarkAction]
+                return [unmarkAction,deleteAction]
             case "nothing":
-                return [failAction, successAction]
+                return [failAction, successAction,deleteAction]
             default:
                 print("Error!")
-                return [failAction, successAction]
+                return [failAction, successAction,deleteAction]
             }
         } else {
-            return [failAction, successAction]
+            return [failAction, successAction,deleteAction]
         }
     }
     //MARK: Assist func
