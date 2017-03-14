@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16A323" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Image" representedClassName="Image" syncable="YES">
+        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" indexed="YES" syncable="YES"/>
+        <attribute name="url" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="imageSearch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageSearch" inverseName="images" inverseEntity="ImageSearch" syncable="YES"/>
+    </entity>
+    <entity name="ImageSearch" representedClassName="ImageSearch" syncable="YES">
+        <attribute name="searchTitle" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Image" inverseName="imageSearch" inverseEntity="Image" syncable="YES"/>
+    </entity>
     <entity name="Schedule" representedClassName="Schedule" syncable="YES">
         <attribute name="friday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
         <attribute name="monday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
@@ -28,8 +37,10 @@
         <relationship name="successList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Success" inverseName="target" inverseEntity="Success" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Target" positionX="-36" positionY="9" width="128" height="193"/>
         <element name="Schedule" positionX="108" positionY="9" width="128" height="165"/>
         <element name="Success" positionX="250" positionY="117" width="128" height="90"/>
+        <element name="Target" positionX="-36" positionY="9" width="128" height="193"/>
+        <element name="ImageSearch" positionX="126" positionY="108" width="128" height="75"/>
+        <element name="Image" positionX="135" positionY="117" width="128" height="90"/>
     </elements>
 </model>
