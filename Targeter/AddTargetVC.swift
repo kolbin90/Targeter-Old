@@ -15,6 +15,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     
     
+    
     //MARK: - Outlets
     
     @IBOutlet weak var weekdaysStackView: UIStackView!
@@ -135,6 +136,11 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
 
     @IBAction func switchChanged(_ sender: UISwitch) {
             weekdaysStackView.isHidden = sender.isOn
+    }
+    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+        if let sourceViewController = segue.source as? ImageFromFlickerVC {
+            tergetImageView.image = sourceViewController.imageView.image!
+        }
     }
     
 }

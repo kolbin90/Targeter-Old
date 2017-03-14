@@ -55,6 +55,7 @@ class TargetsVC: UITableViewController {
 
     }
     
+    
     // MARK: Initializers
     
     init(fetchedResultsController fc : NSFetchedResultsController<NSFetchRequestResult>, style : UITableViewStyle = .plain) {
