@@ -9,8 +9,9 @@
 import UIKit
 
 class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+    
     // MARK: - Properties
-
+    var images: [UIImage]?
     // MARK: - Outlets
 
     @IBOutlet weak var imageView: UIImageView!
@@ -24,17 +25,25 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        FlickrClient.sharedInstance().getImagesFromFlickr(text: "vodnik") { (result, error) in
+            print(result!)
+        }
     }
     
     // MARK: - Delegates
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        guard let images = images else {
+            return 0
+        }
+        return images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)  as! UICollectionViewCell
-        // configureCell(cell, atIndexPath: indexPath)
+        guard let images = images else {
+            return cell
+        }
         return cell
     }
     
@@ -53,6 +62,8 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    
     
     // MARK: - Actions
     
