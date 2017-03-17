@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import CoreData
 
-class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     
     // MARK: - Properties
-    var images: [UIImage]?
-    // MARK: - Outlets
+   // var images: [UIImage]?
+    let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+    var insertedIndexPaths = [IndexPath]()
+    var deletedIndexPaths = [IndexPath]()
+    var updatedIndexPaths = [IndexPath]()
+    var imageSearch:ImageSearch!
+    var fetchedResultsController: NSFetchedResultsController<Image>!
+    var itemCount = 0 // to resolve bug. Read more: https://fangpenlin.com/posts/2016/04/29/uicollectionview-invalid-number-of-items-crash-issue/
 
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var textField: UITextField!    
+    @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
@@ -24,7 +34,34 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        imageSearch = ImageSearch.init(searchTitle: nil, context: stack.context)
+        fetchedResultsController = {
+            let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
+            let predicate = NSPredicate.init(format: "imageSearch == %@", argumentArray: [imageSearch])
+            let sortDescriptor = NSSortDescriptor(key: "imageSearch", ascending: false)
+            fetchRequest.predicate = predicate
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
+            frc.delegate = self
+            return frc
+        }()
+        do {
+            try fetchedResultsController.performFetch()
+        }
+        catch let error as NSError {
+            print("An error occured \(error) \(error.userInfo)")
+        }
+        
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if (self.isMovingFromParentViewController){
+            stack.context.delete(imageSearch)
+            stack.save()
+        }
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let space: CGFloat = 2.0
@@ -39,29 +76,104 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     }
     
     // MARK: - Delegates
+    // MARK: Controller Delegate
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let images = images else {
-            return 0
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type{
+            
+        case .insert:
+            insertedIndexPaths.append(newIndexPath!)
+            break
+        case .delete:
+            deletedIndexPaths.append(indexPath!)
+            break
+        case .update:
+            updatedIndexPaths.append(indexPath!)
+            break
+        case .move:
+            print("Move an item. We don't expect to see this in this app.")
+            break
+        default:
+            break
         }
-        return images.count
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        DispatchQueue.main.async {
+            if self.collectionView.numberOfSections == 0 {
+                self.collectionView.reloadData()
+            } else {
+                if self.updatedIndexPaths.count == 0 {
+                   self.itemCount = self.itemCount + self.insertedIndexPaths.count - self.deletedIndexPaths.count
+                }
+                self.collectionView.performBatchUpdates(
+                    {
+                        () -> Void in
+                        for indexPath in self.insertedIndexPaths {
+                            self.collectionView.insertItems(at: [indexPath])
+                            // self.itemCount! += 1
+                        }
+                        for indexPath in self.deletedIndexPaths {
+                            self.collectionView.deleteItems(at: [indexPath])
+                            //self.itemCount! -= 1
+                        }
+                        for indexPath in self.updatedIndexPaths {
+                            self.collectionView.reloadItems(at: [indexPath])
+                        }
+                }
+                    ,completion: nil)
+                
+                self.insertedIndexPaths = [IndexPath]()
+                self.deletedIndexPaths = [IndexPath]()
+                self.updatedIndexPaths = [IndexPath]()
+            }
+        }
+    }
+    
+    // MARK: CollectionView delegate
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if itemCount != nil {
+           /*
+            if items > 0 {
+                label.isHidden = true
+            } else {
+                label.isHidden = false
+            }
+            */
+            return itemCount
+        } else {
+            if let sections = fetchedResultsController.sections  {
+                let sectionInfo = sections[section]
+                let itemCount = sectionInfo.numberOfObjects
+                return itemCount
+            } else {
+                return 0
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)  as! ImageCell
-        guard let images = images else {
-            return cell
-        }
-        cell.imageView.image = images[indexPath.row]
+        configureCell(cell, atIndexPath: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        imageView.image = images?[indexPath.row]
+        imageView.image = UIImage(data: (fetchedResultsController.object(at: indexPath).imageData)!)
     }
-
+    
     
     // MARK: - Assist functions
+    func configureCell(_ cell: ImageCell, atIndexPath indexPath: IndexPath) {
+        let image = fetchedResultsController.object(at: indexPath)
+        cell.imageView?.image = nil
+        if let imageData = image.imageData {
+            cell.imageView!.image = UIImage(data: imageData)
+        } else {
+            cell.imageView!.image = #imageLiteral(resourceName: "zakat")
+        }
+    }
+    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -72,7 +184,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
         view.endEditing(true)
     }
     
-
+    
     
     
     // MARK: - Actions
@@ -80,25 +192,43 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     @IBAction func searchButton(_ sender: Any) {
         
         if let text = textField.text, text != "" {
-            FlickrClient.sharedInstance().getImagesFromFlickr(text: text) { (result, error) in
-                guard (error == nil) else {
-                    print("There was an error with the task for image")
-                    return
+            DispatchQueue.main.async {
+          //   /*
+                 if let imagesForDelition = self.imageSearch.images {
+                    //let imagesForDelition = self.imageSearch.images
+                    let arrayOfImages = Array(imagesForDelition)
+                        for image in arrayOfImages {
+                            self.stack.context.delete(image as! NSManagedObject)
+                        }
                 }
-                guard let result = result else {
-                    print("data error")
-                    return
+          //  */
+               // self.imageSearch.searchTitle = text
+                // Getting images URLs and creating objects with image url
+                FlickrClient.sharedInstance().getImagesFromFlickr(imageSearch: self.imageSearch, text: text) { (result, error) in
+                    guard (error == nil) else {
+                        print("There was an error with the task for image")
+                        return
+                    }
+                    guard let result = result else {
+                        print("data error")
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        // Getting data for image URLs
+                        FlickrClient.sharedInstance().getImagesDataFor(imageSearch: self.imageSearch)
+                    }
                 }
-                self.images = result
-                self.collectionView.reloadData()
             }
+        } else {
+            print("textfield is empty")
         }
     }
+    
     @IBAction func doneButton(_ sender: Any) {
         self.performSegue(withIdentifier: "segueToAdd", sender: self)
-
+        
     }
     
-
+    
     
 }

@@ -32,13 +32,13 @@ class TargetsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
+    //    /*
          do {
          try stack.dropAllData()
          } catch {
          print("Ebat' error")
          }
-         */
+    //     */
         
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
