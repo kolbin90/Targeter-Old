@@ -62,6 +62,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         }
         return true
     }
+    
+    
     //MARK: - ImagePicker
     
     func imagePicker(_ type: UIImagePickerControllerSourceType) {

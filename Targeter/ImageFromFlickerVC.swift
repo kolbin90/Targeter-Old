@@ -178,8 +178,8 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     // MARK: - Actions
     
     @IBAction func searchButton(_ sender: Any) {
-        
         if let text = textField.text, text != "" {
+            activityIndicatoryShowing(showing: true, view: self.view)
             DispatchQueue.main.async {
           //   /*
                  if let imagesForDelition = self.imageSearch.images {
@@ -193,6 +193,8 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
                // self.imageSearch.searchTitle = text
                 // Getting images URLs and creating objects with image url
                 FlickrClient.sharedInstance().getImagesFromFlickr(imageSearch: self.imageSearch, text: text) { (result, error) in
+                    self.activityIndicatoryShowing(showing: false, view: self.view)
+                    self.view.reloadInputViews()
                     guard (error == nil) else {
                         print("There was an error with the task for image")
                         return

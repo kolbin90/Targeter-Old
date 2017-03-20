@@ -693,6 +693,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="lBU-TL-duY" secondAttribute="bottom" id="0G3-ZK-p6x"/>
                             <constraint firstAttribute="trailing" secondItem="lBU-TL-duY" secondAttribute="trailing" id="Paj-ZE-rHv"/>

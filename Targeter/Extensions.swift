@@ -41,7 +41,9 @@ extension UIViewController {
             let subViews = view.subviews
             for subview in subViews{
                 if subview.tag == 10 {
-                    subview.removeFromSuperview()
+                    DispatchQueue.main.async {
+                        subview.removeFromSuperview()
+                    }
                 }
             }
         }
