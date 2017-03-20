@@ -463,7 +463,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="yoyoyo" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xBQ-Er-fe6">
+                                                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="yoyoyo" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xBQ-Er-fe6">
                                                                 <rect key="frame" x="0.0" y="30.5" width="157.5" height="30"/>
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <constraints>
@@ -473,6 +473,7 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <connections>
+                                                                    <action selector="dateTF:" destination="1wJ-Rm-VqY" eventType="editingDidBegin" id="iNI-Tn-kOx"/>
                                                                     <outlet property="delegate" destination="1wJ-Rm-VqY" id="MEB-m7-5hT"/>
                                                                 </connections>
                                                             </textField>
@@ -487,7 +488,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="yoyoyo" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umm-H4-KtP">
+                                                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="yoyoyo" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umm-H4-KtP">
                                                                 <rect key="frame" x="0.0" y="30.5" width="157.5" height="30"/>
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <constraints>
@@ -496,6 +497,9 @@
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
+                                                                <connections>
+                                                                    <action selector="dateTF:" destination="1wJ-Rm-VqY" eventType="editingDidBegin" id="U3b-ut-mkC"/>
+                                                                </connections>
                                                             </textField>
                                                         </subviews>
                                                     </stackView>
@@ -610,6 +614,8 @@
                         <outlet property="tergetImageView" destination="zVo-1D-ZBT" id="8ZQ-fi-IMJ"/>
                         <outlet property="titleTF" destination="NXX-NF-uIr" id="auo-6f-Geh"/>
                         <outlet property="weekdaysStackView" destination="2qF-EF-YbU" id="9j9-xK-fbf"/>
+                        <outletCollection property="dateTF" destination="xBQ-Er-fe6" collectionClass="NSMutableArray" id="AaD-4u-d5r"/>
+                        <outletCollection property="dateTF" destination="umm-H4-KtP" collectionClass="NSMutableArray" id="l1d-MZ-5gy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ShZ-P3-7U4" userLabel="First Responder" sceneMemberID="firstResponder"/>

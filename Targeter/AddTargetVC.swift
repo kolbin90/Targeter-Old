@@ -25,6 +25,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     @IBOutlet weak var startDate: UITextField!
     @IBOutlet weak var endDate: UITextField!
 
+    @IBOutlet var dateTF: [UITextField]!
     
     
     // MARK: - Lifecycle
@@ -93,6 +94,18 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         view.endEditing(true)
     }
     
+    func datePickerValueChanged(sender:UIDatePickerWithSenderTag) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.none        
+        if sender.senderTag! == 1 {
+            startDate.text = dateFormatter.string(from: sender.date)
+        } else if sender.senderTag! == 2 {
+            endDate.text = dateFormatter.string(from: sender.date)
+        }
+        
+    }
+    
     //MARK: - Actions
     
     
@@ -121,6 +134,10 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     }
     @IBAction func doneButton(_ sender: Any) {
         let date = Date()
+        let myFormatter = DateFormatter()
+        myFormatter.dateStyle = .short
+        let startDateString = myFormatter.date(from: startDate.text!)!
+        let endDateString = myFormatter.date(from: endDate.text!)!
         var imageData:Data?
         if tergetImageView.image != nil {
             imageData = UIImagePNGRepresentation(tergetImageView.image!)
@@ -128,14 +145,45 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         } else {
             imageData = nil
         }
-        let newTarget = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: date, dayEnding: date, picture: imageData, active: true, completed: false, context: stack.context)
+        let newTarget = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateString, dayEnding: endDateString, picture: imageData, active: true, completed: false, context: stack.context)
         print(newTarget)
         stack.save()
-        navigationController?.popViewController(animated: true)
+        let _ = navigationController?.popViewController(animated: true)
     }
-
+    class UIDatePickerWithSenderTag:UIDatePicker {
+        var senderTag: Int?
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+        }
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+        }
+    }
+    
     @IBAction func switchChanged(_ sender: UISwitch) {
             weekdaysStackView.isHidden = sender.isOn
+    }
+    @IBAction func dateTF(_ sender: UITextField) {
+        if sender.text == nil || sender.text == "" {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            let date = dateFormatter.string(from: Date())
+            sender.text = date
+        }
+        let datePickerView = UIDatePickerWithSenderTag()
+        datePickerView.senderTag = sender.tag
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        sender.inputView = datePickerView
+        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 45))
+        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        toolbar.items = [flexibleSeparator, doneButton]
+        toolbar.barTintColor = UIColor.groupTableViewBackground
+        toolbar.tintColor = .black
+        sender.inputAccessoryView = toolbar
+    
     }
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? ImageFromFlickerVC {

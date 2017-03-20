@@ -108,41 +108,43 @@ extension TargetsVC {
         while num < numberOfMarksInCell {
             // Color images on success and fail
             let dayImageView = dotsArray[num]
-            
-            //calendar.timeZone = TimeZone(secondsFromGMT: 0)!
-            
-            // Check if Success list contains anyrhing
-            
-            if let successList = target.successList as? Set<Success>, (successList.count > 0) {
-                let dotColor:UIColor!
-                let success = todayIn(successList: successList, today: today).0
-                switch success {
-                case "succeed":
-                    dotColor = .green
-                case "failed":
-                    dotColor = .red
-                case "nothing":
-                    dotColor = .black
-                default:
-                    dotColor = .black
-                    print("Error!")
-                }
-                dayImageView.tintColor = dotColor
+            let dayLabel = daysArray[num]
+            // If Mark is out of date (before beginning date) give them light gray color
+            if today < target.dayBeginning {
+                dayImageView.tintColor = .lightGray
+                dayLabel.textColor = .lightGray
                 dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
             } else {
-                dayImageView.tintColor = .black
-                dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                // Check if Success list contains anyrhing
+                if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+                    let dotColor:UIColor!
+                    let success = todayIn(successList: successList, today: today).0
+                    switch success {
+                    case "succeed":
+                        dotColor = .green
+                    case "failed":
+                        dotColor = .red
+                    case "nothing":
+                        dotColor = .black
+                    default:
+                        dotColor = .black
+                        print("Error!")
+                    }
+                    dayImageView.tintColor = dotColor
+                    dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                } else {
+                    dayImageView.tintColor = .black
+                    dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                }
             }
-            
             // Give labels name of last 14 days
-            let dayLabel = daysArray[num]
             let day = Calendar.current.component(.day, from: today)
             if Calendar.current.isDate(today, equalTo: Date(), toGranularity:.day) {
                 let month = Calendar.current.component(.month, from: today)
                 let year = Calendar.current.component(.year, from: today)
-                dayLabel.text! = "\(day)/\(month)\n\(year)"
+                dayLabel.text = "\(day)/\(month)\n\(year)"
             } else {
-                dayLabel.text! = String(day)
+                dayLabel.text = String(day)
             }
 
             today = Calendar.current.date(byAdding: .day, value: -1, to: today)!
