@@ -32,13 +32,13 @@ class TargetsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    //    /*
+        /*
          do {
          try stack.dropAllData()
          } catch {
          print("Ebat' error")
          }
-    //     */
+         */
         
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
@@ -90,8 +90,8 @@ extension TargetsVC {
         
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
-
-        var today = Date()
+        var dayForStartChecking = Date()
+        var dayForChecking = Date()
         let numberOfMarksInCell = 14
         var num = 0
         var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
@@ -104,13 +104,18 @@ extension TargetsVC {
                 cell.backgroundImage.image = image
             }
         }
+        if let endingDay = target.dayEnding, endingDay < dayForChecking  {
+            dayForChecking = endingDay
+            dayForStartChecking = endingDay
+        }
+        
         //
         while num < numberOfMarksInCell {
             // Color images on success and fail
             let dayImageView = dotsArray[num]
             let dayLabel = daysArray[num]
             // If Mark is out of date (before beginning date) give them light gray color
-            if today < target.dayBeginning {
+            if dayForChecking < target.dayBeginning {
                 dayImageView.tintColor = .lightGray
                 dayLabel.textColor = .lightGray
                 dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
@@ -118,7 +123,7 @@ extension TargetsVC {
                 // Check if Success list contains anyrhing
                 if let successList = target.successList as? Set<Success>, (successList.count > 0) {
                     let dotColor:UIColor!
-                    let success = todayIn(successList: successList, today: today).0
+                    let success = todayIn(successList: successList, today: dayForChecking).0
                     switch success {
                     case "succeed":
                         dotColor = .green
@@ -138,16 +143,16 @@ extension TargetsVC {
                 }
             }
             // Give labels name of last 14 days
-            let day = Calendar.current.component(.day, from: today)
-            if Calendar.current.isDate(today, equalTo: Date(), toGranularity:.day) {
-                let month = Calendar.current.component(.month, from: today)
-                let year = Calendar.current.component(.year, from: today)
+            let day = Calendar.current.component(.day, from: dayForChecking)
+            if Calendar.current.isDate(dayForChecking, equalTo: dayForStartChecking, toGranularity:.day) {
+                let month = Calendar.current.component(.month, from: dayForChecking)
+                let year = Calendar.current.component(.year, from: dayForChecking)
                 dayLabel.text = "\(day)/\(month)\n\(year)"
             } else {
                 dayLabel.text = String(day)
             }
 
-            today = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+            dayForChecking = Calendar.current.date(byAdding: .day, value: -1, to: dayForChecking)!
             num += 1
         }
         cell.label.text = target.title

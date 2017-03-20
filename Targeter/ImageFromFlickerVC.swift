@@ -170,7 +170,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
         if let imageData = image.imageData {
             cell.imageView!.image = UIImage(data: imageData)
         } else {
-            cell.imageView!.image = #imageLiteral(resourceName: "zakat")
+            cell.imageView!.image = #imageLiteral(resourceName: "placeholder")
         }
     }
 
