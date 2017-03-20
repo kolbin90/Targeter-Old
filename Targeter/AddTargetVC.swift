@@ -18,7 +18,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     //MARK: - Outlets
     
-    @IBOutlet weak var weekdaysStackView: UIStackView!
     @IBOutlet weak var titleTF: UITextField!
     @IBOutlet weak var descriptionTF: UITextField!
     @IBOutlet weak var tergetImageView: UIImageView!
@@ -34,6 +33,34 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         super.viewDidLoad()
         
         hideKeyboardWhenTappedAround()
+    }
+    
+    //MARK: - Assist functions 
+    // Check if textFields have text inside
+    func TFAreFilled() -> Bool {
+        guard titleTF.text !=  "" else {
+            showAlert(title: "Error", error: "Fill the Title field")
+            return false
+        }
+        guard descriptionTF.text != "" else {
+            showAlert(title: "Error", error: "Fill the Description field")
+            return false
+        }
+        guard tergetImageView.image != nil else {
+            showAlert(title: "Error", error: "Choose picture for your target")
+            return false
+        }
+        guard startDate.text != "" else {
+            showAlert(title: "Error", error: "Choose beginning day")
+            return false
+        }
+        if endDate.isEnabled {
+            guard endDate.text != "" else {
+                showAlert(title: "Error", error: "Choose finishing day")
+                return false
+            }
+        }
+        return true
     }
     //MARK: - ImagePicker
     
@@ -60,7 +87,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     //MARK: - UITextFieldDelegatye
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        //Format Date of Birth dd-MM-yyyy
         
         //initially identify your textfield
         
@@ -80,18 +106,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         else {
             return true
         }
-    }
-    //MARK: - Keyboard settgs
-    
-    // Hide keyboard when tapped somewhere
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    func dismissKeyboard() {
-        view.endEditing(true)
     }
     
     func datePickerValueChanged(sender:UIDatePickerWithSenderTag) {
@@ -132,24 +146,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         present(actionSheet, animated: true, completion: nil)
         
     }
-    @IBAction func doneButton(_ sender: Any) {
-        let date = Date()
-        let myFormatter = DateFormatter()
-        myFormatter.dateStyle = .short
-        let startDateString = myFormatter.date(from: startDate.text!)!
-        let endDateString = myFormatter.date(from: endDate.text!)!
-        var imageData:Data?
-        if tergetImageView.image != nil {
-            imageData = UIImagePNGRepresentation(tergetImageView.image!)
-            
-        } else {
-            imageData = nil
-        }
-        let newTarget = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateString, dayEnding: endDateString, picture: imageData, active: true, completed: false, context: stack.context)
-        print(newTarget)
-        stack.save()
-        let _ = navigationController?.popViewController(animated: true)
-    }
+    
     class UIDatePickerWithSenderTag:UIDatePicker {
         var senderTag: Int?
         override init(frame: CGRect) {
@@ -160,8 +157,40 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         }
     }
     
+    @IBAction func doneButton(_ sender: Any) {
+        if TFAreFilled() {
+            let date = Date()
+            let myFormatter = DateFormatter()
+            myFormatter.dateStyle = .short
+            let startDateFromString = myFormatter.date(from: startDate.text!)!
+            let endDateFromString:Date?
+            if endDate.isEnabled {
+                endDateFromString = myFormatter.date(from: endDate.text!)
+            } else {
+                endDateFromString = nil
+            }
+            var imageData:Data?
+            if tergetImageView.image != nil {
+                imageData = UIImagePNGRepresentation(tergetImageView.image!)
+            } else {
+                imageData = nil
+            }
+            let newTarget = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, active: true, completed: false, context: stack.context)
+            print(newTarget)
+            stack.save()
+            let _ = navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    
     @IBAction func switchChanged(_ sender: UISwitch) {
-            weekdaysStackView.isHidden = sender.isOn
+        endDate.isEnabled = sender.isOn
+        
+        if endDate.isEnabled {
+            endDate.alpha = 1
+        } else {
+            endDate.alpha = 0.3
+        }
     }
     @IBAction func dateTF(_ sender: UITextField) {
         if sender.text == nil || sender.text == "" {

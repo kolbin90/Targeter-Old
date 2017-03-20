@@ -173,19 +173,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
             cell.imageView!.image = #imageLiteral(resourceName: "zakat")
         }
     }
-    
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    
-    
+
     
     // MARK: - Actions
     

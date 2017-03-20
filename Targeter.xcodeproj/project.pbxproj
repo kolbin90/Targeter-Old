@@ -32,6 +32,7 @@
 		044D572F1E788D7D00AF1545 /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044D572B1E788D7D00AF1545 /* Image+CoreDataProperties.swift */; };
 		044ED1441E77362800F61A33 /* ImageFromFlickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */; };
 		047A353E1E712CFB0084AD68 /* TargetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A353D1E712CFB0084AD68 /* TargetCell.swift */; };
+		0493A3A41E7F5FAA0018C5BE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A3A31E7F5FAA0018C5BE /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		044D572B1E788D7D00AF1545 /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Image+CoreDataProperties.swift"; path = "../Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFromFlickerVC.swift; sourceTree = "<group>"; };
 		047A353D1E712CFB0084AD68 /* TargetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetCell.swift; sourceTree = "<group>"; };
+		0493A3A31E7F5FAA0018C5BE /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 				041EE5721E70E4A7006D623B /* TargetsVC.swift */,
 				041EE5741E70FD6F006D623B /* AddTargetVC.swift */,
 				044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */,
+				0493A3A31E7F5FAA0018C5BE /* Extensions.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
 				044D572F1E788D7D00AF1545 /* Image+CoreDataProperties.swift in Sources */,
 				04416CFE1E774541003BCDD3 /* FlickrClient.swift in Sources */,
+				0493A3A41E7F5FAA0018C5BE /* Extensions.swift in Sources */,
 				044ED1441E77362800F61A33 /* ImageFromFlickerVC.swift in Sources */,
 				041EE5751E70FD6F006D623B /* AddTargetVC.swift in Sources */,
 				04416D011E77B915003BCDD3 /* ImageCell.swift in Sources */,
