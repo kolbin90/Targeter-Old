@@ -16,7 +16,7 @@ class FlickrClient: NSObject {
     
     
     
-    func getImagesFromFlickr(imageSearch:ImageSearch,text: String, completionHandler: @escaping (_ result: [String]?, _ error: NSError?) -> Void) {
+    func getImagesFromFlickr(imageSearch:ImageSearch,text: String, completionHandler: @escaping (_ result: [String]?, _ error: String?) -> Void) {
         
         let searchText = text
         //creating array of methid parameters
@@ -24,6 +24,10 @@ class FlickrClient: NSObject {
         //creating url for request
         let url = flickrURLFromParameters(parameters: methodParameters)
         getPagesNumber(url: url) { result, error in
+            guard (error == nil) else {
+                completionHandler(nil, error)
+                return
+            }
             guard let pages = result else {
                 print("error")
                 return
@@ -34,9 +38,9 @@ class FlickrClient: NSObject {
             var methodParametersWithPageNumber = methodParameters
             methodParametersWithPageNumber[Constants.FlickrParameterKeys.Page] = randomPage as AnyObject?
             let urlWithPageNumber = self.flickrURLFromParameters(parameters: methodParametersWithPageNumber)
-            print(urlWithPageNumber)
             self.getImagesURLandSetImageObjects(url: urlWithPageNumber, imageSearch:imageSearch) { (result, error) in
                 guard let result = result else {
+                    completionHandler(nil, error)
                     return
                 }
                 completionHandler(result, nil)
@@ -80,21 +84,25 @@ class FlickrClient: NSObject {
     
     
     
-    func getImagesURLandSetImageObjects(url: URL,imageSearch:ImageSearch, completionHandler: @escaping (_ result: [String]?, _ error: NSError?) -> Void) {
+    func getImagesURLandSetImageObjects(url: URL,imageSearch:ImageSearch, completionHandler: @escaping (_ result: [String]?, _ error: String?) -> Void) {
         
         var urlArray = [String]()
         getDataFromFlickr(url: url) { result, error in
             
+            guard (error == nil) else {
+                completionHandler(nil, error)
+                return
+            }
             guard let photosDictionary = result else {
-                print("\(error)")
+                completionHandler(nil, error)
                 return
             }
             guard let photosArray = photosDictionary[Constants.FlickrResponseKeys.Photo] as? [[String: AnyObject]] else {
-                print("Cannot find key '\(Constants.FlickrResponseKeys.Photo)' in \(photosDictionary)")
+                completionHandler(nil, "Cannot find key '\(Constants.FlickrResponseKeys.Photo)' in \(photosDictionary)")
                 return
             }
             if photosArray.count == 0 {
-                print("No Photos Found. Search Again.")
+                completionHandler(nil, "No Photos Found. Search Again.")
                 return
             } else {
                 var numOfPicForDownload = 21
@@ -108,7 +116,7 @@ class FlickrClient: NSObject {
                     
                     /* GUARD: Does our photo have a key for 'url_m'? */
                     guard let imageUrlString = photoDictionary[Constants.FlickrResponseKeys.MediumURL] as? String else {
-                        print("Cannot find key '\(Constants.FlickrResponseKeys.MediumURL)' in \(photoDictionary)")
+                        completionHandler(nil, "Cannot find key '\(Constants.FlickrResponseKeys.MediumURL)' in \(photoDictionary)")
                         return
                     }
                     urlArray.append(imageUrlString)
@@ -123,15 +131,17 @@ class FlickrClient: NSObject {
                 }
                 completionHandler(urlArray, nil)
             }
-            
-            
         }
     }
     
     
-    func getPagesNumber(url:URL,completionHandler: @escaping (_ result: Int?, _ error: NSError?) -> Void) {
+    func getPagesNumber(url:URL,completionHandler: @escaping (_ result: Int?, _ error: String?) -> Void) {
         getDataFromFlickr(url: url) { result, error in
             
+            guard (error == nil) else {
+                completionHandler(nil, error)
+                return
+            }
             /* GUARD: Is "pages" key in the photosDictionary? */
             guard let result = result else {
                 return
@@ -147,7 +157,7 @@ class FlickrClient: NSObject {
     
     
     
-    func getDataFromFlickr(url: URL, completionHandler: @escaping (_ result: [String:AnyObject]?, _ error: NSError?) -> Void) {
+    func getDataFromFlickr(url: URL, completionHandler: @escaping (_ result: [String:AnyObject]?, _ error: String?) -> Void) {
         
         // create session and reques)t
         let request = URLRequest(url: url)
@@ -156,43 +166,36 @@ class FlickrClient: NSObject {
         // create network request
         let task = session.dataTask(with: request) { (data, response, error) in
             
-            // if an error occurs, print it and re-enable the UI
-            func displayError(error: String) {
-                print(error)
-                DispatchQueue.main.async {
-                    //  self.setUIEnabled(true)                }
-                }
-            }
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                displayError(error: "There was an error with your request: \(error)")
+                completionHandler(nil,"There was an error with your request: \(error)")
                 return
             }
             
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                displayError(error: "Your request returned a status code other than 2xx!")
+                completionHandler(nil,"Your request returned a status code other than 2xx!")
                 return
             }
             
             /* GUARD: Was there any data returned? */
             guard let data = data else {
-                displayError(error: "No data was returned by the request!")
+                completionHandler(nil,"No data was returned by the request!")
                 return
             }
             
             // parse the data
             self.convertDataWithCompletionHandler(data: data) { (result, error) in
                 guard (error == nil) else {
-                    //    completionHandler(nil, "Data error. Try again later")
+                    completionHandler(nil, "Data error. Try again later")
                     return
                 }
                 guard let result = result else {
-                    //    completionHandler(nil,"Data error. Try again later")
+                    completionHandler(nil,"Data error. Try again later")
                     return
                 }
                 guard let photosDictionary = result[Constants.FlickrResponseKeys.Photos] as? [String:AnyObject] else {
-                    displayError(error: "Cannot find keys '\(Constants.FlickrResponseKeys.Photos)' in \(result)")
+                    completionHandler(nil,"Cannot find keys \(Constants.FlickrResponseKeys.Photos) in \(result)")
                     return
                 }
                 completionHandler(photosDictionary, nil)
@@ -235,7 +238,6 @@ class FlickrClient: NSObject {
                 return
             }
             DispatchQueue.main.async {
-                print("Image downloaded: \(data)")
                 image.imageData = data
                 self.stack.save()
             }

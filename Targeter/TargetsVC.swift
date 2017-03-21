@@ -123,7 +123,7 @@ extension TargetsVC {
             let dayLabel = daysArray[num]
             // If Mark is out of date (before beginning date) give them light gray color
             if dayForChecking < target.dayBeginning {
-                dayImageView.tintColor = .lightGray
+                dayImageView.tintColor = UIColor.groupTableViewBackground
                 dayLabel.textColor = .lightGray
                 dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
             } else {
@@ -167,10 +167,7 @@ extension TargetsVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        //detailVC.meme = memes[indexPath.row]
-        //navigationController!.pushViewController(detailVC, animated: true)
-        //    tableView.deselectRow(at: indexPath, animated: false)
+        
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

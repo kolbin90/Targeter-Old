@@ -181,7 +181,6 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
         if let text = textField.text, text != "" {
             activityIndicatoryShowing(showing: true, view: self.view)
             DispatchQueue.main.async {
-          //   /*
                  if let imagesForDelition = self.imageSearch.images {
                     //let imagesForDelition = self.imageSearch.images
                     let arrayOfImages = Array(imagesForDelition)
@@ -189,18 +188,16 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
                             self.stack.context.delete(image as! NSManagedObject)
                         }
                 }
-          //  */
-               // self.imageSearch.searchTitle = text
                 // Getting images URLs and creating objects with image url
                 FlickrClient.sharedInstance().getImagesFromFlickr(imageSearch: self.imageSearch, text: text) { (result, error) in
                     self.activityIndicatoryShowing(showing: false, view: self.view)
                     self.view.reloadInputViews()
                     guard (error == nil) else {
-                        print("There was an error with the task for image")
+                        self.showAlert(title: "Error", error: "There was an error with the task for image")
                         return
                     }
                     guard let result = result else {
-                        print("data error")
+                        self.showAlert(title: "Error", error: "Data error")
                         return
                     }
                     DispatchQueue.main.async {
