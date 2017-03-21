@@ -42,10 +42,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             showAlert(title: "Error", error: "Fill the Title field")
             return false
         }
-        guard descriptionTF.text != "" else {
-            showAlert(title: "Error", error: "Fill the Description field")
-            return false
-        }
         guard tergetImageView.image != nil else {
             showAlert(title: "Error", error: "Choose picture for your target")
             return false
