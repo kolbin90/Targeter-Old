@@ -159,7 +159,11 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        imageView.image = UIImage(data: (fetchedResultsController.object(at: indexPath).imageData)!)
+        if let imageData = fetchedResultsController.object(at: indexPath).imageData {
+                imageView.image = UIImage(data: imageData)
+        } else {
+            showAlert(title: "Error", error: "Image is not downloaded yet")
+        }
     }
     
     
