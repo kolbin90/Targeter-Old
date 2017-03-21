@@ -12,6 +12,7 @@ class TargetCell: UITableViewCell {
     
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var completedLabel: UILabel!
     
     @IBOutlet weak var dot1: UIImageView!
     @IBOutlet weak var dot2: UIImageView!
