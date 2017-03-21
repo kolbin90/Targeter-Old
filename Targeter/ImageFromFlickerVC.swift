@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
+class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, NSFetchedResultsControllerDelegate, UITextFieldDelegate {
     
     // MARK: - Properties
    // var images: [UIImage]?
@@ -76,6 +76,11 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     }
     
     // MARK: - Delegates
+    // MARK: TextField Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        return true
+    }
     // MARK: Controller Delegate
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {

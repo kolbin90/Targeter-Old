@@ -23,7 +23,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     @IBOutlet weak var tergetImageView: UIImageView!
     @IBOutlet weak var startDate: UITextField!
     @IBOutlet weak var endDate: UITextField!
-
     @IBOutlet var dateTF: [UITextField]!
     
     
@@ -31,7 +30,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         hideKeyboardWhenTappedAround()
     }
     
@@ -85,27 +83,14 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     //MARK: - UITextFieldDelegatye
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        //initially identify your textfield
-        
-        if textField == startDate {
-            
-            // check the chars length dd -->2 at the same time calculate the dd-MM --> 5
-            if (startDate.text?.characters.count == 2) || (startDate.text?.characters.count == 5) {
-                //Handle backspace being pressed
-                if !(string == "") {
-                    // append the text
-                    startDate.text = (startDate.text)! + "-"
-                }
-            }
-            // check the condition not exceed 9 chars
-            return !(textField.text!.characters.count > 9 && (string.characters.count ) > range.length)
-        }
-        else {
             return true
-        }
     }
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        return true
+
+    }
+
     func datePickerValueChanged(sender:UIDatePickerWithSenderTag) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.short
@@ -115,7 +100,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         } else if sender.senderTag! == 2 {
             endDate.text = dateFormatter.string(from: sender.date)
         }
-        
     }
     
     //MARK: - Actions

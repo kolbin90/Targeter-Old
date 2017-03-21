@@ -14,7 +14,7 @@ import CoreData
 class TargetsVC: UITableViewController {
     
     // MARK: Properties
-    
+    let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
             // Whenever the frc changes, we execute the search and
@@ -24,9 +24,6 @@ class TargetsVC: UITableViewController {
             tableView.reloadData()
         }
     }
-    
-    let stack = (UIApplication.shared.delegate as! AppDelegate).stack
-    
     
     // MARK: Lifecycle
     
@@ -63,13 +60,37 @@ class TargetsVC: UITableViewController {
         super.init(style: style)
     }
     
-    // Do not worry about this initializer. I has to be implemented
-    // because of the way Swift interfaces with an Objective C
-    // protocol called NSArchiving. It's not relevant.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    //MARK: Assist func
     
+    func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
+        for day in successList {
+            if Calendar.current.isDate(day.date, equalTo: today, toGranularity:.day) {
+                if day.success {
+                    return ("succeed", day)
+                } else {
+                    return ("failed", day)
+                }
+            }
+        }
+        return ("nothing", nil)
+    }
+    
+    func deleteTargetAlertController(target: Target) {
+        let actionController = UIAlertController(title: "Delete Target", message: "Are you sure to delete? You can't undo this", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            DispatchQueue.main.async {
+                self.stack.context.delete(target)
+                self.stack.save()
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionController.addAction(deleteAction)
+        actionController.addAction(cancelAction)
+        self.present(actionController, animated: true, completion: nil)
+    }
     // MARK: Actions
     @IBAction func addButton(_ sender: Any) {
     }
@@ -96,7 +117,8 @@ extension TargetsVC {
         var num = 0
         var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
         var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
-
+        
+        // Set background picture, if Target have one
         cell.backgroundImage.image = nil
         if let imageData = target.picture {
             if let image = UIImage(data: imageData) {
@@ -107,6 +129,7 @@ extension TargetsVC {
         if target.completed {
             cell.completedLabel.isHidden = false
         }
+        // Check if target should be completed and figure dates
         if let endingDay = target.dayEnding, endingDay < dayForChecking  {
             dayForChecking = endingDay
             dayForStartChecking = endingDay
@@ -119,7 +142,6 @@ extension TargetsVC {
             
         }
         
-        //
         while num < numberOfMarksInCell {
             // Color images on success and fail
             let dayImageView = dotsArray[num]
@@ -161,7 +183,7 @@ extension TargetsVC {
             } else {
                 dayLabel.text = String(day)
             }
-
+            // Change "today" for a one day before
             dayForChecking = Calendar.current.date(byAdding: .day, value: -1, to: dayForChecking)!
             num += 1
         }
@@ -183,6 +205,7 @@ extension TargetsVC {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let target = fetchedResultsController?.object(at: indexPath) as! Target
         let today = Date()
+        // Create different options for "Swipe left to do sms"
         let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
             //handle delete
             let date = Date()
@@ -193,8 +216,6 @@ extension TargetsVC {
         let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") {action in
             //handle delete
             self.deleteTargetAlertController(target: target)
-            //self.stack.context.delete(target)
-            //self.stack.save()
         }
         deleteAction.backgroundColor = .black
         let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
@@ -231,35 +252,6 @@ extension TargetsVC {
                 return [failAction, successAction,deleteAction]
             }
         }
-    }
-    //MARK: Assist func
-    
-    func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
-        for day in successList {
-            if Calendar.current.isDate(day.date, equalTo: today, toGranularity:.day) {
-                if day.success {
-                    return ("succeed", day)
-                    //dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                } else {
-                    return ("failed", day)
-                }
-            }
-        }
-        return ("nothing", nil)
-    }
-    
-    func deleteTargetAlertController(target: Target) {
-        let actionController = UIAlertController(title: "Delete Target", message: "Are you sure to delete? You can't undo this", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            DispatchQueue.main.async {
-                self.stack.context.delete(target)
-                self.stack.save()
-            }
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        actionController.addAction(deleteAction)
-        actionController.addAction(cancelAction)
-        self.present(actionController, animated: true, completion: nil)
     }
 }
 
