@@ -12,7 +12,6 @@ import CoreData
 class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource, NSFetchedResultsControllerDelegate, UITextFieldDelegate {
     
     // MARK: - Properties
-   // var images: [UIImage]?
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var insertedIndexPaths = [IndexPath]()
     var deletedIndexPaths = [IndexPath]()
@@ -53,14 +52,6 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
         }
         
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        if (self.isMovingFromParentViewController){
-            stack.context.delete(imageSearch)
-            stack.save()
-        }
-    }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -73,6 +64,14 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
         flowLayout.itemSize = CGSize(width: dimension, height: dimension)
         flowLayout.sectionInset = UIEdgeInsets(top: space, left: space, bottom: space, right: space)
         collectionView.collectionViewLayout = flowLayout
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if (self.isMovingFromParentViewController){
+            stack.context.delete(imageSearch)
+            stack.save()
+        }
     }
     
     // MARK: - Delegates
@@ -97,8 +96,6 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
             break
         case .move:
             print("Move an item. We don't expect to see this in this app.")
-            break
-        default:
             break
         }
     }
@@ -137,24 +134,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     
     // MARK: CollectionView delegate
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if itemCount != nil {
-           /*
-            if items > 0 {
-                label.isHidden = true
-            } else {
-                label.isHidden = false
-            }
-            */
-            return itemCount
-        } else {
-            if let sections = fetchedResultsController.sections  {
-                let sectionInfo = sections[section]
-                let itemCount = sectionInfo.numberOfObjects
-                return itemCount
-            } else {
-                return 0
-            }
-        }
+        return itemCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -205,7 +185,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
                         self.showAlert(title: "Error", error: "There was an error with the task for image")
                         return
                     }
-                    guard let result = result else {
+                    guard (result != nil) else {
                         self.showAlert(title: "Error", error: "Data error")
                         return
                     }

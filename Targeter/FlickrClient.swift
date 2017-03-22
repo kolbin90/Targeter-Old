@@ -112,7 +112,6 @@ class FlickrClient: NSObject {
                 var num = 0
                 while num < numOfPicForDownload {
                     let photoDictionary = photosArray[num] as [String: AnyObject]
-                    let photoTitle = photoDictionary[Constants.FlickrResponseKeys.Title] as? String
                     
                     /* GUARD: Does our photo have a key for 'url_m'? */
                     guard let imageUrlString = photoDictionary[Constants.FlickrResponseKeys.MediumURL] as? String else {
@@ -121,7 +120,7 @@ class FlickrClient: NSObject {
                     }
                     urlArray.append(imageUrlString)
                     DispatchQueue.main.async {
-                        var newImage = Image.init(url: imageUrlString, imageData: nil, context: self.stack.context)
+                        let newImage = Image.init(url: imageUrlString, imageData: nil, context: self.stack.context)
                         newImage.imageSearch = imageSearch
                     }
                     num += 1

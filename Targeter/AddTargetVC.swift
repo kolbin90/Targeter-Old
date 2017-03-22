@@ -11,10 +11,8 @@ import CoreData
 
 class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
-    //MARK: - Variables
+    //MARK: - Properties
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
-    
-    
     
     //MARK: - Outlets
     
@@ -33,7 +31,35 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         hideKeyboardWhenTappedAround()
     }
     
-    //MARK: - Assist functions 
+    //MARK: - UITextFieldDelegatye
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        return true
+    }
+    
+    //MARK: - ImagePicker
+    func imagePicker(_ type: UIImagePickerControllerSourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = type
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            tergetImageView.image = image
+        }
+        dismiss(animated: true, completion: nil)
+        
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    //MARK: - Assist functions
+    
     // Check if textFields have text inside
     func TFAreFilled() -> Bool {
         guard titleTF.text !=  "" else {
@@ -57,50 +83,27 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         return true
     }
     
-    
-    //MARK: - ImagePicker
-    
-    func imagePicker(_ type: UIImagePickerControllerSourceType) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = type
-        self.present(imagePicker, animated: true, completion: nil)
-    }
-    
-  
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            tergetImageView.image = image
-        }
-        dismiss(animated: true, completion: nil)
-        
-    }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    //MARK: - UITextFieldDelegatye
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            return true
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        dismissKeyboard()
-        return true
-
-    }
-
     func datePickerValueChanged(sender:UIDatePickerWithSenderTag) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.short
-        dateFormatter.timeStyle = DateFormatter.Style.none        
+        dateFormatter.timeStyle = DateFormatter.Style.none
         if sender.senderTag! == 1 {
             startDate.text = dateFormatter.string(from: sender.date)
         } else if sender.senderTag! == 2 {
             endDate.text = dateFormatter.string(from: sender.date)
         }
     }
+
+    class UIDatePickerWithSenderTag:UIDatePicker {
+        var senderTag: Int?
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+        }
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+        }
+    }
+
     
     //MARK: - Actions
     
@@ -129,19 +132,10 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         
     }
     
-    class UIDatePickerWithSenderTag:UIDatePicker {
-        var senderTag: Int?
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-        }
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-        }
-    }
     
     @IBAction func doneButton(_ sender: Any) {
+        // Check if fields are filled with text
         if TFAreFilled() {
-            let date = Date()
             let myFormatter = DateFormatter()
             myFormatter.dateStyle = .short
             let startDateFromString = myFormatter.date(from: startDate.text!)!
@@ -157,6 +151,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             } else {
                 imageData = nil
             }
+            // Create new target
             let newTarget = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, active: true, completed: false, context: stack.context)
             print(newTarget)
             stack.save()
@@ -167,7 +162,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     @IBAction func switchChanged(_ sender: UISwitch) {
         endDate.isEnabled = sender.isOn
-        
         if endDate.isEnabled {
             endDate.alpha = 1
         } else {
