@@ -311,6 +311,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="backgroundImage" destination="9bM-cm-m6P" id="yZV-3P-7yt"/>
+                                    <outlet property="cellView" destination="8m0-ky-A8H" id="DmX-6s-eW9"/>
                                     <outlet property="completedLabel" destination="LM8-MS-Vzf" id="KIR-te-vwS"/>
                                     <outlet property="day1" destination="PXW-aA-DUf" id="CVK-qL-2rf"/>
                                     <outlet property="day10" destination="5Tg-JC-G4P" id="Pcm-nl-zzm"/>
@@ -484,7 +485,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Beginning date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xBQ-Er-fe6">
+                                                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Beginning date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xBQ-Er-fe6">
                                                                 <rect key="frame" x="0.0" y="41" width="157.5" height="30"/>
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <constraints>
@@ -520,7 +521,7 @@
                                                                     </switch>
                                                                 </subviews>
                                                             </stackView>
-                                                            <textField opaque="NO" clipsSubviews="YES" alpha="0.40000000000000002" tag="2" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Finishing date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umm-H4-KtP">
+                                                            <textField opaque="NO" clipsSubviews="YES" alpha="0.29999999999999999" tag="2" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Finishing date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umm-H4-KtP">
                                                                 <rect key="frame" x="0.0" y="41" width="157.5" height="30"/>
                                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <constraints>
@@ -574,6 +575,7 @@
                         <outlet property="addImageButton" destination="Hd9-Kt-Icb" id="Mah-TC-mJI"/>
                         <outlet property="descriptionTF" destination="T7f-yM-hX1" id="pTg-Hf-0oO"/>
                         <outlet property="endDate" destination="umm-H4-KtP" id="hBw-Ye-JFy"/>
+                        <outlet property="mainView" destination="mNt-nw-ctt" id="e9z-lb-Df2"/>
                         <outlet property="startDate" destination="xBQ-Er-fe6" id="g57-Fx-HGV"/>
                         <outlet property="tergetImageView" destination="zVo-1D-ZBT" id="8ZQ-fi-IMJ"/>
                         <outlet property="titleTF" destination="NXX-NF-uIr" id="auo-6f-Geh"/>

@@ -16,6 +16,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     //MARK: - Outlets
     
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var titleTF: UITextField!
     @IBOutlet weak var descriptionTF: UITextField!
     @IBOutlet weak var tergetImageView: UIImageView!
@@ -30,6 +31,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        mainView.layer.cornerRadius = 15
     }
     
     //MARK: - UITextFieldDelegatye

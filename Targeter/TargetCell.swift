@@ -10,6 +10,7 @@ import UIKit
 
 class TargetCell: UITableViewCell {
     
+    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var completedLabel: UILabel!
