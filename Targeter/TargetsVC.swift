@@ -126,9 +126,8 @@ extension TargetsVC {
             }
         }
         // If target completed make "completedLabel" visible
-        if target.completed {
-            cell.completedLabel.isHidden = false
-        }
+        cell.completedLabel.isHidden = !target.completed
+        
         // Check if target should be completed and figure dates
         if let endingDay = target.dayEnding, endingDay < dayForChecking  {
             dayForChecking = endingDay

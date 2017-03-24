@@ -22,6 +22,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     @IBOutlet weak var startDate: UITextField!
     @IBOutlet weak var endDate: UITextField!
     @IBOutlet var dateTF: [UITextField]!
+    @IBOutlet weak var addImageButton: UIButton!
     
     
     // MARK: - Lifecycle
@@ -51,6 +52,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             tergetImageView.image = image
+            addImageButton.setTitle("Change background image", for: .normal)
         }
         dismiss(animated: true, completion: nil)
         
@@ -85,7 +87,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     func datePickerValueChanged(sender:UIDatePickerWithSenderTag) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.dateStyle = DateFormatter.Style.medium
         dateFormatter.timeStyle = DateFormatter.Style.none
         if sender.senderTag! == 1 {
             startDate.text = dateFormatter.string(from: sender.date)
@@ -137,7 +139,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         // Check if fields are filled with text
         if TFAreFilled() {
             let myFormatter = DateFormatter()
-            myFormatter.dateStyle = .short
+            myFormatter.dateStyle = .medium
             let startDateFromString = myFormatter.date(from: startDate.text!)!
             let endDateFromString:Date?
             if endDate.isEnabled {
@@ -171,13 +173,16 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     @IBAction func dateTF(_ sender: UITextField) {
         if sender.text == nil || sender.text == "" {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .short
+            dateFormatter.dateStyle = .medium
             let date = dateFormatter.string(from: Date())
             sender.text = date
         }
         let datePickerView = UIDatePickerWithSenderTag()
         datePickerView.senderTag = sender.tag
         datePickerView.datePickerMode = UIDatePickerMode.date
+        datePickerView.minimumDate = Date()
+        datePickerView.maximumDate = Calendar.current.date(byAdding: .year, value: 100, to: Date())!
+
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         
@@ -185,7 +190,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
         toolbar.items = [flexibleSeparator, doneButton]
-        toolbar.barTintColor = UIColor.groupTableViewBackground
+        toolbar.barTintColor = .groupTableViewBackground
         toolbar.tintColor = .black
         sender.inputAccessoryView = toolbar
     
