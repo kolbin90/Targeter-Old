@@ -38,7 +38,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wct-af-Ah5" id="h3y-Bg-I6h">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9bM-cm-m6P">
@@ -549,7 +549,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zVo-1D-ZBT" firstAttribute="leading" secondItem="RrR-Oe-TIK" secondAttribute="leading" id="0Dc-2B-Axk"/>
                             <constraint firstAttribute="trailing" secondItem="zVo-1D-ZBT" secondAttribute="trailing" id="4OT-E3-tcB"/>
@@ -586,7 +586,7 @@
         <scene sceneID="sxz-00-DW4">
             <objects>
                 <navigationController id="z85-rZ-Tcb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Gux-uH-VIf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gux-uH-VIf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -737,6 +737,6 @@
         <image name="placeholder" width="800" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xCM-jK-sYQ"/>
+        <segue reference="6WO-wG-h2K"/>
     </inferredMetricsTieBreakers>
 </document>
