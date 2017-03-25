@@ -54,7 +54,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             tergetImageView.image = image
-            addImageButton.setTitle("Change background image", for: .normal)
+            addImageButton.setTitle("Change image", for: .normal)
         }
         dismiss(animated: true, completion: nil)
         
