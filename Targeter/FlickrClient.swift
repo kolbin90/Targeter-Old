@@ -170,7 +170,7 @@ class FlickrClient {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                completionHandler(nil,"There was an error with your request: \(error)")
+                completionHandler(nil,error?.localizedDescription)
                 return
             }
             
@@ -246,14 +246,4 @@ class FlickrClient {
         }
         task.resume()
     }
-    
-    // MARK: -  Singleton
-  /*
-    class func sharedInstance() -> FlickrClient {
-        struct Singleton {
-            static var sharedInstance = FlickrClient()
-        }
-        return Singleton.sharedInstance
-    }
- */
 }

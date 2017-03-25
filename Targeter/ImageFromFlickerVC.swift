@@ -182,7 +182,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
                     self.activityIndicatoryShowing(showing: false, view: self.view)
                     self.view.reloadInputViews()
                     guard (error == nil) else {
-                        self.showAlert(title: "Error", error: "There was an error with the task for image")
+                        self.showAlert(title: "Error", error: error!)
                         return
                     }
                     guard (result != nil) else {
