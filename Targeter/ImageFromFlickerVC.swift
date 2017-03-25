@@ -28,6 +28,12 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
+    // MARK: - Init/Deinit
+    
+    deinit {
+        stack.context.delete(imageSearch)
+        stack.save()
+    }
     // MARK: - LifeCicle
     
     override func viewDidLoad() {
@@ -66,13 +72,6 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
         collectionView.collectionViewLayout = flowLayout
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        if (self.isMovingFromParentViewController){
-            stack.context.delete(imageSearch)
-            stack.save()
-        }
-    }
     
     // MARK: - Delegates
     // MARK: TextField Delegate
