@@ -120,11 +120,12 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             self.imagePicker(.photoLibrary)
             
         })
-        
-        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default){ action in
-            self.imagePicker(.camera)
-            
-        })
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            actionSheet.addAction(UIAlertAction(title: "Camera", style: .default){ action in
+                self.imagePicker(.camera)
+                
+            })
+        }
         
         actionSheet.addAction(UIAlertAction(title: "Download from Flickr", style: .default) { action in
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "ImageFromFlickerVC") as! ImageFromFlickerVC
