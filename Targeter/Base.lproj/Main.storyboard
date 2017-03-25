@@ -351,11 +351,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Targeter" id="6ua-m5-P2W">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="9CG-Sz-Rhn">
-                            <connections>
-                                <action selector="settingsButton:" destination="G0Z-9T-gTx" id="kD7-X5-zW0"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ajb-rT-Dax">
                             <connections>
                                 <action selector="addButton:" destination="G0Z-9T-gTx" id="b7c-39-WfY"/>
