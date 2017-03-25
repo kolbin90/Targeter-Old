@@ -178,7 +178,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
                         }
                 }
                 // Getting images URLs and creating objects with image url
-                FlickrClient.sharedInstance().getImagesFromFlickr(imageSearch: self.imageSearch, text: text) { (result, error) in
+                FlickrClient.sharedInstance.getImagesFromFlickr(imageSearch: self.imageSearch, text: text) { (result, error) in
                     self.activityIndicatoryShowing(showing: false, view: self.view)
                     self.view.reloadInputViews()
                     guard (error == nil) else {
@@ -191,7 +191,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
                     }
                     DispatchQueue.main.async {
                         // Getting data for image URLs
-                        FlickrClient.sharedInstance().getImagesDataFor(imageSearch: self.imageSearch)
+                        FlickrClient.sharedInstance.getImagesDataFor(imageSearch: self.imageSearch)
                     }
                 }
             }

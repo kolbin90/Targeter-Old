@@ -10,10 +10,13 @@ import UIKit
 import MapKit
 import CoreData
 
-class FlickrClient: NSObject {
+class FlickrClient {
     var session = URLSession.shared
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+    static let sharedInstance = FlickrClient()
+    // use private init
     
+  //  private init() {}
     
     
     func getImagesFromFlickr(imageSearch:ImageSearch,text: String, completionHandler: @escaping (_ result: [String]?, _ error: String?) -> Void) {
@@ -245,11 +248,12 @@ class FlickrClient: NSObject {
     }
     
     // MARK: -  Singleton
-    
+  /*
     class func sharedInstance() -> FlickrClient {
         struct Singleton {
             static var sharedInstance = FlickrClient()
         }
         return Singleton.sharedInstance
     }
+ */
 }

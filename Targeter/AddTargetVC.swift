@@ -158,7 +158,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             }
             // Create new target
             let newTarget = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, active: true, completed: false, context: stack.context)
-            print(newTarget)
             stack.save()
             let _ = navigationController?.popViewController(animated: true)
         }
