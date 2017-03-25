@@ -6,6 +6,7 @@ iPhone app that helps you follow your tagets. Just add a target and check in eve
 
 * Set your daily targets with succeed or failed mark
 * Create temporary targets
+* Choose background image for target from your photo library/camera or download it from Flickr.
 
 ## Usage
 
