@@ -103,14 +103,12 @@ class TargetsVC: UITableViewController {
 
 extension TargetsVC {
     
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Find the right notebook for this indexpath
         let target = fetchedResultsController!.object(at: indexPath) as! Target
         
         // Create the cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
+        let cell = cell as! TargetCell
         var dayForStartChecking = Date()
         var dayForChecking = Date()
         let numberOfMarksInCell = 14
@@ -188,6 +186,12 @@ extension TargetsVC {
             num += 1
         }
         cell.label.text = target.title
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Create the cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
+
         return cell
     }
     
