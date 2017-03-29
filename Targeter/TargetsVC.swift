@@ -36,6 +36,8 @@ class TargetsVC: UITableViewController {
          print("Ebat' error")
          }
          */
+        // Make navigation bar not transluen
+        self.navigationController?.navigationBar.isTranslucent = false
         
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
@@ -104,8 +106,10 @@ class TargetsVC: UITableViewController {
 extension TargetsVC {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    DispatchQueue.main.async {
+
         // Find the right notebook for this indexpath
-        let target = fetchedResultsController!.object(at: indexPath) as! Target
+        let target = self.fetchedResultsController!.object(at: indexPath) as! Target
         
         // Create the cell
         let cell = cell as! TargetCell
@@ -139,7 +143,7 @@ extension TargetsVC {
             }
             
         }
-        
+     //   /*
         while num < numberOfMarksInCell {
             // Color images on success and fail
             let dayImageView = dotsArray[num]
@@ -149,11 +153,12 @@ extension TargetsVC {
                 dayImageView.tintColor = UIColor.groupTableViewBackground
                 dayLabel.textColor = .lightGray
                 dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+               // let _ = dayImageView.image!.alpha(1)
             } else {
                 // Check if Success list contains anyrhing
                 if let successList = target.successList as? Set<Success>, (successList.count > 0) {
                     let dotColor:UIColor!
-                    let success = todayIn(successList: successList, today: dayForChecking).0
+                    let success = self.todayIn(successList: successList, today: dayForChecking).0
                     switch success {
                     case "succeed":
                         dotColor = .green
@@ -185,7 +190,9 @@ extension TargetsVC {
             dayForChecking = Calendar.current.date(byAdding: .day, value: -1, to: dayForChecking)!
             num += 1
         }
+// */
         cell.label.text = target.title
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
