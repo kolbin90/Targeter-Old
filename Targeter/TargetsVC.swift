@@ -36,6 +36,7 @@ class TargetsVC: UITableViewController {
          print("Ebat' error")
          }
          */
+        
         // Make navigation bar not transluen
         self.navigationController?.navigationBar.isTranslucent = false
         
@@ -51,7 +52,7 @@ class TargetsVC: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         tableView.reloadData()
-
+        
     }
     
     
@@ -106,99 +107,115 @@ class TargetsVC: UITableViewController {
 extension TargetsVC {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    DispatchQueue.main.async {
-
-        // Find the right notebook for this indexpath
-        let target = self.fetchedResultsController!.object(at: indexPath) as! Target
         
-        // Create the cell
-        let cell = cell as! TargetCell
-        var dayForStartChecking = Date()
-        var dayForChecking = Date()
-        let numberOfMarksInCell = 14
-        var num = 0
-        var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
-        var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
-        // Round corners for view
-        cell.cellView.layer.cornerRadius = 15
-        // Set background picture, if Target have one
-        cell.backgroundImage.image = nil
-        if let imageData = target.picture {
-            if let image = UIImage(data: imageData) {
-                cell.backgroundImage.image = image
-            }
-        }
-        // If target completed make "completedLabel" visible
-        cell.completedLabel.isHidden = !target.completed
         
-        // Check if target should be completed and figure dates
-        if let endingDay = target.dayEnding, endingDay < dayForChecking  {
-            dayForChecking = endingDay
-            dayForStartChecking = endingDay
-            if !target.completed {
-                DispatchQueue.main.async {
-                    target.completed = true
-                    self.stack.save()
-                }
-            }
+        DispatchQueue.global().async {
+            //main.async {
             
-        }
-     //   /*
-        while num < numberOfMarksInCell {
-            // Color images on success and fail
-            let dayImageView = dotsArray[num]
-            let dayLabel = daysArray[num]
-            // If Mark is out of date (before beginning date) give them light gray color
-            if dayForChecking < target.dayBeginning {
-                dayImageView.tintColor = UIColor.groupTableViewBackground
-                dayLabel.textColor = .lightGray
-                dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-               // let _ = dayImageView.image!.alpha(1)
-            } else {
-                // Check if Success list contains anyrhing
-                if let successList = target.successList as? Set<Success>, (successList.count > 0) {
-                    let dotColor:UIColor!
-                    let success = self.todayIn(successList: successList, today: dayForChecking).0
-                    switch success {
-                    case "succeed":
-                        dotColor = .green
-                    case "failed":
-                        dotColor = .red
-                    case "nothing":
-                        dotColor = .black
-                    default:
-                        dotColor = .black
-                        print("Error!")
+            // Find the right notebook for this indexpath
+            let target = self.fetchedResultsController!.object(at: indexPath) as! Target
+            
+            // Create the cell
+            let cell = cell as! TargetCell
+            var dayForStartChecking = Date()
+            var dayForChecking = Date()
+            let numberOfMarksInCell = 14
+            var num = 0
+            var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
+            var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
+            DispatchQueue.main.async {
+                
+                // Round corners for view
+                cell.cellView.layer.cornerRadius = 15
+                // Set background picture, if Target have one
+                cell.backgroundImage.image = nil
+                if let imageData = target.picture {
+                    if let image = UIImage(data: imageData) {
+                        cell.backgroundImage.image = image
                     }
-                    dayImageView.tintColor = dotColor
-                    dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                } else {
-                    dayImageView.tintColor = .black
-                    dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
                 }
+                // If target completed make "completedLabel" visible
+                cell.completedLabel.isHidden = !target.completed
             }
-            // Give labels name of last 14 days
-            let day = Calendar.current.component(.day, from: dayForChecking)
-            if Calendar.current.isDate(dayForChecking, equalTo: dayForStartChecking, toGranularity:.day) {
-                let month = Calendar.current.component(.month, from: dayForChecking)
-                let year = Calendar.current.component(.year, from: dayForChecking)
-                dayLabel.text = "\(day)/\(month)\n\(year)"
-            } else {
-                dayLabel.text = String(day)
+            // Check if target should be completed and figure dates
+            if let endingDay = target.dayEnding, endingDay < dayForChecking  {
+                dayForChecking = endingDay
+                dayForStartChecking = endingDay
+                if !target.completed {
+                    DispatchQueue.main.async {
+                        target.completed = true
+                        self.stack.save()
+                    }
+                }
+                
             }
-            // Change "today" for a one day before
-            dayForChecking = Calendar.current.date(byAdding: .day, value: -1, to: dayForChecking)!
-            num += 1
-        }
-// */
-        cell.label.text = target.title
+            //   /*
+            while num < numberOfMarksInCell {
+                // Color images on success and fail
+                let dayImageView = dotsArray[num]
+                let dayLabel = daysArray[num]
+                // If Mark is out of date (before beginning date) give them light gray color
+                if dayForChecking < target.dayBeginning {
+                    DispatchQueue.main.async {
+                        dayImageView.tintColor = UIColor.groupTableViewBackground
+                        dayLabel.textColor = .lightGray
+                        dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                    }
+                    // let _ = dayImageView.image!.alpha(1)
+                } else {
+                    // Check if Success list contains anyrhing
+                    if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+                        let dotColor:UIColor!
+                        let success = self.todayIn(successList: successList, today: dayForChecking).0
+                        switch success {
+                        case "succeed":
+                            dotColor = .green
+                        case "failed":
+                            dotColor = .red
+                        case "nothing":
+                            dotColor = .black
+                        default:
+                            dotColor = .black
+                            print("Error!")
+                        }
+                        DispatchQueue.main.async {
+                            dayImageView.tintColor = dotColor
+                            dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            dayImageView.tintColor = .black
+                            dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+                        }
+                    }
+                }
+                // Give labels name of last 14 days
+                let day = Calendar.current.component(.day, from: dayForChecking)
+                var labelText = String(day)
+                if Calendar.current.isDate(dayForChecking, equalTo: dayForStartChecking, toGranularity:.day) {
+                    let month = Calendar.current.component(.month, from: dayForChecking)
+                    let year = Calendar.current.component(.year, from: dayForChecking)
+                    labelText = "\(day)/\(month)\n\(year)"
+                }
+                DispatchQueue.main.async {
+                    dayLabel.text = labelText
+                }
+                
+                // Change "today" for a one day before
+                dayForChecking = Calendar.current.date(byAdding: .day, value: -1, to: dayForChecking)!
+                num += 1
+            }
+            // */
+            DispatchQueue.main.async {
+                cell.label.text = target.title
+            }
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
-
+        
         return cell
     }
     
