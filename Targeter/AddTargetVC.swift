@@ -13,6 +13,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     //MARK: - Properties
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+    var editingMode = false
+    var target: Target?
     
     //MARK: - Outlets
     
