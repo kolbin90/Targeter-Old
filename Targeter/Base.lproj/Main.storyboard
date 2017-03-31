@@ -414,10 +414,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNt-nw-ctt">
-                                <rect key="frame" x="15" y="79" width="345" height="573"/>
+                                <rect key="frame" x="15" y="114" width="345" height="503"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rcU-Ve-9Hz">
-                                        <rect key="frame" x="10" y="40" width="325" height="344"/>
+                                        <rect key="frame" x="10" y="25" width="325" height="344"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LvZ-Lo-DEU">
                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="71"/>
@@ -577,7 +577,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="rcU-Ve-9Hz" secondAttribute="trailing" constant="10" id="CpM-iO-ClO"/>
-                                    <constraint firstItem="rcU-Ve-9Hz" firstAttribute="top" secondItem="mNt-nw-ctt" secondAttribute="top" constant="40" id="H6h-jC-Gbo"/>
+                                    <constraint firstItem="rcU-Ve-9Hz" firstAttribute="top" secondItem="mNt-nw-ctt" secondAttribute="top" constant="25" id="H6h-jC-Gbo"/>
                                     <constraint firstItem="rcU-Ve-9Hz" firstAttribute="leading" secondItem="mNt-nw-ctt" secondAttribute="leading" constant="10" id="WN3-1Y-at2"/>
                                 </constraints>
                             </view>
@@ -587,9 +587,9 @@
                             <constraint firstItem="zVo-1D-ZBT" firstAttribute="leading" secondItem="RrR-Oe-TIK" secondAttribute="leading" id="0Dc-2B-Axk"/>
                             <constraint firstAttribute="trailing" secondItem="zVo-1D-ZBT" secondAttribute="trailing" id="4OT-E3-tcB"/>
                             <constraint firstItem="mNt-nw-ctt" firstAttribute="leading" secondItem="RrR-Oe-TIK" secondAttribute="leading" constant="15" id="4t1-j8-KHm"/>
-                            <constraint firstItem="mNt-nw-ctt" firstAttribute="top" secondItem="VpI-g1-0YT" secondAttribute="bottom" constant="15" id="9e4-Gb-3Wa"/>
+                            <constraint firstItem="mNt-nw-ctt" firstAttribute="top" secondItem="VpI-g1-0YT" secondAttribute="bottom" constant="50" id="9e4-Gb-3Wa"/>
                             <constraint firstAttribute="trailing" secondItem="mNt-nw-ctt" secondAttribute="trailing" constant="15" id="Fhx-t1-YKP"/>
-                            <constraint firstItem="HrF-lY-BK5" firstAttribute="top" secondItem="mNt-nw-ctt" secondAttribute="bottom" constant="15" id="PSu-ur-dc1"/>
+                            <constraint firstItem="HrF-lY-BK5" firstAttribute="top" secondItem="mNt-nw-ctt" secondAttribute="bottom" constant="50" id="PSu-ur-dc1"/>
                             <constraint firstItem="zVo-1D-ZBT" firstAttribute="top" secondItem="RrR-Oe-TIK" secondAttribute="top" id="azd-bh-m6e"/>
                             <constraint firstAttribute="bottom" secondItem="zVo-1D-ZBT" secondAttribute="bottom" id="hdw-jX-w76"/>
                         </constraints>

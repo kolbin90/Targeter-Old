@@ -15,6 +15,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var editingMode = false
     var target: Target?
+    let dateFormatter = DateFormatter()
     
     //MARK: - Outlets
     
@@ -32,13 +33,30 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        dateFormatter.timeStyle = DateFormatter.Style.none
         hideKeyboardWhenTappedAround()
         mainView.layer.cornerRadius = 15
+        if editingMode {
+            titleTF.text = target!.title
+            descriptionTF.text = target!.descriptionCompletion
+            tergetImageView.image = UIImage(data:target!.picture!)
+            startDate.isEnabled = false
+            startDate.alpha = 0.5
+            startDate.text = dateFormatter.string(from: target!.dayBeginning)
+            addImageButton.setTitle("Change image", for: .normal)
+            
+            if let endingDate = target!.dayEnding {
+                endDate.isEnabled = true
+                endDate.text = dateFormatter.string(from: endingDate)
+            }
+            navigationItem.title = "Edit target"
+        }
     }
     
     //MARK: - UITextFieldDelegatye
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            return true
+        return true
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         dismissKeyboard()
@@ -90,16 +108,13 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     }
     
     func datePickerValueChanged(sender:UIDatePickerWithSenderTag) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = DateFormatter.Style.medium
-        dateFormatter.timeStyle = DateFormatter.Style.none
         if sender.senderTag! == 1 {
             startDate.text = dateFormatter.string(from: sender.date)
         } else if sender.senderTag! == 2 {
             endDate.text = dateFormatter.string(from: sender.date)
         }
     }
-
+    
     class UIDatePickerWithSenderTag:UIDatePicker {
         var senderTag: Int?
         override init(frame: CGRect) {
@@ -109,7 +124,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             super.init(coder: aDecoder)
         }
     }
-
+    
     
     //MARK: - Actions
     
@@ -143,25 +158,33 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     @IBAction func doneButton(_ sender: Any) {
         // Check if fields are filled with text
         if TFAreFilled() {
-            let myFormatter = DateFormatter()
-            myFormatter.dateStyle = .medium
-            let startDateFromString = myFormatter.date(from: startDate.text!)!
+            let startDateFromString = dateFormatter.date(from: startDate.text!)!
             let endDateFromString:Date?
             if endDate.isEnabled {
-                endDateFromString = myFormatter.date(from: endDate.text!)
+                endDateFromString = dateFormatter.date(from: endDate.text!)
             } else {
                 endDateFromString = nil
             }
             var imageData:Data?
             if tergetImageView.image != nil {
                 imageData = UIImagePNGRepresentation(tergetImageView.image!)
+                //TODO: Scale image for future showing in
             } else {
                 imageData = nil
             }
-            // Create new target
-            let newTarget = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, active: true, completed: false, context: stack.context)
-            stack.save()
-            let _ = navigationController?.popViewController(animated: true)
+            if editingMode {
+                target!.title = titleTF.text!
+                target!.descriptionCompletion = descriptionTF.text!
+                target!.picture = imageData
+                target!.dayEnding = endDateFromString
+                stack.save()
+            } else {
+                // Create new target
+                _ = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, active: true, completed: false, context: stack.context)
+                stack.save()
+            }
+            _ = navigationController?.popViewController(animated: true)
+            
         }
     }
     
@@ -186,7 +209,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         datePickerView.datePickerMode = UIDatePickerMode.date
         datePickerView.minimumDate = Date()
         datePickerView.maximumDate = Calendar.current.date(byAdding: .year, value: 100, to: Date())!
-
+        
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         
@@ -197,7 +220,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         toolbar.barTintColor = .groupTableViewBackground
         toolbar.tintColor = .black
         sender.inputAccessoryView = toolbar
-    
+        
     }
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? ImageFromFlickerVC {
