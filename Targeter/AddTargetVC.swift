@@ -15,7 +15,9 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var editingMode = false
     var target: Target?
+    var viewLoadedWithImage: UIImage?
     let dateFormatter = DateFormatter()
+    let cellHeight:CGFloat = 130
     
     //MARK: - Outlets
     
@@ -40,7 +42,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         if editingMode {
             titleTF.text = target!.title
             descriptionTF.text = target!.descriptionCompletion
-            tergetImageView.image = UIImage(data:target!.picture!)
+            viewLoadedWithImage = UIImage(data:target!.picture!)
+            tergetImageView.image = viewLoadedWithImage
             startDate.isEnabled = false
             startDate.alpha = 0.5
             startDate.text = dateFormatter.string(from: target!.dayBeginning)
@@ -84,6 +87,22 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     }
     //MARK: - Assist functions
     
+    func prepareNewImage(image: UIImage) -> Data {
+        var newImage = image.resized(toWidth: (self.view.frame.width))!
+        let imageWidth: CGFloat = newImage.size.width
+        let imageHeight: CGFloat = newImage.size.height
+        let width: CGFloat  = imageWidth //image.size.width
+        let height: CGFloat = 130.0
+        let origin = CGPoint(x: (imageWidth - width)/2, y: (imageHeight - height)/2)
+        let size = CGSize(width: width, height: height)
+        
+        newImage = newImage.crop(rect: CGRect(origin: origin, size: size))
+        
+        //newImage = cropToBounds(image: newImage!, width: Double((newImage?.size.width)!), height: Double(cellHeight))
+        let imageData = newImage.jpeg(.highest)!
+        return imageData
+    }
+   
     // Check if textFields have text inside
     func TFAreFilled() -> Bool {
         guard titleTF.text !=  "" else {
@@ -166,19 +185,30 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 endDateFromString = nil
             }
             var imageData:Data?
-            if tergetImageView.image != nil {
-                imageData = UIImagePNGRepresentation(tergetImageView.image!)
-                //TODO: Scale image for future showing in
-            } else {
-                imageData = nil
-            }
+            //TODO: Scale image for future showing in
+            /*
+             if tergetImageView.image != nil {
+             imageData = tergetImageView.image!.jpeg(.highest)
+             } else {
+             imageData = nil
+             }
+             */
+            // TODO: Check if picture wasn't change and don't do anything with that
             if editingMode {
                 target!.title = titleTF.text!
                 target!.descriptionCompletion = descriptionTF.text!
-                target!.picture = imageData
+                if viewLoadedWithImage != tergetImageView.image! {
+                    imageData = prepareNewImage(image: tergetImageView.image!)
+                    target!.picture = imageData
+
+                }
+                //imageData = tergetImageView.image!.jpeg(.highest)
                 target!.dayEnding = endDateFromString
                 stack.save()
             } else {
+                imageData = prepareNewImage(image: tergetImageView.image!)
+                //newImage = cropToBounds(image: newImage!, width: Double((newImage?.size.width)!), height: Double(cellHeight))
+                //imageData = newImage?.jpeg(.highest)
                 // Create new target
                 _ = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, active: true, completed: false, context: stack.context)
                 stack.save()
