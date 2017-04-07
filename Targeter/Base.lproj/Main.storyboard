@@ -41,7 +41,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zakat" translatesAutoresizingMaskIntoConstraints="NO" id="9bM-cm-m6P">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9bM-cm-m6P">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </imageView>
@@ -770,7 +770,6 @@
     <resources>
         <image name="dot" width="100" height="100"/>
         <image name="placeholder" width="800" height="800"/>
-        <image name="zakat" width="349" height="218"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6WO-wG-h2K"/>

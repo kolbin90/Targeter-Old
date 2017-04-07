@@ -29,13 +29,13 @@ class TargetsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
+     //   /*
          do {
          try stack.dropAllData()
          } catch {
          print("Ebat' error")
          }
-         */
+     //    */
         
         // Make navigation bar not transluen
         self.navigationController?.navigationBar.isTranslucent = false
@@ -129,7 +129,7 @@ extension TargetsVC {
                 cell.cellView.layer.cornerRadius = 15
                 // Set background picture, if Target have one
                 cell.backgroundImage.image = nil
-                if let imageData = target.picture {
+                if let imageData = target.cellImage {
                     if let image = UIImage(data: imageData) {
                         cell.backgroundImage.image = image
                     }
@@ -161,7 +161,6 @@ extension TargetsVC {
                         dayLabel.textColor = .lightGray
                         dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
                     }
-                    // let _ = dayImageView.image!.alpha(1)
                 } else {
                     // Check if Success list contains anyrhing
                     if let successList = target.successList as? Set<Success>, (successList.count > 0) {
@@ -208,6 +207,7 @@ extension TargetsVC {
             // */
             DispatchQueue.main.async {
                 cell.label.text = target.title
+                
             }
         }
     }

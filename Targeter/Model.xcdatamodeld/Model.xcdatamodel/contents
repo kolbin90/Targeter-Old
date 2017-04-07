@@ -26,6 +26,7 @@
     </entity>
     <entity name="Target" representedClassName="Target" syncable="YES">
         <attribute name="active" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="cellImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
         <attribute name="dayBeginning" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
@@ -41,6 +42,6 @@
         <element name="ImageSearch" positionX="126" positionY="108" width="128" height="75"/>
         <element name="Schedule" positionX="108" positionY="9" width="128" height="165"/>
         <element name="Success" positionX="250" positionY="117" width="128" height="90"/>
-        <element name="Target" positionX="-36" positionY="9" width="128" height="193"/>
+        <element name="Target" positionX="-36" positionY="9" width="128" height="210"/>
     </elements>
 </model>

@@ -12,7 +12,7 @@ import CoreData
 @objc(Target)
 public class Target: NSManagedObject {
 
-    convenience init(title: String, descriptionCompletion: String, dayBeginning: Date, dayEnding: Date?,  picture: Data?, active: Bool, completed: Bool, context: NSManagedObjectContext) {
+    convenience init(title: String, descriptionCompletion: String, dayBeginning: Date, dayEnding: Date?,  picture: Data?, cellImage: Data?, active: Bool, completed: Bool, context: NSManagedObjectContext) {
         if let ent = NSEntityDescription.entity(forEntityName: "Target", in: context) {
             self.init(entity: ent, insertInto: context)
             self.creationDate = Date()
@@ -24,6 +24,9 @@ public class Target: NSManagedObject {
             }
             if let picture = picture {
                 self.picture = picture
+            }
+            if let cellImage = cellImage {
+                self.cellImage = cellImage
             }
             self.completed = completed
             self.active = active

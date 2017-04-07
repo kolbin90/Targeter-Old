@@ -185,6 +185,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 endDateFromString = nil
             }
             var imageData:Data?
+            var cellImageData:Data?
             //TODO: Scale image for future showing in
             /*
              if tergetImageView.image != nil {
@@ -198,19 +199,23 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 target!.title = titleTF.text!
                 target!.descriptionCompletion = descriptionTF.text!
                 if viewLoadedWithImage != tergetImageView.image! {
-                    imageData = prepareNewImage(image: tergetImageView.image!)
+                    imageData = tergetImageView.image?.jpeg(.highest)
+                    cellImageData = prepareNewImage(image: tergetImageView.image!)
                     target!.picture = imageData
+                    target!.cellImage = cellImageData
 
                 }
                 //imageData = tergetImageView.image!.jpeg(.highest)
                 target!.dayEnding = endDateFromString
                 stack.save()
             } else {
-                imageData = prepareNewImage(image: tergetImageView.image!)
+                //imageData = prepareNewImage(image: tergetImageView.image!)
+                imageData = tergetImageView.image?.jpeg(.highest)
+                cellImageData = prepareNewImage(image: tergetImageView.image!)
                 //newImage = cropToBounds(image: newImage!, width: Double((newImage?.size.width)!), height: Double(cellHeight))
                 //imageData = newImage?.jpeg(.highest)
                 // Create new target
-                _ = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, active: true, completed: false, context: stack.context)
+                _ = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, cellImage: cellImageData, active: true, completed: false, context: stack.context)
                 stack.save()
             }
             _ = navigationController?.popViewController(animated: true)
