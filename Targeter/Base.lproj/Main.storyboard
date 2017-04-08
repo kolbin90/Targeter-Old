@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -417,20 +416,20 @@
                             <view clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNt-nw-ctt">
                                 <rect key="frame" x="15" y="114" width="345" height="503"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rcU-Ve-9Hz">
-                                        <rect key="frame" x="10" y="25" width="325" height="344"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rcU-Ve-9Hz">
+                                        <rect key="frame" x="10" y="25" width="325" height="454.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LvZ-Lo-DEU">
-                                                <rect key="frame" x="0.0" y="0.0" width="325" height="71"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LvZ-Lo-DEU">
+                                                <rect key="frame" x="0.0" y="0.0" width="325" height="63.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dzk-kT-xTf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="41"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="200" verticalCompressionResistancePriority="700" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name your target" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NXX-NF-uIr">
-                                                        <rect key="frame" x="0.0" y="41" width="325" height="30"/>
+                                                        <rect key="frame" x="0.0" y="33.5" width="325" height="30"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="BPX-vq-hhy"/>
@@ -444,20 +443,20 @@
                                                     </textField>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-Cx-0EP">
-                                                <rect key="frame" x="0.0" y="91" width="325" height="71"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-Cx-0EP">
+                                                <rect key="frame" x="0.0" y="83.5" width="325" height="63.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="y30-29-kt5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="41"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="23.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDu-ub-i7a">
-                                                                <rect key="frame" x="0.0" y="0.0" width="174.5" height="41"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="174.5" height="23.5"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="(optional)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bx0-Pf-JIU">
-                                                                <rect key="frame" x="179.5" y="0.0" width="145.5" height="41"/>
+                                                                <rect key="frame" x="179.5" y="0.0" width="145.5" height="23.5"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -465,7 +464,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Describe why do you want it" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="T7f-yM-hX1">
-                                                        <rect key="frame" x="0.0" y="41" width="325" height="30"/>
+                                                        <rect key="frame" x="0.0" y="33.5" width="325" height="30"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="wSz-ws-qet"/>
@@ -479,17 +478,17 @@
                                                     </textField>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aWI-Xd-TeA">
-                                                <rect key="frame" x="0.0" y="182" width="325" height="71"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aWI-Xd-TeA">
+                                                <rect key="frame" x="0.0" y="167" width="325" height="63.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Background image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4V9-Qb-ePN">
-                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="41"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hd9-Kt-Icb">
-                                                        <rect key="frame" x="0.0" y="41" width="325" height="30"/>
+                                                        <rect key="frame" x="0.0" y="33.5" width="325" height="30"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="r7F-eM-qZI"/>
@@ -505,7 +504,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hv3-k8-Ja4">
-                                                <rect key="frame" x="0.0" y="273" width="325" height="71"/>
+                                                <rect key="frame" x="0.0" y="250.5" width="325" height="71"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Uy4-UL-4ss">
                                                         <rect key="frame" x="0.0" y="0.0" width="157.5" height="71"/>
@@ -572,6 +571,42 @@
                                                     <constraint firstItem="Uy4-UL-4ss" firstAttribute="width" secondItem="WL6-xf-jdq" secondAttribute="width" id="Mmp-rb-JN0"/>
                                                 </constraints>
                                             </stackView>
+                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="i0b-LA-YFZ">
+                                                <rect key="frame" x="0.0" y="341.5" width="325" height="113"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cDa-qO-Kbu">
+                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="25"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OhE-4P-wfV">
+                                                        <rect key="frame" x="0.0" y="35" width="325" height="34"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                                        <state key="normal" title="Delete target">
+                                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="deleteButton:" destination="1wJ-Rm-VqY" eventType="touchUpInside" id="XLL-ZQ-cgS"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55C-n6-hzE">
+                                                        <rect key="frame" x="0.0" y="79" width="325" height="34"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                                        <state key="normal" title="Complete target">
+                                                            <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="completeButton:" destination="1wJ-Rm-VqY" eventType="touchUpInside" id="1oP-br-s8m"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="OhE-4P-wfV" firstAttribute="height" secondItem="55C-n6-hzE" secondAttribute="height" id="Ihr-tT-xMx"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -580,6 +615,7 @@
                                     <constraint firstAttribute="trailing" secondItem="rcU-Ve-9Hz" secondAttribute="trailing" constant="10" id="CpM-iO-ClO"/>
                                     <constraint firstItem="rcU-Ve-9Hz" firstAttribute="top" secondItem="mNt-nw-ctt" secondAttribute="top" constant="25" id="H6h-jC-Gbo"/>
                                     <constraint firstItem="rcU-Ve-9Hz" firstAttribute="leading" secondItem="mNt-nw-ctt" secondAttribute="leading" constant="10" id="WN3-1Y-at2"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rcU-Ve-9Hz" secondAttribute="bottom" constant="20" id="hco-53-Zqc"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -596,23 +632,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Target" id="d2W-lM-va4">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Done" id="q2k-cu-aT7">
-                                <connections>
-                                    <action selector="doneButton:" destination="1wJ-Rm-VqY" id="Ynp-Ui-47v"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Delete" id="hC4-B9-4p6">
-                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="deleteButton:" destination="1wJ-Rm-VqY" id="YJ3-or-dtO"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="q2k-cu-aT7">
+                            <connections>
+                                <action selector="doneButton:" destination="1wJ-Rm-VqY" id="Ynp-Ui-47v"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="actionsStackView" destination="i0b-LA-YFZ" id="OOH-RE-BLV"/>
                         <outlet property="addImageButton" destination="Hd9-Kt-Icb" id="Mah-TC-mJI"/>
-                        <outlet property="deleteButton" destination="hC4-B9-4p6" id="qzJ-Ec-P5D"/>
                         <outlet property="descriptionTF" destination="T7f-yM-hX1" id="pTg-Hf-0oO"/>
                         <outlet property="endDate" destination="umm-H4-KtP" id="hBw-Ye-JFy"/>
                         <outlet property="mainView" destination="mNt-nw-ctt" id="e9z-lb-Df2"/>

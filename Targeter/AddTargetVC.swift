@@ -21,7 +21,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     //MARK: - Outlets
     
-    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var actionsStackView: UIStackView!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var titleTF: UITextField!
     @IBOutlet weak var descriptionTF: UITextField!
@@ -36,6 +36,14 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Next", size: 22)!]
+        //navigationController?.navigationBar.
+        //deleteButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
+        //deleteButton.tintColor = .red // cell.dot1.image!.withRenderingMode(.alwaysTemplate)
+
+        
         dateFormatter.dateStyle = DateFormatter.Style.medium
         dateFormatter.timeStyle = DateFormatter.Style.none
         hideKeyboardWhenTappedAround()
@@ -55,9 +63,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 endDate.text = dateFormatter.string(from: endingDate)
             }
             navigationItem.title = "Edit target"
-        } else {
-            deleteButton.isEnabled = false
-        }
+            actionsStackView.isHidden = false
+        } 
     }
     
     //MARK: - UITextFieldDelegatye
@@ -171,6 +178,10 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         deleteTargetAlertController(target: target!)
     }
     
+
+    @IBAction func completeButton(_ sender: Any) {
+        target?.completed = true
+    }
     @IBAction func addImageButton(_ sender: Any) {
         
         //imagePicker(.photoLibrary)

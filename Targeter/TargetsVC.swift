@@ -37,8 +37,12 @@ class TargetsVC: UITableViewController {
          }
          */
         
+        
+        // Set uo Navigation controller
         // Make navigation bar not transluen
-        self.navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Next", size: 20)!]
+
         
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
