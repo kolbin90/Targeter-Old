@@ -38,10 +38,8 @@ class TargetsVC: UITableViewController {
          */
         
         
-        // Set uo Navigation controller
-        // Make navigation bar not transluen
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Next", size: 20)!]
+        // Set up Navigation controller
+        setNavigationController()
 
         
         // Create a fetchrequest

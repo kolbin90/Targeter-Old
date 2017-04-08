@@ -36,13 +36,9 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Next", size: 22)!]
-        //navigationController?.navigationBar.
-        //deleteButton.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 16)!], for: .normal)
-        UIBarButtonItem.appearance().setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
+        // Set up Navigation controller
+        setNavigationController()
         //deleteButton.tintColor = .red // cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-
         
         dateFormatter.dateStyle = DateFormatter.Style.medium
         dateFormatter.timeStyle = DateFormatter.Style.none
