@@ -29,13 +29,13 @@ class TargetsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     //   /*
+        /*
          do {
          try stack.dropAllData()
          } catch {
          print("Ebat' error")
          }
-     //    */
+         */
         
         // Make navigation bar not transluen
         self.navigationController?.navigationBar.isTranslucent = false
@@ -81,19 +81,6 @@ class TargetsVC: UITableViewController {
         return ("nothing", nil)
     }
     
-    func deleteTargetAlertController(target: Target) {
-        let actionController = UIAlertController(title: "Delete Target", message: "Are you sure to delete? You can't undo this", preferredStyle: .alert)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            DispatchQueue.main.async {
-                self.stack.context.delete(target)
-                self.stack.save()
-            }
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        actionController.addAction(deleteAction)
-        actionController.addAction(cancelAction)
-        self.present(actionController, animated: true, completion: nil)
-    }
     // MARK: Actions
     @IBAction func addButton(_ sender: Any) {
     }
@@ -244,11 +231,6 @@ extension TargetsVC {
             target.addToSuccessList(success)
             self.stack.save()
         }
-        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") {action in
-            //handle delete
-            self.deleteTargetAlertController(target: target)
-        }
-        deleteAction.backgroundColor = .black
         let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
             //handle edit
             let date = Date()
@@ -259,29 +241,25 @@ extension TargetsVC {
         successAction.backgroundColor! = .green
         
         
-        if target.completed {
-            return [deleteAction]
-        } else {
-            if let successList = target.successList as? Set<Success>, (successList.count > 0) {
-                let (success, todayInSuccessList) = todayIn(successList: successList, today: today)
-                let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action in
-                    self.stack.context.delete(todayInSuccessList!)
-                    self.stack.save()
-                }
-                unmarkAction.backgroundColor = .darkGray
-                switch success {
-                case "succeed",
-                     "failed":
-                    return [unmarkAction,deleteAction]
-                case "nothing":
-                    return [failAction, successAction,deleteAction]
-                default:
-                    print("Error!")
-                    return [failAction, successAction,deleteAction]
-                }
-            } else {
-                return [failAction, successAction,deleteAction]
+        if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+            let (success, todayInSuccessList) = todayIn(successList: successList, today: today)
+            let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action in
+                self.stack.context.delete(todayInSuccessList!)
+                self.stack.save()
             }
+            unmarkAction.backgroundColor = .darkGray
+            switch success {
+            case "succeed",
+                 "failed":
+                return [unmarkAction]
+            case "nothing":
+                return [failAction, successAction]
+            default:
+                print("Error!")
+                return [failAction, successAction]
+            }
+        } else {
+            return [failAction, successAction]
         }
     }
 }

@@ -21,6 +21,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     //MARK: - Outlets
     
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var titleTF: UITextField!
     @IBOutlet weak var descriptionTF: UITextField!
@@ -54,6 +55,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 endDate.text = dateFormatter.string(from: endingDate)
             }
             navigationItem.title = "Edit target"
+        } else {
+            deleteButton.isEnabled = false
         }
     }
     
@@ -82,10 +85,27 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         dismiss(animated: true, completion: nil)
         
     }
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     //MARK: - Assist functions
+    
+    func deleteTargetAlertController(target: Target) {
+        let actionController = UIAlertController(title: "Delete Target", message: "Are you sure to delete? You can't undo this", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            DispatchQueue.main.async {
+                self.stack.context.delete(target)
+                self.stack.save()
+                _ = self.navigationController?.popViewController(animated: true)
+
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionController.addAction(deleteAction)
+        actionController.addAction(cancelAction)
+        self.present(actionController, animated: true, completion: nil)
+    }
     
     func prepareNewImage(image: UIImage) -> Data {
         var newImage = image.resized(toWidth: (self.view.frame.width))!
@@ -147,6 +167,9 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     //MARK: - Actions
     
+    @IBAction func deleteButton(_ sender: Any) {
+        deleteTargetAlertController(target: target!)
+    }
     
     @IBAction func addImageButton(_ sender: Any) {
         
@@ -186,15 +209,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             }
             var imageData:Data?
             var cellImageData:Data?
-            //TODO: Scale image for future showing in
-            /*
-             if tergetImageView.image != nil {
-             imageData = tergetImageView.image!.jpeg(.highest)
-             } else {
-             imageData = nil
-             }
-             */
-            // TODO: Check if picture wasn't change and don't do anything with that
+
             if editingMode {
                 target!.title = titleTF.text!
                 target!.descriptionCompletion = descriptionTF.text!

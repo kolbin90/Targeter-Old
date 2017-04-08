@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -32,7 +33,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="28" sectionFooterHeight="28" id="eNq-SN-pYz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="130" id="wct-af-Ah5" customClass="TargetCell" customModule="Targeter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="130"/>
@@ -595,14 +596,23 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Target" id="d2W-lM-va4">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="q2k-cu-aT7">
-                            <connections>
-                                <action selector="doneButton:" destination="1wJ-Rm-VqY" id="Ynp-Ui-47v"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Done" id="q2k-cu-aT7">
+                                <connections>
+                                    <action selector="doneButton:" destination="1wJ-Rm-VqY" id="Ynp-Ui-47v"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Delete" id="hC4-B9-4p6">
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="deleteButton:" destination="1wJ-Rm-VqY" id="YJ3-or-dtO"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addImageButton" destination="Hd9-Kt-Icb" id="Mah-TC-mJI"/>
+                        <outlet property="deleteButton" destination="hC4-B9-4p6" id="qzJ-Ec-P5D"/>
                         <outlet property="descriptionTF" destination="T7f-yM-hX1" id="pTg-Hf-0oO"/>
                         <outlet property="endDate" destination="umm-H4-KtP" id="hBw-Ye-JFy"/>
                         <outlet property="mainView" destination="mNt-nw-ctt" id="e9z-lb-Df2"/>
