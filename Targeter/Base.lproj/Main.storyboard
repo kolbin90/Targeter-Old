@@ -32,7 +32,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="130" sectionHeaderHeight="28" sectionFooterHeight="28" id="eNq-SN-pYz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.31406249999999997" green="0.39170956338799823" blue="0.46875" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="130" id="wct-af-Ah5" customClass="TargetCell" customModule="Targeter" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="130"/>
@@ -56,7 +56,7 @@
                                                             <subviews>
                                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMPLETED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LM8-MS-Vzf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="275" height="28.5"/>
-                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
                                                                     <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.65000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="ogn-7N-T7Z">
                                                                             <rect key="frame" x="10" y="0.0" width="265" height="28"/>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <attributedString key="attributedText">
                                                                                 <fragment content="LabelLabel labeljghhgghghghghghghghg">
                                                                                     <attributes>
@@ -94,220 +94,221 @@
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xV1-oJ-stP">
                                                                                     <rect key="frame" x="6.5" y="0.0" width="8.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="77l-Hd-A3h">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EBd-ly-Nbs">
                                                                             <rect key="frame" x="21" y="0.0" width="21.5" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FS8-Tl-DN9">
                                                                                     <rect key="frame" x="6.5" y="0.0" width="8.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="AXD-2C-qzv">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21.5" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yeo-xJ-NLy">
                                                                             <rect key="frame" x="42.5" y="0.0" width="21" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLz-tG-6Tu">
                                                                                     <rect key="frame" x="6" y="0.0" width="8.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-7s-n1b">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nkw-YN-g5W">
                                                                             <rect key="frame" x="63.5" y="0.0" width="21" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYJ-rj-eh7">
                                                                                     <rect key="frame" x="6.5" y="0.0" width="8.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="QNI-ox-81P">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Vjl-fD-oDZ">
                                                                             <rect key="frame" x="84.5" y="0.0" width="21.5" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tg-JC-G4P">
                                                                                     <rect key="frame" x="6.5" y="0.0" width="8.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="7fc-vW-47g">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21.5" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Dqx-bl-1Zc">
                                                                             <rect key="frame" x="106" y="0.0" width="21" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crJ-5F-S7x">
                                                                                     <rect key="frame" x="6" y="0.0" width="8.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="HyR-B7-wC4">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="I9t-k7-eJI">
                                                                             <rect key="frame" x="127" y="0.0" width="21" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zzk-60-2gb">
                                                                                     <rect key="frame" x="6.5" y="0.0" width="8.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="qde-bV-iuz">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="K4H-3k-sT3">
                                                                             <rect key="frame" x="148" y="0.0" width="21" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-tU-M2A">
                                                                                     <rect key="frame" x="6.5" y="0.0" width="8.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="bYz-f5-fSN">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g6p-d7-5pR">
                                                                             <rect key="frame" x="169" y="0.0" width="21.5" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fk-W7-GWF">
                                                                                     <rect key="frame" x="2.5" y="0.0" width="16.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="iDU-Km-lag">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21.5" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QxA-tc-L4d">
                                                                             <rect key="frame" x="190.5" y="0.0" width="21" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0q-fe-wjt">
                                                                                     <rect key="frame" x="2" y="0.0" width="16.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="i2X-KI-Kj1">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9KF-Tf-9y1">
                                                                             <rect key="frame" x="211.5" y="0.0" width="21" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMk-Sk-IUO">
                                                                                     <rect key="frame" x="2.5" y="0.0" width="16.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="eqx-tL-nV1">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WJ7-xM-3kJ">
                                                                             <rect key="frame" x="232.5" y="0.0" width="21.5" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNf-De-wwd">
                                                                                     <rect key="frame" x="2.5" y="0.0" width="16.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="VLc-2o-hvg">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21.5" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wPy-Jo-Gxl">
                                                                             <rect key="frame" x="254" y="0.0" width="21" height="28.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hwo-eR-fXa">
                                                                                     <rect key="frame" x="2" y="0.0" width="16.5" height="14.5"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="7BH-Fa-RsY">
                                                                                     <rect key="frame" x="0.0" y="14.5" width="21" height="14"/>
-                                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 </imageView>
                                                                             </subviews>
-                                                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </stackView>
                                                                     </subviews>
                                                                 </stackView>
@@ -319,14 +320,14 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23/4 2017" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PXW-aA-DUf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="45" height="49"/>
-                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="25"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="sYm-Mn-W9c">
                                                                     <rect key="frame" x="0.0" y="49" width="45" height="36"/>
-                                                                    <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </imageView>
                                                             </subviews>
                                                             <constraints>
@@ -336,7 +337,7 @@
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.75151909719999999" green="0.87624677340000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.73021267364800002" green="0.80528675213908307" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="oyK-rK-XBj" firstAttribute="leading" secondItem="8m0-ky-A8H" secondAttribute="leading" constant="5" id="3jU-9h-jDv"/>
                                                 <constraint firstAttribute="trailing" secondItem="oyK-rK-XBj" secondAttribute="trailing" constant="10" id="GY2-m7-e4J"/>
@@ -631,7 +632,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.31406250000000002" green="0.39170956340000002" blue="0.46875" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zVo-1D-ZBT" firstAttribute="leading" secondItem="RrR-Oe-TIK" secondAttribute="leading" id="0Dc-2B-Axk"/>
                             <constraint firstAttribute="trailing" secondItem="zVo-1D-ZBT" secondAttribute="trailing" id="4OT-E3-tcB"/>

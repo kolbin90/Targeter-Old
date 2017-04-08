@@ -177,6 +177,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
 
     @IBAction func completeButton(_ sender: Any) {
         target?.completed = true
+        stack.save()
+        _ = navigationController?.popViewController(animated: true)
     }
     @IBAction func addImageButton(_ sender: Any) {
         
