@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplication​Shortcut​Icon​Type.add</string>
+			<string>UIApplicationShortcutIconTypeAdd</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Add Target</string>
 			<key>UIApplicationShortcutItemType</key>
