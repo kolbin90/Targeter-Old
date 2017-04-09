@@ -13,7 +13,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var stack = CoreDataStack(modelName: "Model")!
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        if shortcutItem.type == "com.alder.Targeter.addTarget" {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let addTargetVC = storyboard.instantiateViewController(withIdentifier: "AddTargetVC") as! AddTargetVC
+            let targetsVC = storyboard.instantiateViewController(withIdentifier: "TargetsVC") as! TargetsVC
+            let navController = UINavigationController.init(rootViewController: targetsVC)
+          /*
+            if let window = self.window, let rootViewController = window.rootViewController {
+                var currentController = rootViewController
+                while let presentedController = currentController.presentedViewController {
+                    currentController = presentedController
+                }
+                currentController.present(navController, animated: true, completion: nil)
+            }
+            
+            */
+            navController.viewControllers.append(addTargetVC)
+            
+            
+            self.window?.rootViewController = navController
+            self.window?.makeKeyAndVisible()
+        }
+        /*
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier :"InboxViewController") as! InboxViewController
+        let navController = UINavigationController.init(rootViewController: viewController)
+        
+        if let window = self.window, let rootViewController = window.rootViewController {
+            var currentController = rootViewController
+            while let presentedController = currentController.presentedViewController {
+                currentController = presentedController
+            }
+            currentController.present(navController, animated: true, completion: nil)
+        }
+        */
+        completionHandler(true)
+    }
+    
 
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
