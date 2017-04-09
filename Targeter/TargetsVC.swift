@@ -14,6 +14,10 @@ import CoreData
 class TargetsVC: UITableViewController {
     
     // MARK: Properties
+    let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
+    //let greenColor = UIColor.init(red: 0.548, green: 0.776, blue: 0.248, alpha: 1)
+
+    let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
@@ -157,9 +161,9 @@ extension TargetsVC {
                         let success = self.todayIn(successList: successList, today: dayForChecking).0
                         switch success {
                         case "succeed":
-                            dotColor = .green
+                            dotColor = self.greenColor//.green
                         case "failed":
-                            dotColor = .red
+                            dotColor = self.redColor
                         case "nothing":
                             dotColor = .black
                         default:
@@ -226,13 +230,14 @@ extension TargetsVC {
         let target = fetchedResultsController?.object(at: indexPath) as! Target
         let today = Date()
         // Create different options for "Swipe left to do sms"
-        let failAction = UITableViewRowAction(style: .default, title: "Failed") {action in
+        let failAction = UITableViewRowAction(style: .normal, title: "Failed") {action in
             //handle delete
             let date = Date()
             let success = Success.init(date: date, success: false, context: self.stack.context)
             target.addToSuccessList(success)
             self.stack.save()
         }
+        failAction.backgroundColor = redColor
         let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action in
             //handle edit
             let date = Date()
@@ -240,7 +245,7 @@ extension TargetsVC {
             target.addToSuccessList(success)
             self.stack.save()
         }
-        successAction.backgroundColor! = .green
+        successAction.backgroundColor! = greenColor //.green
         
         
         if let successList = target.successList as? Set<Success>, (successList.count > 0) {
