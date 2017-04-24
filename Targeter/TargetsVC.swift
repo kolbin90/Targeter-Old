@@ -15,9 +15,8 @@ class TargetsVC: UITableViewController {
     
     // MARK: Properties
     let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
-    //let greenColor = UIColor.init(red: 0.548, green: 0.776, blue: 0.248, alpha: 1)
-
     let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
+    
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
