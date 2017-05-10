@@ -30,6 +30,7 @@ class TargetCell: UITableViewCell {
     @IBOutlet weak var dot13: UIImageView!
     @IBOutlet weak var dot14: UIImageView!
     
+    
     @IBOutlet weak var day1: UILabel!
     @IBOutlet weak var day2: UILabel!
     @IBOutlet weak var day3: UILabel!
