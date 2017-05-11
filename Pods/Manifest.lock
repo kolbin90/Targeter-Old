@@ -1,11 +1,11 @@
 PODS:
-  - FSCalendar (2.5.0)
+  - FSCalendar (2.7.6)
 
 DEPENDENCIES:
   - FSCalendar
 
 SPEC CHECKSUMS:
-  FSCalendar: eacc1e0086e8784b395731595033d84ccc13a217
+  FSCalendar: feef792968ca0166bafc93e02fcd840b07d256e5
 
 PODFILE CHECKSUM: d27f107ddf78eff55cee9a4d1df89e6ac962eba2
 

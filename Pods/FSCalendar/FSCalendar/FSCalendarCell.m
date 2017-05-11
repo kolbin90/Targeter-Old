@@ -46,8 +46,7 @@
 }
 
 - (void)commonInit
-{
-    
+{   
     UILabel *label;
     CAShapeLayer *shapeLayer;
     UIImageView *imageView;
@@ -93,33 +92,6 @@
 {
     [super layoutSubviews];
     
-    if (self.placeholder) {
-        if (self.calendar.placeholderType==FSCalendarPlaceholderTypeNone) {
-            self.contentView.hidden = [self.calendar isDateInRange:self.date]||![self.calendar.gregorian isDate:self.date equalToDate:self.month toUnitGranularity:NSCalendarUnitMonth];
-        } else if (self.calendar.placeholderType == FSCalendarPlaceholderTypeFillHeadTail && self.calendar.scope == FSCalendarScopeMonth && !self.calendar.floatingMode) {
-            
-            NSIndexPath *indexPath = [self.calendar.collectionView indexPathForCell:self];
-            
-            NSInteger lineCount = [self.calendar.calculator numberOfRowsInMonth:self.month];
-            if (lineCount == 6) {
-                self.contentView.hidden = NO;
-            } else {
-                NSInteger currentLine = 0;
-                if (self.calendar.collectionViewLayout.scrollDirection == UICollectionViewScrollDirectionVertical) {
-                    currentLine = indexPath.item/7 + 1;
-                } else {
-                    currentLine = indexPath.item%6 + 1;
-                }
-                self.contentView.hidden = (currentLine>lineCount);
-            }
-        }
-    } else if (self.contentView.hidden) {
-        self.contentView.hidden = NO;
-    }
-    
-    if (self.contentView.hidden) return;
-    
-    _titleLabel.text = self.title ?: @([self.calendar.gregorian component:NSCalendarUnitDay fromDate:_date]).stringValue;
     if (_subtitle) {
         _subtitleLabel.text = _subtitle;
         if (_subtitleLabel.hidden) {
@@ -188,8 +160,6 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    _month = nil;
-    _date = nil;
     [CATransaction setDisableActions:YES];
     _shapeLayer.opacity = 0;
     [self.contentView.layer removeAnimationForKey:@"opacity"];
@@ -216,7 +186,7 @@
     group.duration = kAnimationDuration;
     group.animations = @[zoomOut, zoomIn];
     [_shapeLayer addAnimation:group forKey:@"bounce"];
-    [self configureSubviews];
+    [self configureAppearance];
     
 #undef kAnimationDuration
     
@@ -224,16 +194,24 @@
 
 #pragma mark - Private
 
-- (void)configureSubviews
+- (void)configureAppearance
 {
     UIColor *textColor = self.colorForTitleLabel;
     if (![textColor isEqual:_titleLabel.textColor]) {
         _titleLabel.textColor = textColor;
     }
+    UIFont *titleFont = self.calendar.appearance.titleFont;
+    if (![titleFont isEqual:_titleLabel.font]) {
+        _titleLabel.font = titleFont;
+    }
     if (_subtitle) {
         textColor = self.colorForSubtitleLabel;
         if (![textColor isEqual:_subtitleLabel.textColor]) {
             _subtitleLabel.textColor = textColor;
+        }
+        titleFont = self.calendar.appearance.subtitleFont;
+        if (![titleFont isEqual:_subtitleLabel.font]) {
+            _subtitleLabel.font = titleFont;
         }
     }
     
@@ -257,10 +235,17 @@
             _shapeLayer.strokeColor = cellBorderColor;
         }
         
+        CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
+                                                    cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
+        if (!CGPathEqualToPath(_shapeLayer.path, path)) {
+            _shapeLayer.path = path;
+        }
+        
     }
     
     if (![_image isEqual:_imageView.image]) {
-        [self invalidateImage];
+        _imageView.image = _image;
+        _imageView.hidden = !_image;
     }
     
     if (_eventIndicator.hidden == (_numberOfEvents > 0)) {
@@ -269,14 +254,7 @@
     
     _eventIndicator.numberOfEvents = self.numberOfEvents;
     _eventIndicator.color = self.colorsForEvents;
-    
 
-}
-
-- (BOOL)isWeekend
-{
-    if (!_date) return NO;
-    return [self.calendar.gregorian isDateInWeekend:self.date];
 }
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
@@ -293,58 +271,10 @@
     if (self.placeholder && [[dictionary allKeys] containsObject:@(FSCalendarCellStatePlaceholder)]) {
         return dictionary[@(FSCalendarCellStatePlaceholder)];
     }
-    if (self.isWeekend && [[dictionary allKeys] containsObject:@(FSCalendarCellStateWeekend)]) {
+    if (self.weekend && [[dictionary allKeys] containsObject:@(FSCalendarCellStateWeekend)]) {
         return dictionary[@(FSCalendarCellStateWeekend)];
     }
     return dictionary[@(FSCalendarCellStateNormal)];
-}
-
-- (void)invalidateTitleFont
-{
-    _titleLabel.font = self.appearance.preferredTitleFont;
-}
-
-- (void)invalidateTitleTextColor
-{
-    _titleLabel.textColor = self.colorForTitleLabel;
-}
-
-- (void)invalidateSubtitleFont
-{
-    _subtitleLabel.font = self.appearance.preferredSubtitleFont;
-}
-
-- (void)invalidateSubtitleTextColor
-{
-    _subtitleLabel.textColor = self.colorForSubtitleLabel;
-}
-
-- (void)invalidateBorderColors
-{
-    _shapeLayer.strokeColor = self.colorForCellBorder.CGColor;
-}
-
-- (void)invalidateFillColors
-{
-    _shapeLayer.fillColor = self.colorForCellFill.CGColor;
-}
-
-- (void)invalidateEventColors
-{
-    _eventIndicator.color = self.colorsForEvents;
-}
-
-- (void)invalidateBorderRadius
-{
-    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_shapeLayer.bounds
-                                                cornerRadius:CGRectGetWidth(_shapeLayer.bounds)*0.5*self.borderRadius].CGPath;
-    _shapeLayer.path = path;
-}
-
-- (void)invalidateImage
-{
-    _imageView.image = _image;
-    _imageView.hidden = !_image;
 }
 
 #pragma mark - Properties
@@ -409,7 +339,7 @@
 \
 - (CGPoint)NAME \
 { \
-    return CGPointEqualToPoint(_##NAME, CGPointZero) ? ALTERNATIVE : _##NAME; \
+    return CGPointEqualToPoint(_##NAME, CGPointInfinity) ? ALTERNATIVE : _##NAME; \
 }
 
 OFFSET_PROPERTY(preferredTitleOffset, PreferredTitleOffset, _appearance.titleOffset);
@@ -423,14 +353,8 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
 {
     if (![_calendar isEqual:calendar]) {
         _calendar = calendar;
-    }
-    if (![_appearance isEqual:calendar.appearance]) {
         _appearance = calendar.appearance;
-        [self invalidateTitleFont];
-        [self invalidateSubtitleFont];
-        [self invalidateTitleTextColor];
-        [self invalidateSubtitleTextColor];
-        [self invalidateEventColors];
+        [self configureAppearance];
     }
 }
 
@@ -452,8 +376,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
 
 @property (weak, nonatomic) UIView *contentView;
 
-@property (strong, nonatomic) NSMutableArray *eventLayers;
-@property (assign, nonatomic) BOOL needsInvalidatingColor;
+@property (strong, nonatomic) NSPointerArray *eventLayers;
 
 @end
 
@@ -468,15 +391,13 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
         [self addSubview:view];
         self.contentView = view;
         
-        self.eventLayers = [NSMutableArray arrayWithCapacity:3];
+        self.eventLayers = [NSPointerArray weakObjectsPointerArray];
         for (int i = 0; i < 3; i++) {
             CALayer *layer = [CALayer layer];
             layer.backgroundColor = [UIColor clearColor].CGColor;
-            [self.eventLayers addObject:layer];
             [self.contentView.layer addSublayer:layer];
+            [self.eventLayers addPointer:(__bridge void * _Nullable)(layer)];
         }
-        
-        _needsInvalidatingColor = YES;
         
     }
     return self;
@@ -498,31 +419,12 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
         
         CGFloat diameter = MIN(MIN(self.fs_width, self.fs_height),FSCalendarMaximumEventDotDiameter);
         for (int i = 0; i < self.eventLayers.count; i++) {
-            CALayer *eventLayer = self.eventLayers[i];
+            CALayer *eventLayer = [self.eventLayers pointerAtIndex:i];
             eventLayer.hidden = i >= self.numberOfEvents;
             if (!eventLayer.hidden) {
                 eventLayer.frame = CGRectMake(2*i*diameter, (self.fs_height-diameter)*0.5, diameter, diameter);
                 if (eventLayer.cornerRadius != diameter/2) {
                     eventLayer.cornerRadius = diameter/2;
-                }
-            }
-        }
-        
-        if (_needsInvalidatingColor) {
-            _needsInvalidatingColor = NO;
-            if ([_color isKindOfClass:[UIColor class]]) {
-                [self.eventLayers makeObjectsPerformSelector:@selector(setBackgroundColor:) withObject:(id)[_color CGColor]];
-            } else if ([_color isKindOfClass:[NSArray class]]) {
-                NSArray *colors = (NSArray *)_color;
-                if (colors.count) {
-                    UIColor *lastColor = colors.firstObject;
-                    for (int i = 0; i < self.eventLayers.count; i++) {
-                        if (i < colors.count) {
-                            lastColor = colors[i];
-                        }
-                        CALayer *eventLayer = self.eventLayers[i];
-                        eventLayer.backgroundColor = lastColor.CGColor;
-                    }
                 }
             }
         }
@@ -533,8 +435,20 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
 {
     if (![_color isEqual:color]) {
         _color = color;
-        _needsInvalidatingColor = YES;
-        [self setNeedsLayout];
+        
+        if ([_color isKindOfClass:[UIColor class]]) {
+            for (NSInteger i = 0; i < self.eventLayers.count; i++) {
+                CALayer *layer = [self.eventLayers pointerAtIndex:i];
+                layer.backgroundColor = [_color CGColor];
+            }
+        } else if ([_color isKindOfClass:[NSArray class]]) {
+            NSArray<UIColor *> *colors = (NSArray *)_color;
+            for (int i = 0; i < self.eventLayers.count; i++) {
+                CALayer *eventLayer = [self.eventLayers pointerAtIndex:i];
+                eventLayer.backgroundColor = colors[MIN(i,colors.count-1)].CGColor;
+            }
+        }
+        
     }
 }
 
@@ -547,5 +461,13 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
 }
 
 @end
+
+
+@implementation FSCalendarBlankCell
+
+- (void)configureAppearance {}
+
+@end
+
 
 
