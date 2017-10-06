@@ -261,13 +261,13 @@ extension TargetsVC {
                  "failed":
                 return [unmarkAction]
             case "nothing":
-                return [failAction, successAction]
+                return [successAction, failAction]
             default:
                 print("Error!")
-                return [failAction, successAction]
+                return [successAction, failAction]
             }
         } else {
-            return [failAction, successAction]
+            return [successAction, failAction]
         }
     }
 }
