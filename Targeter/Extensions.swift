@@ -14,8 +14,8 @@ extension UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.752, green: 0.876, blue: 1.0, alpha: 1.0)
             //.init(hue: 210, saturation: 0.250, brightness: 1, alpha: 1) //
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Next", size: 22)!]
-        UIBarButtonItem.appearance().setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
+        navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 22)!]
+        UIBarButtonItem.appearance().setTitleTextAttributes([ NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
         navigationController?.navigationBar.tintColor = .black
     }
     // Show activity indicator
@@ -73,7 +73,7 @@ extension UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }
