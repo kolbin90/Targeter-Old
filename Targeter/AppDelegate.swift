@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import UserNotifications
+import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     var stack = CoreDataStack(modelName: "Model")!
@@ -38,19 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = navController
             self.window?.makeKeyAndVisible()
         }
-        /*
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier :"InboxViewController") as! InboxViewController
-        let navController = UINavigationController.init(rootViewController: viewController)
-        
-        if let window = self.window, let rootViewController = window.rootViewController {
-            var currentController = rootViewController
-            while let presentedController = currentController.presentedViewController {
-                currentController = presentedController
-            }
-            currentController.present(navController, animated: true, completion: nil)
-        }
-        */
         completionHandler(true)
     }
     
@@ -58,7 +47,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (allowed, error) in
+            if !allowed {
+                print(error)
+            } else {
+                print("Notification access granded")
+            }
+        }
+        UNUserNotificationCenter.current().delegate = self
         return true
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print(1)
+     //   func getTargetsFromCore() {
+            do {
+                let targets = try stack.context.fetch(Target.fetchRequest()) as [Target]
+                var targetsMarked = 0
+                for target in targets {
+                    if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+                    //func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
+                        for day in successList {
+                            if Calendar.current.isDate(day.date, equalTo: Date(), toGranularity:.day) {
+                                if day.success {
+                                    targetsMarked += 1
+                                } else {
+                                    print("failed")
+                                    return
+                                }
+                            }
+                        }
+                     //   return ("nothing", nil)
+                    }
+                }
+                if targetsMarked != targets.count {
+                   // completionHandler(nil)
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notification.request.identifier])
+                    
+                }
+                //self.mapView.addAnnotations(annotations)
+            }  catch {
+                print("error")
+            }
+    //    }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

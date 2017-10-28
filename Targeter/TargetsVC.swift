@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import FSCalendar
+import UserNotifications
 
 
 // MARK: - CoreDataTableViewController: UITableViewController
@@ -89,11 +90,20 @@ class TargetsVC: UITableViewController {
     }
     
     // MARK: Actions
+    @IBAction func pushButton(_ sender: Any) {
+        let content = UNMutableNotificationContent()
+        content.title = "Privet"
+        content.subtitle = "Eto subtitle"
+        content.body = "A eto telo"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier: "one", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
     @IBAction func addButton(_ sender: Any) {
     }
     
-    @IBAction func settingsButton(_ sender: Any) {
-    }
 }
 
 // MARK: - CoreDataTableViewController
