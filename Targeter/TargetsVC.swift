@@ -8,8 +8,11 @@
 
 import UIKit
 import CoreData
-import FSCalendar
+//import FSCalendar
 import UserNotifications
+import Firebase
+import FirebaseAuthUI
+import FirebaseGoogleAuthUI
 
 
 // MARK: - CoreDataTableViewController: UITableViewController
@@ -19,6 +22,10 @@ class TargetsVC: UITableViewController {
     // MARK: Properties
     let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
     let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
+    
+    fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
+    var user: User?
+    var displayName = "Anonymous"
     
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
@@ -35,6 +42,7 @@ class TargetsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureAuth()
         /*
          do {
          try stack.dropAllData()
@@ -87,6 +95,50 @@ class TargetsVC: UITableViewController {
             }
         }
         return ("nothing", nil)
+    }
+    
+    func configureAuth() {
+        let provider = [FUIGoogleAuth()]
+        FUIAuth.defaultAuthUI()?.providers = provider
+        
+        // TODO: configure firebase authentication
+        _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
+           // self.messages.removeAll(keepingCapacity: false)
+          //  self.messagesTable.reloadData()
+            
+            if let activeUser = user {
+                if self.user != activeUser {
+                    self.user = activeUser
+                    self.signedInStatus(isSignedIn: true)
+                    let name = activeUser.email!.components(separatedBy: "@")[0]
+                    self.displayName = name
+                }
+            } else {
+                self.signedInStatus(isSignedIn: false)
+                self.loginSession()
+            }
+        }
+    }
+    
+    func signedInStatus(isSignedIn: Bool) {
+
+        //sendButton.isHidden = !isSignedIn
+        //imageMessage.isHidden = !isSignedIn
+        
+        if (isSignedIn) {
+            
+            // remove background blur (will use when showing image messages)
+
+           // configureDatabase()
+          //  configureStorage()
+            
+            // TODO: Set up app to send and receive messages when signed in
+        }
+    }
+    
+    func loginSession() {
+        let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
+        self.present(authViewController, animated: true, completion: nil)
     }
     
     // MARK: Actions
@@ -166,7 +218,7 @@ extension TargetsVC {
                     }
                 } else {
                     // Check if Success list contains anyrhing
-                    if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+                if let successList = target.successList as? Set<Success>, (successList.count > 0) {
                         let dotColor:UIColor!
                         let success = self.todayIn(successList: successList, today: dayForChecking).0
                         switch success {
