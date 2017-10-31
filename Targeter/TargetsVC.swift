@@ -179,6 +179,7 @@ extension TargetsVC {
             var num = 0
             var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
             var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
+            var successList: Set<Success>?
             DispatchQueue.main.async {
                 // Round corners for view
                 cell.cellView.layer.cornerRadius = 15
@@ -205,6 +206,12 @@ extension TargetsVC {
                 
             }
             //   /*
+            if let successListTarget = target.successList as? Set<Success>, (successListTarget.count > 0) {
+                successList = successListTarget
+            } else {
+                successList = nil
+            }
+
             while num < numberOfMarksInCell {
                 // Color images on success and fail
                 let dayImageView = dotsArray[num]
@@ -218,7 +225,7 @@ extension TargetsVC {
                     }
                 } else {
                     // Check if Success list contains anyrhing
-                if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+                if let successList = successList {
                         let dotColor:UIColor!
                         let success = self.todayIn(successList: successList, today: dayForChecking).0
                         switch success {
