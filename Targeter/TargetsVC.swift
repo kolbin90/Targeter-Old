@@ -18,7 +18,8 @@ import FirebaseGoogleAuthUI
 // MARK: - CoreDataTableViewController: UITableViewController
 
 class TargetsVC: UITableViewController {
-    
+    // MARK: Outlets
+    @IBOutlet weak var loginButton: UIBarButtonItem!
     // MARK: Properties
     let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
     let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
@@ -128,11 +129,14 @@ class TargetsVC: UITableViewController {
         if (isSignedIn) {
             
             // remove background blur (will use when showing image messages)
+            loginButton.title = "Logout"
 
            // configureDatabase()
           //  configureStorage()
             
             // TODO: Set up app to send and receive messages when signed in
+        } else {
+            loginButton.title = "Login"
         }
     }
     
@@ -154,6 +158,24 @@ class TargetsVC: UITableViewController {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     @IBAction func addButton(_ sender: Any) {
+    }
+    
+    @IBAction func loginButton(_ sender: Any) {
+        if loginButton.title == "Logout" {
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                print("unable to sign out: \(error)")
+            }
+        } else {
+            self.loginSession()
+        }
+    }
+    
+    deinit {
+        // TODO: set up what needs to be deinitialized when view is no longer being used
+        // ref.child("messages").removeObserver(withHandle: _refHandle)
+        Auth.auth().removeStateDidChangeListener(_authHandle)
     }
     
 }
@@ -277,7 +299,7 @@ extension TargetsVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
-        cell.calendar.scope = .week
+       // cell.calendar.scope = .week
         return cell
     }
     

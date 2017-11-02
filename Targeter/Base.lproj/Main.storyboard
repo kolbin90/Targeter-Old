@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,7 +23,7 @@
             <objects>
                 <navigationController id="iMK-cI-jzt" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6TB-lO-IyS">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -33,7 +34,7 @@
             </objects>
             <point key="canvasLocation" x="-327" y="81"/>
         </scene>
-        <!--Data Source-->
+        <!--Targeter-->
         <scene sceneID="fwP-Dj-BvL">
             <objects>
                 <tableViewController storyboardIdentifier="TargetsVC" id="G0Z-9T-gTx" customClass="TargetsVC" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
@@ -62,14 +63,6 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fRq-Mw-Pwd">
                                                             <rect key="frame" x="0.0" y="0.0" width="275" height="135"/>
                                                             <subviews>
-                                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2zS-bY-m6m" customClass="FSCalendar">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="275" height="0.0"/>
-                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <connections>
-                                                                        <outlet property="dataSource" destination="G0Z-9T-gTx" id="yf5-rr-31o"/>
-                                                                        <outlet property="delegate" destination="G0Z-9T-gTx" id="leA-AR-GnU"/>
-                                                                    </connections>
-                                                                </view>
                                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMPLETED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LM8-MS-Vzf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="275" height="0.0"/>
                                                                     <color key="backgroundColor" red="0.73021267359999997" green="0.8052867521" blue="0.87977430560000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -375,7 +368,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="backgroundImage" destination="9bM-cm-m6P" id="yZV-3P-7yt"/>
-                                    <outlet property="calendar" destination="2zS-bY-m6m" id="pNI-Fw-EPk"/>
                                     <outlet property="cellView" destination="8m0-ky-A8H" id="DmX-6s-eW9"/>
                                     <outlet property="completedLabel" destination="LM8-MS-Vzf" id="KIR-te-vwS"/>
                                     <outlet property="day1" destination="PXW-aA-DUf" id="CVK-qL-2rf"/>
@@ -416,11 +408,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Targeter" id="6ua-m5-P2W">
-                        <barButtonItem key="leftBarButtonItem" title="Push" id="GXL-bn-LuX">
-                            <connections>
-                                <action selector="pushButton:" destination="G0Z-9T-gTx" id="q1O-DM-PYo"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem title="Login" id="E6e-Gk-mVG">
+                                <connections>
+                                    <action selector="loginButton:" destination="G0Z-9T-gTx" id="0S1-Nf-05q"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Push" id="GXL-bn-LuX">
+                                <connections>
+                                    <action selector="pushButton:" destination="G0Z-9T-gTx" id="q1O-DM-PYo"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="ajb-rT-Dax">
                             <connections>
                                 <action selector="addButton:" destination="G0Z-9T-gTx" id="b7c-39-WfY"/>
@@ -428,6 +427,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="loginButton" destination="E6e-Gk-mVG" id="QOE-bF-e2o"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZp-gJ-vc2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -449,7 +451,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view clipsSubviews="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNt-nw-ctt">
-                                <rect key="frame" x="15" y="114" width="345" height="503"/>
+                                <rect key="frame" x="15" y="118" width="345" height="499"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="rcU-Ve-9Hz">
                                         <rect key="frame" x="10" y="25" width="325" height="321.5"/>
@@ -695,7 +697,7 @@
             <objects>
                 <navigationController id="z85-rZ-Tcb" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gux-uH-VIf">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -711,7 +713,7 @@
             <objects>
                 <navigationController id="nPV-MA-HHA" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BSy-f5-vsW">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
