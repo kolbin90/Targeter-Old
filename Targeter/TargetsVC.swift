@@ -26,7 +26,7 @@ class TargetsVC: UITableViewController {
     
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
     var user: User?
-    var displayName = "Anonymous"
+    var displayName = "Anonymous"  // name before user logged in
     
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
@@ -43,6 +43,7 @@ class TargetsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Configure Firebase auth
         configureAuth()
         /*
          do {
@@ -84,7 +85,7 @@ class TargetsVC: UITableViewController {
         super.init(coder: aDecoder)
     }
     //MARK: Assist func
-    
+    // Check if selected day was marked as succeed or as failed in success list
     func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
         for day in successList {
             if Calendar.current.isDate(day.date, equalTo: today, toGranularity:.day) {
@@ -98,11 +99,12 @@ class TargetsVC: UITableViewController {
         return ("nothing", nil)
     }
     
+    // Configure auth with Firebase
     func configureAuth() {
         let provider = [FUIGoogleAuth()]
         FUIAuth.defaultAuthUI()?.providers = provider
         
-        // TODO: configure firebase authentication
+        // Create a listener to observe if auth status changed
         _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
            // self.messages.removeAll(keepingCapacity: false)
           //  self.messagesTable.reloadData()
@@ -121,6 +123,7 @@ class TargetsVC: UITableViewController {
         }
     }
     
+    // Configure app depending on auth status
     func signedInStatus(isSignedIn: Bool) {
 
         //sendButton.isHidden = !isSignedIn
@@ -128,7 +131,6 @@ class TargetsVC: UITableViewController {
         
         if (isSignedIn) {
             
-            // remove background blur (will use when showing image messages)
             loginButton.title = "Logout"
 
            // configureDatabase()
@@ -140,6 +142,7 @@ class TargetsVC: UITableViewController {
         }
     }
     
+    // Present firebase login viewController
     func loginSession() {
         let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
         self.present(authViewController, animated: true, completion: nil)
@@ -161,6 +164,7 @@ class TargetsVC: UITableViewController {
     }
     
     @IBAction func loginButton(_ sender: Any) {
+        // Button works as login and as logout
         if loginButton.title == "Logout" {
             do {
                 try Auth.auth().signOut()
