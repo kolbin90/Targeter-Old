@@ -6,5 +6,6 @@ target 'Targeter' do
 	pod 'Firebase/Database'
 	pod 'Firebase/RemoteConfig'
 	pod 'FirebaseUI'
+	pod ‘Firebase/Messaging’
 end
 
