@@ -24,7 +24,7 @@ class TargetsVC: UITableViewController {
     let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
     let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
     
-    fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
+    fileprivate var _authHandle: AuthStateDidChangeListenerHandle! // Listens when Firebase Auth changed status
     var user: User?
     var displayName = "Anonymous"  // name before user logged in
     
@@ -69,8 +69,7 @@ class TargetsVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        tableView.reloadData()
-        
+        tableView.reloadData() // Reload yable when view appears
     }
     
     
@@ -84,7 +83,7 @@ class TargetsVC: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    //MARK: Assist func
+    // MARK: Assist func
     // Check if selected day was marked as succeed or as failed in success list
     func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
         for day in successList {
@@ -106,9 +105,6 @@ class TargetsVC: UITableViewController {
         
         // Create a listener to observe if auth status changed
         _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
-           // self.messages.removeAll(keepingCapacity: false)
-          //  self.messagesTable.reloadData()
-            
             if let activeUser = user {
                 if self.user != activeUser {
                     self.user = activeUser
@@ -123,20 +119,10 @@ class TargetsVC: UITableViewController {
         }
     }
     
-    // Configure app depending on auth status
+    // Configure app and login button title depending on auth status
     func signedInStatus(isSignedIn: Bool) {
-
-        //sendButton.isHidden = !isSignedIn
-        //imageMessage.isHidden = !isSignedIn
-        
         if (isSignedIn) {
-            
             loginButton.title = "Logout"
-
-           // configureDatabase()
-          //  configureStorage()
-            
-            // TODO: Set up app to send and receive messages when signed in
         } else {
             loginButton.title = "Login"
         }
@@ -150,6 +136,7 @@ class TargetsVC: UITableViewController {
     
     // MARK: Actions
     @IBAction func pushButton(_ sender: Any) {
+        // Creating and setting up user notification
         let content = UNMutableNotificationContent()
         content.title = "Privet"
         content.subtitle = "Eto subtitle"
@@ -161,24 +148,27 @@ class TargetsVC: UITableViewController {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     @IBAction func addButton(_ sender: Any) {
+        // Segue to AddTargetVC setted uo in Storyboard
     }
     
     @IBAction func loginButton(_ sender: Any) {
         // Button works as login and as logout
         if loginButton.title == "Logout" {
+            // For logout button trying to sign out
             do {
                 try Auth.auth().signOut()
             } catch {
                 print("unable to sign out: \(error)")
             }
         } else {
+            // For login button starying login session
             self.loginSession()
         }
     }
     
     deinit {
-        // TODO: set up what needs to be deinitialized when view is no longer being used
         // ref.child("messages").removeObserver(withHandle: _refHandle)
+        // Remove auth listener
         Auth.auth().removeStateDidChangeListener(_authHandle)
     }
     
@@ -192,8 +182,6 @@ extension TargetsVC {
         
         
         DispatchQueue.global().async {
-            //main.async {
-            
             // Find the right notebook for this indexpath
             let target = self.fetchedResultsController!.object(at: indexPath) as! Target
             
@@ -229,7 +217,6 @@ extension TargetsVC {
                         self.stack.save()
                     }
                 }
-                
             }
             //   /*
             if let successListTarget = target.successList as? Set<Success>, (successListTarget.count > 0) {
@@ -303,7 +290,6 @@ extension TargetsVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create the cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
-       // cell.calendar.scope = .week
         return cell
     }
     
@@ -325,7 +311,7 @@ extension TargetsVC {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let target = fetchedResultsController?.object(at: indexPath) as! Target
         let today = Date()
-        // Create different options for "Swipe left to do sms"
+        // Create different options for "Swipe left to do smtn"
         let failAction = UITableViewRowAction(style: .normal, title: "Failed") {action,arg  in
             //handle delete
             let date = Date()
