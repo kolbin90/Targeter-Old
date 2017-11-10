@@ -414,6 +414,11 @@
                                     <action selector="loginButton:" destination="G0Z-9T-gTx" id="0S1-Nf-05q"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Account" id="3pu-qZ-pQ1">
+                                <connections>
+                                    <segue destination="8xe-wx-12S" kind="show" id="34h-2q-OIv"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Push" id="GXL-bn-LuX">
                                 <connections>
                                     <action selector="pushButton:" destination="G0Z-9T-gTx" id="q1O-DM-PYo"/>
@@ -936,7 +941,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="StY-yN-i5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1317.5999999999999" y="1549.4752623688157"/>
+            <point key="canvasLocation" x="1703" y="1538"/>
         </scene>
     </scenes>
     <resources>
@@ -944,6 +949,7 @@
         <image name="placeholder" width="800" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="34h-2q-OIv"/>
         <segue reference="6WO-wG-h2K"/>
     </inferredMetricsTieBreakers>
 </document>
