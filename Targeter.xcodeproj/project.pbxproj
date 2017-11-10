@@ -34,6 +34,7 @@
 		044ED1441E77362800F61A33 /* ImageFromFlickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */; };
 		047A353E1E712CFB0084AD68 /* TargetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A353D1E712CFB0084AD68 /* TargetCell.swift */; };
 		0493A3A41E7F5FAA0018C5BE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493A3A31E7F5FAA0018C5BE /* Extensions.swift */; };
+		04A417141FB60F4A007DD07B /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A417131FB60F4A007DD07B /* UserVC.swift */; };
 		92DD6CAA7BD32A967C46C223 /* Pods_Targeter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C4132ADFA3D653ED1EF252 /* Pods_Targeter.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFromFlickerVC.swift; sourceTree = "<group>"; };
 		047A353D1E712CFB0084AD68 /* TargetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetCell.swift; sourceTree = "<group>"; };
 		0493A3A31E7F5FAA0018C5BE /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		04A417131FB60F4A007DD07B /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
 		536F5F43C4671A59853753D7 /* Pods-Targeter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.debug.xcconfig"; sourceTree = "<group>"; };
 		61A29D74825722BA7F22B33F /* Pods-Targeter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.release.xcconfig"; sourceTree = "<group>"; };
 		C3C4132ADFA3D653ED1EF252 /* Pods_Targeter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Targeter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +221,7 @@
 				041EE5741E70FD6F006D623B /* AddTargetVC.swift */,
 				044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */,
 				0493A3A31E7F5FAA0018C5BE /* Extensions.swift */,
+				04A417131FB60F4A007DD07B /* UserVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
 				044D572F1E788D7D00AF1545 /* Image+CoreDataProperties.swift in Sources */,
 				04416CFE1E774541003BCDD3 /* FlickrClient.swift in Sources */,
+				04A417141FB60F4A007DD07B /* UserVC.swift in Sources */,
 				0493A3A41E7F5FAA0018C5BE /* Extensions.swift in Sources */,
 				044ED1441E77362800F61A33 /* ImageFromFlickerVC.swift in Sources */,
 				041EE5751E70FD6F006D623B /* AddTargetVC.swift in Sources */,
