@@ -169,18 +169,37 @@ class TargetsVC: UITableViewController {
         return toMark
     }
     
-    // MARK: Actions
-    @IBAction func pushButton(_ sender: Any) {
+    // Create notification
+    func makeNotification() {
         // Creating and setting up user notification
         let content = UNMutableNotificationContent()
-        content.title = "Privet"
-        content.subtitle = "Eto subtitle"
-        content.body = "A eto telo"
+        //content.title = "Privet"
+        //content.subtitle = "Eto subtitle"
+        let targetsToMarkCount = targetsToMark()
+        if targetsToMarkCount > 0 {
+            let bodyText = "You have \(targetsToMarkCount) more targets to mark!"
+            content.body = bodyText
+        } else {
+            let bodyText = "Well done for today. Keep it going tomorrow!"
+            content.body = bodyText
+        }
+        var dateComponents = DateComponents()
+        //dateComponents.year = Date().
+        //dateComponents.month = 7
+        //dateComponents.day = 11
+        dateComponents.hour = 21
+        dateComponents.minute = 15
+        let trigg = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier: "one", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "one", content: content, trigger: trigg)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
+    // MARK: Actions
+    @IBAction func pushButton(_ sender: Any) {
+        makeNotification()
     }
     @IBAction func addButton(_ sender: Any) {
         // Segue to AddTargetVC setted uo in Storyboard
