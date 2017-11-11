@@ -134,6 +134,41 @@ class TargetsVC: UITableViewController {
         self.present(authViewController, animated: true, completion: nil)
     }
     
+    // Check how many targets are marked for today
+    func targetsToMark() -> Int {
+        var num: Int
+        let today = Date()
+        var toMark: Int
+        //let target = self.fetchedResultsController!.object(at: indexPath) as! Target
+        
+        guard let targetsCount = self.fetchedResultsController?.fetchedObjects?.count else {
+            return 0
+        }
+        num = targetsCount - 1
+        toMark = targetsCount
+        while num >= 0 {
+            let indexPath = IndexPath(row: num, section: 0)
+            let target = self.fetchedResultsController!.object(at: indexPath) as! Target
+            if let successList = target.successList as? Set<Success>, (successList.count > 0) {
+                let success = self.todayIn(successList: successList, today: today).0
+                switch success {
+                case "succeed":
+                    toMark -= 1
+                    print("succeed")
+                case "failed":
+                    toMark -= 1
+                    print("failed")
+                case "nothing":
+                    print("nothing")
+                default:
+                    print("Error!")
+                }
+            }
+            num -= 1
+        }
+        return toMark
+    }
+    
     // MARK: Actions
     @IBAction func pushButton(_ sender: Any) {
         // Creating and setting up user notification
@@ -326,6 +361,7 @@ extension TargetsVC {
             let success = Success.init(date: date, success: true, context: self.stack.context)
             target.addToSuccessList(success)
             self.stack.save()
+            print("To mark: \(self.targetsToMark())")
         }
         successAction.backgroundColor! = greenColor //.green
         
