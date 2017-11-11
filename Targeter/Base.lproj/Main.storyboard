@@ -860,9 +860,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="big-ee-6wz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1315" y="867"/>
+            <point key="canvasLocation" x="478" y="941"/>
         </scene>
-        <!--User View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="NzB-4U-nia">
+            <objects>
+                <navigationController id="7mJ-mo-jon" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eIm-hl-nW5">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="hS2-Ib-meb" kind="relationship" relationship="rootViewController" id="LIF-El-Wic"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bIw-C6-SMp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="940"/>
+        </scene>
+        <!--userID-->
         <scene sceneID="Qub-be-qhu">
             <objects>
                 <viewController id="8xe-wx-12S" customClass="UserViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
@@ -917,6 +933,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asV-0n-IPh">
                                         <rect key="frame" x="0.0" y="241" width="375" height="121"/>
                                         <state key="normal" title="Friends"/>
+                                        <connections>
+                                            <segue destination="hS2-Ib-meb" kind="show" id="YEC-mW-Qly"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jll-AB-Ztp">
                                         <rect key="frame" x="0.0" y="362" width="375" height="120.5"/>
@@ -937,11 +956,41 @@
                             <constraint firstItem="NGP-By-wg4" firstAttribute="top" secondItem="c1Y-wD-ykT" secondAttribute="bottom" id="t6E-eK-h8w"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="BG9-0z-th4"/>
+                    <navigationItem key="navigationItem" title="userID" id="BG9-0z-th4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="StY-yN-i5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1703" y="1538"/>
+            <point key="canvasLocation" x="478" y="1658"/>
+        </scene>
+        <!--Friends View Controller-->
+        <scene sceneID="L6z-MP-CQs">
+            <objects>
+                <tableViewController id="hS2-Ib-meb" customClass="FriendsViewController" customModule="Targeter" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dbV-kC-1zB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="GA8-TD-ADq" customClass="FriendCell" customModule="Targeter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GA8-TD-ADq" id="PF0-6D-m9L">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hS2-Ib-meb" id="g1z-6c-fpn"/>
+                            <outlet property="delegate" destination="hS2-Ib-meb" id="RB5-29-RNo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="413-Mn-QY5"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wzh-lJ-E8Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="1657"/>
         </scene>
     </scenes>
     <resources>
@@ -949,6 +998,7 @@
         <image name="placeholder" width="800" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="YEC-mW-Qly"/>
         <segue reference="34h-2q-OIv"/>
         <segue reference="6WO-wG-h2K"/>
     </inferredMetricsTieBreakers>
