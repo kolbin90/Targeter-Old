@@ -387,6 +387,7 @@ extension TargetsVC {
             let success = Success.init(date: date, success: false, context: self.stack.context)
             target.addToSuccessList(success)
             self.stack.save()
+            self.makeNotification()
         }
         failAction.backgroundColor = redColor
         let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action,arg  in
@@ -395,7 +396,7 @@ extension TargetsVC {
             let success = Success.init(date: date, success: true, context: self.stack.context)
             target.addToSuccessList(success)
             self.stack.save()
-            print("To mark: \(self.targetsToMark())")
+            self.makeNotification()
         }
         successAction.backgroundColor! = greenColor //.green
         
@@ -405,6 +406,7 @@ extension TargetsVC {
             let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action,arg  in
                 self.stack.context.delete(todayInSuccessList!)
                 self.stack.save()
+                self.makeNotification()
             }
             unmarkAction.backgroundColor = .darkGray
             switch success {
