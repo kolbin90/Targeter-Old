@@ -182,7 +182,7 @@ class TargetsVC: UITableViewController {
         let content = UNMutableNotificationContent()
         //content.title = "Privet"
         //content.subtitle = "Eto subtitle"
-        let targetsToMarkCount = targetsToMark()
+        let targetsToMarkCount = targetsToMark() // Check how many targets are unmarked
         if targetsToMarkCount > 0 {
             let bodyText = "You have \(targetsToMarkCount) more targets to mark!"
             content.body = bodyText
@@ -190,9 +190,11 @@ class TargetsVC: UITableViewController {
             let bodyText = "Well done for today. Keep it going tomorrow!"
             content.body = bodyText
         }
+        // Time 21:15 is random
         var dateComponents = DateComponents()
         dateComponents.hour = 21
         dateComponents.minute = 15
+        // We create two notifications, one for today and one for tomorrow
         let triggerForOne = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let requestforOne = UNNotificationRequest(identifier: "one", content: content, trigger: triggerForOne)
 
@@ -205,7 +207,7 @@ class TargetsVC: UITableViewController {
         UNUserNotificationCenter.current().add(requestforTwo, withCompletionHandler: nil)
         UNUserNotificationCenter.current().add(requestforOne, withCompletionHandler: nil)
     }
-    
+    // Creates Date tomorrow at specific time
     func getTomorrowAt(hour: Int, minutes: Int) -> Date {
         let today = Date()
         let morrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
