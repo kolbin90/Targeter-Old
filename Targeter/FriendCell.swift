@@ -11,6 +11,10 @@ import UIKit
 
 class FriendCell: UITableViewCell {
     
+    @IBOutlet weak var profileImage: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         
     }
