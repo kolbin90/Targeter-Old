@@ -65,6 +65,13 @@ class TargetsVC: UITableViewController {
         
         // Create the FetchedResultsController
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
+        
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
+            print("REQUESTS")
+            for request in requests {
+                print("request body: \(request.content.body)")
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -184,19 +191,27 @@ class TargetsVC: UITableViewController {
             content.body = bodyText
         }
         var dateComponents = DateComponents()
-        //dateComponents.year = Date().
-        //dateComponents.month = 7
-        //dateComponents.day = 11
         dateComponents.hour = 21
         dateComponents.minute = 15
-        let trigg = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier: "one", content: content, trigger: trigg)
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        let triggerForOne = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let requestforOne = UNNotificationRequest(identifier: "one", content: content, trigger: triggerForOne)
+
+        let contentForTwo = content
+        contentForTwo.body = "You stil didn't mark any of your targets! Open app and reach your targets!"
+        let triggerForTwo = UNTimeIntervalNotificationTrigger(timeInterval: abs(Date().timeIntervalSince(getTomorrowAt(hour: 21, minutes: 15))), repeats: false)
+        let requestforTwo = UNNotificationRequest(identifier: "two", content: contentForTwo, trigger: triggerForTwo)
+
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(requestforTwo, withCompletionHandler: nil)
+        UNUserNotificationCenter.current().add(requestforOne, withCompletionHandler: nil)
     }
     
+    func getTomorrowAt(hour: Int, minutes: Int) -> Date {
+        let today = Date()
+        let morrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+        return Calendar.current.date(bySettingHour: hour, minute: minutes, second: 0, of: morrow)!
+        
+    }
     // MARK: Actions
     @IBAction func pushButton(_ sender: Any) {
         makeNotification()
