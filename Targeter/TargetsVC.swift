@@ -184,8 +184,13 @@ class TargetsVC: UITableViewController {
         //content.subtitle = "Eto subtitle"
         let targetsToMarkCount = targetsToMark() // Check how many targets are unmarked
         if targetsToMarkCount > 0 {
-            let bodyText = "You have \(targetsToMarkCount) more targets to mark!"
-            content.body = bodyText
+            if targetsToMarkCount == 1 {
+                let bodyText = "You have just\(targetsToMarkCount) more target to mark!"
+                content.body = bodyText
+            } else {
+                let bodyText = "You have \(targetsToMarkCount) more targets to mark!"
+                content.body = bodyText
+            }
         } else {
             let bodyText = "Well done for today. Keep it going tomorrow!"
             content.body = bodyText
