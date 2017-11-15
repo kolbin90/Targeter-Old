@@ -66,12 +66,8 @@ class TargetsVC: UITableViewController {
         // Create the FetchedResultsController
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
         
-        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
-            print("REQUESTS")
-            for request in requests {
-                print("request body: \(request.content.body)")
-            }
-        }
+        // Set notification for today and tomorrow
+        makeNotification()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -220,9 +216,6 @@ class TargetsVC: UITableViewController {
         
     }
     // MARK: Actions
-    @IBAction func pushButton(_ sender: Any) {
-        makeNotification()
-    }
     @IBAction func addButton(_ sender: Any) {
         // Segue to AddTargetVC setted uo in Storyboard
     }

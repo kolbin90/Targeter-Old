@@ -419,11 +419,6 @@
                                     <segue destination="8xe-wx-12S" kind="show" id="34h-2q-OIv"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Push" id="GXL-bn-LuX">
-                                <connections>
-                                    <action selector="pushButton:" destination="G0Z-9T-gTx" id="q1O-DM-PYo"/>
-                                </connections>
-                            </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="ajb-rT-Dax">
                             <connections>
