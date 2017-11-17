@@ -261,6 +261,8 @@ extension TargetsVC {
             let numberOfMarksInCell = 14
             let today = Date()
             var num = 0
+            var countForSucceedTargetsMarks = 0
+            var countForDaysSinceBeginnigDay = 0
             var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
             var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
             var successList: Set<Success>?
@@ -274,8 +276,9 @@ extension TargetsVC {
                         cell.backgroundImage.image = image
                     }
                 }
-                // If target completed make "completedLabel" visible
-                cell.completedLabel.isHidden = !target.completed
+
+                
+               // cell.completedLabel.isHidden = !target.completed
             }
             // Check if target should be completed and figure dates
             if let endingDay = target.dayEnding, endingDay < dayForChecking  {
@@ -291,10 +294,20 @@ extension TargetsVC {
             //   /*
             if let successListTarget = target.successList as? Set<Success>, (successListTarget.count > 0) {
                 successList = successListTarget
+                // Count number of succeed targets
+                for mark in successList! {
+                    if mark.success {
+                        countForSucceedTargetsMarks += 1
+                    }
+                }
             } else {
                 successList = nil
             }
-
+            
+            
+            
+            
+            
             while num < numberOfMarksInCell {
                 // Color images on success and fail
                 let dayImageView = dotsArray[num]
@@ -326,6 +339,8 @@ extension TargetsVC {
                             dotColor = .black
                             print("Error!")
                         }
+                    
+                    
                         DispatchQueue.main.async {
                             dayImageView.tintColor = dotColor
                             dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
@@ -356,8 +371,31 @@ extension TargetsVC {
             // */
             DispatchQueue.main.async {
                 cell.label.text = target.title
-                
+                // If target completed make "completedLabel" visible
+                var percentage = 0
+                let dayInSeconds = 86400
+                countForDaysSinceBeginnigDay = Int(Date().timeIntervalSince(target.dayBeginning))/dayInSeconds
+                print("countForDaysSinceBeginnigDay: \(countForDaysSinceBeginnigDay)")
+                print("countForSucceedTargetsMarks: \(countForSucceedTargetsMarks)")
+                if countForDaysSinceBeginnigDay == 0 {
+                    if countForSucceedTargetsMarks > 0 {
+                        percentage = 100
+                    } else {
+                        percentage = 0
+                    }
+                } else {
+                    percentage = Int((Double(countForSucceedTargetsMarks)/Double(countForDaysSinceBeginnigDay))*100)
+                }
+                cell.completedLabel.isHidden = false
+                if target.completed {
+                    cell.completedLabel.text = "Completed with: \(percentage)%"
+                } else {
+                    cell.completedLabel.text = "\(percentage)%"
+                }
             }
+            
+            
+            
         }
     }
     
