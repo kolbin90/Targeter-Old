@@ -259,6 +259,7 @@ extension TargetsVC {
             var dayForStartChecking = Date()
             var dayForChecking = Date()
             let numberOfMarksInCell = 14
+            let today = Date()
             var num = 0
             var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
             var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
@@ -316,7 +317,11 @@ extension TargetsVC {
                         case "failed":
                             dotColor = self.redColor
                         case "nothing":
-                            dotColor = .black
+                            if today == dayForChecking {
+                                dotColor = .black
+                            } else {
+                                dotColor = self.redColor
+                            }
                         default:
                             dotColor = .black
                             print("Error!")
