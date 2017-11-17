@@ -68,6 +68,8 @@ class TargetsVC: UITableViewController {
         
         // Set notification for today and tomorrow
         makeNotification()
+        
+        //print("Pending")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -197,8 +199,8 @@ class TargetsVC: UITableViewController {
         dateComponentsOne.minute = 15
         
         var dateComponentsTwo = DateComponents()
-        dateComponentsTwo.hour = 00
-        dateComponentsTwo.minute = 5
+        dateComponentsTwo.hour = 9
+        dateComponentsTwo.minute = 15
         
         setNotificationsForTime(dateComponents: dateComponentsOne, content: content)
         setNotificationsForTime(dateComponents: dateComponentsTwo, content: content)
@@ -213,15 +215,16 @@ class TargetsVC: UITableViewController {
     
     func setNotificationsForTime(dateComponents: DateComponents, content: UNMutableNotificationContent) {
         // We create two notifications, one for today and one for tomorrow
+        // Set notofocation for today
         let triggerForOne = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let requestforOne = UNNotificationRequest(identifier: "one\(dateComponents.hour!)\(dateComponents.minute!)", content: content, trigger: triggerForOne)
-        
-        let contentForTwo = content
+        // Set notofocation for tomorrow
+        let contentForTwo = UNMutableNotificationContent()
         contentForTwo.body = "You stil didn't mark any of your targets! Open app and reach your targets!"
         let triggerForTwo = UNTimeIntervalNotificationTrigger(timeInterval: abs(Date().timeIntervalSince(getTomorrowAt(hour: dateComponents.hour!, minutes: dateComponents.minute!))), repeats: false)
         let requestforTwo = UNNotificationRequest(identifier: "two\(dateComponents.hour!)\(dateComponents.minute!)", content: contentForTwo, trigger: triggerForTwo)
         
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+       // UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().add(requestforTwo, withCompletionHandler: nil)
         UNUserNotificationCenter.current().add(requestforOne, withCompletionHandler: nil)
     }
