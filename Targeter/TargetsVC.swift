@@ -192,28 +192,38 @@ class TargetsVC: UITableViewController {
             content.body = bodyText
         }
         // Time 21:15 is random
-        var dateComponents = DateComponents()
-        dateComponents.hour = 21
-        dateComponents.minute = 15
-        // We create two notifications, one for today and one for tomorrow
-        let triggerForOne = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let requestforOne = UNNotificationRequest(identifier: "one", content: content, trigger: triggerForOne)
-
-        let contentForTwo = content
-        contentForTwo.body = "You stil didn't mark any of your targets! Open app and reach your targets!"
-        let triggerForTwo = UNTimeIntervalNotificationTrigger(timeInterval: abs(Date().timeIntervalSince(getTomorrowAt(hour: 21, minutes: 15))), repeats: false)
-        let requestforTwo = UNNotificationRequest(identifier: "two", content: contentForTwo, trigger: triggerForTwo)
-
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-        UNUserNotificationCenter.current().add(requestforTwo, withCompletionHandler: nil)
-        UNUserNotificationCenter.current().add(requestforOne, withCompletionHandler: nil)
+        var dateComponentsOne = DateComponents()
+        dateComponentsOne.hour = 21
+        dateComponentsOne.minute = 15
+        
+        var dateComponentsTwo = DateComponents()
+        dateComponentsTwo.hour = 00
+        dateComponentsTwo.minute = 5
+        
+        setNotificationsForTime(dateComponents: dateComponentsOne, content: content)
+        setNotificationsForTime(dateComponents: dateComponentsTwo, content: content)
+        
     }
     // Creates Date tomorrow at specific time
     func getTomorrowAt(hour: Int, minutes: Int) -> Date {
         let today = Date()
         let morrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
         return Calendar.current.date(bySettingHour: hour, minute: minutes, second: 0, of: morrow)!
+    }
+    
+    func setNotificationsForTime(dateComponents: DateComponents, content: UNMutableNotificationContent) {
+        // We create two notifications, one for today and one for tomorrow
+        let triggerForOne = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let requestforOne = UNNotificationRequest(identifier: "one\(dateComponents.hour!)\(dateComponents.minute!)", content: content, trigger: triggerForOne)
         
+        let contentForTwo = content
+        contentForTwo.body = "You stil didn't mark any of your targets! Open app and reach your targets!"
+        let triggerForTwo = UNTimeIntervalNotificationTrigger(timeInterval: abs(Date().timeIntervalSince(getTomorrowAt(hour: dateComponents.hour!, minutes: dateComponents.minute!))), repeats: false)
+        let requestforTwo = UNNotificationRequest(identifier: "two\(dateComponents.hour!)\(dateComponents.minute!)", content: contentForTwo, trigger: triggerForTwo)
+        
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().add(requestforTwo, withCompletionHandler: nil)
+        UNUserNotificationCenter.current().add(requestforOne, withCompletionHandler: nil)
     }
     // MARK: Actions
     @IBAction func addButton(_ sender: Any) {
