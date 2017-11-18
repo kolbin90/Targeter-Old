@@ -69,7 +69,6 @@ class TargetsVC: UITableViewController {
         // Set notification for today and tomorrow
         makeNotification()
         
-        //print("Pending")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -159,10 +158,8 @@ class TargetsVC: UITableViewController {
                 switch success {
                 case "succeed":
                     toMark -= 1
-                    print("succeed")
                 case "failed":
                     toMark -= 1
-                    print("failed")
                 case "nothing":
                     print("nothing")
                 default:
@@ -178,8 +175,6 @@ class TargetsVC: UITableViewController {
     func makeNotification() {
         // Creating and setting up user notification
         let content = UNMutableNotificationContent()
-        //content.title = "Privet"
-        //content.subtitle = "Eto subtitle"
         let targetsToMarkCount = targetsToMark() // Check how many targets are unmarked
         if targetsToMarkCount > 0 {
             if targetsToMarkCount == 1 {
@@ -289,9 +284,6 @@ extension TargetsVC {
                         cell.backgroundImage.image = image
                     }
                 }
-
-                
-               // cell.completedLabel.isHidden = !target.completed
             }
             // Check if target should be completed and figure dates
             if let endingDay = target.dayEnding, endingDay < dayForChecking  {
@@ -304,7 +296,7 @@ extension TargetsVC {
                     }
                 }
             }
-            //   /*
+            //
             if let successListTarget = target.successList as? Set<Success>, (successListTarget.count > 0) {
                 successList = successListTarget
                 // Count number of succeed targets
@@ -339,7 +331,7 @@ extension TargetsVC {
                         let success = self.todayIn(successList: successList, today: dayForChecking).0
                         switch success {
                         case "succeed":
-                            dotColor = self.greenColor//.green
+                            dotColor = self.greenColor
                         case "failed":
                             dotColor = self.redColor
                         case "nothing":
@@ -381,15 +373,12 @@ extension TargetsVC {
                 dayForChecking = Calendar.current.date(byAdding: .day, value: -1, to: dayForChecking)!
                 num += 1
             }
-            // */
             DispatchQueue.main.async {
                 cell.label.text = target.title
-                // If target completed make "completedLabel" visible
+                // Count percentage of succes for target
                 var percentage = 0
                 let dayInSeconds = 86400
                 countForDaysSinceBeginnigDay = Int(Date().timeIntervalSince(target.dayBeginning))/dayInSeconds
-                print("countForDaysSinceBeginnigDay: \(countForDaysSinceBeginnigDay)")
-                print("countForSucceedTargetsMarks: \(countForSucceedTargetsMarks)")
                 if countForDaysSinceBeginnigDay == 0 {
                     if countForSucceedTargetsMarks > 0 {
                         percentage = 100
@@ -399,12 +388,13 @@ extension TargetsVC {
                 } else {
                     percentage = Int((Double(countForSucceedTargetsMarks)/Double(countForDaysSinceBeginnigDay))*100)
                 }
-                cell.completedLabel.isHidden = false
+                // If target completed we add "Completed with?
                 if target.completed {
                     cell.completedLabel.text = "Completed with: \(percentage)%"
                 } else {
                     cell.completedLabel.text = "\(percentage)%"
                 }
+                cell.completedLabel.isHidden = false
             }
             
             
@@ -454,7 +444,7 @@ extension TargetsVC {
             self.stack.save()
             self.makeNotification()
         }
-        successAction.backgroundColor! = greenColor //.green
+        successAction.backgroundColor! = greenColor 
         
         
         if let successList = target.successList as? Set<Success>, (successList.count > 0) {
