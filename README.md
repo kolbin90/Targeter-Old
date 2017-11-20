@@ -12,7 +12,7 @@ iPhone app that helps you follow your tagets. Just add a target and check in eve
 
 To mark your target just swipe left (like if you want to delete it) and choose "Succeed" or "Failed".
 
-To delete target swipe left and choose "Delete".
+To delete target tap on target and press delete at the new view
 
 
 ## License
