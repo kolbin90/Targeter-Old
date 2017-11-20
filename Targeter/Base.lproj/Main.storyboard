@@ -938,6 +938,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66O-Nd-ISR">
                                         <rect key="frame" x="0.0" y="482.5" width="375" height="120.5"/>
                                         <state key="normal" title="Logout"/>
+                                        <connections>
+                                            <action selector="logoutButton:" destination="8xe-wx-12S" eventType="touchUpInside" id="CNB-Xa-bqB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
