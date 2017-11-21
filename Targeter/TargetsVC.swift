@@ -379,15 +379,7 @@ extension TargetsVC {
                 var percentage = 0
                 let dayInSeconds = 86400
                 countForDaysSinceBeginnigDay = Int(Date().timeIntervalSince(target.dayBeginning))/dayInSeconds
-                if countForDaysSinceBeginnigDay == 0 {
-                    if countForSucceedTargetsMarks > 0 {
-                        percentage = 100
-                    } else {
-                        percentage = 0
-                    }
-                } else {
-                    percentage = Int((Double(countForSucceedTargetsMarks)/Double(countForDaysSinceBeginnigDay))*100)
-                }
+                percentage = Int((Double(countForSucceedTargetsMarks)/Double(countForDaysSinceBeginnigDay+1))*100)
                 // If target completed we add "Completed with?
                 if target.completed {
                     cell.completedLabel.text = "Completed with: \(percentage)%"
