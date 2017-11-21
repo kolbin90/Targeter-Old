@@ -20,6 +20,7 @@ import FirebaseGoogleAuthUI
 class TargetsVC: UITableViewController {
     // MARK: Outlets
     @IBOutlet weak var loginButton: UIBarButtonItem!
+    
     // MARK: Properties
     let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
     let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
@@ -126,7 +127,7 @@ class TargetsVC: UITableViewController {
     // Configure app and login button title depending on auth status
     func signedInStatus(isSignedIn: Bool) {
         if (isSignedIn) {
-            loginButton.title = "Logout"
+            loginButton.title = "Account"
         } else {
             loginButton.title = "Login"
         }
@@ -230,13 +231,10 @@ class TargetsVC: UITableViewController {
     
     @IBAction func loginButton(_ sender: Any) {
         // Button works as login and as logout
-        if loginButton.title == "Logout" {
+        if loginButton.title == "Account" {
             // For logout button trying to sign out
-            do {
-                try Auth.auth().signOut()
-            } catch {
-                print("unable to sign out: \(error)")
-            }
+            let userVC = storyboard?.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+            navigationController?.pushViewController(userVC, animated: true)
         } else {
             // For login button starying login session
             self.loginSession()
