@@ -126,6 +126,7 @@ class TargetsVC: UITableViewController {
     
     // Configure app and login button title depending on auth status
     func signedInStatus(isSignedIn: Bool) {
+        // Here we set up App depending on login status
         if (isSignedIn) {
             loginButton.title = "Account"
         } else {
@@ -135,6 +136,7 @@ class TargetsVC: UITableViewController {
     
     // Present firebase login viewController
     func loginSession() {
+        // Show auth view controller
         let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
         self.present(authViewController, animated: true, completion: nil)
     }
@@ -230,9 +232,9 @@ class TargetsVC: UITableViewController {
     }
     
     @IBAction func loginButton(_ sender: Any) {
-        // Button works as login and as logout
+        // Button works as login and as account button
         if loginButton.title == "Account" {
-            // For logout button trying to sign out
+            // For account button open UserVC
             let userVC = storyboard?.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
             navigationController?.pushViewController(userVC, animated: true)
         } else {
