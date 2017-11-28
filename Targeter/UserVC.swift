@@ -16,7 +16,6 @@ class UserViewController: UIViewController {
     // MARK: Properties
     var userID = Auth.auth().currentUser?.uid
     var ref:DatabaseReference!
-    fileprivate var _refHandle: DatabaseHandle!
 
     // Mark: Outlets
     @IBOutlet weak var nameLabel: UILabel!
@@ -45,6 +44,7 @@ class UserViewController: UIViewController {
     // MARK: Actions
     @IBAction func logoutButton(_ sender: Any) {
         do {
+            // Trying to sign out from Firebase
             try Auth.auth().signOut()
             _ = navigationController?.popViewController(animated: true)
         } catch {
