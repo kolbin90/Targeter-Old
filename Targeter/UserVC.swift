@@ -12,19 +12,35 @@ import Firebase
 import FirebaseAuthUI
 
 class UserViewController: UIViewController {
-
+    
+    // MARK: Properties
+    var userID = Auth.auth().currentUser?.uid
+    var ref:DatabaseReference!
+    fileprivate var _refHandle: DatabaseHandle!
 
     // Mark: Outlets
     @IBOutlet weak var nameLabel: UILabel!
     
     // MARK: Lifecycle
     override func viewDidLoad() {
-        print("UID: \(Auth.auth().currentUser?.uid)")
-        if let authName = Auth.auth().currentUser?.email {
-            nameLabel.text = authName
+        // Configure Firebase
+        configDatabase()
+    }
+    
+    // MARK: Config firebase
+    func configDatabase(){
+        ref = Database.database().reference()
+        if let userID = userID {
+            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                let userName = value?["username"] as? String ?? ""
+                self.nameLabel.text = userName
+            }) { (error) in
+                print(error.localizedDescription)
+            }
         }
     }
-
     
     // MARK: Actions
     @IBAction func logoutButton(_ sender: Any) {
