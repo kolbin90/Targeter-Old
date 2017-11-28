@@ -12,7 +12,19 @@ import Firebase
 import FirebaseAuthUI
 
 class UserViewController: UIViewController {
+
+
+    // Mark: Outlets
+    @IBOutlet weak var nameLabel: UILabel!
     
+    // MARK: Lifecycle
+    override func viewDidLoad() {
+        print("UID: \(Auth.auth().currentUser?.uid)")
+        if let authName = Auth.auth().currentUser?.email {
+            nameLabel.text = authName
+        }
+    }
+
     
     // MARK: Actions
     @IBAction func logoutButton(_ sender: Any) {

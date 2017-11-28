@@ -946,6 +946,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="userID" id="BG9-0z-th4"/>
+                    <connections>
+                        <outlet property="nameLabel" destination="aeV-Ay-MZa" id="72q-VT-umu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="StY-yN-i5i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -964,7 +967,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GA8-TD-ADq" id="PF0-6D-m9L">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="av6-IE-ue0">
