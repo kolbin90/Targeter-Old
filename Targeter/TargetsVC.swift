@@ -206,8 +206,25 @@ class TargetsVC: UITableViewController {
     }
     // Creates Date tomorrow at specific time
     func getTomorrowAt(hour: Int, minutes: Int) -> Date {
-        let today = Date()
-        let morrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+        var addingDays = 0
+        let date = Date()
+        let calendar = Calendar.current
+        let hourNow = calendar.component(.hour, from: date)
+        let minutesNow = calendar.component(.minute, from: date)
+        // Here we check if current time is more than setting time, depending on result we add 1 or 2 days
+        if hourNow > hour {
+            addingDays = 2
+        } else if hourNow == hour {
+            if minutesNow >= minutes {
+                addingDays = 2
+            } else {
+                addingDays = 1
+            }
+        } else {
+            addingDays = 1
+        }
+        
+        let morrow = Calendar.current.date(byAdding: .day, value: addingDays, to: date)!
         return Calendar.current.date(bySettingHour: hour, minute: minutes, second: 0, of: morrow)!
     }
     
