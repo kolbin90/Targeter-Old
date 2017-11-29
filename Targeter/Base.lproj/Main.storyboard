@@ -945,7 +945,13 @@
                             <constraint firstItem="NGP-By-wg4" firstAttribute="top" secondItem="c1Y-wD-ykT" secondAttribute="bottom" id="t6E-eK-h8w"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="userID" id="BG9-0z-th4"/>
+                    <navigationItem key="navigationItem" title="userID" id="BG9-0z-th4">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="hdc-pQ-o7P">
+                            <connections>
+                                <action selector="editButton:" destination="8xe-wx-12S" id="Edu-YZ-m8L"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="aeV-Ay-MZa" id="72q-VT-umu"/>
                     </connections>
@@ -967,7 +973,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="72"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GA8-TD-ADq" id="PF0-6D-m9L">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="av6-IE-ue0">

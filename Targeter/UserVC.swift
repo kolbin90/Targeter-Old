@@ -42,6 +42,8 @@ class UserViewController: UIViewController {
     }
     
     // MARK: Actions
+    @IBAction func editButton(_ sender: Any) {
+    }
     @IBAction func logoutButton(_ sender: Any) {
         do {
             // Trying to sign out from Firebase
