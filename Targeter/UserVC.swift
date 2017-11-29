@@ -19,6 +19,7 @@ class UserViewController: UIViewController {
 
     // Mark: Outlets
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var userImage: UIImageView!
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -39,6 +40,10 @@ class UserViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    // MARK: Assist functions
+    func configUI() {
     }
     
     // MARK: Actions
