@@ -179,6 +179,15 @@ class TargetsVC: UITableViewController {
         // Creating and setting up user notification
         let content = UNMutableNotificationContent()
         let targetsToMarkCount = targetsToMark() // Check how many targets are unmarked
+        // Time 21:15 is random
+        var dateComponentsOne = DateComponents()
+        dateComponentsOne.hour = 21
+        dateComponentsOne.minute = 15
+        
+        var dateComponentsTwo = DateComponents()
+        dateComponentsTwo.hour = 9
+        dateComponentsTwo.minute = 15
+        
         if targetsToMarkCount > 0 {
             if targetsToMarkCount == 1 {
                 let bodyText = "You have just\(targetsToMarkCount) more target to mark!"
@@ -191,41 +200,41 @@ class TargetsVC: UITableViewController {
             let bodyText = "Well done for today. Keep it going tomorrow!"
             content.body = bodyText
         }
-        // Time 21:15 is random
-        var dateComponentsOne = DateComponents()
-        dateComponentsOne.hour = 21
-        dateComponentsOne.minute = 15
-        
-        var dateComponentsTwo = DateComponents()
-        dateComponentsTwo.hour = 9
-        dateComponentsTwo.minute = 15
         
         setNotificationsForTime(dateComponents: dateComponentsOne, content: content)
         setNotificationsForTime(dateComponents: dateComponentsTwo, content: content)
         
     }
     // Creates Date tomorrow at specific time
-    func getTomorrowAt(hour: Int, minutes: Int) -> Date {
+    func getTomorrowAt(hour: Int, minute: Int) -> Date {
+        let today = Date()
         var addingDays = 0
-        let date = Date()
-        let calendar = Calendar.current
-        let hourNow = calendar.component(.hour, from: date)
-        let minutesNow = calendar.component(.minute, from: date)
         // Here we check if current time is more than setting time, depending on result we add 1 or 2 days
-        if hourNow > hour {
+        if currentTimeIsLater(hour: hour, minute: minute) {
             addingDays = 2
-        } else if hourNow == hour {
-            if minutesNow >= minutes {
-                addingDays = 2
-            } else {
-                addingDays = 1
-            }
         } else {
             addingDays = 1
         }
-        
-        let morrow = Calendar.current.date(byAdding: .day, value: addingDays, to: date)!
-        return Calendar.current.date(bySettingHour: hour, minute: minutes, second: 0, of: morrow)!
+        let morrow = Calendar.current.date(byAdding: .day, value: addingDays, to: today)!
+        return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: morrow)!
+    }
+    
+    func currentTimeIsLater(hour:Int, minute:Int) -> Bool {
+        let date = Date()
+        let calendar = Calendar.current
+        let hourNow = calendar.component(.hour, from: date)
+        let minuteNow = calendar.component(.minute, from: date)
+        if hourNow > hour {
+            return true
+        } else if hourNow == hour {
+            if minuteNow >= minute {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
     }
     
     func setNotificationsForTime(dateComponents: DateComponents, content: UNMutableNotificationContent) {
@@ -235,8 +244,8 @@ class TargetsVC: UITableViewController {
         let requestforOne = UNNotificationRequest(identifier: "one\(dateComponents.hour!)\(dateComponents.minute!)", content: content, trigger: triggerForOne)
         // Set notofocation for tomorrow
         let contentForTwo = UNMutableNotificationContent()
-        contentForTwo.body = "You stil didn't mark any of your targets! Open app and reach your targets!"
-        let triggerForTwo = UNTimeIntervalNotificationTrigger(timeInterval: abs(Date().timeIntervalSince(getTomorrowAt(hour: dateComponents.hour!, minutes: dateComponents.minute!))), repeats: false)
+        contentForTwo.body = "You stil didn't check in at any of your targets! Open app and reach your targets!"
+        let triggerForTwo = UNTimeIntervalNotificationTrigger(timeInterval: abs(Date().timeIntervalSince(getTomorrowAt(hour: dateComponents.hour!, minute: dateComponents.minute!))), repeats: false)
         let requestforTwo = UNNotificationRequest(identifier: "two\(dateComponents.hour!)\(dateComponents.minute!)", content: contentForTwo, trigger: triggerForTwo)
         
        // UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
