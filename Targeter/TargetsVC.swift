@@ -185,8 +185,8 @@ class TargetsVC: UITableViewController {
         dateComponentsOne.hour = 21
         dateComponentsOne.minute = 15
         var dateComponentsTwo = DateComponents()
-        dateComponentsTwo.hour = 9
-        dateComponentsTwo.minute = 15
+        dateComponentsTwo.hour = 8
+        dateComponentsTwo.minute = 01
         
         if targetsToMarkCount > 0 {
             if targetsToMarkCount == 1 {
