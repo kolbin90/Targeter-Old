@@ -178,32 +178,35 @@ class TargetsVC: UITableViewController {
     func makeNotification() {
         // Creating and setting up user notification
         let content = UNMutableNotificationContent()
+        let contentMorning = UNMutableNotificationContent()
         let targetsToMarkCount = targetsToMark() // Check how many targets are unmarked
         // Time 21:15 is random
         var dateComponentsOne = DateComponents()
         dateComponentsOne.hour = 21
         dateComponentsOne.minute = 15
-        
         var dateComponentsTwo = DateComponents()
         dateComponentsTwo.hour = 9
         dateComponentsTwo.minute = 15
         
         if targetsToMarkCount > 0 {
             if targetsToMarkCount == 1 {
-                let bodyText = "You have just\(targetsToMarkCount) more target to mark!"
+                let bodyText = "You have just\(targetsToMarkCount) more target to check in!"
                 content.body = bodyText
             } else {
-                let bodyText = "You have \(targetsToMarkCount) more targets to mark!"
+                let bodyText = "You have \(targetsToMarkCount) more targets to check in!"
                 content.body = bodyText
             }
         } else {
             let bodyText = "Well done for today. Keep it going tomorrow!"
             content.body = bodyText
         }
-        
         setNotificationsForTime(dateComponents: dateComponentsOne, content: content)
-        setNotificationsForTime(dateComponents: dateComponentsTwo, content: content)
-        
+        if currentTimeIsLater(hour: dateComponentsTwo.hour!, minute: dateComponentsTwo.minute!) {
+            contentMorning.body = "It's easy. Make things done!"
+        } else {
+            contentMorning.body = content.body
+        }
+        setNotificationsForTime(dateComponents: dateComponentsTwo, content: contentMorning)
     }
     // Creates Date tomorrow at specific time
     func getTomorrowAt(hour: Int, minute: Int) -> Date {
