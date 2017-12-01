@@ -989,7 +989,7 @@
         <!--Edit Profile View Controller-->
         <scene sceneID="y9o-xH-dpl">
             <objects>
-                <viewController id="bn2-iA-aM6" customClass="EditProfileViewController" customModule="Targeter" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfileViewController" id="bn2-iA-aM6" customClass="EditProfileViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fka-7c-orU"/>
                         <viewControllerLayoutGuide type="bottom" id="kAV-Ow-KVz"/>
@@ -1016,6 +1016,9 @@
                                         <rect key="frame" x="0.0" y="323" width="323" height="29"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Change profile image"/>
+                                        <connections>
+                                            <action selector="changeImageButton:" destination="bn2-iA-aM6" eventType="touchUpInside" id="2to-sd-kzG"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ubj-PG-tTM">
                                         <rect key="frame" x="0.0" y="352" width="323" height="231"/>
@@ -1082,8 +1085,19 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HOE-Dz-Ulh">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="D0h-7C-eGX"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="D0h-7C-eGX">
+                            <connections>
+                                <action selector="saveButton:" destination="bn2-iA-aM6" id="xzz-rp-z7M"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="aboutTextField" destination="4du-lm-Wi6" id="ZTo-wp-rJd"/>
+                        <outlet property="ageTextField" destination="fb3-ve-ijS" id="0N1-fE-Kiu"/>
+                        <outlet property="cityTextField" destination="NRq-hs-KsU" id="8dR-uh-gpj"/>
+                        <outlet property="nameTextField" destination="W10-9i-MtY" id="JvN-vM-H01"/>
+                        <outlet property="profileImageView" destination="4Wk-gQ-4Q4" id="8yZ-6t-GfJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yxl-Mq-xdp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

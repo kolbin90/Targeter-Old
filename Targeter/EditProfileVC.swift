@@ -13,6 +13,16 @@ class EditProfileViewController: UIViewController {
     
     // MARK: Outlets
     
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var ageTextField: UITextField!
+    @IBOutlet weak var aboutTextField: UITextField!
     // MARK: Actions
     
+    @IBAction func changeImageButton(_ sender: Any) {
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+    }
 }
