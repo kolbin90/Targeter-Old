@@ -20,6 +20,9 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var aboutTextField: UITextField!
     // MARK: Actions
     
+    @IBAction func cancelButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBAction func changeImageButton(_ sender: Any) {
     }
     
