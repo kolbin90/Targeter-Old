@@ -26,6 +26,9 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image-2017-04-27-2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="92N-5o-daz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="109.5" id="mh8-wv-0uZ"/>
+                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FOLLOW YOUR DREAMS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnj-W8-P8h">
                         <rect key="frame" x="31" y="40" width="189" height="22"/>
@@ -93,10 +96,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="92N-5o-daz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="F72-o2-gI6"/>
-                    <constraint firstAttribute="trailing" secondItem="92N-5o-daz" secondAttribute="trailing" id="hrv-tU-uO1"/>
-                    <constraint firstAttribute="bottom" secondItem="92N-5o-daz" secondAttribute="bottom" id="n6s-28-Ztb"/>
-                    <constraint firstItem="92N-5o-daz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="re3-P0-oxL"/>
+                    <constraint firstItem="92N-5o-daz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="6ye-yo-omB"/>
+                    <constraint firstItem="92N-5o-daz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="LEs-Mi-hw7"/>
+                    <constraint firstAttribute="trailing" secondItem="92N-5o-daz" secondAttribute="trailing" id="UDp-cp-kL9"/>
+                    <constraint firstAttribute="bottom" secondItem="92N-5o-daz" secondAttribute="bottom" id="fAF-Bl-hrt"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
