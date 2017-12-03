@@ -22,6 +22,7 @@ class TargetsVC: UITableViewController {
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     // MARK: Properties
+    // Colors for check ins
     let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
     let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
     
