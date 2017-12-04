@@ -30,12 +30,7 @@ class EditProfileViewController: UIViewController, UITableViewDelegate {
     }
     
     // MARK: - Delegates
-    // MARK: TextField Delegate
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            dismissKeyboard()
-        return true
-    }
-
+    
     // Firebase functions
     func configDatabase(){
         ref = Database.database().reference()
