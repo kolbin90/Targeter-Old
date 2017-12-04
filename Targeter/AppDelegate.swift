@@ -11,6 +11,7 @@ import UserNotifications
 import CoreData
 import Firebase
 import FirebaseAuthUI
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -47,6 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 print("Notification access granded")
             }
         }
+        // Configure IQKeyboardManager
+        IQKeyboardManager.sharedManager().enable = true
+        
         // Configure Firebase App
         FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
