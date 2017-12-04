@@ -11,7 +11,7 @@ import UIKit
 import Firebase
 import FirebaseAuthUI
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: UIViewController, UITableViewDelegate {
     
     // MARK: Properties
     var userID = Auth.auth().currentUser?.uid
@@ -25,15 +25,17 @@ class EditProfileViewController: UIViewController {
     
     // MARK: - LifeCicle
     override func viewDidLoad() {
+        hideKeyboardWhenTappedAround()
         configDatabase()
     }
     
     // MARK: - Delegates
     // MARK: TextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        dismissKeyboard()
+            dismissKeyboard()
         return true
     }
+
     // Firebase functions
     func configDatabase(){
         ref = Database.database().reference()
