@@ -41,8 +41,11 @@ class EditProfileViewController: UIViewController {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                let name = value?["name"] as? String ?? ""
-                self.nameTextField.text = name
+                self.nameTextField.text = value?[Constants.UserData.name] as? String ?? ""
+                self.ageTextField.text = value?[Constants.UserData.age] as? String ?? ""
+                self.cityTextField.text = value?[Constants.UserData.city] as? String ?? ""
+                self.aboutTextField.text = value?[Constants.UserData.about] as? String ?? ""
+                //self.nameTextField.text = name
             }) { (error) in
                 print(error.localizedDescription)
             }
