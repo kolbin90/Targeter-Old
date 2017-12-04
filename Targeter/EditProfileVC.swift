@@ -18,6 +18,13 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var aboutTextField: UITextField!
+    
+    // MARK: - Delegates
+    // MARK: TextField Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        return true
+    }
     // MARK: Actions
     
     @IBAction func cancelButton(_ sender: Any) {
