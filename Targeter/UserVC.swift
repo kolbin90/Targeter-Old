@@ -34,7 +34,7 @@ class UserViewController: UIViewController {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                let userName = value?["username"] as? String ?? ""
+                let userName = value?["name"] as? String ?? ""
                 self.nameLabel.text = userName
             }) { (error) in
                 print(error.localizedDescription)

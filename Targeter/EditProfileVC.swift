@@ -34,20 +34,23 @@ class EditProfileViewController: UIViewController {
         dismissKeyboard()
         return true
     }
-    // MARK: Assist functions
+    // Firebase functions
     func configDatabase(){
         ref = Database.database().reference()
         if let userID = userID {
             ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                let userName = value?["username"] as? String ?? ""
-                self.nameTextField.text = userName
+                let name = value?["name"] as? String ?? ""
+                self.nameTextField.text = name
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
     }
+    // MARK: Assist functions
+    
+
     // MARK: Actions
     
     @IBAction func cancelButton(_ sender: Any) {
@@ -57,5 +60,15 @@ class EditProfileViewController: UIViewController {
     }
     
     @IBAction func saveButton(_ sender: Any) {
+        if let userID = userID {
+            var userData:[String:String] = [:]
+            userData[Constants.UserData.name] = nameTextField.text ?? ""
+            userData[Constants.UserData.age] = ageTextField.text ?? ""
+            userData[Constants.UserData.city] = cityTextField.text ?? ""
+            userData[Constants.UserData.about] = aboutTextField.text ?? ""
+
+            ref.child("users").child(userID).setValue(userData)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
