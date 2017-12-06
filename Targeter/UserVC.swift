@@ -20,6 +20,9 @@ class UserViewController: UIViewController {
     // Mark: Outlets
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var cityAgeLabel: UILabel!
+    @IBOutlet weak var aboutLabel: UILabel!
+    @IBOutlet weak var percentageLabel: UILabel!
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -35,6 +38,13 @@ class UserViewController: UIViewController {
                 // Get user value
                 let value = snapshot.value as? NSDictionary
                 let userName = value?["name"] as? String ?? ""
+/*
+                        self.nameTextField.text = value?[Constants.UserData.name] as? String ?? ""
+                        self.ageTextField.text = value?[Constants.UserData.age] as? String ?? ""
+                        self.cityTextField.text = value?[Constants.UserData.city] as? String ?? ""
+                        self.aboutTextField.text = value?[Constants.UserData.about] as? String ?? ""
+                        //self.nameTextField.text = name
+*/
                 self.nameLabel.text = userName
             }) { (error) in
                 print(error.localizedDescription)

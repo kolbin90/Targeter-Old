@@ -978,7 +978,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="aboutLabel" destination="XQ9-Fv-5s7" id="nYD-Sr-RXx"/>
+                        <outlet property="cityAgeLabel" destination="tHh-Fd-bbk" id="ABq-bc-zkd"/>
                         <outlet property="nameLabel" destination="aeV-Ay-MZa" id="72q-VT-umu"/>
+                        <outlet property="percentageLabel" destination="KuR-ak-HaD" id="Wkf-pb-JG3"/>
                         <outlet property="userImage" destination="kO4-sc-Wkp" id="GXJ-DQ-f3o"/>
                     </connections>
                 </viewController>
