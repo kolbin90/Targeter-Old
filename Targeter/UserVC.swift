@@ -41,7 +41,7 @@ class UserViewController: UIViewController {
                 let city = value?[Constants.UserData.city] as? String ?? ""
                 let age = value?[Constants.UserData.age] as? String ?? ""
                 self.cityAgeLabel.text = "\(city),\(age)"
-                self.aboutLabel = value?[Constants.UserData.about] as? String ?? ""
+                self.aboutLabel.text = value?[Constants.UserData.about] as? String ?? ""
             }) { (error) in
                 print(error.localizedDescription)
             }
