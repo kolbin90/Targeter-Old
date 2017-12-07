@@ -101,7 +101,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 self.stack.context.delete(target)
                 self.stack.save()
                 _ = self.navigationController?.popViewController(animated: true)
-
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -180,8 +179,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         _ = navigationController?.popViewController(animated: true)
     }
     @IBAction func addImageButton(_ sender: Any) {
-        
-        //imagePicker(.photoLibrary)
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Photo library", style: .default) { action in
             self.imagePicker(.photoLibrary)

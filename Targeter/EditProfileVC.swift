@@ -11,7 +11,7 @@ import UIKit
 import Firebase
 import FirebaseAuthUI
 
-class EditProfileViewController: UIViewController, UITableViewDelegate {
+class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     var userID = Auth.auth().currentUser?.uid
@@ -49,7 +49,21 @@ class EditProfileViewController: UIViewController, UITableViewDelegate {
         }
     }
     // MARK: Assist functions
+    //MARK:  ImagePicker
+    func imagePicker(_ type: UIImagePickerControllerSourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = type
+        self.present(imagePicker, animated: true, completion: nil)
+    }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            profileImageView.image = image
+        }
+        dismiss(animated: true, completion: nil)
+        
+    }
 
     // MARK: Actions
     
@@ -57,6 +71,25 @@ class EditProfileViewController: UIViewController, UITableViewDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func changeImageButton(_ sender: Any) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Photo library", style: .default) { action in
+            self.imagePicker(.photoLibrary)
+            
+        })
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            actionSheet.addAction(UIAlertAction(title: "Camera", style: .default){ action in
+                self.imagePicker(.camera)
+                
+            })
+        }
+        
+        actionSheet.addAction(UIAlertAction(title: "Download from Flickr", style: .default) { action in
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "ImageFromFlickerVC") as! ImageFromFlickerVC
+            self.navigationController?.pushViewController(controller, animated: true)
+        })
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(actionSheet, animated: true, completion: nil)
     }
     
     @IBAction func saveButton(_ sender: Any) {
