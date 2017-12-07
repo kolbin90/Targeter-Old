@@ -15,7 +15,8 @@ class UserViewController: UIViewController {
     
     // MARK: Properties
     var userID = Auth.auth().currentUser?.uid
-    var ref:DatabaseReference!
+    var databaseRef: DatabaseReference!
+    var storageRef: StorageReference!
 
     // Mark: Outlets
     @IBOutlet weak var nameLabel: UILabel!
@@ -28,24 +29,28 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         // Configure Firebase
         configDatabase()
+        configureStorage()
     }
     
     // MARK: Config firebase
     func configDatabase(){
-        ref = Database.database().reference()
+        databaseRef = Database.database().reference()
         if let userID = userID {
-            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
                 self.nameLabel.text = value?[Constants.UserData.name] as? String ?? ""
                 let city = value?[Constants.UserData.city] as? String ?? ""
                 let age = value?[Constants.UserData.age] as? String ?? ""
-                self.cityAgeLabel.text = "\(city),\(age)"
+                self.cityAgeLabel.text = "\(city), \(age)"
                 self.aboutLabel.text = value?[Constants.UserData.about] as? String ?? ""
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
+    }
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
     }
     
     // MARK: Assist functions
