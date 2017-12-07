@@ -15,7 +15,10 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: Properties
     var userID = Auth.auth().currentUser?.uid
-    var ref:DatabaseReference!
+    var databaseRef: DatabaseReference!
+    var storageRef: StorageReference!
+    var profileImageChanged = false
+    var newProfileImage: UIImage? = nil
     // MARK: Outlets
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -27,15 +30,16 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         hideKeyboardWhenTappedAround()
         configDatabase()
+        configureStorage()
     }
     
     // MARK: - Delegates
     
-    // Firebase functions
+    // MARK: Firebase functions
     func configDatabase(){
-        ref = Database.database().reference()
+        databaseRef = Database.database().reference()
         if let userID = userID {
-            ref.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
                 self.nameTextField.text = value?[Constants.UserData.name] as? String ?? ""
@@ -48,8 +52,39 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             }
         }
     }
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
+    }
     // MARK: Assist functions
-    //MARK:  ImagePicker
+    // Cut image to screen syze
+    func prepareNewImage(image: UIImage) -> Data {
+        var newImage = image.resized(toWidth: (self.view.frame.width))!
+        let imageWidth: CGFloat = newImage.size.width
+        let imageHeight: CGFloat = newImage.size.height
+        let width: CGFloat  = imageWidth
+        let height: CGFloat = imageHeight
+        let origin = CGPoint(x: (imageWidth - width)/2, y: (imageHeight - height)/2)
+        let size = CGSize(width: width, height: height)
+        newImage = newImage.crop(rect: CGRect(origin: origin, size: size))
+        let imageData = newImage.jpeg(.highest)!
+        return imageData
+    }
+    func addImageToStorage(image:UIImage) {
+        let photoData = prepareNewImage(image: image)
+        let imagePath = "users/" + userID! + "/\(Double(Date.timeIntervalSinceReferenceDate * 1000))"
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        storageRef.child(imagePath).putData(photoData, metadata: metadata) { (metadata, error) in
+            guard (error == nil) else {
+                print("error saving image to storage")
+                return
+            }
+            let imageURL = self.storageRef.child((metadata?.path)!).description
+            let userData = [Constants.UserData.imageURL: imageURL]
+            self.databaseRef.child("users").child(self.userID!).setValue(userData)
+        }
+    }
+    // MARK:  ImagePicker
     func imagePicker(_ type: UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -60,6 +95,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profileImageView.image = image
+            newProfileImage = image
+            profileImageChanged = true
         }
         dismiss(animated: true, completion: nil)
         
@@ -99,8 +136,11 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             userData[Constants.UserData.age] = ageTextField.text ?? ""
             userData[Constants.UserData.city] = cityTextField.text ?? ""
             userData[Constants.UserData.about] = aboutTextField.text ?? ""
-
-            ref.child("users").child(userID).setValue(userData)
+            if let newProfileImage = newProfileImage {
+                addImageToStorage(image: newProfileImage)
+            }
+            addImageToStorage(image: profileImageView.image!)
+            databaseRef.child("users").child(userID).setValue(userData)
             self.dismiss(animated: true, completion: nil)
         }
     }
