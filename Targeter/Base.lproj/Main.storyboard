@@ -1007,7 +1007,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="k6w-82-naL">
                                         <rect key="frame" x="0.0" y="0.0" width="323" height="342"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13880327_1071710792884531_6739614795217912898_n.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="4Wk-gQ-4Q4">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13880327_1071710792884531_6739614795217912898_n.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="4Wk-gQ-4Q4">
                                                 <rect key="frame" x="0.0" y="0.0" width="323" height="323"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="4Wk-gQ-4Q4" secondAttribute="height" multiplier="1:1" id="Uzu-4g-duL"/>
