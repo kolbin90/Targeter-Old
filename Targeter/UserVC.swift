@@ -30,11 +30,21 @@ class UserViewController: UIViewController {
         // Configure Firebase
         configDatabase()
         configureStorage()
+        fillUserInformation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fillUserInformation()
     }
     
     // MARK: Config firebase
     func configDatabase(){
         databaseRef = Database.database().reference()
+    }
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
+    }
+    func fillUserInformation() {
         if let userID = userID {
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
@@ -48,9 +58,6 @@ class UserViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-    }
-    func configureStorage() {
-        storageRef = Storage.storage().reference()
     }
     
     // MARK: Assist functions
