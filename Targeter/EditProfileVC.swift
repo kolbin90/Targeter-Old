@@ -31,6 +31,11 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         hideKeyboardWhenTappedAround()
         configDatabase()
         configureStorage()
+        fillUserInformation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fillUserInformation()
     }
     
     // MARK: - Delegates
@@ -42,7 +47,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     func configureStorage() {
         storageRef = Storage.storage().reference()
     }
-    func fillTextFields() {
+    func fillUserInformation() {
         if let userID = userID {
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
