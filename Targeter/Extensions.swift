@@ -45,10 +45,10 @@ extension UIViewController {
                 activityIndicator.startAnimating()
             }
         } else {
-            let subViews = view.subviews
-            for subview in subViews{
-                if subview.tag == 10 {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                let subViews = view.subviews
+                for subview in subViews {
+                    if subview.tag == 10 {
                         subview.removeFromSuperview()
                     }
                 }
