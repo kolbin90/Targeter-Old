@@ -900,7 +900,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-yh-aTz">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="355"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="kO4-sc-Wkp">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="kO4-sc-Wkp">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="355"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="kO4-sc-Wkp" secondAttribute="height" multiplier="1:1" id="BPz-Pm-nsv"/>
