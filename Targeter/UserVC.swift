@@ -25,6 +25,8 @@ class UserViewController: UIViewController {
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var percentageLabel: UILabel!
     
+    @IBOutlet weak var numFriendsLabel: UILabel!
+    @IBOutlet weak var numTargetsLabel: UILabel!
     // MARK: Lifecycle
     override func viewDidLoad() {
         // Configure Firebase
