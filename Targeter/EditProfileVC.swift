@@ -38,6 +38,11 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     // MARK: Firebase functions
     func configDatabase(){
         databaseRef = Database.database().reference()
+    }
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
+    }
+    func fillTextFields() {
         if let userID = userID {
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
@@ -51,9 +56,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print(error.localizedDescription)
             }
         }
-    }
-    func configureStorage() {
-        storageRef = Storage.storage().reference()
     }
     // MARK: Assist functions
     // Cut image to screen syze
