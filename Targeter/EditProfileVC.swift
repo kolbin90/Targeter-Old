@@ -87,7 +87,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 return
             }
             let imageURL = self.storageRef.child((metadata?.path)!).description
-            let userData = [Constants.UserData.imageURL: imageURL]
             self.databaseRef.child("users/\(self.userID!)/\(Constants.UserData.imageURL)").setValue(imageURL)
         }
     }
@@ -140,9 +139,18 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         if let userID = userID {
             var userData:[String:String] = [:]
             userData[Constants.UserData.name] = nameTextField.text ?? ""
-            userData[Constants.UserData.age] = ageTextField.text ?? ""
-            userData[Constants.UserData.city] = cityTextField.text ?? ""
-            userData[Constants.UserData.about] = aboutTextField.text ?? ""
+            if let userName = nameTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.name)").setValue(userName)
+            }
+            if let userAge = ageTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.age)").setValue(userAge)
+            }
+            if let userCity = cityTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.city)").setValue(userCity)
+            }
+            if let userAbout = aboutTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.about)").setValue(userAbout)
+            }
             if let newProfileImage = newProfileImage {
                 addImageToStorage(image: newProfileImage)
             }
