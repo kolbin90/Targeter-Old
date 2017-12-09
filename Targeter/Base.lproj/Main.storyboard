@@ -900,7 +900,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-yh-aTz">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="355"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13880327_1071710792884531_6739614795217912898_n.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="kO4-sc-Wkp">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="kO4-sc-Wkp">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="355"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="kO4-sc-Wkp" secondAttribute="height" multiplier="1:1" id="BPz-Pm-nsv"/>
@@ -1066,8 +1066,9 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="k6w-82-naL">
                                         <rect key="frame" x="0.0" y="0.0" width="323" height="342"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13880327_1071710792884531_6739614795217912898_n.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="4Wk-gQ-4Q4">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="4Wk-gQ-4Q4">
                                                 <rect key="frame" x="0.0" y="0.0" width="323" height="323"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="4Wk-gQ-4Q4" secondAttribute="height" multiplier="1:1" id="Uzu-4g-duL"/>
                                                 </constraints>
@@ -1268,7 +1269,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="13880327_1071710792884531_6739614795217912898_n.jpg" width="960" height="960"/>
         <image name="dot" width="100" height="100"/>
         <image name="placeholder" width="800" height="800"/>
     </resources>
