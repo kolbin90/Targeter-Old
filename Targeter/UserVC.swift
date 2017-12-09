@@ -53,7 +53,9 @@ class UserViewController: UIViewController {
                 let city = value?[Constants.UserData.city] as? String ?? ""
                 let age = value?[Constants.UserData.age] as? String ?? ""
                 self.cityAgeLabel.text = "\(city), \(age)"
+                self.cityAgeLabel.sizeToFit()
                 self.aboutLabel.text = value?[Constants.UserData.about] as? String ?? ""
+                self.aboutLabel.sizeToFit() 
             }) { (error) in
                 print(error.localizedDescription)
             }
