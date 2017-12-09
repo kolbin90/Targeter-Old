@@ -81,7 +81,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             }
             let imageURL = self.storageRef.child((metadata?.path)!).description
             let userData = [Constants.UserData.imageURL: imageURL]
-            self.databaseRef.child("users").child(self.userID!).setValue(userData)
+            self.databaseRef.child("users/\(self.userID!)/\(Constants.UserData.imageURL)").setValue(imageURL)
         }
     }
     // MARK:  ImagePicker
@@ -139,7 +139,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             if let newProfileImage = newProfileImage {
                 addImageToStorage(image: newProfileImage)
             }
-            addImageToStorage(image: profileImageView.image!)
+            //addImageToStorage(image: profileImageView.image!)
             databaseRef.child("users").child(userID).setValue(userData)
             self.dismiss(animated: true, completion: nil)
         }
