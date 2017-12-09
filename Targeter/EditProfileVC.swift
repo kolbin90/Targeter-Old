@@ -137,8 +137,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBAction func saveButton(_ sender: Any) {
         if let userID = userID {
-            var userData:[String:String] = [:]
-            userData[Constants.UserData.name] = nameTextField.text ?? ""
+            //var userData:[String:String] = [:]
+            //userData[Constants.UserData.name] = nameTextField.text ?? ""
             if let userName = nameTextField.text {
                 self.databaseRef.child("users/\(userID)/\(Constants.UserData.name)").setValue(userName)
             }
@@ -155,7 +155,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 addImageToStorage(image: newProfileImage)
             }
             //addImageToStorage(image: profileImageView.image!)
-            databaseRef.child("users").child(userID).setValue(userData)
+            //databaseRef.child("users").child(userID).setValue(userData)
             self.dismiss(animated: true, completion: nil)
         }
     }
