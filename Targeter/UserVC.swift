@@ -57,7 +57,19 @@ class UserViewController: UIViewController {
                 self.cityAgeLabel.text = "\(city), \(age)"
                 self.cityAgeLabel.sizeToFit()
                 self.aboutLabel.text = value?[Constants.UserData.about] as? String ?? ""
-                self.aboutLabel.sizeToFit() 
+                self.aboutLabel.sizeToFit()
+                if let imageURL = value?[Constants.UserData.imageURL] as? String {
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                        guard error == nil else {
+                            print("Error downloading: \(error!)")
+                            return
+                        }
+                        let userImage = UIImage.init(data: data!, scale: 50)
+                        DispatchQueue.main.async {
+                            self.userImage.image = userImage
+                        }
+                    })
+                }
             }) { (error) in
                 print(error.localizedDescription)
             }

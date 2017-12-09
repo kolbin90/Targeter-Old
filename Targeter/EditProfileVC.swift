@@ -56,7 +56,18 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 self.ageTextField.text = value?[Constants.UserData.age] as? String ?? ""
                 self.cityTextField.text = value?[Constants.UserData.city] as? String ?? ""
                 self.aboutTextField.text = value?[Constants.UserData.about] as? String ?? ""
-                //self.nameTextField.text = name
+                if let imageURL = value?[Constants.UserData.imageURL] as? String {
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                        guard error == nil else {
+                            print("Error downloading: \(error!)")
+                            return
+                        }
+                        let userImage = UIImage.init(data: data!, scale: 50)
+                        DispatchQueue.main.async {
+                            self.profileImageView.image = userImage
+                        }
+                    })
+                }
             }) { (error) in
                 print(error.localizedDescription)
             }
