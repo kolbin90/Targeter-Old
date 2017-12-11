@@ -17,6 +17,7 @@ class UserViewController: UIViewController {
     var userID = Auth.auth().currentUser?.uid
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
+    let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
 
     // Mark: Outlets
     @IBOutlet weak var nameLabel: UILabel!
@@ -59,16 +60,22 @@ class UserViewController: UIViewController {
                 self.aboutLabel.text = value?[Constants.UserData.about] as? String ?? ""
                 self.aboutLabel.sizeToFit()
                 if let imageURL = value?[Constants.UserData.imageURL] as? String {
-                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                        guard error == nil else {
-                            print("Error downloading: \(error!)")
-                            return
-                        }
-                        let userImage = UIImage.init(data: data!, scale: 50)
+                    if let cachedImage = self.imageCache.object(forKey: imageURL as NSString) {
                         DispatchQueue.main.async {
-                            self.userImage.image = userImage
+                            self.userImage.image = cachedImage
                         }
-                    })
+                    } else {
+                        Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                            guard error == nil else {
+                                print("Error downloading: \(error!)")
+                                return
+                            }
+                            let userImage = UIImage.init(data: data!, scale: 50)
+                            DispatchQueue.main.async {
+                                self.userImage.image = userImage
+                            }
+                        })
+                    }
                 }
             }) { (error) in
                 print(error.localizedDescription)

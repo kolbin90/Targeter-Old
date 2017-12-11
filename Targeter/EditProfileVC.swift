@@ -19,6 +19,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var storageRef: StorageReference!
     var profileImageChanged = false
     var newProfileImage: UIImage? = nil
+    let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
+
     // MARK: Outlets
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -57,16 +59,24 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 self.cityTextField.text = value?[Constants.UserData.city] as? String ?? ""
                 self.aboutTextField.text = value?[Constants.UserData.about] as? String ?? ""
                 if let imageURL = value?[Constants.UserData.imageURL] as? String {
-                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                        guard error == nil else {
-                            print("Error downloading: \(error!)")
-                            return
-                        }
-                        let userImage = UIImage.init(data: data!, scale: 50)
+                    if let cachedImage = self.imageCache.object(forKey: imageURL as NSString) {
                         DispatchQueue.main.async {
-                            self.profileImageView.image = userImage
+                            self.profileImageView.image = cachedImage
                         }
-                    })
+                    } else {
+                        Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                            guard error == nil else {
+                                print("Error downloading: \(error!)")
+                                return
+                            }
+                            if let userImage = UIImage.init(data: data!, scale: 50) {
+                                self.imageCache.setObject(userImage, forKey: imageURL as NSString)
+                                DispatchQueue.main.async {
+                                    self.profileImageView.image = userImage
+                                }
+                            }
+                        })
+                    }
                 }
             }) { (error) in
                 print(error.localizedDescription)
