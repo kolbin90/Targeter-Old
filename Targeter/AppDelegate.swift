@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     var stack = CoreDataStack(modelName: "Model")!
-    let imageCache = NSCache<NSString, UIImage>()
+    var imageCache = NSCache<NSString, UIImage>()
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         
@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // Request authorization for notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (allowed, error) in
             if !allowed {
                 print(error)
@@ -56,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         // Enable persisting data for firebase
         Database.database().isPersistenceEnabled = true
+        // UserNotificationCenter Delegate
         UNUserNotificationCenter.current().delegate = self
         return true
     }
