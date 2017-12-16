@@ -895,7 +895,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-wD-ykT">
-                                <rect key="frame" x="10" y="74" width="355" height="583"/>
+                                <rect key="frame" x="10" y="10" width="355" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JvE-yh-aTz">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="355"/>
@@ -1009,7 +1009,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66O-Nd-ISR">
-                                        <rect key="frame" x="0.0" y="519" width="355" height="64"/>
+                                        <rect key="frame" x="0.0" y="519" width="355" height="128"/>
                                         <state key="normal" title="Logout"/>
                                         <connections>
                                             <action selector="logoutButton:" destination="8xe-wx-12S" eventType="touchUpInside" id="CNB-Xa-bqB"/>
@@ -1020,7 +1020,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="c1Y-wD-ykT" firstAttribute="top" secondItem="gTc-0D-C5g" secondAttribute="bottom" constant="10" id="hZ3-wc-Tpi"/>
+                            <constraint firstItem="c1Y-wD-ykT" firstAttribute="top" secondItem="D5t-pZ-G0M" secondAttribute="top" constant="10" id="61X-qm-tIF"/>
                             <constraint firstAttribute="trailing" secondItem="c1Y-wD-ykT" secondAttribute="trailing" constant="10" id="iYo-nL-zhs"/>
                             <constraint firstItem="c1Y-wD-ykT" firstAttribute="leading" secondItem="D5t-pZ-G0M" secondAttribute="leading" constant="10" id="qnZ-rf-1hg"/>
                             <constraint firstItem="NGP-By-wg4" firstAttribute="top" secondItem="c1Y-wD-ykT" secondAttribute="bottom" constant="10" id="t6E-eK-h8w"/>
