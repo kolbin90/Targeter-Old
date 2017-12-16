@@ -22,6 +22,8 @@ class TargetsVC: UITableViewController {
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     // MARK: Properties
+    var databaseRef: DatabaseReference!
+    var userID: String?
     // Colors for check ins
     let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
     let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
@@ -47,6 +49,7 @@ class TargetsVC: UITableViewController {
         super.viewDidLoad()
         // Configure Firebase auth
         configureAuth()
+        configDatabase()
         /*
          do {
          try stack.dropAllData()
@@ -94,6 +97,31 @@ class TargetsVC: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    // MARK: Config firebase
+    func configDatabase(){
+        databaseRef = Database.database().reference()
+    }
+    // Configure auth with Firebase
+    func configureAuth() {
+        let provider = [FUIGoogleAuth()]
+        FUIAuth.defaultAuthUI()?.providers = provider
+        
+        // Create a listener to observe if auth status changed
+        _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
+            if let activeUser = user {
+                if self.user != activeUser {
+                    self.user = activeUser
+                    self.signedInStatus(isSignedIn: true)
+                    let name = activeUser.email!.components(separatedBy: "@")[0]
+                    self.displayName = name
+                    self.userID = Auth.auth().currentUser?.uid
+                }
+            } else {
+                self.signedInStatus(isSignedIn: false)
+                self.loginSession()
+            }
+        }
+    }
     // MARK: Assist func
     // Check if selected day was marked as succeed or as failed in success list
     func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
@@ -108,27 +136,7 @@ class TargetsVC: UITableViewController {
         }
         return ("nothing", nil)
     }
-    
-    // Configure auth with Firebase
-    func configureAuth() {
-        let provider = [FUIGoogleAuth()]
-        FUIAuth.defaultAuthUI()?.providers = provider
-        
-        // Create a listener to observe if auth status changed
-        _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
-            if let activeUser = user {
-                if self.user != activeUser {
-                    self.user = activeUser
-                    self.signedInStatus(isSignedIn: true)
-                    let name = activeUser.email!.components(separatedBy: "@")[0]
-                    self.displayName = name
-                }
-            } else {
-                self.signedInStatus(isSignedIn: false)
-                self.loginSession()
-            }
-        }
-    }
+
     
     // Configure app and login button title depending on auth status
     func signedInStatus(isSignedIn: Bool) {
@@ -270,8 +278,18 @@ class TargetsVC: UITableViewController {
         // Button works as login and as account button
         if loginButton.title == "Account" {
             // For account button open UserVC
-            let userVC = storyboard?.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
-            navigationController?.pushViewController(userVC, animated: true)
+            if let userID = userID {
+                databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get user value
+                    let value = snapshot.value as? NSDictionary
+                    let userVC = self.storyboard?.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
+                    userVC.title = value?[Constants.UserData.username] as? String ?? userID
+                    self.navigationController?.pushViewController(userVC, animated: true)
+                    
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+            }
         } else {
             // For login button starying login session
             self.loginSession()
