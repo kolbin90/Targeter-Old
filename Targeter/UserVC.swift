@@ -33,7 +33,7 @@ class UserViewController: UIViewController {
         // Configure Firebase
         configDatabase()
         configureStorage()
-        fillUserInformation()
+        //fillUserInformation()
         if #available(iOS 11.0, *) {
             self.navigationItem.largeTitleDisplayMode = .always
         } else {
@@ -65,6 +65,7 @@ class UserViewController: UIViewController {
                 self.cityAgeLabel.text = "\(city), \(age)"
                 self.cityAgeLabel.sizeToFit()
                 self.aboutLabel.text = value?[Constants.UserData.about] as? String ?? ""
+                self.title = value?[Constants.UserData.username] as? String ?? userID
                 self.aboutLabel.sizeToFit()
                 if let imageURL = value?[Constants.UserData.imageURL] as? String {
                     if let cachedImage = self.imageCache.object(forKey: "profileImage") {
