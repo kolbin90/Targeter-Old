@@ -19,6 +19,9 @@ extension UIViewController {
         navigationController?.navigationBar.tintColor = .black
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
+            navigationController?.navigationBar.largeTitleTextAttributes =
+                [NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 30) ??
+                    UIFont.systemFont(ofSize: 30)]
         } else {
             // Fallback on earlier versions
         }
