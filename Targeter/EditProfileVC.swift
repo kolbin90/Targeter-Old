@@ -28,6 +28,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var aboutTextField: UITextField!
     
+    @IBOutlet weak var usernameTextField: UITextField!
     // MARK: - LifeCicle
     override func viewDidLoad() {
         hideKeyboardWhenTappedAround()
@@ -58,6 +59,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 self.ageTextField.text = value?[Constants.UserData.age] as? String ?? ""
                 self.cityTextField.text = value?[Constants.UserData.city] as? String ?? ""
                 self.aboutTextField.text = value?[Constants.UserData.about] as? String ?? ""
+                self.usernameTextField.text = value?[Constants.UserData.username] as? String ?? ""
                 if let imageURL = value?[Constants.UserData.imageURL] as? String {
                     if let cachedImage = self.imageCache.object(forKey: "profileImage") {
                         DispatchQueue.main.async {
@@ -177,17 +179,20 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         if let userID = userID {
             //var userData:[String:String] = [:]
             //userData[Constants.UserData.name] = nameTextField.text ?? ""
-            if let userName = nameTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.name)").setValue(userName)
+            if let name = nameTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.name)").setValue(name)
             }
-            if let userAge = ageTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.age)").setValue(userAge)
+            if let username = usernameTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.username)").setValue(username)
             }
-            if let userCity = cityTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.city)").setValue(userCity)
+            if let age = ageTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.age)").setValue(age)
             }
-            if let userAbout = aboutTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.about)").setValue(userAbout)
+            if let city = cityTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.city)").setValue(city)
+            }
+            if let about = aboutTextField.text {
+                self.databaseRef.child("users/\(userID)/\(Constants.UserData.about)").setValue(about)
             }
             if let newProfileImage = newProfileImage {
                 deleteProfileImageFromStorage()
