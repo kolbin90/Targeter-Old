@@ -11,6 +11,8 @@ import UIKit
 import Firebase
 
 class FriendsViewController: UITableViewController {
+    
+    
     // UITableViewControllerDelegate & DataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
