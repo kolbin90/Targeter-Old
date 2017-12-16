@@ -17,6 +17,11 @@ extension UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 22)!]
         UIBarButtonItem.appearance().setTitleTextAttributes([ NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
         navigationController?.navigationBar.tintColor = .black
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        } else {
+            // Fallback on earlier versions
+        }
     }
     // Show activity indicator
     func activityIndicatoryShowing(showing: Bool, view: UIView) {
