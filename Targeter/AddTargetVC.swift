@@ -38,6 +38,11 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         super.viewDidLoad()
         // Set up Navigation controller
         setNavigationController()
+        if #available(iOS 11.0, *) {
+            self.navigationItem.largeTitleDisplayMode = .always
+        } else {
+            // Fallback on earlier versions
+        }
         //deleteButton.tintColor = .red // cell.dot1.image!.withRenderingMode(.alwaysTemplate)
         
         dateFormatter.dateStyle = DateFormatter.Style.medium
