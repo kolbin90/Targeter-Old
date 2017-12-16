@@ -97,9 +97,10 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         let imageData = newImage.jpeg(.highest)!
         return imageData
     }
+    
     func addImageToStorage(image:UIImage) {
         let photoData = prepareNewImage(image: image)
-        let imagePath = "users/" + userID! + "/\(Double(Date.timeIntervalSinceReferenceDate * 1000))"
+        let imagePath = "users/" + userID! + "profileImage"
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         storageRef.child(imagePath).putData(photoData, metadata: metadata) { (metadata, error) in
@@ -109,6 +110,21 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             }
             let imageURL = self.storageRef.child((metadata?.path)!).description
             self.databaseRef.child("users/\(self.userID!)/\(Constants.UserData.imageURL)").setValue(imageURL)
+        }
+    }
+    
+    func deleteProfileImageFromStorage() {
+        // Create a reference to the file to delete
+        let pathToImage = "users/" + userID! + "profileImage.jpg"
+        let desertRef = storageRef.child(pathToImage)
+        
+        // Delete the file
+        desertRef.delete { error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+            } else {
+                // File deleted successfully
+            }
         }
     }
     // MARK:  ImagePicker
@@ -173,6 +189,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 self.databaseRef.child("users/\(userID)/\(Constants.UserData.about)").setValue(userAbout)
             }
             if let newProfileImage = newProfileImage {
+                deleteProfileImageFromStorage()
                 addImageToStorage(image: newProfileImage)
             }
             //addImageToStorage(image: profileImageView.image!)
