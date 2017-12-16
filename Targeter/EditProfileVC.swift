@@ -59,7 +59,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 self.cityTextField.text = value?[Constants.UserData.city] as? String ?? ""
                 self.aboutTextField.text = value?[Constants.UserData.about] as? String ?? ""
                 if let imageURL = value?[Constants.UserData.imageURL] as? String {
-                    if let cachedImage = self.imageCache.object(forKey: imageURL as NSString) {
+                    if let cachedImage = self.imageCache.object(forKey: "profileImage") {
                         DispatchQueue.main.async {
                             self.profileImageView.image = cachedImage
                         }
@@ -70,7 +70,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                                 return
                             }
                             if let userImage = UIImage.init(data: data!, scale: 50) {
-                                self.imageCache.setObject(userImage, forKey: imageURL as NSString)
+                                self.imageCache.setObject(userImage, forKey: "profileImage")
                                 DispatchQueue.main.async {
                                     self.profileImageView.image = userImage
                                 }
@@ -100,7 +100,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     func addImageToStorage(image:UIImage) {
         let photoData = prepareNewImage(image: image)
-        let imagePath = "users/" + userID! + "profileImage"
+        let imagePath = "users/" + userID! + "/profileImage"
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         storageRef.child(imagePath).putData(photoData, metadata: metadata) { (metadata, error) in
@@ -115,7 +115,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     func deleteProfileImageFromStorage() {
         // Create a reference to the file to delete
-        let pathToImage = "users/" + userID! + "profileImage.jpg"
+        let pathToImage = "users/" + userID! + "/profileImage.jpg"
         let desertRef = storageRef.child(pathToImage)
         
         // Delete the file
@@ -137,9 +137,10 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profileImageView.image = image
+            //profileImageView.image? = image
             newProfileImage = image
             profileImageChanged = true
+            self.imageCache.setObject(image, forKey: "profileImage")
         }
         dismiss(animated: true, completion: nil)
         

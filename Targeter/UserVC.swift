@@ -45,6 +45,7 @@ class UserViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         fillUserInformation()
     }
+
     
     // MARK: Config firebase
     func configDatabase(){
@@ -66,7 +67,7 @@ class UserViewController: UIViewController {
                 self.aboutLabel.text = value?[Constants.UserData.about] as? String ?? ""
                 self.aboutLabel.sizeToFit()
                 if let imageURL = value?[Constants.UserData.imageURL] as? String {
-                    if let cachedImage = self.imageCache.object(forKey: imageURL as NSString) {
+                    if let cachedImage = self.imageCache.object(forKey: "profileImage") {
                         DispatchQueue.main.async {
                             self.userImage.image = cachedImage
                         }
@@ -76,9 +77,11 @@ class UserViewController: UIViewController {
                                 print("Error downloading: \(error!)")
                                 return
                             }
-                            let userImage = UIImage.init(data: data!, scale: 50)
-                            DispatchQueue.main.async {
-                                self.userImage.image = userImage
+                            if let userImage = UIImage.init(data: data!, scale: 50) {
+                                self.imageCache.setObject(userImage, forKey: "profileImage")
+                                DispatchQueue.main.async {
+                                    self.userImage.image = userImage
+                                }
                             }
                         })
                     }
