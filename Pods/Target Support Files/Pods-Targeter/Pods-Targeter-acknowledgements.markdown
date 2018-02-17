@@ -297,7 +297,7 @@ THE SOFTWARE.
 
 ## Firebase
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseABTesting
 
@@ -305,39 +305,39 @@ Copyright 2017 Google
 
 ## FirebaseAnalytics
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseAuth
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseCore
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseDatabase
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseFirestore
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseInstanceID
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseMessaging
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseRemoteConfig
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseStorage
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## FirebaseUI
 
@@ -959,7 +959,7 @@ Copyright 2017 Google
 
 ## GoogleSignIn
 
-Copyright 2017 Google
+Copyright 2018 Google
 
 ## GoogleToolboxForMac
 
@@ -1169,19 +1169,16 @@ Copyright 2017 Google
 
 ## IQKeyboardManagerSwift
 
-IQKeyboardManager license
-=========================
+MIT License
 
-The MIT License (MIT)
+Copyright (c) 2013-2017 Iftekhar Qurashi
 
-Copyright (c) 2013-16 Iftekhar Qurashi
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
@@ -1267,11 +1264,11 @@ THE SOFTWARE.
 
 ## TwitterCore
 
-Copyright Twitter, Inc. All Rights Reserved. Use of this software is subject to the terms and conditions of the Twitter Kit Agreement located at https://dev.twitter.com/overview/terms/twitterkit and the Developer Agreement located at https://dev.twitter.com/overview/terms/agreement. OSS: https://dev.twitter.com/twitterkit/open-source-licenses
+Copyright Twitter, Inc. All Rights Reserved. Use of this software is subject to the terms and conditions of the Twitter Kit Agreement located at https://dev.twitter.com/overview/terms/twitterkit and the Developer Agreement located at https://dev.twitter.com/overview/terms/agreement. OSS: https://github.com/twitter/twitter-kit-ios/blob/master/OS_LICENSES.md
 
 ## TwitterKit
 
-Twitter Kit: Copyright Twitter, Inc. All Rights Reserved. Use of this software is subject to the terms and conditions of the Twitter Kit Agreement located at https://dev.twitter.com/overview/terms/twitterkit and the Developer Agreement located at https://dev.twitter.com/overview/terms/agreement. OSS: https://dev.twitter.com/twitterkit/open-source-licenses
+Twitter Kit: Copyright Twitter, Inc. All Rights Reserved. Use of this software is subject to the terms and conditions of the Twitter Kit Agreement located at https://dev.twitter.com/overview/terms/twitterkit and the Developer Agreement located at https://dev.twitter.com/overview/terms/agreement. OSS: https://github.com/twitter/twitter-kit-ios/blob/master/OS_LICENSES.md
 
 ## gRPC
 
