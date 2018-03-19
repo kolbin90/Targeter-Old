@@ -20,4 +20,8 @@ class NewTargetCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        
+    }
+    
 }
