@@ -55,12 +55,12 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                self.nameTextField.text = value?[Constants.UserData.name] as? String ?? ""
-                self.ageTextField.text = value?[Constants.UserData.age] as? String ?? ""
-                self.cityTextField.text = value?[Constants.UserData.city] as? String ?? ""
-                self.aboutTextField.text = value?[Constants.UserData.about] as? String ?? ""
-                self.usernameTextField.text = value?[Constants.UserData.username] as? String ?? ""
-                if let imageURL = value?[Constants.UserData.imageURL] as? String {
+                self.nameTextField.text = value?[Constants.UserData.Name] as? String ?? ""
+                self.ageTextField.text = value?[Constants.UserData.Age] as? String ?? ""
+                self.cityTextField.text = value?[Constants.UserData.City] as? String ?? ""
+                self.aboutTextField.text = value?[Constants.UserData.About] as? String ?? ""
+                self.usernameTextField.text = value?[Constants.UserData.Username] as? String ?? ""
+                if let imageURL = value?[Constants.UserData.ImageURL] as? String {
                     if let cachedImage = self.imageCache.object(forKey: "profileImage") {
                         DispatchQueue.main.async {
                             self.profileImageView.image = cachedImage
@@ -111,7 +111,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 return
             }
             let imageURL = self.storageRef.child((metadata?.path)!).description
-            self.databaseRef.child("users/\(self.userID!)/\(Constants.UserData.imageURL)").setValue(imageURL)
+            self.databaseRef.child("users/\(self.userID!)/\(Constants.UserData.ImageURL)").setValue(imageURL)
         }
     }
     
@@ -180,19 +180,19 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             //var userData:[String:String] = [:]
             //userData[Constants.UserData.name] = nameTextField.text ?? ""
             if let name = nameTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.name)").setValue(name)
+                self.databaseRef.child("\(Constants.RootFolders.Users)/\(userID)/\(Constants.UserData.Name)").setValue(name)
             }
             if let username = usernameTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.username)").setValue(username)
+                self.databaseRef.child("\(Constants.RootFolders.Users)/\(userID)/\(Constants.UserData.Username)").setValue(username)
             }
             if let age = ageTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.age)").setValue(age)
+                self.databaseRef.child("\(Constants.RootFolders.Users)/\(userID)/\(Constants.UserData.Age)").setValue(age)
             }
             if let city = cityTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.city)").setValue(city)
+                self.databaseRef.child("\(Constants.RootFolders.Users)/\(userID)/\(Constants.UserData.City)").setValue(city)
             }
             if let about = aboutTextField.text {
-                self.databaseRef.child("users/\(userID)/\(Constants.UserData.about)").setValue(about)
+                self.databaseRef.child("\(Constants.RootFolders.Users)/\(userID)/\(Constants.UserData.About)").setValue(about)
             }
             if let newProfileImage = newProfileImage {
                 deleteProfileImageFromStorage()

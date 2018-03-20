@@ -283,7 +283,7 @@ class TargetsVC: UITableViewController {
                     // Get user value
                     let value = snapshot.value as? NSDictionary
                     let userVC = self.storyboard?.instantiateViewController(withIdentifier: "UserViewController") as! UserViewController
-                    userVC.title = value?[Constants.UserData.username] as? String ?? userID
+                    userVC.title = value?[Constants.UserData.Username] as? String ?? userID
                     self.navigationController?.pushViewController(userVC, animated: true)
                     
                 }) { (error) in

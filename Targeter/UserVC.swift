@@ -59,15 +59,15 @@ class UserViewController: UIViewController {
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                self.nameLabel.text = value?[Constants.UserData.name] as? String ?? ""
-                let city = value?[Constants.UserData.city] as? String ?? ""
-                let age = value?[Constants.UserData.age] as? String ?? ""
+                self.nameLabel.text = value?[Constants.UserData.Name] as? String ?? ""
+                let city = value?[Constants.UserData.City] as? String ?? ""
+                let age = value?[Constants.UserData.Age] as? String ?? ""
                 self.cityAgeLabel.text = "\(city), \(age)"
                 self.cityAgeLabel.sizeToFit()
-                self.aboutLabel.text = value?[Constants.UserData.about] as? String ?? ""
-                self.title = value?[Constants.UserData.username] as? String ?? userID
+                self.aboutLabel.text = value?[Constants.UserData.About] as? String ?? ""
+                self.title = value?[Constants.UserData.Username] as? String ?? userID
                 self.aboutLabel.sizeToFit()
-                if let imageURL = value?[Constants.UserData.imageURL] as? String {
+                if let imageURL = value?[Constants.UserData.ImageURL] as? String {
                     if let cachedImage = self.imageCache.object(forKey: "profileImage") {
                         DispatchQueue.main.async {
                             self.userImage.image = cachedImage
