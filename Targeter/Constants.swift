@@ -10,25 +10,25 @@ import Foundation
 
 struct Constants {
     struct UserData {
-        static let name = "name"
-        static let city = "city"
-        static let age = "age"
-        static let about = "about"
-        static let imageURL = "imageURL"
-        static let username = "username"
+        static let Name = "name"
+        static let City = "city"
+        static let Age = "age"
+        static let About = "about"
+        static let ImageURL = "imageURL"
+        static let Username = "username"
     }
     struct Target {
-        static let title = "title"
-        static let description = "description"
-        static let percentage = "percentage"
-        static let started = "started"
-        static let completed = "completed"
-        static let imageURL = "imageURL"
-        static let checkins = "checkins"
-        static let dateBeginning = "dateBeginning"
+        static let Title = "title"
+        static let Description = "description"
+        static let Percentage = "percentage"
+        static let Started = "started"
+        static let Completed = "completed"
+        static let ImageURL = "imageURL"
+        static let Checkins = "checkins"
+        static let DateBeginning = "dateBeginning"
     }
     struct RootFolders {
-        static let users = "users"
-        static let targets = "targets"
+        static let Users = "users"
+        static let Targets = "targets"
     }
 }
