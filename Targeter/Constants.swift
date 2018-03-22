@@ -18,6 +18,7 @@ struct Constants {
         static let Username = "username"
     }
     struct Target {
+        static let TargetID = "targetID"
         static let Title = "title"
         static let Description = "description"
         static let Percentage = "percentage"
@@ -26,6 +27,7 @@ struct Constants {
         static let ImageURL = "imageURL"
         static let Checkins = "checkins"
         static let DateBeginning = "dateBeginning"
+        static let DateEnding = "dateEnding"
     }
     struct RootFolders {
         static let Users = "users"
