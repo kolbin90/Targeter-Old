@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Firebase
+import FirebaseAuthUI
 
 class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -18,6 +20,9 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     var viewLoadedWithImage: UIImage?
     let dateFormatter = DateFormatter()
     let cellHeight:CGFloat = 130
+    var userID = Auth.auth().currentUser?.uid
+    var databaseRef: DatabaseReference!
+    var storageRef: StorageReference!
     
     //MARK: - Outlets
     
@@ -43,6 +48,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         } else {
             // Fallback on earlier versions
         }
+        configDatabase()
+        configureStorage()
         //deleteButton.tintColor = .red // cell.dot1.image!.withRenderingMode(.alwaysTemplate)
         
         dateFormatter.dateStyle = DateFormatter.Style.medium
@@ -98,6 +105,15 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         dismiss(animated: true, completion: nil)
     }
     //MARK: - Assist functions
+    
+    // MARK: Firebase functions
+    func configDatabase(){
+        databaseRef = Database.database().reference()
+    }
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
+    }
+    
     
     func deleteTargetAlertController(target: Target) {
         let actionController = UIAlertController(title: "Delete Target", message: "Are you sure to delete? You can't undo this", preferredStyle: .alert)
@@ -240,6 +256,12 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 //newImage = cropToBounds(image: newImage!, width: Double((newImage?.size.width)!), height: Double(cellHeight))
                 //imageData = newImage?.jpeg(.highest)
                 // Create new target
+                if let userID = userID {
+                    // Create targetRef to get a unique name for target in Firebase
+                    let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).childByAutoId()
+                    let targetID = targetRef.key
+                    targetRef.setValue(["targetID":targetID])
+                }
                 _ = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, cellImage: cellImageData, active: true, completed: false, context: stack.context)
                 stack.save()
             }
