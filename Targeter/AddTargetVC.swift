@@ -113,7 +113,21 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     func configureStorage() {
         storageRef = Storage.storage().reference()
     }
-    
+    func addImageToStorage(image:UIImage, targetRef:DatabaseReference, targetID:String) {
+        let photoData = image.jpeg(.highest)!
+        let imagePath = Constants.RootFolders.Targets + "/" + targetID + "/targetImage"
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        storageRef.child(imagePath).putData(photoData, metadata: metadata) { (metadata, error) in
+            guard (error == nil) else {
+                print("error saving image to storage")
+                return
+            }
+            // Save URL to Database
+            let imageURL = self.storageRef.child((metadata?.path)!).description
+            targetRef.child(Constants.Target.ImageURL).setValue(imageURL)
+        }
+    }
     
     func deleteTargetAlertController(target: Target) {
         let actionController = UIAlertController(title: "Delete Target", message: "Are you sure to delete? You can't undo this", preferredStyle: .alert)
@@ -252,7 +266,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             } else {
                 //imageData = prepareNewImage(image: tergetImageView.image!)
                 imageData = tergetImageView.image?.jpeg(.highest)
-                cellImageData = prepareNewImage(image: tergetImageView.image!)
+                let image = tergetImageView.image!
+                //cellImageData = prepareNewImage(image: tergetImageView.image!)
                 //newImage = cropToBounds(image: newImage!, width: Double((newImage?.size.width)!), height: Double(cellHeight))
                 //imageData = newImage?.jpeg(.highest)
                 // Create new target
@@ -260,9 +275,16 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                     // Create targetRef to get a unique name for target in Firebase
                     let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).childByAutoId()
                     let targetID = targetRef.key
-                    targetRef.setValue(["targetID":targetID])
+                    targetRef.child(Constants.Target.TargetID).setValue(targetID)
+                    targetRef.child(Constants.Target.Title).setValue(titleTF.text)
+                    targetRef.child(Constants.Target.Description).setValue(descriptionTF.text!)
+                    targetRef.child(Constants.Target.DateBeginning).setValue(startDate.text!)
+                    if let endDateText = endDate.text, endDateText != "" {
+                        targetRef.child(Constants.Target.DateEnding).setValue(endDateText)
+                    }
+                    addImageToStorage(image: image, targetRef: targetRef, targetID: targetID)
                 }
-                _ = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, cellImage: cellImageData, active: true, completed: false, context: stack.context)
+                _ = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, cellImage: imageData, active: true, completed: false, context: stack.context)
                 stack.save()
             }
             _ = navigationController?.popViewController(animated: true)
