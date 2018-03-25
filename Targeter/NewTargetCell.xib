@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -58,10 +58,10 @@
                                 <rect key="frame" x="0.0" y="65.5" width="288" height="22.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Z9T-td-eqV">
-                                        <rect key="frame" x="112" y="0.0" width="176" height="22.5"/>
+                                        <rect key="frame" x="112.5" y="0.0" width="175.5" height="22.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="bottom" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="jQB-VU-Utz">
-                                                <rect key="frame" x="0.0" y="0.0" width="109" height="22.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="108.5" height="22.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxC-iP-Wo8">
                                                         <rect key="frame" x="0.0" y="11" width="12" height="11.5"/>
@@ -92,28 +92,28 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQU-5V-6US">
-                                                        <rect key="frame" x="55.5" y="11" width="12.5" height="11.5"/>
+                                                        <rect key="frame" x="55.5" y="11" width="12" height="11.5"/>
                                                         <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="PQU-5V-6US" secondAttribute="height" multiplier="1:1" id="NCo-Pd-2vl"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ABx-me-WwI">
-                                                        <rect key="frame" x="70" y="11" width="11.5" height="11.5"/>
+                                                        <rect key="frame" x="69.5" y="11" width="11.5" height="11.5"/>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="ABx-me-WwI" secondAttribute="height" multiplier="1:1" id="p3K-vX-yxk"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Afi-O4-cUQ">
-                                                        <rect key="frame" x="83.5" y="11" width="12" height="11.5"/>
+                                                        <rect key="frame" x="83" y="11" width="12" height="11.5"/>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Afi-O4-cUQ" secondAttribute="height" multiplier="1:1" id="5FO-Jv-dwd"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kpM-R3-iwn">
-                                                        <rect key="frame" x="97.5" y="11" width="11.5" height="11.5"/>
+                                                        <rect key="frame" x="97" y="11" width="11.5" height="11.5"/>
                                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="kpM-R3-iwn" secondAttribute="height" multiplier="1:1" id="Ddw-WB-7qP"/>
@@ -131,7 +131,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kfc-HF-O6p">
-                                                <rect key="frame" x="119" y="0.0" width="57" height="22.5"/>
+                                                <rect key="frame" x="118.5" y="0.0" width="57" height="22.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2d-l0-6Cd">
                                                         <rect key="frame" x="0.0" y="0.0" width="41.5" height="22.5"/>
@@ -171,6 +171,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="targetImageView" destination="92N-5o-daz" id="xIq-wa-j49"/>
+                <outlet property="titleLabel" destination="Rnj-W8-P8h" id="oJZ-Cd-Xa0"/>
+            </connections>
             <point key="canvasLocation" x="34" y="82"/>
         </tableViewCell>
     </objects>
