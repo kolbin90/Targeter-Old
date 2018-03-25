@@ -18,6 +18,8 @@ class FriendsViewController: UITableViewController {
     var storageRef: StorageReference!
     var targets:[DataSnapshot]! = []
     fileprivate var _refHandle: DatabaseHandle!
+    let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
+
 
     
     //MARK: - Outlets
@@ -26,6 +28,7 @@ class FriendsViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
         // Set up Navigation controller
         configDatabase()
         configureStorage()
@@ -65,8 +68,35 @@ class FriendsViewController: UITableViewController {
     // MARK: UITableViewControllerDelegate & DataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
-        let newCell = Bundle.main.loadNibNamed("NewTargetCell", owner: nil, options: nil)!.first as! NewTargetCell
-        return newCell
+        //let newCell = Bundle.main.loadNibNamed("NewTargetCell", owner: nil, options: nil)!.first as! NewTargetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
+        
+        let targetSnapshot = targets[indexPath.row]
+        let target = targetSnapshot.value as! [String:String]
+        let title = target[Constants.Target.Title] ?? "Опусти водный бро"
+        if let imageURL = target[Constants.Target.ImageURL] as? String {
+            if let cachedImage = self.imageCache.object(forKey: "targetImage\(indexPath.row)" as NSString) {
+                DispatchQueue.main.async {
+                    cell.targetImageView.image = cachedImage
+                }
+            } else {
+                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                    guard error == nil else {
+                        print("Error downloading: \(error!)")
+                        return
+                    }
+                    if let userImage = UIImage.init(data: data!, scale: 50) {
+                        self.imageCache.setObject(userImage, forKey: "targetImage\(indexPath.row)" as NSString)
+                        DispatchQueue.main.async {
+                            cell.targetImageView.image = userImage
+                        }
+                    }
+                })
+            }
+        }
+        cell.titleLabel.text = title
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
