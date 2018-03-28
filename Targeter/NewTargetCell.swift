@@ -10,6 +10,9 @@ import UIKit
 
 class NewTargetCell: UITableViewCell {
 
+    @IBOutlet weak var todayMark: UILabel!
+    @IBOutlet weak var rightArror: UILabel!
+    @IBOutlet var marks: [UIView]!
     @IBOutlet weak var targetImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     override func awakeFromNib() {
