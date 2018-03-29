@@ -33,15 +33,16 @@ class TargetsVC: UITableViewController {
     var displayName = "Anonymous"  // name before user logged in
     
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
-    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
+    /*var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
             // Whenever the frc changes, we execute the search and
             // reload the table
-            fetchedResultsController?.delegate = self
-            executeSearch()
+            //fetchedResultsController?.delegate = self
+            //executeSearch()
             tableView.reloadData()
         }
     }
+ */
     
     // MARK: Lifecycle
     
@@ -67,7 +68,7 @@ class TargetsVC: UITableViewController {
             // Fallback on earlier versions
         }
 
-        
+        /*
         // Create a fetchrequest
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Target")
         fr.sortDescriptors = [NSSortDescriptor(key: "completed", ascending: true),
@@ -75,6 +76,7 @@ class TargetsVC: UITableViewController {
         
         // Create the FetchedResultsController
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
+ */
         
         // Set notification for today and tomorrow
         makeNotification()
@@ -88,11 +90,12 @@ class TargetsVC: UITableViewController {
     
     
     // MARK: Initializers
-    
+    /*
     init(fetchedResultsController fc : NSFetchedResultsController<NSFetchRequestResult>, style : UITableViewStyle = .plain) {
         fetchedResultsController = fc
         super.init(style: style)
     }
+ */
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -156,7 +159,7 @@ class TargetsVC: UITableViewController {
     }
     
     // Check how many targets are marked for today
-    func targetsToMark() -> Int {
+  /*  func targetsToMark() -> Int {
         var num: Int
         let today = Date()
         var toMark: Int
@@ -187,10 +190,12 @@ class TargetsVC: UITableViewController {
         }
         return toMark
     }
+*/
     
     // Create notification
     func makeNotification() {
         // Creating and setting up user notification
+        /*
         let content = UNMutableNotificationContent()
         let contentMorning = UNMutableNotificationContent()
         let targetsToMarkCount = targetsToMark() // Check how many targets are unmarked
@@ -221,6 +226,7 @@ class TargetsVC: UITableViewController {
             contentMorning.body = content.body
         }
         setNotificationsForTime(dateComponents: dateComponentsTwo, content: contentMorning)
+ */
     }
     // Creates Date tomorrow at specific time
     func getTomorrowAt(hour: Int, minute: Int) -> Date {
@@ -305,7 +311,7 @@ class TargetsVC: UITableViewController {
 }
 
 // MARK: - CoreDataTableViewController
-
+/*
 extension TargetsVC {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -515,11 +521,11 @@ extension TargetsVC {
         }
     }
 }
-
+*/
 // MARK: - CoreDataTableViewController (Table Data Source)
-
+/*
 extension TargetsVC {
-    
+ 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if let fc = fetchedResultsController {
             return (fc.sections?.count)!
@@ -618,4 +624,5 @@ extension TargetsVC: NSFetchedResultsControllerDelegate {
         tableView.endUpdates()
     }
 }
+ */
 
