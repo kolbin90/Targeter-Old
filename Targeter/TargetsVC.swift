@@ -22,15 +22,24 @@ class TargetsVC: UITableViewController {
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     // MARK: Properties
-    var databaseRef: DatabaseReference!
     var userID: String?
-    // Colors for check ins
-    let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
-    let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
+    var databaseRef: DatabaseReference!
+    var storageRef: StorageReference!
+    var targets:[DataSnapshot]! = []
+    fileprivate var _refHandle: DatabaseHandle!
+    let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
+    
+    
     
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle! // Listens when Firebase Auth changed status
     var user: User?
     var displayName = "Anonymous"  // name before user logged in
+    
+        // Colors for check ins
+    let greenColor = UIColor.init(red: 46/256, green: 184/256, blue: 46/256, alpha: 1)
+    let redColor = UIColor(red: 0.872, green: 0.255, blue: 0.171, alpha: 1)
+    
+    
     
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     /*var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
@@ -49,8 +58,12 @@ class TargetsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Configure Firebase auth
+        tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
         configureAuth()
         configDatabase()
+        configureStorage()
+        //downloadTargets()
+
         /*
          do {
          try stack.dropAllData()
@@ -118,10 +131,29 @@ class TargetsVC: UITableViewController {
                     let name = activeUser.email!.components(separatedBy: "@")[0]
                     self.displayName = name
                     self.userID = Auth.auth().currentUser?.uid
+                    self.downloadTargets()
                 }
             } else {
                 self.signedInStatus(isSignedIn: false)
                 self.loginSession()
+            }
+        }
+    }
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
+    }
+    func downloadTargets() {
+        if let userID = userID {
+            _refHandle = databaseRef.child(Constants.RootFolders.Targets).child(userID).observe(.childAdded, with: { (snapshot) in
+                self.targets.append(snapshot)
+                let value = snapshot.value as? [String:AnyObject]
+                self.tableView.reloadData()
+                //print(value?.allValues[0])
+                //let targetValue
+                // print(Array(value!.values)[0])
+                
+            }) { (error) in
+                print(error.localizedDescription)
             }
         }
     }
@@ -306,6 +338,46 @@ class TargetsVC: UITableViewController {
         // ref.child("messages").removeObserver(withHandle: _refHandle)
         // Remove auth listener
         Auth.auth().removeStateDidChangeListener(_authHandle)
+        if let userID = userID {
+            databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: _refHandle)
+        }
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
+        //let newCell = Bundle.main.loadNibNamed("NewTargetCell", owner: nil, options: nil)!.first as! NewTargetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
+        
+        let targetSnapshot = targets[indexPath.row]
+        let target = targetSnapshot.value as! [String:String]
+        let title = target[Constants.Target.Title] ?? "Опусти водный бро"
+        if let imageURL = target[Constants.Target.ImageURL] as? String {
+            if let cachedImage = self.imageCache.object(forKey: "targetImage\(indexPath.row)" as NSString) {
+                DispatchQueue.main.async {
+                    cell.targetImageView.image = cachedImage
+                }
+            } else {
+                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                    guard error == nil else {
+                        print("Error downloading: \(error!)")
+                        return
+                    }
+                    if let userImage = UIImage.init(data: data!, scale: 50) {
+                        self.imageCache.setObject(userImage, forKey: "targetImage\(indexPath.row)" as NSString)
+                        DispatchQueue.main.async {
+                            cell.targetImageView.image = userImage
+                        }
+                    }
+                })
+            }
+        }
+        cell.titleLabel.text = title
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return targets.count
+        
     }
     
 }
