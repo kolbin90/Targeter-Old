@@ -22,10 +22,12 @@ class TargetsVC: UITableViewController {
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     // MARK: Properties
+    let dateFormatter = DateFormatter()
     var userID: String?
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
     var targets:[DataSnapshot]! = []
+    
     fileprivate var _refHandle: DatabaseHandle!
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
     
@@ -62,6 +64,9 @@ class TargetsVC: UITableViewController {
         configureAuth()
         configDatabase()
         configureStorage()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        //dateFormatter.timeStyle = DateFormatter.Style.none
         //downloadTargets()
 
         /*
@@ -147,6 +152,7 @@ class TargetsVC: UITableViewController {
             _refHandle = databaseRef.child(Constants.RootFolders.Targets).child(userID).observe(.childAdded, with: { (snapshot) in
                 self.targets.append(snapshot)
                 let value = snapshot.value as? [String:AnyObject]
+                
                 self.tableView.reloadData()
                 //print(value?.allValues[0])
                 //let targetValue
@@ -188,6 +194,19 @@ class TargetsVC: UITableViewController {
         // Show auth view controller
         let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
         self.present(authViewController, animated: true, completion: nil)
+    }
+    
+    //Save check in to FireBase
+    func saveCheckIn(targetID:String,result:String) {
+        if let userID = userID {
+            let today = dateFormatter.string(from:Date())
+            // Create targetRef by targetID
+            let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID)
+            //let targetID = targetRef.key
+            targetRef.child(Constants.Target.Checkins).child(today).setValue(result) //setValue(targetID)
+            
+        }
+        
     }
     
     // Check how many targets are marked for today
@@ -348,7 +367,10 @@ class TargetsVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
         
         let targetSnapshot = targets[indexPath.row]
-        let target = targetSnapshot.value as! [String:String]
+        print(targets.count)
+        guard let target = targetSnapshot.value as? [String:String] else {
+            return cell
+        }
         let title = target[Constants.Target.Title] ?? "Опусти водный бро"
         if let imageURL = target[Constants.Target.ImageURL] as? String {
             if let cachedImage = self.imageCache.object(forKey: "targetImage\(indexPath.row)" as NSString) {
