@@ -368,10 +368,10 @@ class TargetsVC: UITableViewController {
         
         let targetSnapshot = targets[indexPath.row]
         print(targets.count)
-        guard let target = targetSnapshot.value as? [String:String] else {
+        guard let target = targetSnapshot.value as? [String:AnyObject] else {
             return cell
         }
-        let title = target[Constants.Target.Title] ?? "Опусти водный бро"
+        let title = target[Constants.Target.Title] as? String ?? "Опусти водный бро"
         if let imageURL = target[Constants.Target.ImageURL] as? String {
             if let cachedImage = self.imageCache.object(forKey: "targetImage\(indexPath.row)" as NSString) {
                 DispatchQueue.main.async {
