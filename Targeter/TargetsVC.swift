@@ -402,6 +402,14 @@ class TargetsVC: UITableViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let targetSnapshot = targets[indexPath.row]
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddTargetVC") as! AddTargetVC
+        controller.editingMode = true
+        controller.targetSnapshot = targetSnapshot
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
 }
 
 // MARK: - CoreDataTableViewController

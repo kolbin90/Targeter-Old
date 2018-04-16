@@ -17,12 +17,15 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var editingMode = false
     var target: Target?
+    var targetSnapshot: DataSnapshot?
     var viewLoadedWithImage: UIImage?
     let dateFormatter = DateFormatter()
     let cellHeight:CGFloat = 130
     var userID = Auth.auth().currentUser?.uid
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
+    let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
+
     
     //MARK: - Outlets
     
@@ -57,18 +60,49 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         hideKeyboardWhenTappedAround()
         mainView.layer.cornerRadius = 15
         if editingMode {
-            titleTF.text = target!.title
-            descriptionTF.text = target!.descriptionCompletion
-            viewLoadedWithImage = UIImage(data:target!.picture!)
-            tergetImageView.image = viewLoadedWithImage
+            
+            
+            
+            
+            
+            guard let target = targetSnapshot?.value as? [String:AnyObject] else {
+                return
+            }
+            let title = target[Constants.Target.Title] as? String ?? "Опусти водный бро"
+            let description = target[Constants.Target.Description] as? String ?? ""
+            let dateBeginning = target[Constants.Target.DateBeginning] as? String ?? ""
+            let dateEnding = target[Constants.Target.DateEnding] as? String ?? ""
+            let targetID = target[Constants.Target.TargetID] as? String ?? ""
+            if let imageURL = target[Constants.Target.ImageURL] as? String {
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                        guard error == nil else {
+                            print("Error downloading: \(error!)")
+                            return
+                        }
+                        if let userImage = UIImage.init(data: data!, scale: 50) {
+                         //   self.imageCache.setObject(userImage, forKey: "targetImage\(indexPath.row)" as NSString)
+                            DispatchQueue.main.async {
+                                self.tergetImageView.image = userImage
+                            }
+                        }
+                    })
+                
+            }
+            
+            
+            
+            
+            
+            titleTF.text = title
+            descriptionTF.text = description
             startDate.isEnabled = false
             startDate.alpha = 0.5
-            startDate.text = dateFormatter.string(from: target!.dayBeginning)
+            startDate.text = dateBeginning
             addImageButton.setTitle("Change image", for: .normal)
             
-            if let endingDate = target!.dayEnding {
+            if dateEnding != "" {
                 endDate.isEnabled = true
-                endDate.text = dateFormatter.string(from: endingDate)
+                endDate.text = dateEnding
             }
             navigationItem.title = "Edit target"
             actionsStackView.isHidden = false
