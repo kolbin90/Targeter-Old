@@ -363,6 +363,7 @@ class TargetsVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
         cell.todayMark.backgroundColor = .white
+        cell.rightArror.isHidden = false
         let targetSnapshot = targets[indexPath.row]
         guard let target = targetSnapshot.value as? [String:AnyObject] else {
             return cell
@@ -392,8 +393,12 @@ class TargetsVC: UITableViewController {
             if let today = checkIns[self.dateFormatter.string(from: Date())] {
                 if today == "F" {
                     cell.todayMark.backgroundColor = redColor
+                    cell.todayMark.textColor = .white
+                    cell.rightArror.isHidden = true
                 } else {
                     cell.todayMark.backgroundColor = greenColor
+                    cell.todayMark.textColor = .white
+                    cell.rightArror.isHidden = true
                 }
             }
         }
