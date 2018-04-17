@@ -354,7 +354,6 @@ class TargetsVC: UITableViewController {
     }
     
     deinit {
-        // ref.child("messages").removeObserver(withHandle: _refHandle)
         // Remove auth listener
         Auth.auth().removeStateDidChangeListener(_authHandle)
         if let userID = userID {
@@ -362,12 +361,9 @@ class TargetsVC: UITableViewController {
         }
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
-        //let newCell = Bundle.main.loadNibNamed("NewTargetCell", owner: nil, options: nil)!.first as! NewTargetCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
-        
+        cell.todayMark.backgroundColor = .white
         let targetSnapshot = targets[indexPath.row]
-        print(targets.count)
         guard let target = targetSnapshot.value as? [String:AnyObject] else {
             return cell
         }
@@ -392,14 +388,23 @@ class TargetsVC: UITableViewController {
                 })
             }
         }
+        if let checkIns = target[Constants.Target.Checkins] as? [String:String] {
+            if let today = checkIns[self.dateFormatter.string(from: Date())] {
+                if today == "F" {
+                    cell.todayMark.backgroundColor = redColor
+                } else {
+                    cell.todayMark.backgroundColor = greenColor
+                }
+            }
+        }
         cell.titleLabel.text = title
+        
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return targets.count
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -408,6 +413,52 @@ class TargetsVC: UITableViewController {
         controller.editingMode = true
         controller.targetSnapshot = targetSnapshot
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let targetSnapshot = targets[indexPath.row]
+        guard let target = targetSnapshot.value as? [String:AnyObject] else {
+            return nil
+        }
+        guard let targetID = target[Constants.Target.TargetID] as? String else {
+            return nil
+        }
+        guard let userID = userID else {
+            return nil
+        }
+        let today = Date()
+        // Create different options for "Swipe left to do smtn"
+        let failAction = UITableViewRowAction(style: .normal, title: "Failed") {action,arg  in
+            //handle delete
+            self.saveCheckIn(targetID: targetID, result: "F")
+            self.makeNotification()
+        }
+        failAction.backgroundColor = redColor
+        let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action,arg  in
+            //handle edit
+            self.saveCheckIn(targetID: targetID, result: "S")
+            self.makeNotification()
+        }
+        successAction.backgroundColor! = greenColor
+        
+        let result = (tableView.cellForRow(at: indexPath) as! NewTargetCell).todayMark.backgroundColor
+        let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action,arg  in
+            
+            self.makeNotification()
+        }
+        unmarkAction.backgroundColor = .darkGray
+        if result != .white {
+            return [unmarkAction]
+        } else {
+            return [successAction, failAction]
+        }
     }
     
 }
@@ -561,67 +612,9 @@ extension TargetsVC {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let target = self.fetchedResultsController!.object(at: indexPath) as! Target
-        let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddTargetVC") as! AddTargetVC
-        controller.editingMode = true
-        controller.target = target
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
+
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    }
-    
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let target = fetchedResultsController?.object(at: indexPath) as! Target
-        let today = Date()
-        // Create different options for "Swipe left to do smtn"
-        let failAction = UITableViewRowAction(style: .normal, title: "Failed") {action,arg  in
-            //handle delete
-            let date = Date()
-            let success = Success.init(date: date, success: false, context: self.stack.context)
-            target.addToSuccessList(success)
-            self.stack.save()
-            self.makeNotification()
-        }
-        failAction.backgroundColor = redColor
-        let successAction = UITableViewRowAction(style: .normal, title: "Succeed") {action,arg  in
-            //handle edit
-            let date = Date()
-            let success = Success.init(date: date, success: true, context: self.stack.context)
-            target.addToSuccessList(success)
-            self.stack.save()
-            self.makeNotification()
-        }
-        successAction.backgroundColor! = greenColor 
-        
-        
-        if let successList = target.successList as? Set<Success>, (successList.count > 0) {
-            let (success, todayInSuccessList) = todayIn(successList: successList, today: today)
-            let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action,arg  in
-                self.stack.context.delete(todayInSuccessList!)
-                self.stack.save()
-                self.makeNotification()
-            }
-            unmarkAction.backgroundColor = .darkGray
-            switch success {
-            case "succeed",
-                 "failed":
-                return [unmarkAction]
-            case "nothing":
-                return [successAction, failAction]
-            default:
-                print("Error!")
-                return [successAction, failAction]
-            }
-        } else {
-            return [successAction, failAction]
-        }
-    }
+
 }
 */
 // MARK: - CoreDataTableViewController (Table Data Source)
