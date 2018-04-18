@@ -55,8 +55,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         configureStorage()
         //deleteButton.tintColor = .red // cell.dot1.image!.withRenderingMode(.alwaysTemplate)
         
-        dateFormatter.dateStyle = DateFormatter.Style.short
-        dateFormatter.timeStyle = DateFormatter.Style.none
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         hideKeyboardWhenTappedAround()
         mainView.layer.cornerRadius = 15
         if editingMode {
@@ -338,7 +337,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     @IBAction func dateTF(_ sender: UITextField) {
         if sender.text == nil || sender.text == "" {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .short
+            dateFormatter.dateFormat = "yyyy-MM-dd"
             let date = dateFormatter.string(from: Date())
             sender.text = date
         }

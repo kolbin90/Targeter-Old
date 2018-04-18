@@ -390,17 +390,35 @@ class TargetsVC: UITableViewController {
             }
         }
         if let checkIns = target[Constants.Target.Checkins] as? [String:String] {
-            if let today = checkIns[self.dateFormatter.string(from: Date())] {
-                if today == "F" {
+            if let todayResult = checkIns[self.dateFormatter.string(from: Date())] {
+                if todayResult == "F" {
                     cell.todayMark.backgroundColor = redColor
                     cell.todayMark.textColor = .white
                     cell.rightArror.isHidden = true
-                } else {
+                } else if todayResult == "S" {
                     cell.todayMark.backgroundColor = greenColor
                     cell.todayMark.textColor = .white
                     cell.rightArror.isHidden = true
                 }
             }
+            var dayForChecking = Calendar.current.date(byAdding: .day, value: -14, to: Date())!
+            let dateBeginning = dateFormatter.date(from:(target[Constants.Target.DateBeginning] as! String))!
+            for mark in cell.marks {
+                if dayForChecking > dateBeginning {
+                    if let todayResult = checkIns[self.dateFormatter.string(from: dayForChecking)] {
+                        if todayResult == "F" {
+                            mark.backgroundColor = redColor
+                        } else if todayResult == "S" {
+                            mark.backgroundColor = greenColor
+                        }
+                    }
+                } else {
+                    mark.alpha = 0
+                }
+                dayForChecking = Calendar.current.date(byAdding: .day, value: +1, to: dayForChecking)!
+                
+            }
+            
         }
         cell.titleLabel.text = title
         
