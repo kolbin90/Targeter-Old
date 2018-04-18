@@ -406,6 +406,7 @@ class TargetsVC: UITableViewController {
             for mark in cell.marks {
                 if dayForChecking > dateBeginning {
                     if let todayResult = checkIns[self.dateFormatter.string(from: dayForChecking)] {
+                        mark.alpha = 1
                         if todayResult == "F" {
                             mark.backgroundColor = redColor
                         } else if todayResult == "S" {
