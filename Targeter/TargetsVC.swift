@@ -404,7 +404,7 @@ class TargetsVC: UITableViewController {
             var dayForChecking = Calendar.current.date(byAdding: .day, value: -14, to: Date())!
             let dateBeginning = dateFormatter.date(from:(target[Constants.Target.DateBeginning] as! String))!
             for mark in cell.marks {
-                if dayForChecking > dateBeginning {
+                if dayForChecking >= dateBeginning {
                     if let todayResult = checkIns[self.dateFormatter.string(from: dayForChecking)] {
                         mark.alpha = 1
                         if todayResult == "F" {
