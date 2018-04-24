@@ -209,6 +209,17 @@ class TargetsVC: UITableViewController {
         
     }
     
+    func deleteCheckIn(targetID:String) {
+        if let userID = userID {
+            let today = dateFormatter.string(from:Date())
+            // Create targetRef by targetID
+            let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID)
+            //let targetID = targetRef.key
+            targetRef.child(Constants.Target.Checkins).child(today).removeValue()
+            
+        }
+        
+    }
     // Check how many targets are marked for today
   /*  func targetsToMark() -> Int {
         var num: Int
@@ -476,6 +487,7 @@ class TargetsVC: UITableViewController {
         let result = (tableView.cellForRow(at: indexPath) as! NewTargetCell).todayMark.backgroundColor
         let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action,arg  in
             
+            self.deleteCheckIn(targetID: targetID)
             self.makeNotification()
         }
         unmarkAction.backgroundColor = .darkGray
