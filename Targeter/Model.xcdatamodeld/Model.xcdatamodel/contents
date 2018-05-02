@@ -1,47 +1,113 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16A323" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1212" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Image" representedClassName="Image" syncable="YES">
-        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" indexed="YES" syncable="YES"/>
-        <attribute name="url" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="url" attributeType="String" syncable="YES"/>
         <relationship name="imageSearch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageSearch" inverseName="images" inverseEntity="ImageSearch" syncable="YES"/>
+        <fetchIndex name="byImageDataIndex">
+            <fetchIndexElement property="imageData" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byUrlIndex">
+            <fetchIndexElement property="url" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="ImageSearch" representedClassName="ImageSearch" syncable="YES">
-        <attribute name="searchTitle" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="searchTitle" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Image" inverseName="imageSearch" inverseEntity="Image" syncable="YES"/>
+        <fetchIndex name="bySearchTitleIndex">
+            <fetchIndexElement property="searchTitle" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="Schedule" representedClassName="Schedule" syncable="YES">
-        <attribute name="friday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="monday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="saturday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="sunday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="thursday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="tuesday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="wednesday" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="friday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="monday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="saturday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sunday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="thursday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tuesday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wednesday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="target" maxCount="1" deletionRule="Nullify" destinationEntity="Target" inverseName="schedule" inverseEntity="Target" syncable="YES"/>
+        <fetchIndex name="byFridayIndex">
+            <fetchIndexElement property="friday" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byMondayIndex">
+            <fetchIndexElement property="monday" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="bySaturdayIndex">
+            <fetchIndexElement property="saturday" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="bySundayIndex">
+            <fetchIndexElement property="sunday" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byThursdayIndex">
+            <fetchIndexElement property="thursday" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byTuesdayIndex">
+            <fetchIndexElement property="tuesday" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byWednesdayIndex">
+            <fetchIndexElement property="wednesday" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="Success" representedClassName="Success" syncable="YES">
-        <attribute name="date" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
-        <attribute name="success" optional="YES" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="success" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="target" maxCount="1" deletionRule="Nullify" destinationEntity="Target" inverseName="successList" inverseEntity="Target" syncable="YES"/>
+        <fetchIndex name="byDateIndex">
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="bySuccessIndex">
+            <fetchIndexElement property="success" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="Target" representedClassName="Target" syncable="YES">
-        <attribute name="active" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
+        <attribute name="active" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cellImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES" indexed="YES" syncable="YES"/>
-        <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
-        <attribute name="dayBeginning" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
-        <attribute name="dayEnding" optional="YES" attributeType="Date" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
-        <attribute name="descriptionCompletion" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="picture" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" indexed="YES" syncable="YES"/>
-        <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="completed" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dayBeginning" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dayEnding" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="descriptionCompletion" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="schedule" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Schedule" inverseName="target" inverseEntity="Schedule" syncable="YES"/>
         <relationship name="successList" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Success" inverseName="target" inverseEntity="Success" syncable="YES"/>
+        <fetchIndex name="byActiveIndex">
+            <fetchIndexElement property="active" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byCompletedIndex">
+            <fetchIndexElement property="completed" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byCreationDateIndex">
+            <fetchIndexElement property="creationDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byDayBeginningIndex">
+            <fetchIndexElement property="dayBeginning" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byDayEndingIndex">
+            <fetchIndexElement property="dayEnding" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byDescriptionCompletionIndex">
+            <fetchIndexElement property="descriptionCompletion" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byPictureIndex">
+            <fetchIndexElement property="picture" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byTitleIndex">
+            <fetchIndexElement property="title" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="TargetImages" representedClassName="TargetImages" syncable="YES" codeGenerationType="class">
+        <attribute name="cellImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="fullImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="targetID" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Image" positionX="135" positionY="117" width="128" height="90"/>
-        <element name="ImageSearch" positionX="126" positionY="108" width="128" height="75"/>
-        <element name="Schedule" positionX="108" positionY="9" width="128" height="165"/>
-        <element name="Success" positionX="250" positionY="117" width="128" height="90"/>
-        <element name="Target" positionX="-36" positionY="9" width="128" height="210"/>
+        <element name="ImageSearch" positionX="207" positionY="-39" width="128" height="75"/>
+        <element name="Schedule" positionX="18" positionY="-189" width="128" height="165"/>
+        <element name="Success" positionX="70" positionY="-45" width="128" height="90"/>
+        <element name="Target" positionX="-324" positionY="-180" width="128" height="210"/>
+        <element name="TargetImages" positionX="-180" positionY="101" width="128" height="88"/>
     </elements>
 </model>
