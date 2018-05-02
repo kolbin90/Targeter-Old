@@ -152,8 +152,7 @@ class TargetsVC: UITableViewController {
             _refHandle = databaseRef.child(Constants.RootFolders.Targets).child(userID).observe(.childAdded, with: { (snapshot) in
                 self.targets.append(snapshot)
                 let value = snapshot.value as? [String:AnyObject]
-                
-                self.tableView.reloadData()
+                self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
                 //print(value?.allValues[0])
                 //let targetValue
                 // print(Array(value!.values)[0])
