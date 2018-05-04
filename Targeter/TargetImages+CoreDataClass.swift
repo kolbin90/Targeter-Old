@@ -13,7 +13,7 @@ import CoreData
 @objc(TargetImages)
 public class TargetImages: NSManagedObject {
     convenience init(targetID:String, cellImage:Data, fullImage:Data, imageURL: String, context: NSManagedObjectContext) {
-        if let ent = NSEntityDescription.entity(forEntityName: "ImageSearch", in: context) {
+        if let ent = NSEntityDescription.entity(forEntityName: "TargetImages", in: context) {
             self.init(entity: ent, insertInto: context)
             self.targetID = targetID
             self.cellImage = cellImage

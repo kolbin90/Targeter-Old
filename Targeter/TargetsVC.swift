@@ -59,6 +59,13 @@ class TargetsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        /*
+        do {
+            try stack.dropAllData()
+        } catch {
+            print("Ebat' error")
+        }
+        */
         // Configure Firebase auth
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
         configureAuth()
@@ -69,13 +76,9 @@ class TargetsVC: UITableViewController {
         //dateFormatter.timeStyle = DateFormatter.Style.none
         //downloadTargets()
 
-        /*
-         do {
-         try stack.dropAllData()
-         } catch {
-         print("Ebat' error")
-         }
-         */
+        
+        
+        
         
         
         // Set up Navigation controller
@@ -381,26 +384,39 @@ class TargetsVC: UITableViewController {
         guard let target = targetSnapshot.value as? [String:AnyObject] else {
             return cell
         }
+        guard let targetID = target[Constants.Target.TargetID] as? String else {
+            return cell
+        }
         var title = target[Constants.Target.Title] as? String ?? "Опусти водный бро"
         title = " \(title) "
         if let imageURL = target[Constants.Target.ImageURL] as? String {
-            if let cachedImage = self.imageCache.object(forKey: "targetImage\(indexPath.row)" as NSString) {
-                DispatchQueue.main.async {
-                    cell.targetImageView.image = cachedImage
-                }
-            } else {
-                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                    guard error == nil else {
-                        print("Error downloading: \(error!)")
-                        return
-                    }
-                    if let userImage = UIImage.init(data: data!, scale: 50) {
-                        self.imageCache.setObject(userImage, forKey: "targetImage\(indexPath.row)" as NSString)
-                        DispatchQueue.main.async {
-                            cell.targetImageView.image = userImage
+            
+            let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
+            let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
+            let predicate = NSPredicate(format:"targetID = %@", targetID)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            fetchRequest.predicate = predicate
+            
+            if let result = try? stack.context.fetch(fetchRequest) {
+                if result.count > 0 {
+                    let targetImages = result[0] 
+                    cell.targetImageView.image = UIImage(data: targetImages.cellImage)
+                } else {
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                        guard error == nil else {
+                            print("Error downloading: \(error!)")
+                            return
                         }
-                    }
-                })
+                        
+                        if let userImage = UIImage.init(data: data!, scale: 50) {
+                            DispatchQueue.main.async {
+                                _ = TargetImages(targetID: targetID, cellImage: data!, fullImage: data!, imageURL: imageURL, context: self.stack.context)
+                                cell.targetImageView.image = userImage
+                                self.stack.save()
+                            }
+                        }
+                    })
+                }
             }
         }
         if let checkIns = target[Constants.Target.Checkins] as? [String:String] {
