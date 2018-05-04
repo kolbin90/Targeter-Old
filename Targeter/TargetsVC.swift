@@ -390,33 +390,35 @@ class TargetsVC: UITableViewController {
         var title = target[Constants.Target.Title] as? String ?? "Опусти водный бро"
         title = " \(title) "
         if let imageURL = target[Constants.Target.ImageURL] as? String {
-            
-            let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
-            let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
-            let predicate = NSPredicate(format:"targetID = %@", targetID)
-            fetchRequest.sortDescriptors = [sortDescriptor]
-            fetchRequest.predicate = predicate
-            
-            if let result = try? stack.context.fetch(fetchRequest) {
-                if result.count > 0 {
-                    let targetImages = result[0] 
-                    cell.targetImageView.image = UIImage(data: targetImages.cellImage)
-                } else {
-                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                        guard error == nil else {
-                            print("Error downloading: \(error!)")
-                            return
-                        }
-                        
-                        if let userImage = UIImage.init(data: data!, scale: 50) {
-                            DispatchQueue.main.async {
-                                _ = TargetImages(targetID: targetID, cellImage: data!, fullImage: data!, imageURL: imageURL, context: self.stack.context)
-                                cell.targetImageView.image = userImage
-                                self.stack.save()
+            DispatchQueue.main.async {
+                let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
+                let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
+                let predicate = NSPredicate(format:"targetID = %@", targetID)
+                fetchRequest.sortDescriptors = [sortDescriptor]
+                fetchRequest.predicate = predicate
+                
+                if let result = try? self.stack.context.fetch(fetchRequest) {
+                    if result.count > 0 {
+                        let targetImages = result[0]
+                        cell.targetImageView.image = UIImage(data: targetImages.cellImage)
+                    } else {
+                        Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                            guard error == nil else {
+                                print("Error downloading: \(error!)")
+                                return
                             }
-                        }
-                    })
+                            
+                            if let userImage = UIImage.init(data: data!, scale: 50) {
+                                DispatchQueue.main.async {
+                                    _ = TargetImages(targetID: targetID, cellImage: data!, fullImage: data!, imageURL: imageURL, context: self.stack.context)
+                                    cell.targetImageView.image = userImage
+                                    self.stack.save()
+                                }
+                            }
+                        })
+                    }
                 }
+                
             }
         }
         if let checkIns = target[Constants.Target.Checkins] as? [String:String] {
