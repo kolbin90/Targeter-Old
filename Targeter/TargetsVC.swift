@@ -370,6 +370,9 @@ class TargetsVC: UITableViewController {
             databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: _refHandle)
         }
     }
+    
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
         cell.todayMark.backgroundColor = .white

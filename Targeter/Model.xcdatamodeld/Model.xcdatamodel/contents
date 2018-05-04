@@ -97,10 +97,11 @@
             <fetchIndexElement property="title" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="TargetImages" representedClassName="TargetImages" syncable="YES" codeGenerationType="class">
-        <attribute name="cellImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="fullImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
-        <attribute name="targetID" optional="YES" attributeType="String" syncable="YES"/>
+    <entity name="TargetImages" representedClassName="TargetImages" syncable="YES">
+        <attribute name="cellImage" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="fullImage" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="imageURL" attributeType="String" syncable="YES"/>
+        <attribute name="targetID" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Image" positionX="135" positionY="117" width="128" height="90"/>
@@ -108,6 +109,6 @@
         <element name="Schedule" positionX="18" positionY="-189" width="128" height="165"/>
         <element name="Success" positionX="70" positionY="-45" width="128" height="90"/>
         <element name="Target" positionX="-324" positionY="-180" width="128" height="210"/>
-        <element name="TargetImages" positionX="-180" positionY="101" width="128" height="88"/>
+        <element name="TargetImages" positionX="-180" positionY="101" width="128" height="103"/>
     </elements>
 </model>
