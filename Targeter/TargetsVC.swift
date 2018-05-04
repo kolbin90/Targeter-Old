@@ -408,9 +408,10 @@ class TargetsVC: UITableViewController {
                                 return
                             }
                             
-                            if let userImage = UIImage.init(data: data!, scale: 50) {
+                            if let userImage = UIImage.init(data: data!) {
                                 DispatchQueue.main.async {
-                                    _ = TargetImages(targetID: targetID, cellImage: data!, fullImage: data!, imageURL: imageURL, context: self.stack.context)
+                                    let cellImage = self.prepareCellImage(image: userImage)
+                                    _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
                                     cell.targetImageView.image = userImage
                                     self.stack.save()
                                 }

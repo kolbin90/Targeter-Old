@@ -10,6 +10,21 @@ import UIKit
 
 extension UIViewController {
     
+    // Cut image to screen syze to use for target cell
+    func prepareCellImage(image: UIImage) -> Data {
+        var newImage = image.resized(toWidth: (self.view.frame.width))!
+        let imageWidth: CGFloat = newImage.size.width
+        let imageHeight: CGFloat = newImage.size.height
+        let width: CGFloat  = imageWidth
+        let height: CGFloat = 109.5 // height of cell
+        let origin = CGPoint(x: (imageWidth - width)/2, y: (imageHeight - height)/2)
+        let size = CGSize(width: width, height: height)
+        
+        newImage = newImage.crop(rect: CGRect(origin: origin, size: size))
+        let imageData = newImage.jpeg(.highest)!
+        return imageData
+    }
+    
     func setNavigationController() {
         //navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.752, green: 0.876, blue: 1.0, alpha: 1.0)
             //.init(hue: 210, saturation: 0.250, brightness: 1, alpha: 1) //

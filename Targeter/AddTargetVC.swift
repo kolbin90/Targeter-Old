@@ -177,20 +177,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         self.present(actionController, animated: true, completion: nil)
     }
     
-    // Cut image to screen syze
-    func prepareNewImage(image: UIImage) -> Data {
-        var newImage = image.resized(toWidth: (self.view.frame.width))!
-        let imageWidth: CGFloat = newImage.size.width
-        let imageHeight: CGFloat = newImage.size.height
-        let width: CGFloat  = imageWidth
-        let height: CGFloat = 130.0
-        let origin = CGPoint(x: (imageWidth - width)/2, y: (imageHeight - height)/2)
-        let size = CGSize(width: width, height: height)
-        
-        newImage = newImage.crop(rect: CGRect(origin: origin, size: size))
-        let imageData = newImage.jpeg(.highest)!
-        return imageData
-    }
+
    
     // Check if textFields have text inside
     func TFAreFilled() -> Bool {
@@ -288,7 +275,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 target!.descriptionCompletion = descriptionTF.text!
                 if viewLoadedWithImage != tergetImageView.image! {
                     imageData = tergetImageView.image?.jpeg(.highest)
-                    cellImageData = prepareNewImage(image: tergetImageView.image!)
+                    cellImageData = prepareCellImage(image: tergetImageView.image!)
                     target!.picture = imageData
                     target!.cellImage = cellImageData
 
