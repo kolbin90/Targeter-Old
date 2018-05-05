@@ -433,6 +433,10 @@ class TargetsVC: UITableViewController {
                     cell.todayMark.textColor = .white
                     cell.rightArror.isHidden = true
                 }
+            } else {
+                cell.todayMark.backgroundColor = .white
+                cell.todayMark.textColor = .black
+                cell.rightArror.isHidden = false
             }
             var dayForChecking = Calendar.current.date(byAdding: .day, value: -14, to: Date())!
             let dateBeginning = dateFormatter.date(from:(target[Constants.Target.DateBeginning] as! String))!
@@ -445,6 +449,8 @@ class TargetsVC: UITableViewController {
                         } else if todayResult == "S" {
                             mark.backgroundColor = greenColor
                         }
+                    } else {
+                        mark.alpha = 0
                     }
                 } else {
                     mark.alpha = 0
