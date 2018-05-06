@@ -423,7 +423,26 @@ class TargetsVC: UITableViewController {
                 if let result = try? self.stack.context.fetch(fetchRequest) {
                     if result.count > 0 {
                         let targetImages = result[0]
-                        cell.targetImageView.image = UIImage(data: targetImages.cellImage)
+                        if targetImages.imageURL == imageURL {
+                            cell.targetImageView.image = UIImage(data: targetImages.cellImage)
+                        } else {
+                            Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                                guard error == nil else {
+                                    print("Error downloading: \(error!)")
+                                    return
+                                }
+                                
+                                if let userImage = UIImage.init(data: data!) {
+                                    DispatchQueue.main.async {
+                                        let cellImage = self.prepareCellImage(image: userImage)
+                                        self.stack.context.delete(targetImages)
+                                        _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
+                                        cell.targetImageView.image = userImage
+                                        self.stack.save()
+                                    }
+                                }
+                            })
+                        }
                     } else {
                         Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                             guard error == nil else {

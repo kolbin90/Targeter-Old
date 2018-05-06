@@ -148,7 +148,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     }
     func addImageToStorage(image:UIImage, targetRef:DatabaseReference, targetID:String) {
         let photoData = image.jpeg(.highest)!
-        let imagePath = Constants.RootFolders.Targets  + "/" + targetID + "/targetImage"
+        let imagePath = Constants.RootFolders.Targets  + "/" + targetID + "/targetImage\(Date())"
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         storageRef.child(imagePath).putData(photoData, metadata: metadata) { (metadata, error) in
