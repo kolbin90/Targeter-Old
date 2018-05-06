@@ -17,7 +17,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var editingMode = false
     var target: Target?
-    var targetSnapshot: DataSnapshot?
+    var targetSnapshot: AnyObject?
     var viewLoadedWithImage: UIImage?
     let dateFormatter = DateFormatter()
     let cellHeight:CGFloat = 130
@@ -64,7 +64,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             
             
             
-            guard let target = targetSnapshot?.value as? [String:AnyObject] else {
+            guard let target = targetSnapshot as? [String:AnyObject] else {
                 return
             }
             let title = target[Constants.Target.Title] as? String ?? "Опусти водный бро"
@@ -271,25 +271,28 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             var cellImageData:Data?
 
             if editingMode {
-                target!.title = titleTF.text!
-                target!.descriptionCompletion = descriptionTF.text!
-                if viewLoadedWithImage != tergetImageView.image! {
-                    imageData = tergetImageView.image?.jpeg(.highest)
-                    cellImageData = prepareCellImage(image: tergetImageView.image!)
-                    target!.picture = imageData
-                    target!.cellImage = cellImageData
-
+                guard let target = targetSnapshot as? [String:AnyObject] else {
+                    return
                 }
-                //imageData = tergetImageView.image!.jpeg(.highest)
-                target!.dayEnding = endDateFromString
-                stack.save()
+                
+                let image = tergetImageView.image!
+                if let userID = userID {
+                    // Create targetRef to get a unique name for target in Firebase
+                    let targetID = target[Constants.Target.TargetID] as? String ?? ""
+                    let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID)
+                    targetRef.child(Constants.Target.TargetID).setValue(targetID)
+                    targetRef.child(Constants.Target.Title).setValue(titleTF.text)
+                    targetRef.child(Constants.Target.Description).setValue(descriptionTF.text!)
+                    targetRef.child(Constants.Target.DateBeginning).setValue(startDate.text!)
+                    if let endDateText = endDate.text, endDateText != "" {
+                        targetRef.child(Constants.Target.DateEnding).setValue(endDateText)
+                    }
+                    addImageToStorage(image: image, targetRef: targetRef, targetID: targetID)
+                }
             } else {
                 //imageData = prepareNewImage(image: tergetImageView.image!)
                 imageData = tergetImageView.image?.jpeg(.highest)
                 let image = tergetImageView.image!
-                //cellImageData = prepareNewImage(image: tergetImageView.image!)
-                //newImage = cropToBounds(image: newImage!, width: Double((newImage?.size.width)!), height: Double(cellHeight))
-                //imageData = newImage?.jpeg(.highest)
                 // Create new target
                 if let userID = userID {
                     // Create targetRef to get a unique name for target in Firebase
@@ -304,8 +307,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                     }
                     addImageToStorage(image: image, targetRef: targetRef, targetID: targetID)
                 }
-                _ = Target(title: titleTF.text!, descriptionCompletion: descriptionTF.text!, dayBeginning: startDateFromString, dayEnding: endDateFromString, picture: imageData, cellImage: imageData, active: true, completed: false, context: stack.context)
-                stack.save()
             }
             _ = navigationController?.popViewController(animated: true)
             

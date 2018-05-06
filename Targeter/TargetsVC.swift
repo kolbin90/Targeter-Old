@@ -26,7 +26,7 @@ class TargetsVC: UITableViewController {
     var userID: String?
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
-    var targets:[DataSnapshot]! = []
+    var targets:[AnyObject] = []
     
     fileprivate var _refHandle: DatabaseHandle!
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
@@ -152,10 +152,32 @@ class TargetsVC: UITableViewController {
     }
     func downloadTargets() {
         if let userID = userID {
-            _refHandle = databaseRef.child(Constants.RootFolders.Targets).child(userID).observe(.childAdded, with: { (snapshot) in
-                self.targets.append(snapshot)
-                let value = snapshot.value as? [String:AnyObject]
-                self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
+            databaseRef.child(Constants.RootFolders.Targets).child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let value = snapshot.value as? NSDictionary {
+                    print(snapshot)
+
+                    self.targets = value.allValues as [AnyObject]
+                    self.tableView.reloadData()
+                }
+                //self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+            
+            _refHandle = databaseRef.child(Constants.RootFolders.Targets).child(userID).observe(.childChanged, with: { (snapshot) in
+                self.databaseRef.child(Constants.RootFolders.Targets).child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    if let value = snapshot.value as? NSDictionary {
+                        print(snapshot)
+                        
+                        self.targets = value.allValues as [AnyObject]
+                        self.tableView.reloadData()
+                    }
+                    //self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
+                }) { (error) in
+                    print(error.localizedDescription)
+                }
+               // let value = snapshot.value as? [String:AnyObject]
+                //self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
                 //print(value?.allValues[0])
                 //let targetValue
                 // print(Array(value!.values)[0])
@@ -379,9 +401,10 @@ class TargetsVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
         cell.todayMark.backgroundColor = .white
+        cell.todayMark.textColor = .black
         cell.rightArror.isHidden = false
         let targetSnapshot = targets[indexPath.row]
-        guard let target = targetSnapshot.value as? [String:AnyObject] else {
+        guard let target = targetSnapshot as? [String:AnyObject] else {
             return cell
         }
         guard let targetID = target[Constants.Target.TargetID] as? String else {
@@ -487,7 +510,7 @@ class TargetsVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let targetSnapshot = targets[indexPath.row]
-        guard let target = targetSnapshot.value as? [String:AnyObject] else {
+        guard let target = targetSnapshot as? [String:AnyObject] else {
             return nil
         }
         guard let targetID = target[Constants.Target.TargetID] as? String else {
