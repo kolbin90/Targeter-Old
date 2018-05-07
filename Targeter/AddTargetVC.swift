@@ -73,6 +73,36 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             let dateEnding = target[Constants.Target.DateEnding] as? String ?? ""
             let targetID = target[Constants.Target.TargetID] as? String ?? ""
             if let imageURL = target[Constants.Target.ImageURL] as? String {
+                
+                DispatchQueue.main.async {
+                    let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
+                    let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
+                    let predicate = NSPredicate(format:"targetID = %@", targetID)
+                    fetchRequest.sortDescriptors = [sortDescriptor]
+                    fetchRequest.predicate = predicate
+                    
+                    if let result = try? self.stack.context.fetch(fetchRequest) {
+                        if result.count > 0 {
+                            let targetImages = result[0]
+                                self.tergetImageView.image = UIImage(data: targetImages.fullImage)
+                        } else {
+                            Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                                guard error == nil else {
+                                    print("Error downloading: \(error!)")
+                                    return
+                                }
+                                
+                                if let userImage = UIImage.init(data: data!) {
+                                    DispatchQueue.main.async {
+                                        self.tergetImageView.image = userImage
+                                    }
+                                }
+                            })
+                        }
+                    }
+                    
+                }
+                /*
                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                         guard error == nil else {
                             print("Error downloading: \(error!)")
@@ -85,7 +115,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                             }
                         }
                     })
-                
+                */
             }
             
             
