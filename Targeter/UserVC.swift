@@ -71,19 +71,19 @@ class UserViewController: UIViewController {
                 self.title = value?[Constants.UserData.Username] as? String ?? userID
                 self.aboutLabel.sizeToFit()
                 if let imageURL = value?[Constants.UserData.ImageURL] as? String {
-                    /*
+                    
                     DispatchQueue.main.async {
-                        let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
-                        let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
-                        let predicate = NSPredicate(format:"targetID = %@", targetID)
+                        let fetchRequest:NSFetchRequest<ProfileImage> = ProfileImage.fetchRequest()
+                        let sortDescriptor = NSSortDescriptor(key: "userID", ascending: false)
+                        let predicate = NSPredicate(format:"userID = %@", userID)
                         fetchRequest.sortDescriptors = [sortDescriptor]
                         fetchRequest.predicate = predicate
                         
                         if let result = try? self.stack.context.fetch(fetchRequest) {
                             if result.count > 0 {
-                                let targetImages = result[0]
-                                if targetImages.imageURL == imageURL {
-                                    cell.targetImageView.image = UIImage(data: targetImages.cellImage)
+                                let profileImage = result[0]
+                                if profileImage.imageURL == imageURL {
+                                    self.userImage.image = UIImage(data: profileImage.imageData)
                                 } else {
                                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                         guard error == nil else {
@@ -93,10 +93,9 @@ class UserViewController: UIViewController {
                                         
                                         if let userImage = UIImage.init(data: data!) {
                                             DispatchQueue.main.async {
-                                                let cellImage = self.prepareCellImage(image: userImage)
-                                                self.stack.context.delete(targetImages)
-                                                _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
-                                                cell.targetImageView.image = userImage
+                                                self.stack.context.delete(profileImage)
+                                                _ = ProfileImage(userID: userID, imageData: data!, imageURL: imageURL, context: self.stack.context)
+                                                self.userImage.image = userImage
                                                 self.stack.save()
                                             }
                                         }
@@ -111,9 +110,8 @@ class UserViewController: UIViewController {
                                     
                                     if let userImage = UIImage.init(data: data!) {
                                         DispatchQueue.main.async {
-                                            let cellImage = self.prepareCellImage(image: userImage)
-                                            _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
-                                            cell.targetImageView.image = userImage
+                                            _ = ProfileImage(userID: userID, imageData: data!, imageURL: imageURL, context: self.stack.context)
+                                            self.userImage.image = userImage
                                             self.stack.save()
                                         }
                                     }
@@ -122,7 +120,7 @@ class UserViewController: UIViewController {
                         }
                         
                     }
-                    */
+                    
                     /*
                     if let cachedImage = self.imageCache.object(forKey: "profileImage") {
                         DispatchQueue.main.async {

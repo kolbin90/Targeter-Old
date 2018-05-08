@@ -17,8 +17,8 @@ extension ProfileImage {
         return NSFetchRequest<ProfileImage>(entityName: "ProfileImage")
     }
 
-    @NSManaged public var imageData: Data?
-    @NSManaged public var userID: String?
-    @NSManaged public var imageURL: String?
+    @NSManaged public var imageData: Data
+    @NSManaged public var userID: String
+    @NSManaged public var imageURL: String
 
 }
