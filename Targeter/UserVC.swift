@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 import FirebaseAuthUI
+import CoreData
 
 class UserViewController: UIViewController {
     
@@ -18,6 +19,8 @@ class UserViewController: UIViewController {
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
+    let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+
 
     // Mark: Outlets
     @IBOutlet weak var nameLabel: UILabel!
@@ -68,6 +71,59 @@ class UserViewController: UIViewController {
                 self.title = value?[Constants.UserData.Username] as? String ?? userID
                 self.aboutLabel.sizeToFit()
                 if let imageURL = value?[Constants.UserData.ImageURL] as? String {
+                    /*
+                    DispatchQueue.main.async {
+                        let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
+                        let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
+                        let predicate = NSPredicate(format:"targetID = %@", targetID)
+                        fetchRequest.sortDescriptors = [sortDescriptor]
+                        fetchRequest.predicate = predicate
+                        
+                        if let result = try? self.stack.context.fetch(fetchRequest) {
+                            if result.count > 0 {
+                                let targetImages = result[0]
+                                if targetImages.imageURL == imageURL {
+                                    cell.targetImageView.image = UIImage(data: targetImages.cellImage)
+                                } else {
+                                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                                        guard error == nil else {
+                                            print("Error downloading: \(error!)")
+                                            return
+                                        }
+                                        
+                                        if let userImage = UIImage.init(data: data!) {
+                                            DispatchQueue.main.async {
+                                                let cellImage = self.prepareCellImage(image: userImage)
+                                                self.stack.context.delete(targetImages)
+                                                _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
+                                                cell.targetImageView.image = userImage
+                                                self.stack.save()
+                                            }
+                                        }
+                                    })
+                                }
+                            } else {
+                                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                                    guard error == nil else {
+                                        print("Error downloading: \(error!)")
+                                        return
+                                    }
+                                    
+                                    if let userImage = UIImage.init(data: data!) {
+                                        DispatchQueue.main.async {
+                                            let cellImage = self.prepareCellImage(image: userImage)
+                                            _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
+                                            cell.targetImageView.image = userImage
+                                            self.stack.save()
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                        
+                    }
+                    */
+                    /*
                     if let cachedImage = self.imageCache.object(forKey: "profileImage") {
                         DispatchQueue.main.async {
                             self.userImage.image = cachedImage
@@ -86,6 +142,7 @@ class UserViewController: UIViewController {
                             }
                         })
                     }
+                    */
                 }
             }) { (error) in
                 print(error.localizedDescription)

@@ -18,6 +18,11 @@
             <fetchIndexElement property="searchTitle" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
+    <entity name="ProfileImage" representedClassName="ProfileImage" syncable="YES">
+        <attribute name="imageData" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="imageURL" attributeType="String" syncable="YES"/>
+        <attribute name="userID" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Schedule" representedClassName="Schedule" syncable="YES">
         <attribute name="friday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="monday" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -110,5 +115,6 @@
         <element name="Success" positionX="70" positionY="-45" width="128" height="90"/>
         <element name="Target" positionX="-324" positionY="-180" width="128" height="210"/>
         <element name="TargetImages" positionX="-180" positionY="101" width="128" height="103"/>
+        <element name="ProfileImage" positionX="-117" positionY="-36" width="128" height="90"/>
     </elements>
 </model>

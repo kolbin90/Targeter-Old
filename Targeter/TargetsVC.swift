@@ -492,7 +492,8 @@ class TargetsVC: UITableViewController {
                             mark.backgroundColor = greenColor
                         }
                     } else {
-                        mark.alpha = 0
+                        mark.alpha = 1
+                        mark.backgroundColor = redColor
                     }
                 } else {
                     mark.alpha = 0
