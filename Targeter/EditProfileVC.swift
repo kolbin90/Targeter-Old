@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 import FirebaseAuthUI
+import CoreData
 
 class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -20,6 +21,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var profileImageChanged = false
     var newProfileImage: UIImage? = nil
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
+    let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+
 
     // MARK: Outlets
     @IBOutlet weak var profileImageView: UIImageView!
@@ -61,6 +64,56 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 self.aboutTextField.text = value?[Constants.UserData.About] as? String ?? ""
                 self.usernameTextField.text = value?[Constants.UserData.Username] as? String ?? ""
                 if let imageURL = value?[Constants.UserData.ImageURL] as? String {
+
+                    DispatchQueue.main.async {
+                        let fetchRequest:NSFetchRequest<ProfileImage> = ProfileImage.fetchRequest()
+                        let sortDescriptor = NSSortDescriptor(key: "userID", ascending: false)
+                        let predicate = NSPredicate(format:"userID = %@", userID)
+                        fetchRequest.sortDescriptors = [sortDescriptor]
+                        fetchRequest.predicate = predicate
+                        
+                        if let result = try? self.stack.context.fetch(fetchRequest) {
+                            if result.count > 0 {
+                                let profileImage = result[0]
+                                if profileImage.imageURL == imageURL {
+                                    self.profileImageView.image = UIImage(data: profileImage.imageData)
+                                } else {
+                                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                                        guard error == nil else {
+                                            print("Error downloading: \(error!)")
+                                            return
+                                        }
+                                        
+                                        if let userImage = UIImage.init(data: data!) {
+                                            DispatchQueue.main.async {
+                                                self.stack.context.delete(profileImage)
+                                                _ = ProfileImage(userID: userID, imageData: data!, imageURL: imageURL, context: self.stack.context)
+                                                self.profileImageView.image = userImage
+                                                self.stack.save()
+                                            }
+                                        }
+                                    })
+                                }
+                            } else {
+                                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                                    guard error == nil else {
+                                        print("Error downloading: \(error!)")
+                                        return
+                                    }
+                                    
+                                    if let userImage = UIImage.init(data: data!) {
+                                        DispatchQueue.main.async {
+                                            _ = ProfileImage(userID: userID, imageData: data!, imageURL: imageURL, context: self.stack.context)
+                                            self.profileImageView.image = userImage
+                                            self.stack.save()
+                                        }
+                                    }
+                                })
+                            }
+                        }
+                        
+}
+                    /*
                     if let cachedImage = self.imageCache.object(forKey: "profileImage") {
                         DispatchQueue.main.async {
                             self.profileImageView.image = cachedImage
@@ -79,6 +132,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                             }
                         })
                     }
+                    
+                    */
                 }
             }) { (error) in
                 print(error.localizedDescription)
