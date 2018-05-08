@@ -20,10 +20,10 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var storageRef: StorageReference!
     var profileImageChanged = false
     var newProfileImage: UIImage? = nil
-    let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
+    //let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
-
-
+    
+    
     // MARK: Outlets
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -55,6 +55,12 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     func fillUserInformation() {
         if let userID = userID {
+            let fetchRequest:NSFetchRequest<ProfileImage> = ProfileImage.fetchRequest()
+            let sortDescriptor = NSSortDescriptor(key: "userID", ascending: false)
+            let predicate = NSPredicate(format:"userID = %@", userID)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            fetchRequest.predicate = predicate
+            
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
@@ -63,20 +69,36 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 self.cityTextField.text = value?[Constants.UserData.City] as? String ?? ""
                 self.aboutTextField.text = value?[Constants.UserData.About] as? String ?? ""
                 self.usernameTextField.text = value?[Constants.UserData.Username] as? String ?? ""
-                if let imageURL = value?[Constants.UserData.ImageURL] as? String {
-
-                    DispatchQueue.main.async {
-                        let fetchRequest:NSFetchRequest<ProfileImage> = ProfileImage.fetchRequest()
-                        let sortDescriptor = NSSortDescriptor(key: "userID", ascending: false)
-                        let predicate = NSPredicate(format:"userID = %@", userID)
-                        fetchRequest.sortDescriptors = [sortDescriptor]
-                        fetchRequest.predicate = predicate
+                if self.profileImageChanged {
+                    
+                } else {
+                    if let imageURL = value?[Constants.UserData.ImageURL] as? String {
                         
-                        if let result = try? self.stack.context.fetch(fetchRequest) {
-                            if result.count > 0 {
-                                let profileImage = result[0]
-                                if profileImage.imageURL == imageURL {
-                                    self.profileImageView.image = UIImage(data: profileImage.imageData)
+                        DispatchQueue.main.async {
+
+                            
+                            if let result = try? self.stack.context.fetch(fetchRequest) {
+                                if result.count > 0 {
+                                    let profileImage = result[0]
+                                    if profileImage.imageURL == imageURL {
+                                        self.profileImageView.image = UIImage(data: profileImage.imageData)
+                                    } else {
+                                        Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                                            guard error == nil else {
+                                                print("Error downloading: \(error!)")
+                                                return
+                                            }
+                                            
+                                            if let userImage = UIImage.init(data: data!) {
+                                                DispatchQueue.main.async {
+                                                    self.stack.context.delete(profileImage)
+                                                    _ = ProfileImage(userID: userID, imageData: data!, imageURL: imageURL, context: self.stack.context)
+                                                    self.profileImageView.image = userImage
+                                                    self.stack.save()
+                                                }
+                                            }
+                                        })
+                                    }
                                 } else {
                                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                         guard error == nil else {
@@ -86,7 +108,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                                         
                                         if let userImage = UIImage.init(data: data!) {
                                             DispatchQueue.main.async {
-                                                self.stack.context.delete(profileImage)
                                                 _ = ProfileImage(userID: userID, imageData: data!, imageURL: imageURL, context: self.stack.context)
                                                 self.profileImageView.image = userImage
                                                 self.stack.save()
@@ -94,46 +115,9 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                                         }
                                     })
                                 }
-                            } else {
-                                Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                                    guard error == nil else {
-                                        print("Error downloading: \(error!)")
-                                        return
-                                    }
-                                    
-                                    if let userImage = UIImage.init(data: data!) {
-                                        DispatchQueue.main.async {
-                                            _ = ProfileImage(userID: userID, imageData: data!, imageURL: imageURL, context: self.stack.context)
-                                            self.profileImageView.image = userImage
-                                            self.stack.save()
-                                        }
-                                    }
-                                })
                             }
                         }
-                        
-}
-                    /*
-                    if let cachedImage = self.imageCache.object(forKey: "profileImage") {
-                        DispatchQueue.main.async {
-                            self.profileImageView.image = cachedImage
-                        }
-                    } else {
-                        Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                            guard error == nil else {
-                                print("Error downloading: \(error!)")
-                                return
-                            }
-                            if let userImage = UIImage.init(data: data!, scale: 50) {
-                                self.imageCache.setObject(userImage, forKey: "profileImage")
-                                DispatchQueue.main.async {
-                                    self.profileImageView.image = userImage
-                                }
-                            }
-                        })
                     }
-                    
-                    */
                 }
             }) { (error) in
                 print(error.localizedDescription)
@@ -157,7 +141,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     func addImageToStorage(image:UIImage) {
         let photoData = prepareNewImage(image: image)
-        let imagePath = "users/" + userID! + "/profileImage"
+        let imagePath = "users/" + userID! + "/profileImage/\(Date())"
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         storageRef.child(imagePath).putData(photoData, metadata: metadata) { (metadata, error) in
@@ -166,13 +150,31 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 return
             }
             let imageURL = self.storageRef.child((metadata?.path)!).description
+            
+            let fetchRequest:NSFetchRequest<ProfileImage> = ProfileImage.fetchRequest()
+            let sortDescriptor = NSSortDescriptor(key: "userID", ascending: false)
+            let predicate = NSPredicate(format:"userID = %@", self.userID!)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            fetchRequest.predicate = predicate
+            if let result = try? self.stack.context.fetch(fetchRequest) {
+                if result.count > 0 {
+                    let profileImage = result[0]
+                    self.stack.context.delete(profileImage)
+                    _ = ProfileImage(userID: self.userID!, imageData: photoData, imageURL: imageURL, context: self.stack.context)
+                    self.stack.save()
+                    
+                } else {
+                    _ = ProfileImage(userID: self.userID!, imageData: photoData, imageURL: imageURL, context: self.stack.context)
+                    self.stack.save()
+                }
+            }
             self.databaseRef.child("users/\(self.userID!)/\(Constants.UserData.ImageURL)").setValue(imageURL)
         }
     }
     
     func deleteProfileImageFromStorage() {
         // Create a reference to the file to delete
-        let pathToImage = "users/" + userID! + "/profileImage.jpg"
+        let pathToImage = "users/" + userID! + "/profileImage/"
         let desertRef = storageRef.child(pathToImage)
         
         // Delete the file
@@ -197,12 +199,12 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             //profileImageView.image? = image
             newProfileImage = image
             profileImageChanged = true
-            self.imageCache.setObject(image, forKey: "profileImage")
+            self.profileImageView.image = image
         }
         dismiss(animated: true, completion: nil)
         
     }
-
+    
     // MARK: Actions
     
     @IBAction func cancelButton(_ sender: Any) {
@@ -252,6 +254,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             if let newProfileImage = newProfileImage {
                 deleteProfileImageFromStorage()
                 addImageToStorage(image: newProfileImage)
+
             }
             //addImageToStorage(image: profileImageView.image!)
             //databaseRef.child("users").child(userID).setValue(userData)

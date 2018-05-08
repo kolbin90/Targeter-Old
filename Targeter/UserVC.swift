@@ -21,6 +21,7 @@ class UserViewController: UIViewController {
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
 
+    fileprivate var _refHandle: DatabaseHandle!
 
     // Mark: Outlets
     @IBOutlet weak var nameLabel: UILabel!
@@ -48,11 +49,24 @@ class UserViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         fillUserInformation()
     }
-
+    
+    deinit {
+        // Remove auth listener
+        if let userID = userID {
+            databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: _refHandle)
+        }
+    }
+    
     
     // MARK: Config firebase
     func configDatabase(){
         databaseRef = Database.database().reference()
+        _refHandle = databaseRef.child(Constants.RootFolders.Users).child(self.userID!).observe(.childChanged, with: { (snapshot) in
+            self.fillUserInformation()
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     func configureStorage() {
         storageRef = Storage.storage().reference()
@@ -118,29 +132,7 @@ class UserViewController: UIViewController {
                                 })
                             }
                         }
-                        
                     }
-                    
-                    /*
-                    if let cachedImage = self.imageCache.object(forKey: "profileImage") {
-                        DispatchQueue.main.async {
-                            self.userImage.image = cachedImage
-                        }
-                    } else {
-                        Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                            guard error == nil else {
-                                print("Error downloading: \(error!)")
-                                return
-                            }
-                            if let userImage = UIImage.init(data: data!, scale: 50) {
-                                self.imageCache.setObject(userImage, forKey: "profileImage")
-                                DispatchQueue.main.async {
-                                    self.userImage.image = userImage
-                                }
-                            }
-                        })
-                    }
-                    */
                 }
             }) { (error) in
                 print(error.localizedDescription)
@@ -158,8 +150,15 @@ class UserViewController: UIViewController {
     @IBAction func logoutButton(_ sender: Any) {
         do {
             // Trying to sign out from Firebase
+
             try Auth.auth().signOut()
             _ = navigationController?.popViewController(animated: true)
+            do {
+                try stack.dropAllData()
+                stack.save()
+            } catch {
+                print("Ebat' error")
+            }
         } catch {
             print("unable to sign out: \(error)")
         }
