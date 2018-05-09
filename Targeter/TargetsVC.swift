@@ -31,8 +31,6 @@ class TargetsVC: UITableViewController {
     fileprivate var _refHandle: DatabaseHandle!
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
     
-    
-    
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle! // Listens when Firebase Auth changed status
     var user: User?
     var displayName = "Anonymous"  // name before user logged in
@@ -44,16 +42,6 @@ class TargetsVC: UITableViewController {
     
     
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
-    /*var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
-        didSet {
-            // Whenever the frc changes, we execute the search and
-            // reload the table
-            //fetchedResultsController?.delegate = self
-            //executeSearch()
-            tableView.reloadData()
-        }
-    }
- */
     
     // MARK: Lifecycle
     
@@ -155,7 +143,6 @@ class TargetsVC: UITableViewController {
             databaseRef.child(Constants.RootFolders.Targets).child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let value = snapshot.value as? NSDictionary {
                     print(snapshot)
-
                     self.targets = value.allValues as [AnyObject]
                     self.tableView.reloadData()
                 }
@@ -245,43 +232,40 @@ class TargetsVC: UITableViewController {
         
     }
     // Check how many targets are marked for today
-  /*  func targetsToMark() -> Int {
+    func targetsToMark() -> Int {
         var num: Int
         let today = Date()
         var toMark: Int
         //let target = self.fetchedResultsController!.object(at: indexPath) as! Target
-        
-        guard let targetsCount = self.fetchedResultsController?.fetchedObjects?.count else {
+        var targetsCount = self.targets.count
+        if targetsCount == 0 {
             return 0
         }
         num = targetsCount - 1
         toMark = targetsCount
         while num >= 0 {
             let indexPath = IndexPath(row: num, section: 0)
-            let target = self.fetchedResultsController!.object(at: indexPath) as! Target
-            if let successList = target.successList as? Set<Success>, (successList.count > 0) {
-                let success = self.todayIn(successList: successList, today: today).0
-                switch success {
-                case "succeed":
-                    toMark -= 1
-                case "failed":
-                    toMark -= 1
-                case "nothing":
-                    print("nothing")
-                default:
-                    print("Error!")
-                }
+            guard let target = targets[num] as? [String:AnyObject] else {
+                return 0
+            }
+            guard let checkIns = target[Constants.Target.Checkins] else {
+                return 0
+            }
+            if let todayResult = checkIns[self.dateFormatter.string(from: Date())] {
+                toMark -= 1
+            } else {
+                print("nothing")
             }
             num -= 1
         }
         return toMark
     }
-*/
+
     
     // Create notification
     func makeNotification() {
         // Creating and setting up user notification
-        /*
+        
         let content = UNMutableNotificationContent()
         let contentMorning = UNMutableNotificationContent()
         let targetsToMarkCount = targetsToMark() // Check how many targets are unmarked
@@ -312,7 +296,7 @@ class TargetsVC: UITableViewController {
             contentMorning.body = content.body
         }
         setNotificationsForTime(dateComponents: dateComponentsTwo, content: contentMorning)
- */
+ 
     }
     // Creates Date tomorrow at specific time
     func getTomorrowAt(hour: Int, minute: Int) -> Date {
