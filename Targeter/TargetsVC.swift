@@ -142,6 +142,12 @@ class TargetsVC: UITableViewController {
                     self.downloadTargets()
                 }
             } else {
+                if let userID = self.userID {
+                    self.databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: self._refHandle)
+                }
+                self.targets = []
+                self.tableView.reloadData()
+                self.userID = nil
                 self.signedInStatus(isSignedIn: false)
                 self.loginSession()
             }
@@ -164,6 +170,7 @@ class TargetsVC: UITableViewController {
             }
             
             _refHandle = databaseRef.child(Constants.RootFolders.Targets).child(userID).observe(.childChanged, with: { (snapshot) in
+                
                 self.databaseRef.child(Constants.RootFolders.Targets).child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                     if let value = snapshot.value as? NSDictionary {
                         print(snapshot)

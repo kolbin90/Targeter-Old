@@ -149,12 +149,16 @@ class UserViewController: UIViewController {
     }
     @IBAction func logoutButton(_ sender: Any) {
         do {
+            try stack.dropAllData()
+        } catch {
+            print("Ebat' error")
+        }
+        do {
             // Trying to sign out from Firebase
             try Auth.auth().signOut()
             _ = navigationController?.popViewController(animated: true)
         } catch {
             print("unable to sign out: \(error)")
         }
-        
     }
 }
