@@ -17,6 +17,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var editingMode = false
     var target: Target?
+    var targetID = ""
     var targetSnapshot: AnyObject?
     var viewLoadedWithImage: UIImage?
     let dateFormatter = DateFormatter()
@@ -71,13 +72,13 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             let description = target[Constants.Target.Description] as? String ?? ""
             let dateBeginning = target[Constants.Target.DateBeginning] as? String ?? ""
             let dateEnding = target[Constants.Target.DateEnding] as? String ?? ""
-            let targetID = target[Constants.Target.TargetID] as? String ?? ""
+            self.targetID = target[Constants.Target.TargetID] as? String ?? ""
             if let imageURL = target[Constants.Target.ImageURL] as? String {
                 
                 DispatchQueue.main.async {
                     let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
                     let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
-                    let predicate = NSPredicate(format:"targetID = %@", targetID)
+                    let predicate = NSPredicate(format:"targetID = %@", self.targetID)
                     fetchRequest.sortDescriptors = [sortDescriptor]
                     fetchRequest.predicate = predicate
                     
@@ -192,14 +193,11 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         }
     }
     
-    func deleteTargetAlertController(target: Target) {
+    func deleteTargetAlertController() {
         let actionController = UIAlertController(title: "Delete Target", message: "Are you sure to delete? You can't undo this", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            DispatchQueue.main.async {
-                self.stack.context.delete(target)
-                self.stack.save()
-                _ = self.navigationController?.popViewController(animated: true)
-            }
+            self.databaseRef.child(Constants.RootFolders.Targets).child(self.userID!).child(self.targetID).removeValue()
+            _ = self.navigationController?.popViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionController.addAction(deleteAction)
@@ -254,7 +252,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     //MARK: - Actions
     
     @IBAction func deleteButton(_ sender: Any) {
-        deleteTargetAlertController(target: target!)
+        deleteTargetAlertController()
     }
     
 
@@ -308,7 +306,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 let image = tergetImageView.image!
                 if let userID = userID {
                     // Create targetRef to get a unique name for target in Firebase
-                    let targetID = target[Constants.Target.TargetID] as? String ?? ""
+                    targetID = target[Constants.Target.TargetID] as? String ?? ""
                     let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID)
                     targetRef.child(Constants.Target.TargetID).setValue(targetID)
                     targetRef.child(Constants.Target.Title).setValue(titleTF.text)

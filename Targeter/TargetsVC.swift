@@ -94,7 +94,19 @@ class TargetsVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        tableView.reloadData() // Reload yable when view appears
+        if let userID =  userID {
+            databaseRef.child(Constants.RootFolders.Targets).child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let value = snapshot.value as? NSDictionary {
+                    print(snapshot)
+                    self.targets = value.allValues as [AnyObject]
+                    self.tableView.reloadData()
+                }
+                //self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+        // tableView.reloadData() // Reload yable when view appears
     }
     
     
