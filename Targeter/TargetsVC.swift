@@ -175,6 +175,22 @@ class TargetsVC: UITableViewController {
         }
     }
     // MARK: Assist func
+    
+    func getSuccessPercentage(checkIns:[String:String], dateBeginning: Date) -> String {
+        // Count percentage of succes for target
+        var percentage = 0
+        let dayInSeconds = 86400
+        let countForDaysSinceBeginnigDay = Int(Date().timeIntervalSince(dateBeginning))/dayInSeconds
+        var countForSucceedTargetsMarks = 0
+        for (key, value) in checkIns {
+            if value == "S" {
+                countForSucceedTargetsMarks += 1
+            }
+        }
+        percentage = Int((Double(countForSucceedTargetsMarks)/Double(countForDaysSinceBeginnigDay+1))*100)
+        return "\(percentage)%"
+    }
+    
     // Check if selected day was marked as succeed or as failed in success list
     func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
         for day in successList {
@@ -388,6 +404,7 @@ class TargetsVC: UITableViewController {
         cell.todayMark.textColor = .black
         cell.rightArror.isHidden = false
         let targetSnapshot = targets[indexPath.row]
+        cell.percentage.alpha = 0
         guard let target = targetSnapshot as? [String:AnyObject] else {
             return cell
         }
@@ -466,6 +483,8 @@ class TargetsVC: UITableViewController {
             }
             var dayForChecking = Calendar.current.date(byAdding: .day, value: -14, to: Date())!
             let dateBeginning = dateFormatter.date(from:(target[Constants.Target.DateBeginning] as! String))!
+            cell.percentage.text = " \(self.getSuccessPercentage(checkIns: checkIns, dateBeginning: dateBeginning)) "
+            cell.percentage.alpha = 1
             for mark in cell.marks {
                 if dayForChecking >= dateBeginning {
                     if let todayResult = checkIns[self.dateFormatter.string(from: dayForChecking)] {
