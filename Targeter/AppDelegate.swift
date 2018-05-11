@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         // Configure IQKeyboardManager
-        //IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.shared.enable = true
         
         // Configure Firebase App
         FirebaseApp.configure()
