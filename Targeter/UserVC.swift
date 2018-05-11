@@ -82,7 +82,7 @@ class UserViewController: UIViewController {
                 self.cityAgeLabel.text = "\(city), \(age)"
                 self.cityAgeLabel.sizeToFit()
                 self.aboutLabel.text = value?[Constants.UserData.About] as? String ?? ""
-                self.title = value?[Constants.UserData.Username] as? String ?? userID
+                self.title = value?[Constants.UserData.Username] as? String ?? "userID"
                 self.aboutLabel.sizeToFit()
                 if let imageURL = value?[Constants.UserData.ImageURL] as? String {
                     
