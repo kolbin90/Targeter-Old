@@ -444,7 +444,7 @@ class TargetsVC: UITableViewController {
                     if result.count > 0 {
                         let targetImages = result[0]
                         if targetImages.imageURL == imageURL {
-                            cell.targetImageView.image = UIImage(data: targetImages.cellImage)
+                            cell.targetImageView.image = UIImage(data: targetImages.fullImage)
                         } else {
                             Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                 guard error == nil else {
