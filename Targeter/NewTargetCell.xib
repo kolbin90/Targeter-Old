@@ -29,7 +29,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zakat" translatesAutoresizingMaskIntoConstraints="NO" id="92N-5o-daz">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7H-gy-zV0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="92N-5o-daz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="109.5" id="mh8-wv-0uZ"/>
@@ -211,18 +214,23 @@
                     </stackView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="z7H-gy-zV0" secondAttribute="bottom" id="5JH-cF-dY4"/>
                     <constraint firstItem="92N-5o-daz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="6ye-yo-omB"/>
+                    <constraint firstItem="z7H-gy-zV0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Fw6-zb-DRS"/>
                     <constraint firstItem="92N-5o-daz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="LEs-Mi-hw7"/>
                     <constraint firstItem="Jd9-ql-fVi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="OYr-Bj-gTu"/>
                     <constraint firstItem="Jd9-ql-fVi" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Oen-fX-lFv"/>
+                    <constraint firstItem="z7H-gy-zV0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SgH-jJ-WCc"/>
                     <constraint firstAttribute="trailing" secondItem="92N-5o-daz" secondAttribute="trailing" id="UDp-cp-kL9"/>
                     <constraint firstItem="Jd9-ql-fVi" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="WdL-FO-GDY"/>
                     <constraint firstAttribute="bottom" secondItem="92N-5o-daz" secondAttribute="bottom" id="fAF-Bl-hrt"/>
                     <constraint firstItem="Jd9-ql-fVi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="vtM-RZ-QoB"/>
+                    <constraint firstAttribute="trailing" secondItem="z7H-gy-zV0" secondAttribute="trailing" id="zzG-ew-s2X"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="cellBackgroundView" destination="z7H-gy-zV0" id="dEu-0B-X4E"/>
                 <outlet property="percentage" destination="x2Q-oI-brv" id="bJM-Za-4gx"/>
                 <outlet property="rightArror" destination="qUf-aG-h2g" id="8FW-nN-V9q"/>
                 <outlet property="targetImageView" destination="92N-5o-daz" id="xIq-wa-j49"/>
@@ -246,7 +254,4 @@
             <point key="canvasLocation" x="34" y="82"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="zakat" width="349" height="218"/>
-    </resources>
 </document>

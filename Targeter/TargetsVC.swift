@@ -424,6 +424,7 @@ class TargetsVC: UITableViewController {
         cell.rightArror.isHidden = false
         let targetSnapshot = targets[indexPath.row]
         cell.percentage.alpha = 0
+        cell.cellBackgroundView.backgroundColor = UIColor.random()
         guard let target = targetSnapshot as? [String:AnyObject] else {
             return cell
         }
