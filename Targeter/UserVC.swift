@@ -77,9 +77,22 @@ class UserViewController: UIViewController {
                 // Get user value
                 let value = snapshot.value as? NSDictionary
                 self.nameLabel.text = value?[Constants.UserData.Name] as? String ?? ""
-                let city = value?[Constants.UserData.City] as? String ?? ""
-                let age = value?[Constants.UserData.Age] as? String ?? ""
-                self.cityAgeLabel.text = "\(city), \(age)"
+                //let city = value?[Constants.UserData.City] as? String ?? ""
+                //let age = value?[Constants.UserData.Age] as? String ?? ""
+                if let city = value?[Constants.UserData.City] as? String, city != "" {
+                    if let age = value?[Constants.UserData.Age] as? String, age != "" {
+                        self.cityAgeLabel.text = "\(city), \(age)"
+                    } else {
+                        self.cityAgeLabel.text = "\(city)"
+                    }
+                } else {
+                    if let age = value?[Constants.UserData.Age] as? String, age != "" {
+                        self.cityAgeLabel.text = "\(age)"
+                    } else {
+                        self.cityAgeLabel.alpha = 0
+                    }
+                }
+                //self.cityAgeLabel.text = "\(city), \(age)"
                 self.cityAgeLabel.sizeToFit()
                 self.aboutLabel.text = value?[Constants.UserData.About] as? String ?? ""
                 self.title = value?[Constants.UserData.Username] as? String ?? "userID"
