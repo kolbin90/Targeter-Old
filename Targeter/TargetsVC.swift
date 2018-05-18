@@ -509,16 +509,27 @@ class TargetsVC: UITableViewController {
                     // No need to resave the same data, so we do nothing here
                     
                 } else {
-                   // Save targets percentage to FB and recount averall rating
+                   // Save targets percentage to FB
                     databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID).child(Constants.Target.Percentage).setValue(targetPercentage)
                     var sumRating = 0
                     let numTargets = targets.count
                     for target in targets {
+                        
                         if let target = target as? [String:AnyObject] {
-                            if let percantageString = target[Constants.Target.Percentage] as? String, let percantage = Int(percantageString) {
-                                sumRating += percantage
+                            if let checkingTargetID = target[Constants.Target.TargetID] as? String, checkingTargetID == targetID {
+                                // If it's the same target use new target's percentage
+                                sumRating += Int(targetPercentage)!
+                            } else {
+                                if let percantageString = target[Constants.Target.Percentage] as? String, let percantage = Int(percantageString) {
+                                    sumRating += percantage
+                                }
                             }
                         }
+                        
+                        
+                        
+                        
+
                     }
                     let userPercentage = String(sumRating/numTargets)
                     databaseRef.child(Constants.RootFolders.Users).child(userID).child(Constants.UserData.Percentage).setValue(userPercentage)
