@@ -503,7 +503,17 @@ class TargetsVC: UITableViewController {
             }
             var dayForChecking = Calendar.current.date(byAdding: .day, value: -14, to: Date())!
             let dateBeginning = dateFormatter.date(from:(target[Constants.Target.DateBeginning] as! String))!
-            cell.percentage.text = " \(self.getSuccessPercentage(checkIns: checkIns, dateBeginning: dateBeginning)) "
+            let targetPercentage = self.getSuccessPercentage(checkIns: checkIns, dateBeginning: dateBeginning)
+            if let userID = userID {
+                if let percentage = target[Constants.Target.Percentage] as? String, percentage == targetPercentage {
+                    // No need to resave the same data, so we do nothing here
+                    
+                } else {
+                   // Save targets percentage to FB
+                    databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID).child(Constants.Target.Percentage).setValue(targetPercentage)
+                }
+            }
+            cell.percentage.text = " \(targetPercentage) "
             cell.percentage.alpha = 1
             for mark in cell.marks {
                 if dayForChecking >= dateBeginning {

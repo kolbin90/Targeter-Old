@@ -16,6 +16,7 @@ struct Constants {
         static let About = "about"
         static let ImageURL = "imageURL"
         static let Username = "username"
+        static let Percentage = "percentage"
     }
     struct Target {
         static let TargetID = "targetID"
