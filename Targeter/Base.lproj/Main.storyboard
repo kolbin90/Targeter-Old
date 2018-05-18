@@ -1043,7 +1043,7 @@
                         <outlet property="nameLabel" destination="aeV-Ay-MZa" id="72q-VT-umu"/>
                         <outlet property="numFriendsLabel" destination="VIX-ch-bdC" id="v46-pB-PRN"/>
                         <outlet property="numTargetsLabel" destination="0Xs-8k-WdE" id="qOR-wM-Uwx"/>
-                        <outlet property="percentageLabel" destination="0Xs-8k-WdE" id="X6Y-SN-zKb"/>
+                        <outlet property="percentageLabel" destination="KuR-ak-HaD" id="WNb-av-gdy"/>
                         <outlet property="userImage" destination="kO4-sc-Wkp" id="GXJ-DQ-f3o"/>
                     </connections>
                 </viewController>

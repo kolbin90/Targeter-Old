@@ -93,6 +93,12 @@ class UserViewController: UIViewController {
                     }
                 }
                 //self.cityAgeLabel.text = "\(city), \(age)"
+                if let userPercentage = value?[Constants.UserData.Percentage] as? String, userPercentage != "" {
+                    self.percentageLabel.text = "\(userPercentage)%"
+                } else {
+                    self.percentageLabel.text = "0%"
+                }
+                //self.percentageLabel.text = "\((value?[Constants.UserData.Percentage] as? String))%" ?? "0%"
                 self.cityAgeLabel.sizeToFit()
                 self.aboutLabel.text = value?[Constants.UserData.About] as? String ?? ""
                 self.title = value?[Constants.UserData.Username] as? String ?? "userID"

@@ -207,7 +207,7 @@ class TargetsVC: UITableViewController {
             }
         }
         percentage = Int((Double(countForSucceedTargetsMarks)/Double(countForDaysSinceBeginnigDay+1))*100)
-        return "\(percentage)%"
+        return "\(percentage)"
     }
     
     // Check if selected day was marked as succeed or as failed in success list
@@ -509,11 +509,22 @@ class TargetsVC: UITableViewController {
                     // No need to resave the same data, so we do nothing here
                     
                 } else {
-                   // Save targets percentage to FB
+                   // Save targets percentage to FB and recount averall rating
                     databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID).child(Constants.Target.Percentage).setValue(targetPercentage)
+                    var sumRating = 0
+                    let numTargets = targets.count
+                    for target in targets {
+                        if let target = target as? [String:AnyObject] {
+                            if let percantageString = target[Constants.Target.Percentage] as? String, let percantage = Int(percantageString) {
+                                sumRating += percantage
+                            }
+                        }
+                    }
+                    let userPercentage = String(sumRating/numTargets)
+                    databaseRef.child(Constants.RootFolders.Users).child(userID).child(Constants.UserData.Percentage).setValue(userPercentage)
                 }
             }
-            cell.percentage.text = " \(targetPercentage) "
+            cell.percentage.text = " \(targetPercentage)% "
             cell.percentage.alpha = 1
             for mark in cell.marks {
                 if dayForChecking >= dateBeginning {
