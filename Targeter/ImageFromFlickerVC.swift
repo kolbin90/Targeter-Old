@@ -23,6 +23,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     
     // MARK: - Outlets
     
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -167,7 +168,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
     
     @IBAction func searchButton(_ sender: Any) {
         if let text = textField.text, text != "" {
-            activityIndicatoryShowing(showing: true, view: self.view)
+            activityIndicatoryShowing(showing: true, view: backView)
             DispatchQueue.main.async {
                  if let imagesForDelition = self.imageSearch.images {
                     //let imagesForDelition = self.imageSearch.images
@@ -178,7 +179,7 @@ class ImageFromFlickerVC: UIViewController,UICollectionViewDelegate,UICollection
                 }
                 // Getting images URLs and creating objects with image url
                 FlickrClient.sharedInstance.getImagesFromFlickr(imageSearch: self.imageSearch, text: text) { (result, error) in
-                    self.activityIndicatoryShowing(showing: false, view: self.view)
+                    self.activityIndicatoryShowing(showing: false, view: self.backView)
                     self.view.reloadInputViews()
                     guard (error == nil) else {
                         self.showAlert(title: "Error", error: error!)

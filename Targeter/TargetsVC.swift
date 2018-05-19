@@ -89,7 +89,6 @@ class TargetsVC: UITableViewController {
  */
         
         // Set notification for today and tomorrow
-        makeNotification()
         
     }
     
@@ -178,6 +177,8 @@ class TargetsVC: UITableViewController {
                         
                         self.targets = value.allValues as [AnyObject]
                         self.tableView.reloadData()
+                        self.makeNotification()
+
                     }
                     //self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
                 }) { (error) in

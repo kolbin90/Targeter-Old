@@ -719,6 +719,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyX-qQ-pwy">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lBU-TL-duY">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
@@ -799,9 +803,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="lBU-TL-duY" secondAttribute="bottom" id="0G3-ZK-p6x"/>
+                            <constraint firstAttribute="trailing" secondItem="jyX-qQ-pwy" secondAttribute="trailing" id="3Cg-7a-fsT"/>
+                            <constraint firstItem="jyX-qQ-pwy" firstAttribute="top" secondItem="vOB-Kz-FO5" secondAttribute="bottom" id="ChU-m2-yDY"/>
+                            <constraint firstItem="xwO-np-gv9" firstAttribute="top" secondItem="jyX-qQ-pwy" secondAttribute="bottom" id="Gxm-8W-eEM"/>
                             <constraint firstAttribute="trailing" secondItem="lBU-TL-duY" secondAttribute="trailing" id="Paj-ZE-rHv"/>
                             <constraint firstItem="lBU-TL-duY" firstAttribute="top" secondItem="vOB-Kz-FO5" secondAttribute="bottom" id="amt-kI-n6W"/>
                             <constraint firstItem="lBU-TL-duY" firstAttribute="leading" secondItem="w6j-cV-EaI" secondAttribute="leading" id="r53-Kh-9El"/>
+                            <constraint firstItem="jyX-qQ-pwy" firstAttribute="leading" secondItem="w6j-cV-EaI" secondAttribute="leading" id="x1g-Ax-wyt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="97f-k3-pyR">
@@ -812,6 +820,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backView" destination="jyX-qQ-pwy" id="KtL-NU-Cq5"/>
                         <outlet property="collectionView" destination="UFv-xr-7G0" id="Qh1-GN-A3M"/>
                         <outlet property="doneButton" destination="iwq-Ia-usV" id="a42-H1-qUs"/>
                         <outlet property="imageView" destination="tFD-vl-bmv" id="8r0-if-NpF"/>
