@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Medium</string>
+            <string>AvenirNext-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -22,36 +28,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="ZsX-QP-AVU">
-                                <rect key="frame" x="20" y="175" width="374" height="240"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="VXi-mf-LcU"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TARGETER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRp-ob-s5a">
-                                <rect key="frame" x="20" y="395" width="374" height="46.666666666666686"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="34"/>
-                                <color key="textColor" red="0.10815242680000001" green="0.4428707361" blue="0.73762339349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alexander Kolbin | 2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ea-3D-8bU">
-                                <rect key="frame" x="20" y="704" width="374" height="24"/>
+                                <rect key="frame" x="20" y="704.66666666666663" width="374" height="23.333333333333371"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="Lvn-Eh-jOR">
+                                <rect key="frame" x="-126" y="229.33333333333334" width="666" height="277.66666666666663"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="ZsX-QP-AVU">
+                                        <rect key="frame" x="0.0" y="0.0" width="666" height="240"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="240" id="VXi-mf-LcU"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TARGETER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRp-ob-s5a">
+                                        <rect key="frame" x="0.0" y="219.99999999999997" width="666" height="57.666666666666657"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="42"/>
+                                        <color key="textColor" red="0.10815242680000001" green="0.4428707361" blue="0.73762339349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="VRp-ob-s5a" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="Hnq-nW-C0h"/>
-                            <constraint firstItem="ZsX-QP-AVU" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="155" id="IY8-pY-xB9"/>
-                            <constraint firstItem="VRp-ob-s5a" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="IYy-g9-Cxd"/>
+                            <constraint firstItem="Lvn-Eh-jOR" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0XD-hI-V8s"/>
                             <constraint firstItem="9ea-3D-8bU" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="Igo-IH-ZHd"/>
-                            <constraint firstItem="VRp-ob-s5a" firstAttribute="top" secondItem="ZsX-QP-AVU" secondAttribute="bottom" constant="-20" id="Kle-5M-q1M"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="9ea-3D-8bU" secondAttribute="bottom" constant="8" id="R2F-Ul-dPF"/>
-                            <constraint firstItem="ZsX-QP-AVU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="g2L-N8-nXU"/>
+                            <constraint firstItem="Lvn-Eh-jOR" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="hRI-Bk-7Eq"/>
                             <constraint firstItem="9ea-3D-8bU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="xtV-1v-ExF"/>
-                            <constraint firstItem="ZsX-QP-AVU" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="yot-PM-9c0"/>
                         </constraints>
                     </view>
                 </viewController>
