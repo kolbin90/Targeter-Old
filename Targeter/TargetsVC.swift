@@ -21,6 +21,7 @@ class TargetsVC: UITableViewController {
     // MARK: Outlets
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
+    @IBOutlet weak var addButton: UIBarButtonItem!
     // MARK: Properties
     let dateFormatter = DateFormatter()
     var userID: String?
@@ -228,6 +229,7 @@ class TargetsVC: UITableViewController {
     // Configure app and login button title depending on auth status
     func signedInStatus(isSignedIn: Bool) {
         // Here we set up App depending on login status
+        addButton.isEnabled = isSignedIn
         if (isSignedIn) {
             loginButton.title = "Account"
         } else {

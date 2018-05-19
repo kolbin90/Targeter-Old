@@ -83,25 +83,27 @@ class UserViewController: UIViewController {
                 }
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                self.nameLabel.text = value?[Constants.UserData.Name] as? String ?? ""
-                //let city = value?[Constants.UserData.City] as? String ?? ""
-                //let age = value?[Constants.UserData.Age] as? String ?? ""
+                if let name = value?[Constants.UserData.Name] as? String {
+                    self.nameLabel.text = " \(name) "
+                } else {
+                    self.nameLabel.text = ""
+                }
                 if let city = value?[Constants.UserData.City] as? String, city != "" {
                     if let age = value?[Constants.UserData.Age] as? String, age != "" {
-                        self.cityAgeLabel.text = "\(city), \(age)"
+                        self.cityAgeLabel.text = " \(city), \(age) "
                     } else {
-                        self.cityAgeLabel.text = "\(city)"
+                        self.cityAgeLabel.text = " \(city) "
                     }
                 } else {
                     if let age = value?[Constants.UserData.Age] as? String, age != "" {
-                        self.cityAgeLabel.text = "\(age)"
+                        self.cityAgeLabel.text = " \(age) "
                     } else {
                         self.cityAgeLabel.alpha = 0
                     }
                 }
                 //self.cityAgeLabel.text = "\(city), \(age)"
                 if let userPercentage = value?[Constants.UserData.Percentage] as? String, userPercentage != "" {
-                    self.percentageLabel.text = "\(userPercentage)%"
+                    self.percentageLabel.text = " \(userPercentage)% "
                 } else {
                     self.percentageLabel.text = "0%"
                 }
