@@ -128,7 +128,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             startDate.isEnabled = false
             startDate.alpha = 0.5
             startDate.text = dateBeginning
-            addImageButton.setTitle("Change image", for: .normal)
+            addImageButton.setTitle(" Change image ", for: .normal)
             
             if dateEnding != "" {
                 endDate.isEnabled = true
