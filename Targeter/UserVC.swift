@@ -20,6 +20,7 @@ class UserViewController: UIViewController {
     var storageRef: StorageReference!
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+    var targetsCount:Int?
 
     fileprivate var _refHandle: DatabaseHandle!
 
@@ -74,6 +75,12 @@ class UserViewController: UIViewController {
     func fillUserInformation() {
         if let userID = userID {
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                if let targetsCount = self.targetsCount {
+                    self.numTargetsLabel.text = String(targetsCount)
+                } else {
+                    self.numTargetsLabel.text = "0"
+
+                }
                 // Get user value
                 let value = snapshot.value as? NSDictionary
                 self.nameLabel.text = value?[Constants.UserData.Name] as? String ?? ""
@@ -98,7 +105,6 @@ class UserViewController: UIViewController {
                 } else {
                     self.percentageLabel.text = "0%"
                 }
-                //self.percentageLabel.text = "\((value?[Constants.UserData.Percentage] as? String))%" ?? "0%"
                 self.cityAgeLabel.sizeToFit()
                 self.aboutLabel.text = value?[Constants.UserData.About] as? String ?? ""
                 self.title = value?[Constants.UserData.Username] as? String ?? "userID"
