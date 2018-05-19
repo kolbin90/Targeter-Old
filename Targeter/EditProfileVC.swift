@@ -22,6 +22,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var newProfileImage: UIImage? = nil
     //let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+    var imageURLforRef: String?
     
     
     // MARK: Outlets
@@ -73,7 +74,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                     
                 } else {
                     if let imageURL = value?[Constants.UserData.ImageURL] as? String {
-                        
+                        self.imageURLforRef = imageURL
                         DispatchQueue.main.async {
 
                             
@@ -174,17 +175,18 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     func deleteProfileImageFromStorage() {
         // Create a reference to the file to delete
-        let pathToImage = "users/" + userID! + "/profileImage/"
-        let desertRef = storageRef.child(pathToImage)
-        
-        // Delete the file
-        desertRef.delete { error in
-            if let error = error {
-                // Uh-oh, an error occurred!
-            } else {
-                // File deleted successfully
+        if let imageURLforRef = imageURLforRef {
+            let deleteRef = Storage.storage().reference(forURL: imageURLforRef)
+            // Delete the file
+            deleteRef.delete { error in
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                } else {
+                    // File deleted successfully
+                }
             }
         }
+        
     }
     // MARK:  ImagePicker
     func imagePicker(_ type: UIImagePickerControllerSourceType) {
