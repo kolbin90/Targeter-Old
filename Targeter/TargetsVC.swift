@@ -554,6 +554,7 @@ class TargetsVC: UITableViewController {
                 } else {
                     mark.alpha = 0
                 }
+                
                 dayForChecking = Calendar.current.date(byAdding: .day, value: +1, to: dayForChecking)!
                 
             }
