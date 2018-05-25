@@ -19,26 +19,24 @@ extension UIViewController {
         let height: CGFloat = 109.5 // height of cell
         let origin = CGPoint(x: (imageWidth - width)/2, y: (imageHeight - height)/2)
         let size = CGSize(width: width, height: height)
-        
         newImage = newImage.crop(rect: CGRect(origin: origin, size: size))
         let imageData = newImage.jpeg(.highest)!
         return imageData
     }
     
     func setNavigationController() {
-        //navigationController?.navigationBar.barTintColor = UIColor.init(red: 0.752, green: 0.876, blue: 1.0, alpha: 1.0)
-            //.init(hue: 210, saturation: 0.250, brightness: 1, alpha: 1) //
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 22)!]
         UIBarButtonItem.appearance().setTitleTextAttributes([ NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
         navigationController?.navigationBar.tintColor = .black
         if #available(iOS 11.0, *) {
+            // Set large title and custom font for newer iOS
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationBar.largeTitleTextAttributes =
                 [NSAttributedStringKey.font: UIFont(name: "AvenirNext-Medium", size: 30) ??
                     UIFont.systemFont(ofSize: 30)]
         } else {
-            // Fallback on earlier versions
+            // Use defailt om old iOS
         }
     }
     // Show activity indicator

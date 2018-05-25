@@ -158,47 +158,37 @@ class TargetsVC: UITableViewController {
     }
     func downloadTargets() {
         if let userID = userID {
+            // Download targets data
             databaseRef.child(Constants.RootFolders.Targets).child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let value = snapshot.value as? NSDictionary {
                     print(snapshot)
                     self.targets = value.allValues as [AnyObject]
                     self.tableView.reloadData()
                 }
-                //self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
             }) { (error) in
                 print(error.localizedDescription)
             }
             
+            // Set observer on if data chenged
             _refHandle = databaseRef.child(Constants.RootFolders.Targets).child(userID).observe(.childChanged, with: { (snapshot) in
-                
+                // Redownload all targets data if something were changed
                 self.databaseRef.child(Constants.RootFolders.Targets).child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                     if let value = snapshot.value as? NSDictionary {
-                        print(snapshot)
-                        
                         self.targets = value.allValues as [AnyObject]
                         self.tableView.reloadData()
                         self.makeNotification()
-
                     }
-                    //self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
                 }) { (error) in
                     print(error.localizedDescription)
                 }
-               // let value = snapshot.value as? [String:AnyObject]
-                //self.tableView.insertRows(at: [IndexPath(row: self.targets.count - 1, section: 0)], with: .automatic)
-                //print(value?.allValues[0])
-                //let targetValue
-                // print(Array(value!.values)[0])
-                
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
     }
     // MARK: Assist func
-    
+    // Get success percentage for target
     func getSuccessPercentage(checkIns:[String:String], dateBeginning: Date) -> String {
-        // Count percentage of succes for target
         var percentage = 0
         let dayInSeconds = 86400
         let countForDaysSinceBeginnigDay = Int(Date().timeIntervalSince(dateBeginning))/dayInSeconds
@@ -212,20 +202,6 @@ class TargetsVC: UITableViewController {
         return "\(percentage)"
     }
     
-    // Check if selected day was marked as succeed or as failed in success list
-    func todayIn(successList:Set<Success>,today:Date) -> (String,Success?){
-        for day in successList {
-            if Calendar.current.isDate(day.date, equalTo: today, toGranularity:.day) {
-                if day.success {
-                    return ("succeed", day)
-                } else {
-                    return ("failed", day)
-                }
-            }
-        }
-        return ("nothing", nil)
-    }
-
     
     // Configure app and login button title depending on auth status
     func signedInStatus(isSignedIn: Bool) {
@@ -251,30 +227,27 @@ class TargetsVC: UITableViewController {
             let today = dateFormatter.string(from:Date())
             // Create targetRef by targetID
             let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID)
-            //let targetID = targetRef.key
             targetRef.child(Constants.Target.Checkins).child(today).setValue(result) //setValue(targetID)
             
         }
         
     }
-    
+    // Delte check in from Firebase
     func deleteCheckIn(targetID:String) {
         if let userID = userID {
             let today = dateFormatter.string(from:Date())
             // Create targetRef by targetID
             let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID)
-            //let targetID = targetRef.key
             targetRef.child(Constants.Target.Checkins).child(today).removeValue()
             
         }
         
     }
-    // Check how many targets are marked for today
+    // Check how many targets left to mark
     func targetsToMark() -> Int {
         var num: Int
         let today = Date()
         var toMark: Int
-        //let target = self.fetchedResultsController!.object(at: indexPath) as! Target
         var targetsCount = self.targets.count
         if targetsCount == 0 {
             return 0
@@ -303,11 +276,9 @@ class TargetsVC: UITableViewController {
     // Create notification
     func makeNotification() {
         // Creating and setting up user notification
-        
         let content = UNMutableNotificationContent()
         let contentMorning = UNMutableNotificationContent()
         let targetsToMarkCount = targetsToMark() // Check how many targets are unmarked
-        // Time 21:15 is random
         var dateComponentsOne = DateComponents()
         dateComponentsOne.hour = 21
         dateComponentsOne.minute = 15
@@ -423,20 +394,25 @@ class TargetsVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
+        // Presetting outfit for cell before it's filled with data
         cell.todayMark.backgroundColor = .white
         cell.todayMark.textColor = .black
         cell.rightArror.isHidden = false
-        let targetSnapshot = targets[indexPath.row]
         cell.percentage.alpha = 0
         cell.cellBackgroundView.backgroundColor = UIColor.random()
+        // Check if Target excists
+        let targetSnapshot = targets[indexPath.row]
         guard let target = targetSnapshot as? [String:AnyObject] else {
             return cell
         }
+        // Check if TargetID excists
         guard let targetID = target[Constants.Target.TargetID] as? String else {
             return cell
         }
-        var title = target[Constants.Target.Title] as? String ?? "Опусти водный бро"
+        // Fill title with information
+        var title = target[Constants.Target.Title] as? String ?? ""
         title = " \(title) "
+        // Set background image
         if let imageURL = target[Constants.Target.ImageURL] as? String {
             DispatchQueue.main.async {
                 let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
@@ -444,7 +420,6 @@ class TargetsVC: UITableViewController {
                 let predicate = NSPredicate(format:"targetID = %@", targetID)
                 fetchRequest.sortDescriptors = [sortDescriptor]
                 fetchRequest.predicate = predicate
-                
                 if let result = try? self.stack.context.fetch(fetchRequest) {
                     if result.count > 0 {
                         let targetImages = result[0]
@@ -456,7 +431,6 @@ class TargetsVC: UITableViewController {
                                     print("Error downloading: \(error!)")
                                     return
                                 }
-                                
                                 if let userImage = UIImage.init(data: data!) {
                                     DispatchQueue.main.async {
                                         let cellImage = self.prepareCellImage(image: userImage)
@@ -474,7 +448,6 @@ class TargetsVC: UITableViewController {
                                 print("Error downloading: \(error!)")
                                 return
                             }
-                            
                             if let userImage = UIImage.init(data: data!) {
                                 DispatchQueue.main.async {
                                     let cellImage = self.prepareCellImage(image: userImage)
@@ -486,9 +459,9 @@ class TargetsVC: UITableViewController {
                         })
                     }
                 }
-                
             }
         }
+        // Fill check ins history
         if let checkIns = target[Constants.Target.Checkins] as? [String:String] {
             if let todayResult = checkIns[self.dateFormatter.string(from: Date())] {
                 if todayResult == "F" {
@@ -511,14 +484,12 @@ class TargetsVC: UITableViewController {
             if let userID = userID {
                 if let percentage = target[Constants.Target.Percentage] as? String, percentage == targetPercentage {
                     // No need to resave the same data, so we do nothing here
-                    
                 } else {
                    // Save targets percentage to FB
                     databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID).child(Constants.Target.Percentage).setValue(targetPercentage)
                     var sumRating = 0
                     let numTargets = targets.count
                     for target in targets {
-                        
                         if let target = target as? [String:AnyObject] {
                             if let checkingTargetID = target[Constants.Target.TargetID] as? String, checkingTargetID == targetID {
                                 // If it's the same target use new target's percentage
@@ -529,11 +500,6 @@ class TargetsVC: UITableViewController {
                                 }
                             }
                         }
-                        
-                        
-                        
-                        
-
                     }
                     let userPercentage = String(sumRating/numTargets)
                     databaseRef.child(Constants.RootFolders.Users).child(userID).child(Constants.UserData.Percentage).setValue(userPercentage)
@@ -557,15 +523,10 @@ class TargetsVC: UITableViewController {
                 } else {
                     mark.alpha = 0
                 }
-                
                 dayForChecking = Calendar.current.date(byAdding: .day, value: +1, to: dayForChecking)!
-                
             }
-            
         }
         cell.titleLabel.text = title
-        
-        
         return cell
     }
     
@@ -574,6 +535,7 @@ class TargetsVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Open AddTargetVC in Editing moode with presetted data
         let targetSnapshot = targets[indexPath.row]
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "AddTargetVC") as! AddTargetVC
         controller.editingMode = true
@@ -590,6 +552,7 @@ class TargetsVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let targetSnapshot = targets[indexPath.row]
+        // Check if target, targetID and userID excists
         guard let target = targetSnapshot as? [String:AnyObject] else {
             return nil
         }
@@ -613,10 +576,8 @@ class TargetsVC: UITableViewController {
             self.makeNotification()
         }
         successAction.backgroundColor! = greenColor
-        
         let result = (tableView.cellForRow(at: indexPath) as! NewTargetCell).todayMark.backgroundColor
         let unmarkAction = UITableViewRowAction(style: .normal, title: "Unmark") {action,arg  in
-            
             self.deleteCheckIn(targetID: targetID)
             self.makeNotification()
         }
@@ -627,264 +588,4 @@ class TargetsVC: UITableViewController {
             return [successAction, failAction]
         }
     }
-    
 }
-
-// MARK: - CoreDataTableViewController
-/*
-extension TargetsVC {
-    
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        
-        DispatchQueue.global().async {
-            // Find the right notebook for this indexpath
-            let target = self.fetchedResultsController!.object(at: indexPath) as! Target
-            
-            // Create the cell
-            let cell = cell as! TargetCell
-            var dayForStartChecking = Date()
-            var dayForChecking = Date()
-            let numberOfMarksInCell = 14
-            let today = Date()
-            var num = 0
-            var countForSucceedTargetsMarks = 0
-            var countForDaysSinceBeginnigDay = 0
-            var dotsArray: [UIImageView] = [cell.dot1, cell.dot2, cell.dot3, cell.dot4, cell.dot5, cell.dot6, cell.dot7, cell.dot8, cell.dot9, cell.dot10, cell.dot11, cell.dot12, cell.dot13, cell.dot14]
-            var daysArray:[UILabel] = [cell.day1, cell.day2, cell.day3, cell.day4, cell.day5, cell.day6, cell.day7, cell.day8, cell.day9, cell.day10, cell.day11, cell.day12, cell.day13, cell.day14]
-            var successList: Set<Success>?
-            DispatchQueue.main.async {
-                // Round corners for view
-                cell.cellView.layer.cornerRadius = 15
-                // Set background picture, if Target have one
-                cell.backgroundImage.image = nil
-                if let imageData = target.cellImage {
-                    if let image = UIImage(data: imageData) {
-                        cell.backgroundImage.image = image
-                    }
-                }
-            }
-            // Check if target should be completed and figure dates
-            if let endingDay = target.dayEnding, endingDay < dayForChecking  {
-                dayForChecking = endingDay
-                dayForStartChecking = endingDay
-                if !target.completed {
-                    DispatchQueue.main.async {
-                        target.completed = true
-                        self.stack.save()
-                    }
-                }
-            }
-            //
-            if let successListTarget = target.successList as? Set<Success>, (successListTarget.count > 0) {
-                successList = successListTarget
-                // Count number of succeed targets
-                for mark in successList! {
-                    if mark.success {
-                        countForSucceedTargetsMarks += 1
-                    }
-                }
-            } else {
-                successList = nil
-            }
-            
-            
-            
-            
-            
-            while num < numberOfMarksInCell {
-                // Color images on success and fail
-                let dayImageView = dotsArray[num]
-                let dayLabel = daysArray[num]
-                // If Mark is out of date (before beginning date) give them light gray color
-                if dayForChecking < target.dayBeginning {
-                    DispatchQueue.main.async {
-                        dayImageView.tintColor = UIColor.groupTableViewBackground
-                        dayLabel.textColor = .lightGray
-                        dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                    }
-                } else {
-                    // Check if Success list contains anyrhing
-                if let successList = successList {
-                        let dotColor:UIColor!
-                        let success = self.todayIn(successList: successList, today: dayForChecking).0
-                        switch success {
-                        case "succeed":
-                            dotColor = self.greenColor
-                        case "failed":
-                            dotColor = self.redColor
-                        case "nothing":
-                            if today == dayForChecking {
-                                dotColor = .black
-                            } else {
-                                dotColor = self.redColor
-                            }
-                        default:
-                            dotColor = .black
-                            print("Error!")
-                        }
-                    
-                    
-                        DispatchQueue.main.async {
-                            dayImageView.tintColor = dotColor
-                            dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            dayImageView.tintColor = .black
-                            dayImageView.image! = cell.dot1.image!.withRenderingMode(.alwaysTemplate)
-                        }
-                    }
-                }
-                // Give labels name of last 14 days
-                let day = Calendar.current.component(.day, from: dayForChecking)
-                var labelText = String(day)
-                if Calendar.current.isDate(dayForChecking, equalTo: dayForStartChecking, toGranularity:.day) {
-                    let month = Calendar.current.component(.month, from: dayForChecking)
-                    let year = Calendar.current.component(.year, from: dayForChecking)
-                    labelText = "\(day)/\(month)\n\(year)"
-                }
-                DispatchQueue.main.async {
-                    dayLabel.text = labelText
-                }
-                
-                // Change "today" for a one day before
-                dayForChecking = Calendar.current.date(byAdding: .day, value: -1, to: dayForChecking)!
-                num += 1
-            }
-            DispatchQueue.main.async {
-                cell.label.text = target.title
-                // Count percentage of succes for target
-                var percentage = 0
-                let dayInSeconds = 86400
-                countForDaysSinceBeginnigDay = Int(Date().timeIntervalSince(target.dayBeginning))/dayInSeconds
-                percentage = Int((Double(countForSucceedTargetsMarks)/Double(countForDaysSinceBeginnigDay+1))*100)
-                // If target completed we add "Completed with?
-                if target.completed {
-                    cell.completedLabel.text = "Completed with: \(percentage)%"
-                } else {
-                    cell.completedLabel.text = "\(percentage)%"
-                }
-                cell.completedLabel.isHidden = false
-            }
-            
-            
-            
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Create the cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TargetCell
-        return cell
-    }
-    
-
-    
-
-}
-*/
-// MARK: - CoreDataTableViewController (Table Data Source)
-/*
-extension TargetsVC {
- 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        if let fc = fetchedResultsController {
-            return (fc.sections?.count)!
-        } else {
-            return 0
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let fc = fetchedResultsController {
-            return fc.sections![section].numberOfObjects
-        } else {
-            return 0
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if let fc = fetchedResultsController {
-            return fc.sections![section].name
-        } else {
-            return nil
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        if let fc = fetchedResultsController {
-            return fc.section(forSectionIndexTitle: title, at: index)
-        } else {
-            return 0
-        }
-    }
-    
-    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        if let fc = fetchedResultsController {
-            return fc.sectionIndexTitles
-        } else {
-            return nil
-        }
-    }
-}
-
-// MARK: - CoreDataTableViewController (Fetches)
-
-extension TargetsVC {
-    
-    func executeSearch() {
-        if let fc = fetchedResultsController {
-            do {
-                try fc.performFetch()
-            } catch let e as NSError {
-                print("Error while trying to perform a search: \n\(e)\n\(fetchedResultsController)")
-            }
-        }
-    }
-}
-
-// MARK: - CoreDataTableViewController: NSFetchedResultsControllerDelegate
-
-extension TargetsVC: NSFetchedResultsControllerDelegate {
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        
-        let set = IndexSet(integer: sectionIndex)
-        
-        switch (type) {
-        case .insert:
-            tableView.insertSections(set, with: .fade)
-        case .delete:
-            tableView.deleteSections(set, with: .fade)
-        default:
-            // irrelevant in our case
-            break
-        }
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch(type) {
-        case .insert:
-            tableView.insertRows(at: [newIndexPath!], with: .fade)
-        case .delete:
-            tableView.deleteRows(at: [indexPath!], with: .fade)
-        case .update:
-            tableView.reloadRows(at: [indexPath!], with: .fade)
-        case .move:
-            tableView.deleteRows(at: [indexPath!], with: .fade)
-            tableView.insertRows(at: [newIndexPath!], with: .fade)
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
-}
- */
-

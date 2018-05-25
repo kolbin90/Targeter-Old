@@ -16,7 +16,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     //MARK: - Properties
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var editingMode = false
-    var target: Target?
+    //var target: Target?
     var targetID = ""
     var targetSnapshot: AnyObject?
     var viewLoadedWithImage: UIImage?
@@ -45,43 +45,37 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set up Navigation controller
-        setNavigationController()
+        hideKeyboardWhenTappedAround()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        setNavigationController() // Set up Navigation controller
         if #available(iOS 11.0, *) {
+            // Use large title for newer iOS
             self.navigationItem.largeTitleDisplayMode = .always
         } else {
-            // Fallback on earlier versions
+            // Use regular on older
         }
+        // Set up Firebase
         configDatabase()
         configureStorage()
-        //deleteButton.tintColor = .red // cell.dot1.image!.withRenderingMode(.alwaysTemplate)
         
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        hideKeyboardWhenTappedAround()
-        mainView.layer.cornerRadius = 15
         if editingMode {
-            
-            
-            
-            
-            
+            // If we are editing excisting target, fill fields wiyh data
             guard let target = targetSnapshot as? [String:AnyObject] else {
                 return
             }
-            let title = target[Constants.Target.Title] as? String ?? "Опусти водный бро"
+            let title = target[Constants.Target.Title] as? String ?? ""
             let description = target[Constants.Target.Description] as? String ?? ""
             let dateBeginning = target[Constants.Target.DateBeginning] as? String ?? ""
             let dateEnding = target[Constants.Target.DateEnding] as? String ?? ""
             self.targetID = target[Constants.Target.TargetID] as? String ?? ""
             if let imageURL = target[Constants.Target.ImageURL] as? String {
-                
                 DispatchQueue.main.async {
                     let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
                     let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
                     let predicate = NSPredicate(format:"targetID = %@", self.targetID)
                     fetchRequest.sortDescriptors = [sortDescriptor]
                     fetchRequest.predicate = predicate
-                    
+                    // Check if we have image in Core Data. Download it if we don't
                     if let result = try? self.stack.context.fetch(fetchRequest) {
                         if result.count > 0 {
                             let targetImages = result[0]
@@ -101,28 +95,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                             })
                         }
                     }
-                    
                 }
-                /*
-                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                        guard error == nil else {
-                            print("Error downloading: \(error!)")
-                            return
-                        }
-                        if let userImage = UIImage.init(data: data!, scale: 50) {
-                         //   self.imageCache.setObject(userImage, forKey: "targetImage\(indexPath.row)" as NSString)
-                            DispatchQueue.main.async {
-                                self.tergetImageView.image = userImage
-                            }
-                        }
-                    })
-                */
             }
-            
-            
-            
-            
-            
             titleTF.text = title
             descriptionTF.text = description
             startDate.isEnabled = false
@@ -162,7 +136,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             addImageButton.setTitle("Change image", for: .normal)
         }
         dismiss(animated: true, completion: nil)
-        
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -229,7 +202,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         }
         return true
     }
-    
+    // Get data from 2 pickers with different tags
     @objc func datePickerValueChanged(sender:UIDatePickerWithSenderTag) {
         if sender.senderTag! == 1 {
             startDate.text = dateFormatter.string(from: sender.date)
@@ -300,7 +273,6 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 
                 let image = tergetImageView.image!
                 if let userID = userID {
-                    // Create targetRef to get a unique name for target in Firebase
                     targetID = target[Constants.Target.TargetID] as? String ?? ""
                     let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID)
                     targetRef.child(Constants.Target.TargetID).setValue(targetID)
@@ -313,10 +285,9 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                     addImageToStorage(image: image, targetRef: targetRef, targetID: targetID)
                 }
             } else {
-                //imageData = prepareNewImage(image: tergetImageView.image!)
+                // Create new target
                 imageData = tergetImageView.image?.jpeg(.highest)
                 let image = tergetImageView.image!
-                // Create new target
                 if let userID = userID {
                     // Create targetRef to get a unique name for target in Firebase
                     let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).childByAutoId()
