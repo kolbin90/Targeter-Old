@@ -20,7 +20,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     var storageRef: StorageReference!
     var profileImageChanged = false
     var newProfileImage: UIImage? = nil
-    //let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var imageURLforRef: String?
     
@@ -56,6 +55,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     func fillUserInformation() {
         if let userID = userID {
+            // Create and set fetchrequest
             let fetchRequest:NSFetchRequest<ProfileImage> = ProfileImage.fetchRequest()
             let sortDescriptor = NSSortDescriptor(key: "userID", ascending: false)
             let predicate = NSPredicate(format:"userID = %@", userID)
@@ -63,27 +63,29 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             fetchRequest.predicate = predicate
             
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
+                // Get user data and fill fields
                 let value = snapshot.value as? NSDictionary
                 self.nameTextField.text = value?[Constants.UserData.Name] as? String ?? ""
                 self.ageTextField.text = value?[Constants.UserData.Age] as? String ?? ""
                 self.cityTextField.text = value?[Constants.UserData.City] as? String ?? ""
                 self.aboutTextField.text = value?[Constants.UserData.About] as? String ?? ""
                 self.usernameTextField.text = value?[Constants.UserData.Username] as? String ?? ""
-                if self.profileImageChanged {
-                    
+                if !self.profileImageChanged {
+                    // Do nothing, because we set new image in picker controller
                 } else {
+                    // Check if we have image URL
                     if let imageURL = value?[Constants.UserData.ImageURL] as? String {
                         self.imageURLforRef = imageURL
                         DispatchQueue.main.async {
-
-                            
+                            // Check if we have image in Core Data
                             if let result = try? self.stack.context.fetch(fetchRequest) {
                                 if result.count > 0 {
                                     let profileImage = result[0]
+                                    // Check if it's the same image that we need, if so use it
                                     if profileImage.imageURL == imageURL {
                                         self.profileImageView.image = UIImage(data: profileImage.imageData)
                                     } else {
+                                        // If its a different one, download a new image from Firebase and replase it in coredata
                                         Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                             guard error == nil else {
                                                 print("Error downloading: \(error!)")
@@ -101,6 +103,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                                         })
                                     }
                                 } else {
+                                    // If we have noting in CoreDta we download image from Firebase and save it to core data
                                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                         guard error == nil else {
                                             print("Error downloading: \(error!)")
@@ -140,6 +143,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         return imageData
     }
     
+    // Save image to Firebase storage, save image URL to Firebase database
     func addImageToStorage(image:UIImage) {
         let photoData = prepareNewImage(image: image)
         let imagePath = "users/" + userID! + "/profileImage/\(Date())"
@@ -151,7 +155,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 return
             }
             let imageURL = self.storageRef.child((metadata?.path)!).description
-            
             let fetchRequest:NSFetchRequest<ProfileImage> = ProfileImage.fetchRequest()
             let sortDescriptor = NSSortDescriptor(key: "userID", ascending: false)
             let predicate = NSPredicate(format:"userID = %@", self.userID!)
@@ -173,6 +176,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
+    // Delete old profile image from firebase storage
     func deleteProfileImageFromStorage() {
         // Create a reference to the file to delete
         if let imageURLforRef = imageURLforRef {
@@ -210,6 +214,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     // MARK: Actions
     
     @IBAction func cancelButton(_ sender: Any) {
+        // Closw VC
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func changeImageButton(_ sender: Any) {
@@ -235,9 +240,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     @IBAction func saveButton(_ sender: Any) {
+        // Save data to Firebase
         if let userID = userID {
-            //var userData:[String:String] = [:]
-            //userData[Constants.UserData.name] = nameTextField.text ?? ""
             if let name = nameTextField.text {
                 self.databaseRef.child("\(Constants.RootFolders.Users)/\(userID)/\(Constants.UserData.Name)").setValue(name)
             }
@@ -258,8 +262,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 addImageToStorage(image: newProfileImage)
 
             }
-            //addImageToStorage(image: profileImageView.image!)
-            //databaseRef.child("users").child(userID).setValue(userData)
             self.dismiss(animated: true, completion: nil)
         }
     }
