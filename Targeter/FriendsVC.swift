@@ -11,6 +11,7 @@ import UIKit
 import Firebase
 
 class FriendsViewController: UITableViewController {
+    // FriendsViewController is in work and will be updated
     
     //MARK: - Properties
     var userID = Auth.auth().currentUser?.uid
@@ -28,8 +29,6 @@ class FriendsViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
-        // Set up Navigation controller
         configDatabase()
         configureStorage()
         downloadTargets()
@@ -47,19 +46,7 @@ class FriendsViewController: UITableViewController {
         storageRef = Storage.storage().reference()
     }
     func downloadTargets() {
-     /*   if let userID = userID {
-            _refHandle = databaseRef.child(Constants.RootFolders.Targets).child(userID).observe(.childAdded, with: { (snapshot) in
-                self.targets.append(snapshot)
-                let value = snapshot.value as? [String:AnyObject]
-                self.tableView.reloadData()
-                //print(value?.allValues[0])
-                //let targetValue
-               // print(Array(value!.values)[0])
-                
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        }*/
+
     }
     
     
