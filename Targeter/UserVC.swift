@@ -21,7 +21,6 @@ class UserViewController: UIViewController {
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
     var targetsCount:Int?
-
     fileprivate var _refHandle: DatabaseHandle!
 
     // Mark: Outlets
@@ -30,19 +29,19 @@ class UserViewController: UIViewController {
     @IBOutlet weak var cityAgeLabel: UILabel!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var percentageLabel: UILabel!
-    
     @IBOutlet weak var numFriendsLabel: UILabel!
     @IBOutlet weak var numTargetsLabel: UILabel!
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         // Configure Firebase
         configDatabase()
         configureStorage()
-        //fillUserInformation()
         if #available(iOS 11.0, *) {
+            // Use large title for newer iOS
             self.navigationItem.largeTitleDisplayMode = .always
         } else {
-            // Fallback on earlier versions
+            // Use regular on older
         }
 
     }
@@ -74,6 +73,7 @@ class UserViewController: UIViewController {
     }
     func fillUserInformation() {
         if let userID = userID {
+            // Download user data and fill labels with data
             databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let targetsCount = self.targetsCount {
                     self.numTargetsLabel.text = String(targetsCount)
@@ -111,21 +111,23 @@ class UserViewController: UIViewController {
                 self.aboutLabel.text = value?[Constants.UserData.About] as? String ?? ""
                 self.title = value?[Constants.UserData.Username] as? String ?? "userID"
                 self.aboutLabel.sizeToFit()
+                // Check if we have image URL
                 if let imageURL = value?[Constants.UserData.ImageURL] as? String {
-                    
                     DispatchQueue.main.async {
                         let fetchRequest:NSFetchRequest<ProfileImage> = ProfileImage.fetchRequest()
                         let sortDescriptor = NSSortDescriptor(key: "userID", ascending: false)
                         let predicate = NSPredicate(format:"userID = %@", userID)
                         fetchRequest.sortDescriptors = [sortDescriptor]
                         fetchRequest.predicate = predicate
-                        
+                        // Check if we have image in Core Data
                         if let result = try? self.stack.context.fetch(fetchRequest) {
                             if result.count > 0 {
                                 let profileImage = result[0]
                                 if profileImage.imageURL == imageURL {
+                                    // Check if it's the same image that we need, if so use it
                                     self.userImage.image = UIImage(data: profileImage.imageData)
                                 } else {
+                                    // If its a different one, download a new image from Firebase and replase it in coredata
                                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                         guard error == nil else {
                                             print("Error downloading: \(error!)")
@@ -143,6 +145,7 @@ class UserViewController: UIViewController {
                                     })
                                 }
                             } else {
+                                // If we have nothing in CoreDta we download image from Firebase and save it to core data
                                 Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                     guard error == nil else {
                                         print("Error downloading: \(error!)")
@@ -168,14 +171,14 @@ class UserViewController: UIViewController {
     }
     
     // MARK: Assist functions
-    func configUI() {
-    }
+
     
     // MARK: Actions
     @IBAction func editButton(_ sender: Any) {
     }
     @IBAction func logoutButton(_ sender: Any) {
         do {
+            // Delete all data from Core Data, when logged out
             try stack.dropAllData()
         } catch {
             print("Ebat' error")

@@ -103,7 +103,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                                         })
                                     }
                                 } else {
-                                    // If we have noting in CoreDta we download image from Firebase and save it to core data
+                                    // If we have nothing in CoreDta we download image from Firebase and save it to core data
                                     Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                         guard error == nil else {
                                             print("Error downloading: \(error!)")
