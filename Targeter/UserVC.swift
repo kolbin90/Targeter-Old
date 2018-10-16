@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import Firebase
-import FirebaseAuthUI
+import FirebaseUI
 import CoreData
 
 class UserViewController: UIViewController {

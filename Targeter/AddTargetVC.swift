@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
-import FirebaseAuthUI
+import FirebaseUI
 
 class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -299,7 +299,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                     if let endDateText = endDate.text, endDateText != "" {
                         targetRef.child(Constants.Target.DateEnding).setValue(endDateText)
                     }
-                    addImageToStorage(image: image, targetRef: targetRef, targetID: targetID)
+                    addImageToStorage(image: image, targetRef: targetRef, targetID: targetID!)
                 }
             }
             _ = navigationController?.popViewController(animated: true)

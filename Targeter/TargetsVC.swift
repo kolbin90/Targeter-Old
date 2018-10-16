@@ -11,8 +11,8 @@ import CoreData
 //import FSCalendar
 import UserNotifications
 import Firebase
-import FirebaseAuthUI
-import FirebaseGoogleAuthUI
+import FirebaseUI
+import GoogleSignIn
 
 
 // MARK: - CoreDataTableViewController: UITableViewController

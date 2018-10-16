@@ -10,7 +10,7 @@ import UIKit
 import UserNotifications
 import CoreData
 import Firebase
-import FirebaseAuthUI
+import FirebaseUI
 import IQKeyboardManagerSwift
 
 @UIApplicationMain
