@@ -6,6 +6,8 @@ target 'Targeter' do
 	pod 'Firebase/Database'
 	pod 'Firebase/RemoteConfig'
 	pod 'FirebaseUI'
+	pod 'Firebase/Auth'
+	pod 'GoogleSignIn'
 	pod ‘Firebase/Messaging’
 	pod 'IQKeyboardManagerSwift'
 end
