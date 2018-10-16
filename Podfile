@@ -1,4 +1,6 @@
 use_frameworks!
+inhibit_all_warnings!
+
 target 'Targeter' do
     	pod 'FSCalendar'
    	pod 'Firebase/Storage'
@@ -10,5 +12,10 @@ target 'Targeter' do
 	pod 'GoogleSignIn'
 	pod ‘Firebase/Messaging’
 	pod 'IQKeyboardManagerSwift'
+	
+	target 'TargeterTests' do
+        	inherit! :search_paths
+        	pod 'Firebase'
+    	end
 end
 
