@@ -718,7 +718,7 @@ static void destroy_stream_locked(void* sp, grpc_error* error) {
   grpc_chttp2_list_remove_stalled_by_stream(t, s);
 
   for (int i = 0; i < STREAM_LIST_COUNT; i++) {
-    if (s->included[i]) {
+    if (GPR_UNLIKELY(s->included[i])) {
       gpr_log(GPR_ERROR, "%s stream %d still included in list %d",
               t->is_client ? "client" : "server", s->id, i);
       abort();
@@ -807,13 +807,17 @@ static const char* write_state_name(grpc_chttp2_write_state st) {
 
 static void set_write_state(grpc_chttp2_transport* t,
                             grpc_chttp2_write_state st, const char* reason) {
-  GRPC_CHTTP2_IF_TRACING(gpr_log(GPR_DEBUG, "W:%p %s state %s -> %s [%s]", t,
+  GRPC_CHTTP2_IF_TRACING(gpr_log(GPR_INFO, "W:%p %s state %s -> %s [%s]", t,
                                  t->is_client ? "CLIENT" : "SERVER",
                                  write_state_name(t->write_state),
                                  write_state_name(st), reason));
   t->write_state = st;
   if (st == GRPC_CHTTP2_WRITE_STATE_IDLE) {
-    GRPC_CLOSURE_LIST_SCHED(&t->run_after_write);
+    grpc_chttp2_stream* s;
+    while (grpc_chttp2_list_pop_waiting_for_write_stream(t, &s)) {
+      GRPC_CLOSURE_LIST_SCHED(&s->run_after_write);
+      GRPC_CHTTP2_STREAM_UNREF(s, "chttp2:write_closure_sched");
+    }
     if (t->close_transport_on_writes_finished != nullptr) {
       grpc_error* err = t->close_transport_on_writes_finished;
       t->close_transport_on_writes_finished = nullptr;
@@ -1072,7 +1076,7 @@ void grpc_chttp2_add_incoming_goaway(grpc_chttp2_transport* t,
                                      uint32_t goaway_error,
                                      grpc_slice goaway_text) {
   // GRPC_CHTTP2_IF_TRACING(
-  //     gpr_log(GPR_DEBUG, "got goaway [%d]: %s", goaway_error, msg));
+  //     gpr_log(GPR_INFO, "got goaway [%d]: %s", goaway_error, msg));
 
   // Discard the error from a previous goaway frame (if any)
   if (t->goaway_error != GRPC_ERROR_NONE) {
@@ -1088,8 +1092,9 @@ void grpc_chttp2_add_incoming_goaway(grpc_chttp2_transport* t,
    * data equal to "too_many_pings", it should log the occurrence at a log level
    * that is enabled by default and double the configured KEEPALIVE_TIME used
    * for new connections on that channel. */
-  if (t->is_client && goaway_error == GRPC_HTTP2_ENHANCE_YOUR_CALM &&
-      grpc_slice_str_cmp(goaway_text, "too_many_pings") == 0) {
+  if (GPR_UNLIKELY(t->is_client &&
+                   goaway_error == GRPC_HTTP2_ENHANCE_YOUR_CALM &&
+                   grpc_slice_str_cmp(goaway_text, "too_many_pings") == 0)) {
     gpr_log(GPR_ERROR,
             "Received a GOAWAY with error code ENHANCE_YOUR_CALM and debug "
             "data equal to \"too_many_pings\"");
@@ -1118,7 +1123,7 @@ static void maybe_start_some_streams(grpc_chttp2_transport* t) {
          grpc_chttp2_list_pop_waiting_for_concurrency(t, &s)) {
     /* safe since we can't (legally) be parsing this stream yet */
     GRPC_CHTTP2_IF_TRACING(gpr_log(
-        GPR_DEBUG, "HTTP:%s: Allocating new grpc_chttp2_stream %p to id %d",
+        GPR_INFO, "HTTP:%s: Allocating new grpc_chttp2_stream %p to id %d",
         t->is_client ? "CLI" : "SVR", s, t->next_stream_id));
 
     GPR_ASSERT(s->id == 0);
@@ -1148,12 +1153,10 @@ static void maybe_start_some_streams(grpc_chttp2_transport* t) {
   }
 }
 
-/* Flag that this closure barrier wants stats to be updated before finishing */
-#define CLOSURE_BARRIER_STATS_BIT (1 << 0)
 /* Flag that this closure barrier may be covering a write in a pollset, and so
    we should not complete this closure until we can prove that the write got
    scheduled */
-#define CLOSURE_BARRIER_MAY_COVER_WRITE (1 << 1)
+#define CLOSURE_BARRIER_MAY_COVER_WRITE (1 << 0)
 /* First bit of the reference count, stored in the high order bits (with the low
    bits being used for flags defined above) */
 #define CLOSURE_BARRIER_FIRST_REF_BIT (1 << 16)
@@ -1183,7 +1186,7 @@ void grpc_chttp2_complete_closure_step(grpc_chttp2_transport* t,
   if (grpc_http_trace.enabled()) {
     const char* errstr = grpc_error_string(error);
     gpr_log(
-        GPR_DEBUG,
+        GPR_INFO,
         "complete_closure_step: t=%p %p refs=%d flags=0x%04x desc=%s err=%s "
         "write_state=%s",
         t, closure,
@@ -1205,15 +1208,14 @@ void grpc_chttp2_complete_closure_step(grpc_chttp2_transport* t,
         grpc_error_add_child(closure->error_data.error, error);
   }
   if (closure->next_data.scratch < CLOSURE_BARRIER_FIRST_REF_BIT) {
-    if (closure->next_data.scratch & CLOSURE_BARRIER_STATS_BIT) {
-      grpc_transport_move_stats(&s->stats, s->collecting_stats);
-      s->collecting_stats = nullptr;
-    }
-    if ((t->write_state == GRPC_CHTTP2_WRITE_STATE_IDLE) ||
+    if (s->seen_error || (t->write_state == GRPC_CHTTP2_WRITE_STATE_IDLE) ||
         !(closure->next_data.scratch & CLOSURE_BARRIER_MAY_COVER_WRITE)) {
       GRPC_CLOSURE_RUN(closure, closure->error_data.error);
     } else {
-      grpc_closure_list_append(&t->run_after_write, closure,
+      if (grpc_chttp2_list_add_waiting_for_write_stream(t, s)) {
+        GRPC_CHTTP2_STREAM_REF(s, "chttp2:pending_write_closure");
+      }
+      grpc_closure_list_append(&s->run_after_write, closure,
                                closure->error_data.error);
     }
   }
@@ -1336,7 +1338,7 @@ static void perform_stream_op_locked(void* stream_op,
 
   if (grpc_http_trace.enabled()) {
     char* str = grpc_transport_stream_op_batch_string(op);
-    gpr_log(GPR_DEBUG, "perform_stream_op_locked: %s; on_complete = %p", str,
+    gpr_log(GPR_INFO, "perform_stream_op_locked: %s; on_complete = %p", str,
             op->on_complete);
     gpr_free(str);
     if (op->send_initial_metadata) {
@@ -1350,21 +1352,20 @@ static void perform_stream_op_locked(void* stream_op,
   }
 
   grpc_closure* on_complete = op->on_complete;
+  // TODO(roth): This is a hack needed because we use data inside of the
+  // closure itself to do the barrier calculation (i.e., to ensure that
+  // we don't schedule the closure until all ops in the batch have been
+  // completed).  This can go away once we move to a new C++ closure API
+  // that provides the ability to create a barrier closure.
   if (on_complete == nullptr) {
-    on_complete =
-        GRPC_CLOSURE_CREATE(do_nothing, nullptr, grpc_schedule_on_exec_ctx);
+    on_complete = GRPC_CLOSURE_INIT(&op->handler_private.closure, do_nothing,
+                                    nullptr, grpc_schedule_on_exec_ctx);
   }
 
   /* use final_data as a barrier until enqueue time; the inital counter is
      dropped at the end of this function */
   on_complete->next_data.scratch = CLOSURE_BARRIER_FIRST_REF_BIT;
   on_complete->error_data.error = GRPC_ERROR_NONE;
-
-  if (op->collect_stats) {
-    GPR_ASSERT(s->collecting_stats == nullptr);
-    s->collecting_stats = op_payload->collect_stats.collect_stats;
-    on_complete->next_data.scratch |= CLOSURE_BARRIER_STATS_BIT;
-  }
 
   if (op->cancel_stream) {
     GRPC_STATS_INC_HTTP2_OP_CANCEL();
@@ -1450,10 +1451,8 @@ static void perform_stream_op_locked(void* stream_op,
       }
     }
     if (op_payload->send_initial_metadata.peer_string != nullptr) {
-      char* old_peer_string = (char*)gpr_atm_full_xchg(
-          op_payload->send_initial_metadata.peer_string,
-          (gpr_atm)gpr_strdup(t->peer_string));
-      gpr_free(old_peer_string);
+      gpr_atm_rel_store(op_payload->send_initial_metadata.peer_string,
+                        (gpr_atm)t->peer_string);
     }
   }
 
@@ -1568,10 +1567,8 @@ static void perform_stream_op_locked(void* stream_op,
     s->trailing_metadata_available =
         op_payload->recv_initial_metadata.trailing_metadata_available;
     if (op_payload->recv_initial_metadata.peer_string != nullptr) {
-      char* old_peer_string = (char*)gpr_atm_full_xchg(
-          op_payload->recv_initial_metadata.peer_string,
-          (gpr_atm)gpr_strdup(t->peer_string));
-      gpr_free(old_peer_string);
+      gpr_atm_rel_store(op_payload->recv_initial_metadata.peer_string,
+                        (gpr_atm)t->peer_string);
     }
     grpc_chttp2_maybe_complete_recv_initial_metadata(t, s);
   }
@@ -1603,8 +1600,11 @@ static void perform_stream_op_locked(void* stream_op,
 
   if (op->recv_trailing_metadata) {
     GRPC_STATS_INC_HTTP2_OP_RECV_TRAILING_METADATA();
+    GPR_ASSERT(s->collecting_stats == nullptr);
+    s->collecting_stats = op_payload->recv_trailing_metadata.collect_stats;
     GPR_ASSERT(s->recv_trailing_metadata_finished == nullptr);
-    s->recv_trailing_metadata_finished = add_closure_barrier(on_complete);
+    s->recv_trailing_metadata_finished =
+        op_payload->recv_trailing_metadata.recv_trailing_metadata_ready;
     s->recv_trailing_metadata =
         op_payload->recv_trailing_metadata.recv_trailing_metadata;
     s->final_metadata_requested = true;
@@ -1638,7 +1638,7 @@ static void perform_stream_op(grpc_transport* gt, grpc_stream* gs,
 
   if (grpc_http_trace.enabled()) {
     char* str = grpc_transport_stream_op_batch_string(op);
-    gpr_log(GPR_DEBUG, "perform_stream_op[s=%p]: %s", s, str);
+    gpr_log(GPR_INFO, "perform_stream_op[s=%p]: %s", s, str);
     gpr_free(str);
   }
 
@@ -1674,6 +1674,33 @@ static void send_ping_locked(grpc_chttp2_transport* t,
                            GRPC_ERROR_NONE);
   grpc_closure_list_append(&pq->lists[GRPC_CHTTP2_PCL_NEXT], on_ack,
                            GRPC_ERROR_NONE);
+}
+
+/*
+ * Specialized form of send_ping_locked for keepalive ping. If there is already
+ * a ping in progress, the keepalive ping would piggyback onto that ping,
+ * instead of waiting for that ping to complete and then starting a new ping.
+ */
+static void send_keepalive_ping_locked(grpc_chttp2_transport* t) {
+  if (t->closed_with_error != GRPC_ERROR_NONE) {
+    GRPC_CLOSURE_RUN(&t->start_keepalive_ping_locked,
+                     GRPC_ERROR_REF(t->closed_with_error));
+    GRPC_CLOSURE_RUN(&t->finish_keepalive_ping_locked,
+                     GRPC_ERROR_REF(t->closed_with_error));
+    return;
+  }
+  grpc_chttp2_ping_queue* pq = &t->ping_queue;
+  if (!grpc_closure_list_empty(pq->lists[GRPC_CHTTP2_PCL_INFLIGHT])) {
+    /* There is a ping in flight. Add yourself to the inflight closure list. */
+    GRPC_CLOSURE_RUN(&t->start_keepalive_ping_locked, GRPC_ERROR_NONE);
+    grpc_closure_list_append(&pq->lists[GRPC_CHTTP2_PCL_INFLIGHT],
+                             &t->finish_keepalive_ping_locked, GRPC_ERROR_NONE);
+    return;
+  }
+  grpc_closure_list_append(&pq->lists[GRPC_CHTTP2_PCL_INITIATE],
+                           &t->start_keepalive_ping_locked, GRPC_ERROR_NONE);
+  grpc_closure_list_append(&pq->lists[GRPC_CHTTP2_PCL_NEXT],
+                           &t->finish_keepalive_ping_locked, GRPC_ERROR_NONE);
 }
 
 static void retry_initiate_ping_locked(void* tp, grpc_error* error) {
@@ -1773,8 +1800,11 @@ static void perform_transport_op_locked(void* stream_op,
 
 static void perform_transport_op(grpc_transport* gt, grpc_transport_op* op) {
   grpc_chttp2_transport* t = reinterpret_cast<grpc_chttp2_transport*>(gt);
-  char* msg = grpc_transport_op_string(op);
-  gpr_free(msg);
+  if (grpc_http_trace.enabled()) {
+    char* msg = grpc_transport_op_string(op);
+    gpr_log(GPR_INFO, "perform_transport_op[t=%p]: %s", t, msg);
+    gpr_free(msg);
+  }
   op->handler_private.extra_arg = gt;
   GRPC_CHTTP2_REF_TRANSPORT(t, "transport_op");
   GRPC_CLOSURE_SCHED(GRPC_CLOSURE_INIT(&op->handler_private.closure,
@@ -1933,11 +1963,12 @@ void grpc_chttp2_maybe_complete_recv_trailing_metadata(grpc_chttp2_transport* t,
     }
     if (s->read_closed && s->frame_storage.length == 0 && !pending_data &&
         s->recv_trailing_metadata_finished != nullptr) {
+      grpc_transport_move_stats(&s->stats, s->collecting_stats);
+      s->collecting_stats = nullptr;
       grpc_chttp2_incoming_metadata_buffer_publish(&s->metadata_buffer[1],
                                                    s->recv_trailing_metadata);
-      grpc_chttp2_complete_closure_step(
-          t, s, &s->recv_trailing_metadata_finished, GRPC_ERROR_NONE,
-          "recv_trailing_metadata_finished");
+      null_then_run_closure(&s->recv_trailing_metadata_finished,
+                            GRPC_ERROR_NONE);
     }
   }
 }
@@ -1985,6 +2016,10 @@ static void remove_stream(grpc_chttp2_transport* t, uint32_t id,
 
 void grpc_chttp2_cancel_stream(grpc_chttp2_transport* t, grpc_chttp2_stream* s,
                                grpc_error* due_to_error) {
+  GRPC_CLOSURE_LIST_SCHED(&s->run_after_write);
+  if (grpc_chttp2_list_remove_waiting_for_write_stream(t, s)) {
+    GRPC_CHTTP2_STREAM_UNREF(s, "chttp2:pending_write_closure");
+  }
   if (!t->is_client && !s->sent_trailing_metadata &&
       grpc_error_has_clear_grpc_status(due_to_error)) {
     close_from_api(t, s, due_to_error);
@@ -2502,7 +2537,7 @@ static void schedule_bdp_ping_locked(grpc_chttp2_transport* t) {
 static void start_bdp_ping_locked(void* tp, grpc_error* error) {
   grpc_chttp2_transport* t = static_cast<grpc_chttp2_transport*>(tp);
   if (grpc_http_trace.enabled()) {
-    gpr_log(GPR_DEBUG, "%s: Start BDP ping err=%s", t->peer_string,
+    gpr_log(GPR_INFO, "%s: Start BDP ping err=%s", t->peer_string,
             grpc_error_string(error));
   }
   /* Reset the keepalive ping timer */
@@ -2515,7 +2550,7 @@ static void start_bdp_ping_locked(void* tp, grpc_error* error) {
 static void finish_bdp_ping_locked(void* tp, grpc_error* error) {
   grpc_chttp2_transport* t = static_cast<grpc_chttp2_transport*>(tp);
   if (grpc_http_trace.enabled()) {
-    gpr_log(GPR_DEBUG, "%s: Complete BDP ping err=%s", t->peer_string,
+    gpr_log(GPR_INFO, "%s: Complete BDP ping err=%s", t->peer_string,
             grpc_error_string(error));
   }
   if (error != GRPC_ERROR_NONE) {
@@ -2619,8 +2654,7 @@ static void init_keepalive_ping_locked(void* arg, grpc_error* error) {
         grpc_chttp2_stream_map_size(&t->stream_map) > 0) {
       t->keepalive_state = GRPC_CHTTP2_KEEPALIVE_STATE_PINGING;
       GRPC_CHTTP2_REF_TRANSPORT(t, "keepalive ping end");
-      send_ping_locked(t, &t->start_keepalive_ping_locked,
-                       &t->finish_keepalive_ping_locked);
+      send_keepalive_ping_locked(t);
       grpc_chttp2_initiate_write(t, GRPC_CHTTP2_INITIATE_WRITE_KEEPALIVE_PING);
     } else {
       GRPC_CHTTP2_REF_TRANSPORT(t, "init keepalive ping");
@@ -2640,6 +2674,9 @@ static void init_keepalive_ping_locked(void* arg, grpc_error* error) {
 
 static void start_keepalive_ping_locked(void* arg, grpc_error* error) {
   grpc_chttp2_transport* t = static_cast<grpc_chttp2_transport*>(arg);
+  if (error != GRPC_ERROR_NONE) {
+    return;
+  }
   GRPC_CHTTP2_REF_TRANSPORT(t, "keepalive watchdog");
   grpc_timer_init(&t->keepalive_watchdog_timer,
                   grpc_core::ExecCtx::Get()->Now() + t->keepalive_timeout,
@@ -2675,7 +2712,7 @@ static void keepalive_watchdog_fired_locked(void* arg, grpc_error* error) {
   } else {
     /* The watchdog timer should have been cancelled by
      * finish_keepalive_ping_locked. */
-    if (error != GRPC_ERROR_CANCELLED) {
+    if (GPR_UNLIKELY(error != GRPC_ERROR_CANCELLED)) {
       gpr_log(GPR_ERROR, "keepalive_ping_end state error: %d (expect: %d)",
               t->keepalive_state, GRPC_CHTTP2_KEEPALIVE_STATE_PINGING);
     }
@@ -2690,8 +2727,7 @@ static void keepalive_watchdog_fired_locked(void* arg, grpc_error* error) {
 static void connectivity_state_set(grpc_chttp2_transport* t,
                                    grpc_connectivity_state state,
                                    grpc_error* error, const char* reason) {
-  GRPC_CHTTP2_IF_TRACING(
-      gpr_log(GPR_DEBUG, "set connectivity_state=%d", state));
+  GRPC_CHTTP2_IF_TRACING(gpr_log(GPR_INFO, "set connectivity_state=%d", state));
   grpc_connectivity_state_set(&t->channel_callback.state_tracker, state, error,
                               reason);
 }
@@ -2958,7 +2994,7 @@ static void benign_reclaimer_locked(void* arg, grpc_error* error) {
     /* Channel with no active streams: send a goaway to try and make it
      * disconnect cleanly */
     if (grpc_resource_quota_trace.enabled()) {
-      gpr_log(GPR_DEBUG, "HTTP2: %s - send goaway to free memory",
+      gpr_log(GPR_INFO, "HTTP2: %s - send goaway to free memory",
               t->peer_string);
     }
     send_goaway(t,
@@ -2966,7 +3002,7 @@ static void benign_reclaimer_locked(void* arg, grpc_error* error) {
                     GRPC_ERROR_CREATE_FROM_STATIC_STRING("Buffers full"),
                     GRPC_ERROR_INT_HTTP2_ERROR, GRPC_HTTP2_ENHANCE_YOUR_CALM));
   } else if (error == GRPC_ERROR_NONE && grpc_resource_quota_trace.enabled()) {
-    gpr_log(GPR_DEBUG,
+    gpr_log(GPR_INFO,
             "HTTP2: %s - skip benign reclamation, there are still %" PRIdPTR
             " streams",
             t->peer_string, grpc_chttp2_stream_map_size(&t->stream_map));
@@ -2987,7 +3023,7 @@ static void destructive_reclaimer_locked(void* arg, grpc_error* error) {
     grpc_chttp2_stream* s = static_cast<grpc_chttp2_stream*>(
         grpc_chttp2_stream_map_rand(&t->stream_map));
     if (grpc_resource_quota_trace.enabled()) {
-      gpr_log(GPR_DEBUG, "HTTP2: %s - abandon stream id %d", t->peer_string,
+      gpr_log(GPR_INFO, "HTTP2: %s - abandon stream id %d", t->peer_string,
               s->id);
     }
     grpc_chttp2_cancel_stream(

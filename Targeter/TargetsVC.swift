@@ -189,7 +189,7 @@ class TargetsVC: UITableViewController {
     // MARK: Assist func
     // Get success percentage for target
     func getSuccessPercentage(checkIns:[String:String], dateBeginning: Date) -> String {
-        var percentage = 0
+         var percentage = 0
         let dayInSeconds = 86400
         let countForDaysSinceBeginnigDay = Int(Date().timeIntervalSince(dateBeginning))/dayInSeconds
         var countForSucceedTargetsMarks = 0
