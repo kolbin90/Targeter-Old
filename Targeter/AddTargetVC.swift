@@ -123,15 +123,18 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     }
     
     //MARK: - ImagePicker
-    func imagePicker(_ type: UIImagePickerControllerSourceType) {
+    func imagePicker(_ type: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = type
         self.present(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             tergetImageView.image = image
             addImageButton.setTitle("Change image", for: .normal)
         }
@@ -235,7 +238,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             self.imagePicker(.photoLibrary)
             
         })
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
             actionSheet.addAction(UIAlertAction(title: "Camera", style: .default){ action in
                 self.imagePicker(.camera)
                 
@@ -325,12 +328,12 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         }
         let datePickerView = UIDatePickerWithSenderTag()
         datePickerView.senderTag = sender.tag
-        datePickerView.datePickerMode = UIDatePickerMode.date
+        datePickerView.datePickerMode = UIDatePicker.Mode.date
         datePickerView.minimumDate = Date()
         datePickerView.maximumDate = Calendar.current.date(byAdding: .year, value: 100, to: Date())!
         
         sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControl.Event.valueChanged)
         
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 45))
         let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -347,4 +350,14 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         }
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

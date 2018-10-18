@@ -26,14 +26,14 @@ extension UIViewController {
     
     func setNavigationController() {
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 22)!]
-        UIBarButtonItem.appearance().setTitleTextAttributes([ NSAttributedStringKey.font: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
+        navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 22)!]
+        UIBarButtonItem.appearance().setTitleTextAttributes([ NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
         navigationController?.navigationBar.tintColor = .black
         if #available(iOS 11.0, *) {
             // Set large title and custom font for newer iOS
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationBar.largeTitleTextAttributes =
-                [NSAttributedStringKey.font: UIFont(name: "AvenirNext-Medium", size: 30) ??
+                [NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 30) ??
                     UIFont.systemFont(ofSize: 30)]
         } else {
             // Use defailt om old iOS
@@ -56,7 +56,7 @@ extension UIViewController {
             loadingView.layer.cornerRadius = 10
             activityIndicator.frame = CGRect(x:0, y:0, width:40, height:40)
             activityIndicator.center = CGPoint(x: (loadingView.frame.size.width / 2), y: (loadingView.frame.size.height / 2))
-            activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+            activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
             activityIndicator.color = UIColor(red: 1.000, green: 0.553, blue: 0.000, alpha: 1.0)
             DispatchQueue.main.async {
                 loadingView.addSubview(activityIndicator)
@@ -79,8 +79,8 @@ extension UIViewController {
     
     // Show Alert controller with error
     func showAlert(title: String, error: String) {
-        let alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.default, handler: nil))
+        let alert = UIAlertController(title: title, message: error, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
@@ -111,13 +111,13 @@ extension UIImage {
     /// Returns the data for the specified image in PNG format
     /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
     /// - returns: A data object containing the PNG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
-    var png: Data? { return UIImagePNGRepresentation(self) }
+    var png: Data? { return self.pngData() }
     
     /// Returns the data for the specified image in JPEG format.
     /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
     /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
     func jpeg(_ quality: JPEGQuality) -> Data? {
-        return UIImageJPEGRepresentation(self, quality.rawValue)
+        return self.jpegData(compressionQuality: quality.rawValue)
     }
 }
 extension UIImage {
