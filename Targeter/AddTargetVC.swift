@@ -146,6 +146,10 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     }
     //MARK: - Assist functions
     
+    func saveTargetToCore() {
+        
+    }
+    
     // MARK: Firebase functions
     func configDatabase(){
         databaseRef = Database.database().reference()
