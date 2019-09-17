@@ -415,6 +415,7 @@ class TargetsVC: UITableViewController {
         // Set background image
         if let imageURL = target[Constants.Target.ImageURL] as? String {
             DispatchQueue.main.async {
+                // Setting up fetch request to find item in core data for sertain targetID
                 let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
                 let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
                 let predicate = NSPredicate(format:"targetID = %@", targetID)
@@ -422,6 +423,7 @@ class TargetsVC: UITableViewController {
                 fetchRequest.predicate = predicate
                 if let result = try? self.stack.context.fetch(fetchRequest) {
                     if result.count > 0 {
+                        // If target for tsrget ID found, image is available and equal to the one on server setiing in as a targetImage
                         let targetImages = result[0]
                         if targetImages.imageURL == imageURL {
                             cell.targetImageView.image = UIImage(data: targetImages.fullImage)
