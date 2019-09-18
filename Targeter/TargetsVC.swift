@@ -414,7 +414,7 @@ class TargetsVC: UITableViewController {
         title = " \(title) "
         // Set background image
         if let imageURL = target[Constants.Target.ImageURL] as? String {
-            DispatchQueue.main.async {
+        //    DispatchQueue.main.async {
                 // Setting up fetch request to find item in core data for sertain targetID
                 let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
                 let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
@@ -425,9 +425,13 @@ class TargetsVC: UITableViewController {
                     if result.count > 0 {
                         // If target for tsrget ID found, image is available and equal to the one on server setiing in as a targetImage
                         let targetImages = result[0]
+                        print("downloading: \(targetImages.imageURL)")
                         if targetImages.imageURL == imageURL {
-                            cell.targetImageView.image = UIImage(data: targetImages.fullImage)
+                                cell.targetImageView.image = UIImage(data: targetImages.fullImage)
                         } else {
+                            if targetImages.imageURL == "" {
+                                cell.targetImageView.image = UIImage(data: targetImages.fullImage)
+                            }
                             Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                                 guard error == nil else {
                                     print("Error downloading: \(error!)")
@@ -461,7 +465,7 @@ class TargetsVC: UITableViewController {
                         })
                     }
                 }
-            }
+          //  }
         }
         // Fill check ins history
         if let checkIns = target[Constants.Target.Checkins] as? [String:String] {
