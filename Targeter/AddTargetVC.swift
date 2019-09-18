@@ -26,6 +26,7 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
     let imageCache = (UIApplication.shared.delegate as! AppDelegate).imageCache
+    var imageURL = ""
 
     
     //MARK: - Outlets
@@ -157,7 +158,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     func configureStorage() {
         storageRef = Storage.storage().reference()
     }
-    func addImageToStorage(image:UIImage, targetRef:DatabaseReference, targetID:String) {
+    func addImageToStorage(image:UIImage, targetRef:DatabaseReference, targetID:String){
         let photoData = image.jpeg(.highest)!
         let imagePath = Constants.RootFolders.Targets  + "/" + targetID + "/targetImage\(Date())"
         let metadata = StorageMetadata()
@@ -168,8 +169,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 return
             }
             // Save URL to Database
-            let imageURL = self.storageRef.child((metadata?.path)!).description
-            targetRef.child(Constants.Target.ImageURL).setValue(imageURL)
+            self.imageURL = self.storageRef.child((metadata?.path)!).description
+            targetRef.child(Constants.Target.ImageURL).setValue(self.imageURL)
         }
     }
     
@@ -293,20 +294,26 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 }
             } else {
                 // Create new target
-                imageData = tergetImageView.image?.jpeg(.highest)
-                let image = tergetImageView.image!
-                if let userID = userID {
-                    // Create targetRef to get a unique name for target in Firebase
-                    let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).childByAutoId()
-                    let targetID = targetRef.key
-                    targetRef.child(Constants.Target.TargetID).setValue(targetID)
-                    targetRef.child(Constants.Target.Title).setValue(titleTF.text)
-                    targetRef.child(Constants.Target.Description).setValue(descriptionTF.text!)
-                    targetRef.child(Constants.Target.DateBeginning).setValue(startDate.text!)
-                    if let endDateText = endDate.text, endDateText != "" {
-                        targetRef.child(Constants.Target.DateEnding).setValue(endDateText)
+                if let image = tergetImageView.image {
+                    guard let imageData = image.jpeg(.highest) else {
+                        return
                     }
-                    addImageToStorage(image: image, targetRef: targetRef, targetID: targetID!)
+                    if let userID = userID {
+                        // Create targetRef to get a unique name for target in Firebase
+                        let targetRef = databaseRef.child(Constants.RootFolders.Targets).child(userID).childByAutoId()
+                        let targetID = targetRef.key
+                        targetRef.child(Constants.Target.TargetID).setValue(targetID)
+                        targetRef.child(Constants.Target.Title).setValue(titleTF.text)
+                        targetRef.child(Constants.Target.Description).setValue(descriptionTF.text!)
+                        targetRef.child(Constants.Target.DateBeginning).setValue(startDate.text!)
+                        if let endDateText = endDate.text, endDateText != "" {
+                            targetRef.child(Constants.Target.DateEnding).setValue(endDateText)
+                        }
+                        addImageToStorage(image: image, targetRef: targetRef, targetID: targetID!)
+                        let cellImage = self.prepareCellImage(image: image)
+                        _ = TargetImages(targetID: targetID!, cellImage: cellImage, fullImage: imageData, imageURL: self.imageURL, context: self.stack.context)
+                        self.stack.save()
+                    }
                 }
             }
             _ = navigationController?.popViewController(animated: true)
