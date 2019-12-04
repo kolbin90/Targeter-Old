@@ -209,6 +209,7 @@ PODS:
   - GTMSessionFetcher/Full (1.2.0):
     - GTMSessionFetcher/Core (= 1.2.0)
   - IQKeyboardManagerSwift (6.2.0)
+  - JGProgressHUD (2.1)
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -235,9 +236,10 @@ DEPENDENCIES:
   - FSCalendar
   - GoogleSignIn
   - IQKeyboardManagerSwift
+  - JGProgressHUD
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Bolts
     - BoringSSL
     - FBSDKCoreKit
@@ -268,6 +270,7 @@ SPEC REPOS:
     - GTMOAuth2
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
+    - JGProgressHUD
     - leveldb-library
     - nanopb
     - Protobuf
@@ -303,9 +306,10 @@ SPEC CHECKSUMS:
   gRPC-Core: f4836515817c0eb479aeeb9cc27c91c4ba62a9f6
   gRPC-ProtoRPC: 76f6053639a842e1fb45fa82aa598bf3f4d9f66f
   gRPC-RxLibrary: 3c305f32155024b116b780f389323c73a28197e6
-  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
+  GTMOAuth2: e8b6512c896235149df975c41d9a36c868ab7fba
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
+  JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
@@ -313,6 +317,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 054005edf5350aa9074af74b41456e5a61e3f322
 
-PODFILE CHECKSUM: 1803c231954e38b033d3492153ff583f6f3199aa
+PODFILE CHECKSUM: f8c625940bb43180266cf06144e4ad56077be030
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.7.5
