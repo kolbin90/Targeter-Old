@@ -31,4 +31,11 @@ class NewTargetCell: UITableViewCell {
         
     }
     
+    override func prepareForReuse() {
+        targetImageView.image = nil
+        for mark in marks {
+            mark.alpha = 0
+        }
+    }
+    
 }

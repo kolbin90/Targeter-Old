@@ -389,9 +389,11 @@ class TargetsVC: UITableViewController {
             databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: _refHandle)
         }
     }
-    
-    
-    
+
+}
+
+
+extension TargetsVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell") as! NewTargetCell
         // Presetting outfit for cell before it's filled with data
@@ -414,41 +416,24 @@ class TargetsVC: UITableViewController {
         title = " \(title) "
         // Set background image
         if let imageURL = target[Constants.Target.ImageURL] as? String {
-        //    DispatchQueue.main.async {
-                // Setting up fetch request to find item in core data for sertain targetID
-                let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
-                let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
-                let predicate = NSPredicate(format:"targetID = %@", targetID)
-                fetchRequest.sortDescriptors = [sortDescriptor]
-                fetchRequest.predicate = predicate
-                if let result = try? self.stack.context.fetch(fetchRequest) {
-                    if result.count > 0 {
-                        // If target for tsrget ID found, image is available and equal to the one on server setiing in as a targetImage
-                        let targetImages = result[0]
-                        print("downloading: \(targetImages.imageURL)")
-                        if targetImages.imageURL == imageURL {
-                                cell.targetImageView.image = UIImage(data: targetImages.fullImage)
-                        } else {
-                            if targetImages.imageURL == "" {
-                                cell.targetImageView.image = UIImage(data: targetImages.fullImage)
-                            }
-                            Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
-                                guard error == nil else {
-                                    print("Error downloading: \(error!)")
-                                    return
-                                }
-                                if let userImage = UIImage.init(data: data!) {
-                                    DispatchQueue.main.async {
-                                        let cellImage = self.prepareCellImage(image: userImage)
-                                        self.stack.context.delete(targetImages)
-                                        _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
-                                        cell.targetImageView.image = userImage
-                                        self.stack.save()
-                                    }
-                                }
-                            })
-                        }
+            //    DispatchQueue.main.async {
+            // Setting up fetch request to find item in core data for sertain targetID
+            let fetchRequest:NSFetchRequest<TargetImages> = TargetImages.fetchRequest()
+            let sortDescriptor = NSSortDescriptor(key: "targetID", ascending: false)
+            let predicate = NSPredicate(format:"targetID = %@", targetID)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            fetchRequest.predicate = predicate
+            if let result = try? self.stack.context.fetch(fetchRequest) {
+                if result.count > 0 {
+                    // If target for tsrget ID found, image is available and equal to the one on server setiing in as a targetImage
+                    let targetImages = result[0]
+                    print("downloading: \(targetImages.imageURL)")
+                    if targetImages.imageURL == imageURL {
+                        cell.targetImageView.image = UIImage(data: targetImages.fullImage)
                     } else {
+                        if targetImages.imageURL == "" {
+                            cell.targetImageView.image = UIImage(data: targetImages.fullImage)
+                        }
                         Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
                             guard error == nil else {
                                 print("Error downloading: \(error!)")
@@ -457,6 +442,7 @@ class TargetsVC: UITableViewController {
                             if let userImage = UIImage.init(data: data!) {
                                 DispatchQueue.main.async {
                                     let cellImage = self.prepareCellImage(image: userImage)
+                                    self.stack.context.delete(targetImages)
                                     _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
                                     cell.targetImageView.image = userImage
                                     self.stack.save()
@@ -464,8 +450,24 @@ class TargetsVC: UITableViewController {
                             }
                         })
                     }
+                } else {
+                    Storage.storage().reference(forURL: imageURL).getData(maxSize: INT64_MAX, completion: { (data, error) in
+                        guard error == nil else {
+                            print("Error downloading: \(error!)")
+                            return
+                        }
+                        if let userImage = UIImage.init(data: data!) {
+                            DispatchQueue.main.async {
+                                let cellImage = self.prepareCellImage(image: userImage)
+                                _ = TargetImages(targetID: targetID, cellImage: cellImage, fullImage: data!, imageURL: imageURL, context: self.stack.context)
+                                cell.targetImageView.image = userImage
+                                self.stack.save()
+                            }
+                        }
+                    })
                 }
-          //  }
+            }
+            //  }
         }
         // Fill check ins history
         if let checkIns = target[Constants.Target.Checkins] as? [String:String] {
@@ -491,7 +493,7 @@ class TargetsVC: UITableViewController {
                 if let percentage = target[Constants.Target.Percentage] as? String, percentage == targetPercentage {
                     // No need to resave the same data, so we do nothing here
                 } else {
-                   // Save targets percentage to FB
+                    // Save targets percentage to FB
                     databaseRef.child(Constants.RootFolders.Targets).child(userID).child(targetID).child(Constants.Target.Percentage).setValue(targetPercentage)
                     var sumRating = 0
                     let numTargets = targets.count
@@ -513,6 +515,7 @@ class TargetsVC: UITableViewController {
             }
             cell.percentage.text = " \(targetPercentage)% "
             cell.percentage.alpha = 1
+            
             for mark in cell.marks {
                 if dayForChecking >= dateBeginning {
                     if let todayResult = checkIns[self.dateFormatter.string(from: dayForChecking)] {
