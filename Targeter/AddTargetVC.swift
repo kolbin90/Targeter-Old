@@ -266,6 +266,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         // Check if fields are filled with text
         if TFAreFilled() {
             ProgressHUD.show("loading")
+            self.navigationItem.hidesBackButton = true
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
             let startDateFromString = dateFormatter.date(from: startDate.text!)!
             let endDateFromString:Date?
             if endDate.isEnabled {
@@ -294,6 +296,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                     }
                     addImageToStorage(image: image, targetRef: targetRef, targetID: targetID, completion: {
                         ProgressHUD.dismiss()
+                        self.navigationItem.hidesBackButton = false
+                        self.navigationItem.rightBarButtonItem?.isEnabled = true
                         _ = self.navigationController?.popViewController(animated: true)
 
                     }) 
@@ -320,6 +324,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                             _ = TargetImages(targetID: targetID!, cellImage: cellImage, fullImage: imageData, imageURL: self.imageURL, context: self.stack.context)
                             self.stack.save()
                             ProgressHUD.dismiss()
+                            self.navigationItem.hidesBackButton = false
+                            self.navigationItem.rightBarButtonItem?.isEnabled = true
                             _ = self.navigationController?.popViewController(animated: true)
 
                         })
