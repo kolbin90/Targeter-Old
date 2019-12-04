@@ -158,7 +158,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     func configureStorage() {
         storageRef = Storage.storage().reference()
     }
-    func addImageToStorage(image:UIImage, targetRef:DatabaseReference, targetID:String){
+    func addImageToStorage(image:UIImage, targetRef:DatabaseReference, targetID:String, completion: @escaping () -> Void){
         let photoData = image.jpeg(.highest)!
         let imagePath = Constants.RootFolders.Targets  + "/" + targetID + "/targetImage\(Date())"
         let metadata = StorageMetadata()
@@ -171,6 +171,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             // Save URL to Database
             self.imageURL = self.storageRef.child((metadata?.path)!).description
             targetRef.child(Constants.Target.ImageURL).setValue(self.imageURL)
+            completion()
         }
     }
     
@@ -264,6 +265,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     @IBAction func doneButton(_ sender: Any) {
         // Check if fields are filled with text
         if TFAreFilled() {
+            activityIndicatoryShowing(showing: true, view: self.view)
             let startDateFromString = dateFormatter.date(from: startDate.text!)!
             let endDateFromString:Date?
             if endDate.isEnabled {
@@ -290,7 +292,11 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                     if let endDateText = endDate.text, endDateText != "" {
                         targetRef.child(Constants.Target.DateEnding).setValue(endDateText)
                     }
-                    addImageToStorage(image: image, targetRef: targetRef, targetID: targetID)
+                    addImageToStorage(image: image, targetRef: targetRef, targetID: targetID, completion: {
+                        self.activityIndicatoryShowing(showing: false, view: self.view)
+                        _ = self.navigationController?.popViewController(animated: true)
+
+                    }) 
                 }
             } else {
                 // Create new target
@@ -309,14 +315,19 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                         if let endDateText = endDate.text, endDateText != "" {
                             targetRef.child(Constants.Target.DateEnding).setValue(endDateText)
                         }
-                        addImageToStorage(image: image, targetRef: targetRef, targetID: targetID!)
-                        let cellImage = self.prepareCellImage(image: image)
-                        _ = TargetImages(targetID: targetID!, cellImage: cellImage, fullImage: imageData, imageURL: self.imageURL, context: self.stack.context)
-                        self.stack.save()
+                        addImageToStorage(image: image, targetRef: targetRef, targetID: targetID!, completion: {
+                            let cellImage = self.prepareCellImage(image: image)
+                            _ = TargetImages(targetID: targetID!, cellImage: cellImage, fullImage: imageData, imageURL: self.imageURL, context: self.stack.context)
+                            self.stack.save()
+                            self.activityIndicatoryShowing(showing: false, view: self.view)
+                            _ = self.navigationController?.popViewController(animated: true)
+
+                        })
+                        
                     }
                 }
             }
-            _ = navigationController?.popViewController(animated: true)
+            //_ = navigationController?.popViewController(animated: true)
             
         }
     }
