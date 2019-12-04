@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 import Firebase
 import FirebaseUI
-import JGProgressHUD
 
 class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
@@ -266,7 +265,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     @IBAction func doneButton(_ sender: Any) {
         // Check if fields are filled with text
         if TFAreFilled() {
-            
+            ProgressHUD.show("loading")
             let startDateFromString = dateFormatter.date(from: startDate.text!)!
             let endDateFromString:Date?
             if endDate.isEnabled {
@@ -294,7 +293,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                         targetRef.child(Constants.Target.DateEnding).setValue(endDateText)
                     }
                     addImageToStorage(image: image, targetRef: targetRef, targetID: targetID, completion: {
-                        hud.dismiss()
+                        ProgressHUD.dismiss()
                         _ = self.navigationController?.popViewController(animated: true)
 
                     }) 
@@ -320,7 +319,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                             let cellImage = self.prepareCellImage(image: image)
                             _ = TargetImages(targetID: targetID!, cellImage: cellImage, fullImage: imageData, imageURL: self.imageURL, context: self.stack.context)
                             self.stack.save()
-                            hud.dismiss()
+                            ProgressHUD.dismiss()
                             _ = self.navigationController?.popViewController(animated: true)
 
                         })
