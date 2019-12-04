@@ -12,7 +12,6 @@ target 'Targeter' do
 	pod 'GoogleSignIn'
 	pod ‘Firebase/Messaging’
 	pod 'IQKeyboardManagerSwift'
-    pod 'JGProgressHUD'
 	
 	target 'TargeterTests' do
         	inherit! :search_paths
