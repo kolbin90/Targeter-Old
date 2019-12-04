@@ -47,6 +47,8 @@
 		04E471001FB6720A002C5D12 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E470FF1FB6720A002C5D12 /* FriendCell.swift */; };
 		04ED2B02209BA8BB00DDB9A5 /* TargetImages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B00209BA8BA00DDB9A5 /* TargetImages+CoreDataClass.swift */; };
 		04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */; };
+		85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */; };
+		85CDFF9F23975CAC0083CF10 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 85CDFF9B23975CAB0083CF10 /* ProgressHUD.bundle */; };
 		92DD6CAA7BD32A967C46C223 /* Pods_Targeter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C4132ADFA3D653ED1EF252 /* Pods_Targeter.framework */; };
 		9A675FD1A92F82EF7DF3F9A7 /* Pods_TargeterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */; };
 /* End PBXBuildFile section */
@@ -119,6 +121,10 @@
 		432E3006C9673D5E81EC8F3E /* Pods-TargeterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.release.xcconfig"; sourceTree = "<group>"; };
 		536F5F43C4671A59853753D7 /* Pods-Targeter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.debug.xcconfig"; sourceTree = "<group>"; };
 		61A29D74825722BA7F22B33F /* Pods-Targeter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.release.xcconfig"; sourceTree = "<group>"; };
+		85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Targeter-Bridging-Header.h"; sourceTree = "<group>"; };
+		85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		85CDFF9B23975CAB0083CF10 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		85CDFF9D23975CAC0083CF10 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		C3C4132ADFA3D653ED1EF252 /* Pods_Targeter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Targeter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91E668AE243D8C8D26A8792 /* Pods-TargeterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,6 +192,10 @@
 				041EE5381E70C011006D623B /* LaunchScreen.storyboard */,
 				042493401FA81B4A000E45EA /* GoogleService-Info.plist */,
 				041EE53B1E70C011006D623B /* Info.plist */,
+				85CDFF9B23975CAB0083CF10 /* ProgressHUD.bundle */,
+				85CDFF9D23975CAC0083CF10 /* ProgressHUD.h */,
+				85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */,
+				85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */,
 			);
 			path = Targeter;
 			sourceTree = "<group>";
@@ -415,6 +425,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85CDFF9F23975CAC0083CF10 /* ProgressHUD.bundle in Resources */,
 				04B526541FCE38BC00EDFD6D /* 13880327_1071710792884531_6739614795217912898_n.jpg in Resources */,
 				041EE53A1E70C011006D623B /* LaunchScreen.storyboard in Resources */,
 				042493411FA81B4C000E45EA /* GoogleService-Info.plist in Resources */,
@@ -627,6 +638,7 @@
 				044D572E1E788D7D00AF1545 /* Image+CoreDataClass.swift in Sources */,
 				044D572C1E788D7D00AF1545 /* ImageSearch+CoreDataClass.swift in Sources */,
 				041EE5651E70C23B006D623B /* CoreDataStack.swift in Sources */,
+				85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */,
 				04A2EAB81FD4E55E000E82EE /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -792,11 +804,14 @@
 			baseConfigurationReference = 536F5F43C4671A59853753D7 /* Pods-Targeter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = M42UQ7H3R2;
 				INFOPLIST_FILE = Targeter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alder.Targeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Targeter/Targeter-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -806,11 +821,13 @@
 			baseConfigurationReference = 61A29D74825722BA7F22B33F /* Pods-Targeter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = M42UQ7H3R2;
 				INFOPLIST_FILE = Targeter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alder.Targeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Targeter/Targeter-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
