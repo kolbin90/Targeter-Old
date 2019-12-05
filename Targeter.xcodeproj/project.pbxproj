@@ -49,6 +49,8 @@
 		04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */; };
 		85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */; };
 		85CDFF9F23975CAC0083CF10 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 85CDFF9B23975CAB0083CF10 /* ProgressHUD.bundle */; };
+		85CDFFA123976B730083CF10 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85CDFFA023976B730083CF10 /* Login.storyboard */; };
+		85CDFFA3239772E30083CF10 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFFA2239772E30083CF10 /* SignInViewController.swift */; };
 		92DD6CAA7BD32A967C46C223 /* Pods_Targeter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C4132ADFA3D653ED1EF252 /* Pods_Targeter.framework */; };
 		9A675FD1A92F82EF7DF3F9A7 /* Pods_TargeterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */; };
 /* End PBXBuildFile section */
@@ -125,6 +127,8 @@
 		85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		85CDFF9B23975CAB0083CF10 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		85CDFF9D23975CAC0083CF10 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		85CDFFA023976B730083CF10 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		85CDFFA2239772E30083CF10 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C3C4132ADFA3D653ED1EF252 /* Pods_Targeter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Targeter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91E668AE243D8C8D26A8792 /* Pods-TargeterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +192,7 @@
 				041EE55D1E70C0EE006D623B /* Model */,
 				041EE52F1E70C010006D623B /* AppDelegate.swift */,
 				041EE5331E70C011006D623B /* Main.storyboard */,
+				85CDFFA023976B730083CF10 /* Login.storyboard */,
 				041EE5361E70C011006D623B /* Assets.xcassets */,
 				041EE5381E70C011006D623B /* LaunchScreen.storyboard */,
 				042493401FA81B4A000E45EA /* GoogleService-Info.plist */,
@@ -270,6 +275,7 @@
 				04A417131FB60F4A007DD07B /* UserVC.swift */,
 				04E470FD1FB668E5002C5D12 /* FriendsVC.swift */,
 				04B526551FD1037000EDFD6D /* EditProfileVC.swift */,
+				85CDFFA2239772E30083CF10 /* SignInViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -433,6 +439,7 @@
 				04DCC2CE1FD257A400680F34 /* NewTargetCell.xib in Resources */,
 				041EE5371E70C011006D623B /* Assets.xcassets in Resources */,
 				041EE5351E70C011006D623B /* Main.storyboard in Resources */,
+				85CDFFA123976B730083CF10 /* Login.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +624,7 @@
 				04ED2B02209BA8BB00DDB9A5 /* TargetImages+CoreDataClass.swift in Sources */,
 				041EE5301E70C010006D623B /* AppDelegate.swift in Sources */,
 				041EE56D1E70D05C006D623B /* Success+CoreDataProperties.swift in Sources */,
+				85CDFFA3239772E30083CF10 /* SignInViewController.swift in Sources */,
 				041EE56E1E70D05C006D623B /* Target+CoreDataClass.swift in Sources */,
 				041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */,
 				04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */,
