@@ -50,10 +50,11 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
             if let error = error {
                 print(error)
             }
-            self.fatchFacebookUser()
-            let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
-            self.show(chooseUsernameVC, sender: nil)
-            ProgressHUD.dismiss()
+            self.fatchFacebookUser(completion: { (dict) in
+                let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
+                self.show(chooseUsernameVC, sender: nil)
+                ProgressHUD.dismiss()
+            })
             
             //self.dismiss(animated: true, completion: nil)
 
@@ -61,13 +62,13 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
         return
     }
     
-    func fatchFacebookUser() {
+    func fatchFacebookUser(completion: @escaping  ([String: Any]) -> Void) {
         let graphRequestConnection = FBSDKGraphRequestConnection()
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture.type(large)"], tokenString: FBSDKAccessToken.current().tokenString, version: FBSDKSettings.graphAPIVersion(), httpMethod: "GET")
         graphRequestConnection.add(graphRequest) { (requestConnection, data, error) in
 
             if let datDictionary = data as? [String: Any] {
-                print(datDictionary)
+                completion(datDictionary)
             }
         }
         graphRequestConnection.start()
