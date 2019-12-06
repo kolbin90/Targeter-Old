@@ -11,6 +11,9 @@ import UIKit
 import Firebase
 import FirebaseUI
 import CoreData
+import FirebaseAuth
+import FBSDKLoginKit
+
 
 class UserViewController: UIViewController {
     
@@ -185,6 +188,8 @@ class UserViewController: UIViewController {
         }
         do {
             // Trying to sign out from Firebase
+            let manager = FBSDKLoginManager()
+            manager.logOut()
             try Auth.auth().signOut()
             _ = navigationController?.popViewController(animated: true)
         } catch {
