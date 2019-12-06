@@ -13,7 +13,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="IFC-fc-QzR">
             <objects>
-                <viewController id="1rZ-vO-Jkw" customClass="SignInViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" id="1rZ-vO-Jkw" customClass="SignInViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s88-VV-iNw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

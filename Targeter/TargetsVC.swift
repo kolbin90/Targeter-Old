@@ -136,7 +136,7 @@ class TargetsVC: UITableViewController {
                 if self.user != activeUser {
                     self.user = activeUser
                     self.signedInStatus(isSignedIn: true)
-                    let name = activeUser.email!.components(separatedBy: "@")[0]
+                    let name = ""//activeUser.email!.components(separatedBy: "@")[0]
                     self.displayName = name
                     self.userID = Auth.auth().currentUser?.uid
                     self.downloadTargets()
@@ -217,8 +217,11 @@ class TargetsVC: UITableViewController {
     // Present firebase login viewController
     func loginSession() {
         // Show auth view controller
-        let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
-        self.present(authViewController, animated: true, completion: nil)
+//        let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
+//        self.present(authViewController, animated: true, completion: nil)
+        
+        let signInVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+        self.present(signInVC, animated: true, completion: nil)
     }
     
     //Save check in to FireBase

@@ -41,6 +41,18 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         print("Aeeeeee")
         print(credential)
+        Auth.auth().signIn(with: credential) { (result, error) in
+            if let result = result {
+                print(result)
+            }
+            if let error = error {
+                print(error)
+            }
+            let manager = FBSDKLoginManager()
+            manager.logOut()
+            self.dismiss(animated: true, completion: nil)
+
+        }
         return
     }
 }
