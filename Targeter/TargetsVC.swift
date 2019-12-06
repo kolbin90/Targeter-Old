@@ -136,7 +136,10 @@ class TargetsVC: UITableViewController {
                 if self.user != activeUser {
                     self.user = activeUser
                     self.signedInStatus(isSignedIn: true)
-                    let name = ""//activeUser.email!.components(separatedBy: "@")[0]
+                    var name = ""
+                    if let email = activeUser.email {
+                        name = email.components(separatedBy: "@")[0]
+                    }
                     self.displayName = name
                     self.userID = Auth.auth().currentUser?.uid
                     self.downloadTargets()
