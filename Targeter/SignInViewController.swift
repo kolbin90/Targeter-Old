@@ -16,7 +16,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         facebookButton.delegate = self
-        
+        facebookButton.readPermissions = ["public_profile", "email"]
         // Do any additional setup after loading the view.
     }
     
