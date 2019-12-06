@@ -13,5 +13,9 @@ class AuthService {
     static func getUserDataFromFacebook() {
         
     }
+    
+    static func saveNewUserInfo() {
+        
+    }
 
 }
