@@ -47,6 +47,7 @@
 		04E471001FB6720A002C5D12 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E470FF1FB6720A002C5D12 /* FriendCell.swift */; };
 		04ED2B02209BA8BB00DDB9A5 /* TargetImages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B00209BA8BA00DDB9A5 /* TargetImages+CoreDataClass.swift */; };
 		04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */; };
+		8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBB239A1F000094DD0C /* UserModel.swift */; };
 		857F20A32399F4370057F144 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A22399F4370057F144 /* AuthService.swift */; };
 		857F20A7239A0E220057F144 /* ChooseUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */; };
 		85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */; };
@@ -125,6 +126,7 @@
 		432E3006C9673D5E81EC8F3E /* Pods-TargeterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.release.xcconfig"; sourceTree = "<group>"; };
 		536F5F43C4671A59853753D7 /* Pods-Targeter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.debug.xcconfig"; sourceTree = "<group>"; };
 		61A29D74825722BA7F22B33F /* Pods-Targeter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.release.xcconfig"; sourceTree = "<group>"; };
+		8508BEBB239A1F000094DD0C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		857F20A22399F4370057F144 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUsernameViewController.swift; sourceTree = "<group>"; };
 		85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Targeter-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				041EE55F1E70C100006D623B /* Flickr */,
 				041EE55E1E70C0F6006D623B /* CoreData */,
 				04A2EAB71FD4E55E000E82EE /* Constants.swift */,
+				8508BEBB239A1F000094DD0C /* UserModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 				041EE5651E70C23B006D623B /* CoreDataStack.swift in Sources */,
 				857F20A32399F4370057F144 /* AuthService.swift in Sources */,
 				85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */,
+				8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */,
 				04A2EAB81FD4E55E000E82EE /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

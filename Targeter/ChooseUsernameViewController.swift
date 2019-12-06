@@ -10,6 +10,8 @@ import UIKit
 import FBSDKLoginKit
 class ChooseUsernameViewController: UIViewController {
 
+    var user: UserModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
