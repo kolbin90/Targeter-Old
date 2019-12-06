@@ -63,15 +63,9 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
     }
     
     func fatchFacebookUser(completion: @escaping  ([String: Any]) -> Void) {
-        let graphRequestConnection = FBSDKGraphRequestConnection()
-        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture.type(large)"], tokenString: FBSDKAccessToken.current().tokenString, version: FBSDKSettings.graphAPIVersion(), httpMethod: "GET")
-        graphRequestConnection.add(graphRequest) { (requestConnection, data, error) in
-
-            if let datDictionary = data as? [String: Any] {
-                completion(datDictionary)
-            }
+        AuthService.getUserInfoDictionaryFromFacebook { (dict) in
+            completion(dict)            
         }
-        graphRequestConnection.start()
     }
 }
 
