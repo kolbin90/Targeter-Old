@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FirebaseAuth
 
 class SignInViewController: UIViewController {
 
+    @IBOutlet weak var facebookButton: FBSDKLoginButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        facebookButton.delegate = self
+        
         // Do any additional setup after loading the view.
     }
     
@@ -27,4 +31,16 @@ class SignInViewController: UIViewController {
     }
     */
 
+}
+extension SignInViewController: FBSDKLoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        print("Aeeeeee")
+        print(credential)
+        return
+    }
 }
