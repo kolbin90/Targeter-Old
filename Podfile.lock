@@ -219,6 +219,7 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
+  - SwiftyJSON (5.0.0)
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.1):
     - TwitterCore (>= 3.1.0)
@@ -236,6 +237,7 @@ DEPENDENCIES:
   - FSCalendar
   - GoogleSignIn
   - IQKeyboardManagerSwift
+  - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -273,6 +275,7 @@ SPEC REPOS:
     - nanopb
     - Protobuf
     - SDWebImage
+    - SwiftyJSON
     - TwitterCore
     - TwitterKit
 
@@ -311,9 +314,10 @@ SPEC CHECKSUMS:
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 054005edf5350aa9074af74b41456e5a61e3f322
 
-PODFILE CHECKSUM: 5b6bd8d07702561ceb3eace71fd1907ad94051ce
+PODFILE CHECKSUM: 0f07bfedd001591741f7f572b7f37b70e60d1b0d
 
 COCOAPODS: 1.7.5

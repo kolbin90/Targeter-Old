@@ -42,6 +42,7 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         print("Aeeeeee")
        // print(credential)
+        ProgressHUD.show("Loading...")
         Auth.auth().signIn(with: credential) { (result, error) in
             if let result = result {
                 print(result)
@@ -50,8 +51,11 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
                 print(error)
             }
             self.fatchFacebookUser()
+            let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
+            self.show(chooseUsernameVC, sender: nil)
+            ProgressHUD.dismiss()
             
-            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
 
         }
         return
@@ -61,9 +65,10 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
         let graphRequestConnection = FBSDKGraphRequestConnection()
         let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture.type(large)"], tokenString: FBSDKAccessToken.current().tokenString, version: FBSDKSettings.graphAPIVersion(), httpMethod: "GET")
         graphRequestConnection.add(graphRequest) { (requestConnection, data, error) in
-            print(requestConnection)
-            print(data)
-            print(error)
+
+            if let datDictionary = data as? [String: Any] {
+                print(datDictionary)
+            }
         }
         graphRequestConnection.start()
     }
