@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKLoginKit
+import FBSDKCoreKit
 import FirebaseAuth
 
 class SignInViewController: UIViewController {
@@ -40,7 +41,7 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         print("Aeeeeee")
-        print(credential)
+       // print(credential)
         Auth.auth().signIn(with: credential) { (result, error) in
             if let result = result {
                 print(result)
@@ -48,11 +49,23 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
             if let error = error {
                 print(error)
             }
-            let manager = FBSDKLoginManager()
-            manager.logOut()
+            self.fatchFacebookUser()
+            
             self.dismiss(animated: true, completion: nil)
 
         }
         return
     }
+    
+    func fatchFacebookUser() {
+        let graphRequestConnection = FBSDKGraphRequestConnection()
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture.type(large)"], tokenString: FBSDKAccessToken.current().tokenString, version: FBSDKSettings.graphAPIVersion(), httpMethod: "GET")
+        graphRequestConnection.add(graphRequest) { (requestConnection, data, error) in
+            print(requestConnection)
+            print(data)
+            print(error)
+        }
+        graphRequestConnection.start()
+    }
 }
+
