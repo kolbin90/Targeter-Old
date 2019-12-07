@@ -8,6 +8,9 @@
 
 import Foundation
 import FBSDKLoginKit
+import FirebaseDatabase
+import FirebaseStorage
+import FirebaseAuth
 
 
 class AuthService {
@@ -24,8 +27,25 @@ class AuthService {
         graphRequestConnection.start()
     }
     
-    static func saveNewUserInfo() {
+    static func saveNewUserInfo(profileImageUrl: String, name: String, username: String) {
+        let storageRef = Storage.storage().reference()
+        let databaseRef = Database.database().reference()
+        let imagePath = "users/" + Auth.auth().currentUser!.uid + "/profileImage/\(Date())"
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        storageRef.child(imagePath).putFile(from: URL(string: profileImageUrl)!, metadata: metadata, completion: { (metadata, error) in
+            guard (error == nil) else {
+                print("error saving image to storage")
+                return
+            }
+            
+            let imageURL = storageRef.child((metadata?.path)!).description
+            
+            //databaseRef.child("users/\(self.userID!)/\(Constants.UserData.ImageURL)").setValue(imageURL)
+            databaseRef.child("users").child(Auth.auth().currentUser!.uid).child(Constants.UserData.ImageURL).setValue(imageURL)
+        })
         
     }
-
+    
 }
