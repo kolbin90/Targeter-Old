@@ -48,6 +48,8 @@
 		04ED2B02209BA8BB00DDB9A5 /* TargetImages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B00209BA8BA00DDB9A5 /* TargetImages+CoreDataClass.swift */; };
 		04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */; };
 		8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBB239A1F000094DD0C /* UserModel.swift */; };
+		8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBE239A2C990094DD0C /* UserApi.swift */; };
+		8508BEC1239A2CAD0094DD0C /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC0239A2CAD0094DD0C /* Api.swift */; };
 		857F20A32399F4370057F144 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A22399F4370057F144 /* AuthService.swift */; };
 		857F20A7239A0E220057F144 /* ChooseUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */; };
 		85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */; };
@@ -127,6 +129,8 @@
 		536F5F43C4671A59853753D7 /* Pods-Targeter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.debug.xcconfig"; sourceTree = "<group>"; };
 		61A29D74825722BA7F22B33F /* Pods-Targeter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.release.xcconfig"; sourceTree = "<group>"; };
 		8508BEBB239A1F000094DD0C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		8508BEBE239A2C990094DD0C /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
+		8508BEC0239A2CAD0094DD0C /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		857F20A22399F4370057F144 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUsernameViewController.swift; sourceTree = "<group>"; };
 		85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Targeter-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 			children = (
 				04B526531FCE38BB00EDFD6D /* 13880327_1071710792884531_6739614795217912898_n.jpg */,
 				04DCC2CF1FD25A3400680F34 /* image-2017-04-27-2.jpg */,
+				8508BEBD239A293B0094DD0C /* Api */,
 				047A353C1E712C250084AD68 /* View */,
 				041EE5601E70C11A006D623B /* Controller */,
 				041EE55D1E70C0EE006D623B /* Model */,
@@ -275,7 +280,6 @@
 		041EE5601E70C11A006D623B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				857F20A22399F4370057F144 /* AuthService.swift */,
 				041EE5721E70E4A7006D623B /* TargetsVC.swift */,
 				041EE5741E70FD6F006D623B /* AddTargetVC.swift */,
 				044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */,
@@ -308,6 +312,16 @@
 				3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8508BEBD239A293B0094DD0C /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				857F20A22399F4370057F144 /* AuthService.swift */,
+				8508BEBE239A2C990094DD0C /* UserApi.swift */,
+				8508BEC0239A2CAD0094DD0C /* Api.swift */,
+			);
+			name = Api;
 			sourceTree = "<group>";
 		};
 		D9556D9F4F0B1239E6E58107 /* Pods */ = {
@@ -643,8 +657,10 @@
 				044D572F1E788D7D00AF1545 /* Image+CoreDataProperties.swift in Sources */,
 				04416CFE1E774541003BCDD3 /* FlickrClient.swift in Sources */,
 				04D4F3FF20A1286E00C462ED /* ProfileImage+CoreDataProperties.swift in Sources */,
+				8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */,
 				857F20A7239A0E220057F144 /* ChooseUsernameViewController.swift in Sources */,
 				04A417141FB60F4A007DD07B /* UserVC.swift in Sources */,
+				8508BEC1239A2CAD0094DD0C /* Api.swift in Sources */,
 				04D4F3FE20A1286E00C462ED /* ProfileImage+CoreDataClass.swift in Sources */,
 				0493A3A41E7F5FAA0018C5BE /* Extensions.swift in Sources */,
 				044ED1441E77362800F61A33 /* ImageFromFlickerVC.swift in Sources */,

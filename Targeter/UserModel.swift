@@ -26,7 +26,6 @@ extension UserModel {
                 user.imageURLString = imageURLString
                 }
             }
-
         }
         //user.id = key
         return user
