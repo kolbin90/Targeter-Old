@@ -16,18 +16,26 @@ class UserModel {
 extension UserModel {
     static func transformFaceBookDataToUser(dict: [String:Any]) -> UserModel {
         let user = UserModel()
-        user.email = dict["email"] as? String
-        user.name = dict["name"] as? String
+        user.email = dict[Constants.UserData.Email] as? String
+        user.name = dict[Constants.UserData.Name] as? String
         if let pictureDictionary = dict["picture"] as? [String:Any] {
             print(pictureDictionary)
             if let dataDictionary = pictureDictionary["data"] as? [String:Any] {
                 print(dataDictionary)
                 if let imageURLString = dataDictionary["url"] as? String {
-                user.imageURLString = imageURLString
+                    user.imageURLString = imageURLString
                 }
             }
         }
-        //user.id = key
+        return user
+    }
+    
+    static func transformDataToUser(dict: [String:Any]) -> UserModel {
+        let user = UserModel()
+        user.email = dict[Constants.UserData.Email] as? String
+        user.username = dict[Constants.UserData.Username] as? String
+        user.name = dict[Constants.UserData.Name] as? String
+        user.imageURLString = dict[Constants.UserData.ImageURL] as? String
         return user
     }
 }
