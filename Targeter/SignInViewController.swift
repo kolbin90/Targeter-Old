@@ -60,9 +60,9 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
             }
             
             self.fatchFacebookUser(completion: { (dict) in
-                let userModel = UserModel.transformFaceBookDataToUser(dict: dict)
+                let user = UserModel.transformFaceBookDataToUser(dict: dict)
                 let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
-                chooseUsernameVC.user = userModel
+                AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email)
                 ProgressHUD.dismiss()
                 self.show(chooseUsernameVC, sender: nil)
                 //ProgressHUD.dismiss()
