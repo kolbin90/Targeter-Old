@@ -254,6 +254,9 @@
                         <viewLayoutGuide key="safeArea" id="376-Kb-AS8"/>
                     </view>
                     <navigationItem key="navigationItem" id="p60-sk-HZR"/>
+                    <connections>
+                        <outlet property="usernameTextfield" destination="0YH-NM-lEw" id="mZN-m7-U7d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aFA-nk-ghs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
