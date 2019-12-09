@@ -18,7 +18,16 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         facebookButton.delegate = self
         facebookButton.readPermissions = ["public_profile", "email"]
-        // Do any additional setup after loading the view.
+        
+        hideKeyboardWhenTappedAround()
+        // Set up Navigation controller
+        setNavigationController()
+        if #available(iOS 11.0, *) {
+            self.navigationItem.largeTitleDisplayMode = .never
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
     
 
@@ -50,11 +59,14 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
             if let error = error {
                 print(error)
             }
+            
             self.fatchFacebookUser(completion: { (dict) in
                 let userModel = UserModel.transformFaceBookDataToUser(dict: dict)
                 let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
-                self.show(chooseUsernameVC, sender: nil)
+                chooseUsernameVC.user = userModel
                 ProgressHUD.dismiss()
+                self.show(chooseUsernameVC, sender: nil)
+                //ProgressHUD.dismiss()
             })
             
             //self.dismiss(animated: true, completion: nil)

@@ -14,6 +14,16 @@ class ChooseUsernameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hideKeyboardWhenTappedAround()
+        setNavigationController() // Set up Navigation controller
+        // Set up Navigation controller
+        setNavigationController()
+        if #available(iOS 11.0, *) {
+            self.navigationItem.largeTitleDisplayMode = .never
+        } else {
+            // Fallback on earlier versions
+        }
 
         // Do any additional setup after loading the view.
     }
@@ -35,6 +45,8 @@ class ChooseUsernameViewController: UIViewController {
         self.dismiss(animated: true)
     }
     @IBAction func finishButton(_ sender: Any) {
-        AuthService.saveNewUserInfo(profileImageUrl: user!.imageURLString!, name: user!.name!, username: "Privet")
+        AuthService.saveNewUserInfo(profileImageUrl: user!.imageURLString!, name: user!.name!, username: "Privet") {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }

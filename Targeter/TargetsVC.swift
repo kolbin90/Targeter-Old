@@ -224,7 +224,8 @@ class TargetsVC: UITableViewController {
 //        self.present(authViewController, animated: true, completion: nil)
         
         let signInVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
-        self.present(signInVC, animated: true, completion: nil)
+        let signInNavController = UINavigationController(rootViewController: signInVC)
+        self.present(signInNavController, animated: true, completion: nil)
     }
     
     //Save check in to FireBase
