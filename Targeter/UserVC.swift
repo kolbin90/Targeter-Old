@@ -180,20 +180,14 @@ class UserViewController: UIViewController {
     @IBAction func editButton(_ sender: Any) {
     }
     @IBAction func logoutButton(_ sender: Any) {
+        // Delete all data from Core Data, when logged out
         do {
-            // Delete all data from Core Data, when logged out
             try stack.dropAllData()
         } catch {
             print("Ebat' error")
         }
-        do {
-            // Trying to sign out from Firebase
-            let manager = FBSDKLoginManager()
-            manager.logOut()
-            try Auth.auth().signOut()
-            _ = navigationController?.popViewController(animated: true)
-        } catch {
-            print("unable to sign out: \(error)")
-        }
+        AuthService.firebaseLogOut()
+        _ = navigationController?.popViewController(animated: true)
+
     }
 }
