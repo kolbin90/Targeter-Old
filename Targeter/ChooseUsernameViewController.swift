@@ -11,6 +11,9 @@ import FBSDKLoginKit
 class ChooseUsernameViewController: UIViewController {
 
     var user: UserModel?
+    deinit {
+        logout()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,25 +31,21 @@ class ChooseUsernameViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    @IBAction func cancelButton(_ sender: Any) {
+    func logout(){
         let manager = FBSDKLoginManager()
         manager.logOut()
-        self.dismiss(animated: true)
+        if let user = Api.user.currentUser {
+            AuthService.firebaseLogOut()
+        }
+    }
+    
+
+    @IBAction func cancelButton(_ sender: Any) {
+        logout()
+        _ = navigationController?.popViewController(animated: true)
     }
     @IBAction func finishButton(_ sender: Any) {
-        AuthService.saveNewUserInfo(profileImageUrl: user!.imageURLString!, name: user!.name!, username: user!.username!)
+        AuthService.saveNewUserInfo(profileImageUrl: user!.imageURLString!, name: user!.name!, username: "Patrick")
         self.dismiss(animated: true, completion: nil)
-
     }
 }
