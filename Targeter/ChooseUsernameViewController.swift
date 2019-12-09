@@ -48,7 +48,7 @@ class ChooseUsernameViewController: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     @IBAction func finishButton(_ sender: Any) {
-        AuthService.saveNewUserInfo(profileImageUrl: nil, name: nil, username: usernameTextfield.text)
+        AuthService.saveNewUserInfo(profileImageUrl: nil, name: nil, username: usernameTextfield.text, email: nil)
         success = true
         self.dismiss(animated: true, completion: nil)
     }
