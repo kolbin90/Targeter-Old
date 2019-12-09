@@ -11,9 +11,23 @@ import FBSDKLoginKit
 import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
+import CoreData
 
 
 class AuthService {
+    
+    let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+
+    static func firebaseLogOut() {
+        do {
+            // Trying to sign out from Firebase
+            let manager = FBSDKLoginManager()
+            manager.logOut()
+            try Auth.auth().signOut()
+        } catch {
+            print("unable to sign out: \(error)")
+        }
+    }
     
     static func getUserInfoDictionaryFromFacebook(completion: @escaping  ([String: Any]) -> Void) {
         let graphRequestConnection = FBSDKGraphRequestConnection()
