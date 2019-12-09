@@ -20,19 +20,21 @@ class UserApi {
         return nil
     }
     
-    func singleObserveCurrentUser(completion: @escaping (UserModel) -> Void){
+    func singleObserveCurrentUser(completion: @escaping (UserModel) -> Void,onError: @escaping (String) -> Void ){
         guard let userId = currentUser?.uid else {
             return
         }
-        singleObserveUser(withUid: userId, completion: completion)
+        singleObserveUser(withUid: userId, completion: completion, onError: onError)
     }
     
-    func singleObserveUser(withUid uid: String, completion: @escaping (UserModel) -> Void) {
+    func singleObserveUser(withUid uid: String, completion: @escaping (UserModel) -> Void, onError: @escaping (String) -> Void) {
         usersRef.child(uid).observeSingleEvent(of: .value) { (snapshot) in
            // print(snapshot.value)
             if let dict = snapshot.value as? [String: Any] {
                 let user = UserModel.transformDataToUser(dict: dict)
                 completion(user)
+            } else {
+                onError("No userdata found")
             }
         }
     }
