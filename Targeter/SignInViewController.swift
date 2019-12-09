@@ -13,6 +13,8 @@ import FirebaseAuth
 
 class SignInViewController: UIViewController {
 
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var facebookButton: FBSDKLoginButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,10 @@ class SignInViewController: UIViewController {
     }
     
 
+    @IBAction func forgotPasswordButton(_ sender: Any) {
+    }
+    @IBAction func signUpButton(_ sender: Any) {
+    }
     /*
     // MARK: - Navigation
 

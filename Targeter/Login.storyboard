@@ -86,13 +86,19 @@
                                 <state key="normal" title="Forgot password?">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="forgotPasswordButton:" destination="1rZ-vO-Jkw" eventType="touchUpInside" id="yum-Xk-nPr"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9sa-79-qZr">
-                                <rect key="frame" x="80" y="734" width="215" height="29"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="12"/>
-                                <state key="normal" title="NEW to TARGETER? Create an account">
+                                <rect key="frame" x="80" y="733" width="215" height="30"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
+                                <state key="normal" title="NEW to TARGETER? Sign Up">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signUpButton:" destination="1rZ-vO-Jkw" eventType="touchUpInside" id="fbL-KT-puJ"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons" translatesAutoresizingMaskIntoConstraints="NO" id="udO-EX-gXL">
                                 <rect key="frame" x="0.0" y="74" width="375" height="170"/>
@@ -142,7 +148,9 @@
                     </view>
                     <navigationItem key="navigationItem" title=" " id="V68-Np-BXc"/>
                     <connections>
+                        <outlet property="emailTextField" destination="NkM-D9-8e5" id="HAr-dn-dce"/>
                         <outlet property="facebookButton" destination="uB6-fo-Qt5" id="wBg-a8-LkD"/>
+                        <outlet property="passwordTextField" destination="a4F-4d-LJp" id="HXr-F3-Ayp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gHP-dA-oCE" userLabel="First Responder" sceneMemberID="firstResponder"/>
