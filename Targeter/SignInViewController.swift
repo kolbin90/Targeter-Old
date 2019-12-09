@@ -49,7 +49,6 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        print("Aeeeeee")
        // print(credential)
         ProgressHUD.show("Loading...")
         Auth.auth().signIn(with: credential) { (result, error) in
