@@ -9,10 +9,13 @@
 import UIKit
 import FBSDKLoginKit
 class ChooseUsernameViewController: UIViewController {
-
-    var user: UserModel?
+    @IBOutlet weak var usernameTextfield: UITextField!
+    
+    var success = false
     deinit {
-        logout()
+        if !success {
+            logout()
+        }
     }
     
     override func viewDidLoad() {
@@ -45,7 +48,8 @@ class ChooseUsernameViewController: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     @IBAction func finishButton(_ sender: Any) {
-        AuthService.saveNewUserInfo(profileImageUrl: user!.imageURLString!, name: user!.name!, username: "Patrick")
+        AuthService.saveNewUserInfo(profileImageUrl: nil, name: nil, username: usernameTextfield.text)
+        success = true
         self.dismiss(animated: true, completion: nil)
     }
 }
