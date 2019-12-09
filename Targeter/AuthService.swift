@@ -41,7 +41,7 @@ class AuthService {
         graphRequestConnection.start()
     }
     
-    static func saveNewUserInfo(profileImageUrl: String?, name: String?, username: String?) {
+    static func saveNewUserInfo(profileImageUrl: String?, name: String?, username: String?, email: String?) {
         let storageRef = Storage.storage().reference()
         let databaseRef = Database.database().reference()
         if let profileImageUrl = profileImageUrl {
@@ -83,6 +83,9 @@ class AuthService {
         }
         if let name = name {
             databaseRef.child("users").child(Auth.auth().currentUser!.uid).child(Constants.UserData.Name).setValue(name)
+        }
+        if let email = email {
+            Api.user.usersRef.child(Api.user.currentUser!.uid).child("email").setValue(email)
         }
     }
     
