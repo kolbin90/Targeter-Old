@@ -45,8 +45,8 @@ class ChooseUsernameViewController: UIViewController {
         self.dismiss(animated: true)
     }
     @IBAction func finishButton(_ sender: Any) {
-        AuthService.saveNewUserInfo(profileImageUrl: user!.imageURLString!, name: user!.name!, username: "Privet") {
-            self.dismiss(animated: true, completion: nil)
-        }
+        AuthService.saveNewUserInfo(profileImageUrl: user!.imageURLString!, name: user!.name!, username: user!.username!)
+        self.dismiss(animated: true, completion: nil)
+
     }
 }

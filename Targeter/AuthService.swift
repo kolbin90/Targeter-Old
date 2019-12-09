@@ -27,13 +27,14 @@ class AuthService {
         graphRequestConnection.start()
     }
     
-    static func saveNewUserInfo(profileImageUrl: String, name: String, username: String, onSuccess: @escaping () -> Void) {
+    static func saveNewUserInfo(profileImageUrl: String, name: String, username: String) {
         let storageRef = Storage.storage().reference()
         let databaseRef = Database.database().reference()
         let imagePath = "users/" + Auth.auth().currentUser!.uid + "/profileImage/\(Date())"
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
-        print(profileImageUrl)
+        
+        // Download image from Facebook, Upload it to Firevase storage, save imageURL to database
         guard let url = URL(string: profileImageUrl) else {
             return
         }
@@ -46,8 +47,7 @@ class AuthService {
             guard let data = data else {
                 return
             }
-            print(responce)
-            print(error)
+            
             DispatchQueue.main.async {
                 storageRef.child(imagePath).putData(data, metadata: metadata, completion: { (storageMetafata, error) in
                     guard (error == nil) else {
@@ -56,16 +56,14 @@ class AuthService {
                     }
                     
                     let imageURL = storageRef.child((storageMetafata?.path)!).description
-                    
-                    //databaseRef.child("users/\(self.userID!)/\(Constants.UserData.ImageURL)").setValue(imageURL)
-                    databaseRef.child("users").child(Auth.auth().currentUser!.uid).child(Constants.UserData.ImageURL).setValue(imageURL)
-                    onSuccess()
+                    databaseRef.child("users").child(Auth.auth().currentUser!.uid).updateChildValues([Constants.UserData.ImageURL:imageURL])  //child(Constants.UserData.ImageURL).setValue(imageURL)
                 })
             }
             }.resume()
-        
-        
-        
+        // Save username and name to database
+        databaseRef.child("users").child(Auth.auth().currentUser!.uid).child(Constants.UserData.Username).setValue(username)
+        databaseRef.child("users").child(Auth.auth().currentUser!.uid).child(Constants.UserData.Name).setValue(name)
+       
     }
     
 }
