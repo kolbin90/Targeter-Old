@@ -65,29 +65,31 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-       // print(credential)
         ProgressHUD.show("Loading...")
         Auth.auth().signIn(with: credential) { (result, error) in
+            
             if let result = result {
                 print(result)
             }
             if let error = error {
                 print(error)
             }
-            
-            self.fatchFacebookUser(completion: { (dict) in
-                let user = UserModel.transformFaceBookDataToUser(dict: dict)
-                let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
-                AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email)
-                ProgressHUD.dismiss()
-                self.show(chooseUsernameVC, sender: nil)
-                //ProgressHUD.dismiss()
+            Api.user.singleObserveCurrentUser(completion: { (user) in
+                if user.username == nil || user.username == "" {
+                    self.fatchFacebookUser(completion: { (dict) in
+                        let user = UserModel.transformFaceBookDataToUser(dict: dict)
+                        let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
+                        AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
+                        ProgressHUD.dismiss()
+                        self.show(chooseUsernameVC, sender: nil)
+                    })
+                } else {
+                    ProgressHUD.dismiss()
+                    self.dismiss(animated: true, completion: nil)
+                }
             })
             
-            //self.dismiss(animated: true, completion: nil)
-
         }
-        return
     }
     
     func fatchFacebookUser(completion: @escaping  ([String: Any]) -> Void) {
