@@ -74,6 +74,7 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
             if let error = error {
                 print(error)
             }
+
             Api.user.singleObserveCurrentUser(completion: { (user) in
                 if user.username == nil || user.username == "" {
                     self.fatchFacebookUser(completion: { (dict) in
@@ -87,6 +88,14 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
                     ProgressHUD.dismiss()
                     self.dismiss(animated: true, completion: nil)
                 }
+            }, onError: { (errorString) in
+                self.fatchFacebookUser(completion: { (dict) in
+                    let user = UserModel.transformFaceBookDataToUser(dict: dict)
+                    AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
+                    ProgressHUD.dismiss()
+                    let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
+                    self.show(chooseUsernameVC, sender: nil)
+                })
             })
             
         }
