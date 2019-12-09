@@ -7,7 +7,13 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class UserApi {
-    
+    var currentUser: User? {
+        if let currentUser = Auth.auth().currentUser {
+            return currentUser
+        }
+        return nil
+    }
 }
