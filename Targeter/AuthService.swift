@@ -80,6 +80,7 @@ class AuthService {
         // Save username and name to database
         if let username = username {
             databaseRef.child("users").child(Auth.auth().currentUser!.uid).child(Constants.UserData.Username).setValue(username)
+            databaseRef.child("users").child(Auth.auth().currentUser!.uid).child(Constants.UserData.UsernameLowercased).setValue(username.lowercased())
         }
         if let name = name {
             databaseRef.child("users").child(Auth.auth().currentUser!.uid).child(Constants.UserData.Name).setValue(name)

@@ -16,6 +16,7 @@ struct Constants {
         static let About = "about"
         static let ImageURL = "imageURL"
         static let Username = "username"
+        static let UsernameLowercased = "username_lowercased"
         static let Percentage = "percentage"
         static let Email = "email"
     }
