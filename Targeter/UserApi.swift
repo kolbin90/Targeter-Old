@@ -20,6 +20,8 @@ class UserApi {
         return nil
     }
     
+  
+    
     func singleObserveCurrentUser(completion: @escaping (UserModel) -> Void,onError: @escaping (String) -> Void ){
         guard let userId = currentUser?.uid else {
             return
@@ -36,6 +38,21 @@ class UserApi {
             } else {
                 onError("No userdata found")
             }
+        }
+    }
+    
+    func singleObserveUser(withUsername username: String, completion: @escaping (UserModel) -> Void, onError: @escaping (String) -> Void)  {
+        usersRef.queryOrdered(byChild: Constants.UserData.UsernameLowercased).queryEqual(toValue: username.lowercased()).observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot.value)
+            snapshot.children.forEach({ (snapshotChild) in
+                guard let child = snapshotChild as? DataSnapshot else {
+                    return
+                }
+                if let dict = child.value as? [String: Any] {
+                    //let user = UserModel.transformToUser(dict: dict, key: child.key)
+                    //completion(user)
+                }
+            })
         }
     }
 }
