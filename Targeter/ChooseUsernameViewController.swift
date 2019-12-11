@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKLoginKit
+
 class ChooseUsernameViewController: UIViewController {
     @IBOutlet weak var usernameTextfield: UITextField!
     @IBOutlet weak var finishButton: UIButton!
@@ -92,3 +93,6 @@ class ChooseUsernameViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
+
+
