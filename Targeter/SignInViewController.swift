@@ -100,9 +100,20 @@ class SignInViewController: UIViewController {
     @IBAction func signUpButton(_ sender: Any) {
     }
     @IBAction func signInButton_TchUpIns(_ sender: Any) {
+        ProgressHUD.show("Signing in...")
+        AuthService.signIn(email: emailTextField.text!, password: passwordTextField.text!, OnSuccess: {
+            ProgressHUD.dismiss()
+            self.dismiss(animated: true, completion: {
+            })
+        }) { (error) in
+            ProgressHUD.showError(error)
+        }
     }
     
 }
+
+
+
 extension SignInViewController: FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         

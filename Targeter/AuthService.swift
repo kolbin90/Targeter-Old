@@ -111,4 +111,14 @@ class AuthService {
         }
     }
     
+    static func signIn(email: String, password: String, OnSuccess: @escaping() -> Void, onError: @escaping(_ errorString: String?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                onError(error!.localizedDescription)
+                return
+            }
+            OnSuccess()
+        }
+    }
+    
 }
