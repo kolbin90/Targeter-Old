@@ -101,4 +101,14 @@ class AuthService {
         
     }
     
+    static func signUp(username:String, email: String, password: String, onSuccess: @escaping() -> Void, onError: @escaping(_ errorString: String?) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                onError(error!.localizedDescription)
+            }
+            saveNewUserInfo(profileImageUrl: nil, name: nil, username: username, email: email)
+            onSuccess()
+        }
+    }
+    
 }

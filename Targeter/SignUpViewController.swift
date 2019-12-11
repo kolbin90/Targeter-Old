@@ -140,11 +140,22 @@ class SignUpViewController: UIViewController {
         return passwordPred.evaluate(with: input)
     }
     
+    
+    
     @IBAction func signUpButton_TchUpIns(_ sender: Any) {
+        ProgressHUD.show("Signing up...")
+        AuthService.signUp(username: usernameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, onSuccess: {
+            self.dismiss(animated: true, completion: {
+                ProgressHUD.dismiss()
+            })
+        }) { (error) in
+            ProgressHUD.showError(error)
+        }
         
     }
     
     @IBAction func signInButton_TchUpIns(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     
     
