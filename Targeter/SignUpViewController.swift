@@ -11,7 +11,9 @@ import FBSDKLoginKit
 
 class SignUpViewController: UIViewController {
     
-    @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var usernameWarningLabel: UILabel!
+    @IBOutlet weak var emailWarningLabel: UILabel!
+    @IBOutlet weak var passwordWarningLabel: UILabel!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var usernameLineView: UIView!
     @IBOutlet weak var emailTextField: UITextField!
@@ -28,6 +30,8 @@ class SignUpViewController: UIViewController {
         // Do any additional setup after loading the view.
         handleTextField()
     }
+    
+    
     func handleTextField() {
         usernameTextField.addTarget(self, action: #selector(SignUpViewController.usernameTextFieldDidChange), for: UIControl.Event.editingChanged)
         emailTextField.addTarget(self, action: #selector(SignUpViewController.emailTextFieldDidChange), for: UIControl.Event.editingChanged)
@@ -37,72 +41,85 @@ class SignUpViewController: UIViewController {
     @objc func usernameTextFieldDidChange() {
         
         guard let username = usernameTextField.text, !username.isEmpty else {
-            //signUpButton.isEnabled = false
             usernameLineView.backgroundColor = .red
+            setSignUpButton()
             return
         }
         
         if isValidUsername(input: username) {
-            //signUpButton.isEnabled = true
             Api.user.singleObserveUser(withUsername: username, completion: { (user) in
                 self.usernameLineView.backgroundColor = .red
-                self.warningLabel.text = "Username is taken"
-                self.warningLabel.isHidden = false
-                //self.finishButton.isEnabled = false
+                self.setSignUpButton()
+                self.usernameWarningLabel.text = "Username is taken"
+                self.usernameWarningLabel.isHidden = false
             }) { (error) in
                 self.usernameLineView.backgroundColor = .green
-                self.warningLabel.isHidden = true
-                //self.finishButton.isEnabled = true
+                self.setSignUpButton()
+                self.usernameWarningLabel.isHidden = true
             }
         } else {
-            self.usernameLineView.backgroundColor = .red
-            self.warningLabel.text = "Only letters, underscores and numbers allowed"
-            self.warningLabel.isHidden = false
+            usernameLineView.backgroundColor = .red
+            setSignUpButton()
+            usernameWarningLabel.text = "Only letters, underscores and numbers allowed"
+            usernameWarningLabel.isHidden = false
         }
         
     }
+    
     @objc func emailTextFieldDidChange() {
         guard let email = emailTextField.text, !email.isEmpty else {
-            //signUpButton.isEnabled = false
             emailLineView.backgroundColor = .red
+            setSignUpButton()
             return
         }
         if isValidEmail(emailStr: email) {
             AuthService.isEmailUsed(email: email) { (value) in
                 if value {
                     self.emailLineView.backgroundColor = .red
-                    self.warningLabel.text = "Email is already used"
-                    self.warningLabel.isHidden = false
+                    self.setSignUpButton()
+                    self.emailWarningLabel.text = "Email is already used"
+                    self.emailWarningLabel.isHidden = false
                 } else {
                     self.emailLineView.backgroundColor = .green
-                    self.warningLabel.isHidden = true
+                    self.setSignUpButton()
+                    self.emailWarningLabel.isHidden = true
                 }
             }
             
         } else {
-            self.emailLineView.backgroundColor = .red
-            self.warningLabel.text = "Email isn't valid"
-            self.warningLabel.isHidden = false
+            emailLineView.backgroundColor = .red
+            setSignUpButton()
+            emailWarningLabel.text = "Email isn't valid"
+            emailWarningLabel.isHidden = false
         }
         
     }
     @objc func passwordTextFieldDidChange() {
         guard let password = passwordTextField.text, !password.isEmpty else {
-            //signUpButton.isEnabled = false
             passwordLineView.backgroundColor = .red
+            setSignUpButton()
             return
         }
         if isValidPassword(input: password) {
             self.passwordLineView.backgroundColor = .green
-            self.warningLabel.isHidden = true
+            setSignUpButton()
+            passwordWarningLabel.isHidden = true
         } else {
             self.passwordLineView.backgroundColor = .red
-            self.warningLabel.text = "Password should be 6 symbols minimum"
-            self.warningLabel.isHidden = false
+            setSignUpButton()
+            passwordWarningLabel.text = "Password should be 6 symbols minimum"
+            passwordWarningLabel.isHidden = false
         }
         
     }
     
+    func setSignUpButton(){
+        if usernameLineView.backgroundColor == .green, emailLineView.backgroundColor == .green, passwordLineView.backgroundColor == .green {
+            signUpButton.isEnabled = true
+        } else {
+            signUpButton.isEnabled = false
+        }
+    }
     
     
     func isValidEmail(emailStr:String) -> Bool {
