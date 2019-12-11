@@ -12,7 +12,7 @@ import FBSDKCoreKit
 import FirebaseAuth
 
 class SignInViewController: UIViewController {
-
+    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var facebookButton: FBSDKLoginButton!
@@ -26,7 +26,7 @@ class SignInViewController: UIViewController {
         
         handleTextField()
         signInButton.isEnabled = false
-
+        
         // Set up Navigation controller
         setNavigationController()
         if #available(iOS 11.0, *) {
@@ -49,7 +49,7 @@ class SignInViewController: UIViewController {
         }
         signInButton.isEnabled = true
     }
-
+    
     @IBAction func forgotPasswordButton(_ sender: Any) {
     }
     @IBAction func signUpButton(_ sender: Any) {
@@ -64,40 +64,43 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        ProgressHUD.show("Loading...")
-        Auth.auth().signIn(with: credential) { (result, error) in
-            
-            if let result = result {
-                print(result)
-            }
-            if let error = error {
-                print(error)
-            }
-
-            Api.user.singleObserveCurrentUser(completion: { (user) in
-                if user.username == nil || user.username == "" {
+        if result?.grantedPermissions != nil {
+            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            ProgressHUD.show("Loading...")
+            Auth.auth().signIn(with: credential) { (result, error) in
+                
+                if let result = result {
+                    print(result)
+                }
+                if let error = error {
+                    print(error)
+                }
+                
+                Api.user.singleObserveCurrentUser(completion: { (user) in
+                    if user.username == nil || user.username == "" {
+                        self.fatchFacebookUser(completion: { (dict) in
+                            let user = UserModel.transformFaceBookDataToUser(dict: dict)
+                            let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
+                            AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
+                            ProgressHUD.dismiss()
+                            self.show(chooseUsernameVC, sender: nil)
+                        })
+                    } else {
+                        ProgressHUD.dismiss()
+                        self.dismiss(animated: true, completion: nil)
+                        
+                    }
+                }, onError: { (errorString) in
                     self.fatchFacebookUser(completion: { (dict) in
                         let user = UserModel.transformFaceBookDataToUser(dict: dict)
-                        let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
                         AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
                         ProgressHUD.dismiss()
+                        let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
                         self.show(chooseUsernameVC, sender: nil)
                     })
-                } else {
-                    ProgressHUD.dismiss()
-                    self.dismiss(animated: true, completion: nil)
-                }
-            }, onError: { (errorString) in
-                self.fatchFacebookUser(completion: { (dict) in
-                    let user = UserModel.transformFaceBookDataToUser(dict: dict)
-                    AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
-                    ProgressHUD.dismiss()
-                    let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
-                    self.show(chooseUsernameVC, sender: nil)
                 })
-            })
-            
+                
+            }
         }
     }
     
