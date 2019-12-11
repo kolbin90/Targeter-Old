@@ -7,14 +7,26 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class SignUpViewController: UIViewController {
 
+    @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var usernameTextFieldl: UITextField!
+    @IBOutlet weak var usernameLineView: UIView!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var emailLineView: UIView!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordLineView: UIView!
+    @IBOutlet weak var facebookButton: FBSDKLoginButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
     func isValidEmail(emailStr:String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
@@ -22,14 +34,12 @@ class SignUpViewController: UIViewController {
         return emailPred.evaluate(with: emailStr)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func signUpButton_TchUpIns(_ sender: Any) {
+        
     }
-    */
+    
+    @IBAction func signInButton_TchUpIns(_ sender: Any) {
+    }
+    
 
 }
