@@ -145,8 +145,8 @@ class SignUpViewController: UIViewController {
     @IBAction func signUpButton_TchUpIns(_ sender: Any) {
         ProgressHUD.show("Signing up...")
         AuthService.signUp(username: usernameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, onSuccess: {
+            ProgressHUD.dismiss()
             self.dismiss(animated: true, completion: {
-                ProgressHUD.dismiss()
             })
         }) { (error) in
             ProgressHUD.showError(error)
