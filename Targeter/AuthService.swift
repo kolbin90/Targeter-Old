@@ -90,4 +90,15 @@ class AuthService {
         }
     }
     
+    static func isEmailUsed(email: String, completion: @escaping (Bool) -> Void) {
+        Auth.auth().fetchSignInMethods(forEmail: email) { (methods, error) in
+            if  methods == nil {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+        
+    }
+    
 }

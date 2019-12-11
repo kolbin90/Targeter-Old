@@ -443,8 +443,9 @@
                         <outlet property="facebookButton" destination="Eke-QF-hXQ" id="XZx-ej-bsX"/>
                         <outlet property="passwordLineView" destination="Oew-Vs-eOW" id="4eE-Na-fXN"/>
                         <outlet property="passwordTextField" destination="Jtr-Ne-p8U" id="1Dn-a4-47f"/>
+                        <outlet property="signUpButton" destination="sPp-eb-ouG" id="24s-Ih-hYN"/>
                         <outlet property="usernameLineView" destination="cgh-yN-fCD" id="3U5-ah-Lqe"/>
-                        <outlet property="usernameTextFieldl" destination="mNK-BO-3Ae" id="IhM-Al-hMc"/>
+                        <outlet property="usernameTextField" destination="mNK-BO-3Ae" id="CGX-JJ-eVs"/>
                         <outlet property="warningLabel" destination="2UJ-yB-b1f" id="qOY-E2-Qdl"/>
                     </connections>
                 </viewController>
