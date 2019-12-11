@@ -33,7 +33,7 @@ class UserApi {
         usersRef.child(uid).observeSingleEvent(of: .value) { (snapshot) in
            // print(snapshot.value)
             if let dict = snapshot.value as? [String: Any] {
-                let user = UserModel.transformDataToUser(dict: dict)
+                let user = UserModel.transformDataToUser(dict: dict, id: snapshot.key)
                 completion(user)
             } else {
                 onError("No userdata found")
@@ -42,17 +42,18 @@ class UserApi {
     }
     
     func singleObserveUser(withUsername username: String, completion: @escaping (UserModel) -> Void, onError: @escaping (String) -> Void)  {
-        usersRef.queryOrdered(byChild: Constants.UserData.UsernameLowercased).queryEqual(toValue: username.lowercased()).observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot.value)
-            snapshot.children.forEach({ (snapshotChild) in
-                guard let child = snapshotChild as? DataSnapshot else {
-                    return
+        usersRef.queryOrdered(byChild: Constants.UserData.UsernameLowercased).queryEqual(toValue: username.lowercased().trimmingCharacters(in: .whitespaces)).observeSingleEvent(of: .value) { (snapshot) in
+            if let _ = snapshot.value as? NSNull {
+                onError("No userdata found")
+            } else {
+                if let dict = snapshot.value as? [String: Any] {
+                    let user = UserModel.transformDataToUser(dict: dict, id: snapshot.key)
+                    completion(user)
+                } else {
+                    onError("No userdata found")
                 }
-                if let dict = child.value as? [String: Any] {
-                    //let user = UserModel.transformToUser(dict: dict, key: child.key)
-                    //completion(user)
-                }
-            })
+            }
+            
         }
     }
 }

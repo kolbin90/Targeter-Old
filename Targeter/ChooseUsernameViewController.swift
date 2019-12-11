@@ -10,6 +10,9 @@ import UIKit
 import FBSDKLoginKit
 class ChooseUsernameViewController: UIViewController {
     @IBOutlet weak var usernameTextfield: UITextField!
+    @IBOutlet weak var finishButton: UIButton!
+    @IBOutlet weak var lineView: UIView!
+    @IBOutlet weak var warningLabel: UILabel!
     
     var success = false
     deinit {
@@ -30,10 +33,33 @@ class ChooseUsernameViewController: UIViewController {
         } else {
             // Fallback on earlier versions
         }
-
+        handleTextField()
         // Do any additional setup after loading the view.
     }
     
+    func handleTextField() {
+        usernameTextfield.addTarget(self, action: #selector(SignInViewController.textFieldDidChange), for: UIControl.Event.editingChanged)
+    }
+    
+    @objc func textFieldDidChange() {
+        guard let username = usernameTextfield.text, !username.isEmpty else {
+            finishButton.isEnabled = false
+            lineView.backgroundColor = .red
+            return
+        }
+        finishButton.isEnabled = true
+        Api.user.singleObserveUser(withUsername: username, completion: { (user) in
+            self.lineView.backgroundColor = .red
+            self.warningLabel.isHidden = false
+            self.finishButton.isEnabled = false
+        }) { (error) in
+            self.lineView.backgroundColor = .green
+            self.warningLabel.isHidden = true
+            self.finishButton.isEnabled = true
+
+        }
+        
+    }
     func logout(){
         let manager = FBSDKLoginManager()
         manager.logOut()
