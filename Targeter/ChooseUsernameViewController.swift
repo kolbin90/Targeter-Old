@@ -47,18 +47,31 @@ class ChooseUsernameViewController: UIViewController {
             lineView.backgroundColor = .red
             return
         }
-        finishButton.isEnabled = true
-        Api.user.singleObserveUser(withUsername: username, completion: { (user) in
+        if isValidUsername(input: username) {
+            finishButton.isEnabled = true
+            Api.user.singleObserveUser(withUsername: username, completion: { (user) in
+                self.lineView.backgroundColor = .red
+                self.warningLabel.text = "Username is taken"
+                self.warningLabel.isHidden = false
+                self.finishButton.isEnabled = false
+            }) { (error) in
+                self.lineView.backgroundColor = .green
+                self.warningLabel.isHidden = true
+                self.finishButton.isEnabled = true
+                
+            }
+        } else {
             self.lineView.backgroundColor = .red
+            self.warningLabel.text = "Only letters, underscores and numbers allowed"
             self.warningLabel.isHidden = false
             self.finishButton.isEnabled = false
-        }) { (error) in
-            self.lineView.backgroundColor = .green
-            self.warningLabel.isHidden = true
-            self.finishButton.isEnabled = true
-
         }
         
+    }
+    func isValidUsername(input:String) -> Bool {
+        let usernameRegEx = "\\w{1,18}"
+        let usernamePred = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
+        return usernamePred.evaluate(with: input)
     }
     func logout(){
         let manager = FBSDKLoginManager()

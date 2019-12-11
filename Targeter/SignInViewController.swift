@@ -122,7 +122,7 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
                 }
                 
                 Api.user.singleObserveCurrentUser(completion: { (user) in
-                    if user.username == nil || user.username == "" {
+                    if true { //user.username == nil || user.username == "" {
                         self.fatchFacebookUser(completion: { (dict) in
                             let user = UserModel.transformFaceBookDataToUser(dict: dict)
                             let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
