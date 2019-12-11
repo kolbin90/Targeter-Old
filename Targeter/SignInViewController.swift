@@ -14,7 +14,9 @@ import FirebaseAuth
 class SignInViewController: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordLineView: UIView!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var emailLineView: UIView!
     @IBOutlet weak var facebookButton: FBSDKLoginButton!
     @IBOutlet weak var signInButton: UIButton!
     override func viewDidLoad() {
@@ -37,17 +39,60 @@ class SignInViewController: UIViewController {
         
     }
     func handleTextField() {
-        emailTextField.addTarget(self, action: #selector(SignInViewController.textFieldDidChange), for: UIControl.Event.editingChanged)
-        passwordTextField.addTarget(self, action: #selector(SignInViewController.textFieldDidChange), for: UIControl.Event.editingChanged)
+        emailTextField.addTarget(self, action: #selector(SignUpViewController.emailTextFieldDidChange), for: UIControl.Event.editingChanged)
+        passwordTextField.addTarget(self, action: #selector(SignUpViewController.passwordTextFieldDidChange), for: UIControl.Event.editingChanged)
+        
+    }
+    @objc func emailTextFieldDidChange() {
+        guard let email = emailTextField.text, !email.isEmpty else {
+            emailLineView.backgroundColor = .red
+            setSignInButton()
+            return
+        }
+        if isValidEmail(emailStr: email) {
+            self.emailLineView.backgroundColor = .green
+            self.setSignInButton()   
+        } else {
+            emailLineView.backgroundColor = .red
+            setSignInButton()
+        }
+        
+    }
+    @objc func passwordTextFieldDidChange() {
+        guard let password = passwordTextField.text, !password.isEmpty else {
+            passwordLineView.backgroundColor = .red
+            setSignInButton()
+            return
+        }
+        if isValidPassword(input: password) {
+            self.passwordLineView.backgroundColor = .green
+            setSignInButton()
+        } else {
+            self.passwordLineView.backgroundColor = .red
+            setSignInButton()
+        }
         
     }
     
-    @objc func textFieldDidChange() {
-        guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else {
+    func setSignInButton(){
+        if emailLineView.backgroundColor == .green, passwordLineView.backgroundColor == .green {
+            signInButton.isEnabled = true
+        } else {
             signInButton.isEnabled = false
-            return
         }
-        signInButton.isEnabled = true
+    }
+    
+    
+    func isValidEmail(emailStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: emailStr)
+    }
+    
+    func isValidPassword(input:String) -> Bool {
+        let passwordRegEx = "\\w{6,}"
+        let passwordPred = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
+        return passwordPred.evaluate(with: input)
     }
     
     @IBAction func forgotPasswordButton(_ sender: Any) {

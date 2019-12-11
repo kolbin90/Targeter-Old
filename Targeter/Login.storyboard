@@ -152,9 +152,11 @@
                     </view>
                     <navigationItem key="navigationItem" title=" " id="V68-Np-BXc"/>
                     <connections>
-                        <outlet property="emailTextField" destination="NkM-D9-8e5" id="HAr-dn-dce"/>
+                        <outlet property="emailLineView" destination="kJY-vV-eKE" id="lob-L9-dKo"/>
+                        <outlet property="emailTextField" destination="NkM-D9-8e5" id="TpN-S9-C6i"/>
                         <outlet property="facebookButton" destination="uB6-fo-Qt5" id="wBg-a8-LkD"/>
-                        <outlet property="passwordTextField" destination="a4F-4d-LJp" id="HXr-F3-Ayp"/>
+                        <outlet property="passwordLineView" destination="xfa-Aa-VJ6" id="mwy-r2-IIM"/>
+                        <outlet property="passwordTextField" destination="a4F-4d-LJp" id="ZpQ-HP-L78"/>
                         <outlet property="signInButton" destination="0QJ-jW-PKY" id="LPV-LI-LHV"/>
                     </connections>
                 </viewController>
