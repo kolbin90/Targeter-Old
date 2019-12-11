@@ -38,7 +38,7 @@ class ChooseUsernameViewController: UIViewController {
     }
     
     func handleTextField() {
-        usernameTextfield.addTarget(self, action: #selector(SignInViewController.textFieldDidChange), for: UIControl.Event.editingChanged)
+        usernameTextfield.addTarget(self, action: #selector(ChooseUsernameViewController.textFieldDidChange), for: UIControl.Event.editingChanged)
     }
     
     @objc func textFieldDidChange() {
