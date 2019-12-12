@@ -96,6 +96,9 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordButton(_ sender: Any) {
+        Auth.auth().sendPasswordReset(withEmail: emailTextField.text!) { (error) in
+            ProgressHUD.showError(error?.localizedDescription)
+        }
     }
     @IBAction func signUpButton(_ sender: Any) {
     }
