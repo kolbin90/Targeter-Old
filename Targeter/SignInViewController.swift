@@ -101,6 +101,7 @@ class SignInViewController: UIViewController {
         }
     }
     @IBAction func signUpButton(_ sender: Any) {
+        // segue set in storyboard
     }
     @IBAction func signInButton_TchUpIns(_ sender: Any) {
         ProgressHUD.show("Signing in...")
