@@ -121,8 +121,8 @@ class SignInViewController: UIViewController {
     
 }
 
-// MARK: Extensions
-
+// MARK: - Extensions
+// MARK: FBSDKLoginButtonDelegate
 extension SignInViewController: FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         
