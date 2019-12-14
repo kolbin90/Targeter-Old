@@ -12,7 +12,7 @@ import FBSDKCoreKit
 import FirebaseAuth
 
 class SignUpViewController: UIViewController {
-    
+    // MARK: Outlets
     @IBOutlet weak var usernameWarningLabel: UILabel!
     @IBOutlet weak var emailWarningLabel: UILabel!
     @IBOutlet weak var passwordWarningLabel: UILabel!
@@ -25,7 +25,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var facebookButton: FBSDKLoginButton!
     @IBOutlet weak var signUpButton: UIButton!
     
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,7 +33,7 @@ class SignUpViewController: UIViewController {
         handleTextField()
     }
     
-    
+    // MARK: Handle textfield
     func handleTextField() {
         usernameTextField.addTarget(self, action: #selector(SignUpViewController.usernameTextFieldDidChange), for: UIControl.Event.editingChanged)
         emailTextField.addTarget(self, action: #selector(SignUpViewController.emailTextFieldDidChange), for: UIControl.Event.editingChanged)
@@ -143,7 +143,7 @@ class SignUpViewController: UIViewController {
     }
     
     
-    
+    // MARK: Actions
     @IBAction func signUpButton_TchUpIns(_ sender: Any) {
         ProgressHUD.show("Signing up...")
         AuthService.signUp(username: usernameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, onSuccess: {
@@ -162,7 +162,8 @@ class SignUpViewController: UIViewController {
     
     
 }
-
+// MARK: - Extensions
+// MARK: FBSDKLoginButtonDelegate
 extension SignUpViewController: FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         
