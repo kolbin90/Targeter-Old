@@ -10,18 +10,20 @@ import UIKit
 import FBSDKLoginKit
 
 class ChooseUsernameViewController: UIViewController {
+    // MARK: Outlets
     @IBOutlet weak var usernameTextfield: UITextField!
     @IBOutlet weak var finishButton: UIButton!
     @IBOutlet weak var lineView: UIView!
     @IBOutlet weak var warningLabel: UILabel!
     
+    // MARK: Variables
     var success = false
     deinit {
         if !success {
             logout()
         }
     }
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +39,7 @@ class ChooseUsernameViewController: UIViewController {
         handleTextField()
         // Do any additional setup after loading the view.
     }
-    
+    // MARK: Handle textfield
     func handleTextField() {
         usernameTextfield.addTarget(self, action: #selector(ChooseUsernameViewController.textFieldDidChange), for: UIControl.Event.editingChanged)
     }
@@ -74,6 +76,8 @@ class ChooseUsernameViewController: UIViewController {
         let usernamePred = NSPredicate(format:"SELF MATCHES %@", usernameRegEx)
         return usernamePred.evaluate(with: input)
     }
+    
+    // MARK: Assist methods
     func logout(){
         let manager = FBSDKLoginManager()
         manager.logOut()
@@ -82,7 +86,7 @@ class ChooseUsernameViewController: UIViewController {
         }
     }
     
-
+    // MARK: Actions
     @IBAction func cancelButton(_ sender: Any) {
         logout()
         _ = navigationController?.popViewController(animated: true)
