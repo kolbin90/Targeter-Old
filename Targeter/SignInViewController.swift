@@ -12,13 +12,15 @@ import FBSDKCoreKit
 import FirebaseAuth
 
 class SignInViewController: UIViewController {
-    
+    // MARK: Outlets
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordLineView: UIView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailLineView: UIView!
     @IBOutlet weak var facebookButton: FBSDKLoginButton!
     @IBOutlet weak var signInButton: UIButton!
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         facebookButton.delegate = self
@@ -38,6 +40,7 @@ class SignInViewController: UIViewController {
         }
         
     }
+    // MARK: Handle textfield
     func handleTextField() {
         emailTextField.addTarget(self, action: #selector(SignUpViewController.emailTextFieldDidChange), for: UIControl.Event.editingChanged)
         passwordTextField.addTarget(self, action: #selector(SignUpViewController.passwordTextFieldDidChange), for: UIControl.Event.editingChanged)
@@ -95,6 +98,8 @@ class SignInViewController: UIViewController {
         return passwordPred.evaluate(with: input)
     }
     
+    // MARK: Actions
+    
     @IBAction func forgotPasswordButton(_ sender: Any) {
         Auth.auth().sendPasswordReset(withEmail: emailTextField.text!) { (error) in
             ProgressHUD.showError(error?.localizedDescription)
@@ -116,7 +121,7 @@ class SignInViewController: UIViewController {
     
 }
 
-
+// MARK: Extensions
 
 extension SignInViewController: FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
