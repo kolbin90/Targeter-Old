@@ -121,4 +121,21 @@ class AuthService {
         }
     }
     
+    static func signInAndLinkWithFacebook(email: String, password: String, facebookCredential: AuthCredential, OnSuccess: @escaping() -> Void, onError: @escaping(_ errorString: String?) -> Void) {
+        signIn(email: email, password: password, OnSuccess: {
+            Auth.auth().currentUser?.linkAndRetrieveData(with: facebookCredential, completion: { (result, error) in
+                if error != nil {
+                    onError(error!.localizedDescription)
+                    return
+                }
+                if result != nil {
+                    OnSuccess()
+                }
+            })
+        }) { (error) in
+            onError(error)
+        }
+        
+    }
+    
 }
