@@ -98,10 +98,10 @@ class ConfirmPasswordViewController: UIViewController {
         ProgressHUD.show("Signing In...")
         AuthService.signInAndLinkWithFacebook(email: user!.email!, password: passwordTextField.text!, facebookCredential: credential, OnSuccess: {
             ProgressHUD.showSuccess()
+            self.success = true
             self.dismiss(animated: true, completion: nil)
         }) { (error) in
             ProgressHUD.showError(error)
-            self.dismiss(animated: true, completion: nil)
         }
         
     }

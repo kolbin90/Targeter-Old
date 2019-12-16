@@ -94,6 +94,8 @@ class TargetsVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        //Auth.auth().currentUser?.unlink(fromProvider: "facebook.com", completion: nil)
+
         if let userID =  userID {
             databaseRef.child(Constants.RootFolders.Targets).child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let value = snapshot.value as? NSDictionary {
