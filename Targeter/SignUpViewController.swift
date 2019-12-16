@@ -180,6 +180,11 @@ extension SignUpViewController: FBSDKLoginButtonDelegate {
                 }
                 if let error = error {
                     print(error)
+                    if error.localizedDescription == "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address." {
+                        let confirmPasswordVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ConfirmPasswordViewController") as! ConfirmPasswordViewController
+                        ProgressHUD.dismiss()
+                        self.show(confirmPasswordVC, sender: true)                        
+                    }
                 }
                 
                 Api.user.singleObserveCurrentUser(completion: { (user) in
