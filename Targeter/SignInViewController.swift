@@ -168,7 +168,7 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
             }
         }
     }
-    
+    // MARK: Assist methods
     func fatchFacebookUser(completion: @escaping  ([String: Any]) -> Void) {
         AuthService.getUserInfoDictionaryFromFacebook { (dict) in
             completion(dict)            
