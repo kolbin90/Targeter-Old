@@ -18,6 +18,8 @@ class ChooseUsernameViewController: UIViewController {
     
     // MARK: Variables
     var success = false
+    
+    // MARK: Init
     deinit {
         if !success {
             logout()
@@ -28,7 +30,6 @@ class ChooseUsernameViewController: UIViewController {
         super.viewDidLoad()
         
         hideKeyboardWhenTappedAround()
-        setNavigationController() // Set up Navigation controller
         // Set up Navigation controller
         setNavigationController()
         if #available(iOS 11.0, *) {
