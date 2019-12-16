@@ -8,6 +8,8 @@
 
 import UIKit
 import FBSDKLoginKit
+import FBSDKCoreKit
+import FirebaseAuth
 
 
 class ConfirmPasswordViewController: UIViewController {
@@ -20,6 +22,7 @@ class ConfirmPasswordViewController: UIViewController {
     
     // MARK: Variables
     var success = false
+    var user: UserModel?
     
     // MARK: Init
     deinit {
@@ -44,7 +47,13 @@ class ConfirmPasswordViewController: UIViewController {
     }
     // MARK: Handle textfield
     func handleTextField() {
-        passwordTextField.addTarget(self, action: #selector(SignUpViewController.passwordTextFieldDidChange), for: UIControl.Event.editingChanged)
+        AuthService.getUserInfoDictionaryFromFacebook { (dict) in
+            self.user = UserModel.transformFaceBookDataToUser(dict: dict)
+            if let email = self.user?.email {
+                self.emailTextField.text = email
+            }
+        }
+        passwordTextField.addTarget(self, action: #selector(ConfirmPasswordViewController.passwordTextFieldDidChange), for: UIControl.Event.editingChanged)
         
     }
     
@@ -85,8 +94,19 @@ class ConfirmPasswordViewController: UIViewController {
 
     // MARK: Actions
     @IBAction func confirmButton_TchUpIns(_ sender: Any) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        ProgressHUD.show("Signing In...")
+        AuthService.signInAndLinkWithFacebook(email: user!.email!, password: passwordTextField.text!, facebookCredential: credential, OnSuccess: {
+            ProgressHUD.showSuccess()
+            self.dismiss(animated: true, completion: nil)
+        }) { (error) in
+            ProgressHUD.showError(error)
+            self.dismiss(animated: true, completion: nil)
+        }
         
     }
     @IBAction func cancelButton(_ sender: Any) {
+        logout()
+        self.navigationController?.popViewController(animated: true)
     }
 }

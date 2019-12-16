@@ -130,6 +130,7 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         if result?.grantedPermissions != nil {
+            print(result?.grantedPermissions)
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
             ProgressHUD.show("Loading...")
             Auth.auth().signIn(with: credential) { (result, error) in
@@ -138,7 +139,13 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
                     print(result)
                 }
                 if let error = error {
-                    print(error)
+                    print(error.localizedDescription)
+                    if error.localizedDescription == "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address." {
+                        let confirmPasswordVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ConfirmPasswordViewController") as! ConfirmPasswordViewController
+                        ProgressHUD.dismiss()
+                        self.show(confirmPasswordVC, sender: true)
+                        
+                    }
                 }
                 
                 Api.user.singleObserveCurrentUser(completion: { (user) in
