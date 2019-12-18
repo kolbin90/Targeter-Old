@@ -68,12 +68,14 @@ class ForgotPasswordViewController: UIViewController {
         ProgressHUD.show("Sending...")
         AuthService.sendPasswordReset(withEmail: emailTextField.text!, onSuccess: {
             ProgressHUD.showSuccess("Sent. Check your email")
-            self.delegate?.fillEmailTextField(email: self.emailTextField.text!)
             DispatchQueue.main.async {
+                self.delegate?.fillEmailTextField(email: self.emailTextField.text!)
                 self.navigationController?.popViewController(animated: true)
             }
         }) { (error) in
-            ProgressHUD.showError(error)
+            DispatchQueue.main.async {
+                ProgressHUD.showError(error)
+            }
         }
     }
 }

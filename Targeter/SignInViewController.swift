@@ -124,11 +124,16 @@ class SignInViewController: UIViewController {
     @IBAction func signInButton_TchUpIns(_ sender: Any) {
         ProgressHUD.show("Signing in...")
         AuthService.signIn(email: emailTextField.text!, password: passwordTextField.text!, OnSuccess: {
-            ProgressHUD.dismiss()
-            self.dismiss(animated: true, completion: {
-            })
+            DispatchQueue.main.async {
+                ProgressHUD.dismiss()
+                self.dismiss(animated: true, completion: {
+                })
+            }
+            
         }) { (error) in
-            ProgressHUD.showError(error)
+            DispatchQueue.main.async {
+                ProgressHUD.showError(error)
+            }
         }
     }
     
@@ -155,8 +160,11 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
                     print(error.localizedDescription)
                     if error.localizedDescription == "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address." {
                         let confirmPasswordVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ConfirmPasswordViewController") as! ConfirmPasswordViewController
-                        ProgressHUD.dismiss()
-                        self.show(confirmPasswordVC, sender: true)
+                        
+                        DispatchQueue.main.async {
+                            ProgressHUD.dismiss()
+                            self.show(confirmPasswordVC, sender: true)
+                        }
                         
                     }
                 }
@@ -167,21 +175,28 @@ extension SignInViewController: FBSDKLoginButtonDelegate {
                             let user = UserModel.transformFaceBookDataToUser(dict: dict)
                             let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
                             AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
-                            ProgressHUD.dismiss()
-                            self.show(chooseUsernameVC, sender: nil)
+                            DispatchQueue.main.async {
+                                ProgressHUD.dismiss()
+                                self.show(chooseUsernameVC, sender: nil)
+                            }
                         })
                     } else {
-                        ProgressHUD.dismiss()
-                        self.dismiss(animated: true, completion: nil)
+                        DispatchQueue.main.async {
+                            ProgressHUD.dismiss()
+                            self.dismiss(animated: true, completion: nil)
+                        }
                         
                     }
                 }, onError: { (errorString) in
                     self.fatchFacebookUser(completion: { (dict) in
                         let user = UserModel.transformFaceBookDataToUser(dict: dict)
                         AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
-                        ProgressHUD.dismiss()
                         let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
-                        self.show(chooseUsernameVC, sender: nil)
+                        
+                        DispatchQueue.main.async {
+                            ProgressHUD.dismiss()
+                            self.show(chooseUsernameVC, sender: nil)
+                        }
                     })
                 })
                 
