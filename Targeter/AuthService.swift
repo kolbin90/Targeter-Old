@@ -138,9 +138,14 @@ class AuthService {
         
     }
     
-    static func sendPasswordReset(withEmail email: String, onError: @escaping (String) -> Void) {
+    static func sendPasswordReset(withEmail email: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+       
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
-            onError(error!.localizedDescription)
+            guard error == nil else {
+                onError(error!.localizedDescription)
+                return
+            }
+            onSuccess()
         }
     }
     
