@@ -50,14 +50,18 @@ class SignUpViewController: UIViewController {
         
         if isValidUsername(input: username) {
             Api.user.singleObserveUser(withUsername: username, completion: { (user) in
-                self.usernameLineView.backgroundColor = .red
-                self.setSignUpButton()
-                self.usernameWarningLabel.text = "Username is taken"
-                self.usernameWarningLabel.isHidden = false
+                DispatchQueue.main.async {
+                    self.usernameLineView.backgroundColor = .red
+                    self.setSignUpButton()
+                    self.usernameWarningLabel.text = "Username is taken"
+                    self.usernameWarningLabel.isHidden = false
+                }
             }) { (error) in
-                self.usernameLineView.backgroundColor = .green
-                self.setSignUpButton()
-                self.usernameWarningLabel.isHidden = true
+                DispatchQueue.main.async {
+                    self.usernameLineView.backgroundColor = .green
+                    self.setSignUpButton()
+                    self.usernameWarningLabel.isHidden = true
+                }
             }
         } else {
             usernameLineView.backgroundColor = .red
@@ -77,14 +81,18 @@ class SignUpViewController: UIViewController {
         if isValidEmail(emailStr: email) {
             AuthService.isEmailUsed(email: email) { (value) in
                 if value {
-                    self.emailLineView.backgroundColor = .red
-                    self.setSignUpButton()
-                    self.emailWarningLabel.text = "Email is already used"
-                    self.emailWarningLabel.isHidden = false
+                    DispatchQueue.main.async {
+                        self.emailLineView.backgroundColor = .red
+                        self.setSignUpButton()
+                        self.emailWarningLabel.text = "Email is already used"
+                        self.emailWarningLabel.isHidden = false
+                    }
                 } else {
-                    self.emailLineView.backgroundColor = .green
-                    self.setSignUpButton()
-                    self.emailWarningLabel.isHidden = true
+                    DispatchQueue.main.async {
+                        self.emailLineView.backgroundColor = .green
+                        self.setSignUpButton()
+                        self.emailWarningLabel.isHidden = true
+                    }
                 }
             }
             
@@ -147,11 +155,15 @@ class SignUpViewController: UIViewController {
     @IBAction func signUpButton_TchUpIns(_ sender: Any) {
         ProgressHUD.show("Signing up...")
         AuthService.signUp(username: usernameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, onSuccess: {
-            ProgressHUD.dismiss()
+            DispatchQueue.main.async {
+                ProgressHUD.dismiss()
+            }
             self.dismiss(animated: true, completion: {
             })
         }) { (error) in
-            ProgressHUD.showError(error)
+            DispatchQueue.main.async {
+                ProgressHUD.showError(error)
+            }
         }
         
     }
@@ -182,8 +194,10 @@ extension SignUpViewController: FBSDKLoginButtonDelegate {
                     print(error)
                     if error.localizedDescription == "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address." {
                         let confirmPasswordVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ConfirmPasswordViewController") as! ConfirmPasswordViewController
-                        ProgressHUD.dismiss()
-                        self.show(confirmPasswordVC, sender: true)                        
+                        DispatchQueue.main.async {
+                            ProgressHUD.dismiss()
+                            self.show(confirmPasswordVC, sender: true)
+                        }
                     }
                 }
                 
@@ -193,8 +207,10 @@ extension SignUpViewController: FBSDKLoginButtonDelegate {
                             let user = UserModel.transformFaceBookDataToUser(dict: dict)
                             let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
                             AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
-                            ProgressHUD.dismiss()
-                            self.show(chooseUsernameVC, sender: nil)
+                            DispatchQueue.main.async {
+                                ProgressHUD.dismiss()
+                                self.show(chooseUsernameVC, sender: nil)
+                            }
                         })
                     } else {
                         ProgressHUD.dismiss()
@@ -205,9 +221,11 @@ extension SignUpViewController: FBSDKLoginButtonDelegate {
                     self.fatchFacebookUser(completion: { (dict) in
                         let user = UserModel.transformFaceBookDataToUser(dict: dict)
                         AuthService.saveNewUserInfo(profileImageUrl: user.imageURLString, name: user.name, username: user.email, email: user.email)
-                        ProgressHUD.dismiss()
                         let chooseUsernameVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ChooseUsernameViewController") as! ChooseUsernameViewController
-                        self.show(chooseUsernameVC, sender: nil)
+                        DispatchQueue.main.async {
+                            ProgressHUD.dismiss()
+                            self.show(chooseUsernameVC, sender: nil)
+                        }
                     })
                 })
                 

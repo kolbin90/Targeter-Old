@@ -54,14 +54,18 @@ class ChooseUsernameViewController: UIViewController {
         if isValidUsername(input: username) {
             finishButton.isEnabled = true
             Api.user.singleObserveUser(withUsername: username, completion: { (user) in
-                self.lineView.backgroundColor = .red
-                self.warningLabel.text = "Username is taken"
-                self.warningLabel.isHidden = false
-                self.finishButton.isEnabled = false
+                DispatchQueue.main.async {
+                    self.lineView.backgroundColor = .red
+                    self.warningLabel.text = "Username is taken"
+                    self.warningLabel.isHidden = false
+                    self.finishButton.isEnabled = false
+                }
             }) { (error) in
-                self.lineView.backgroundColor = .green
-                self.warningLabel.isHidden = true
-                self.finishButton.isEnabled = true
+                DispatchQueue.main.async {
+                    self.lineView.backgroundColor = .green
+                    self.warningLabel.isHidden = true
+                    self.finishButton.isEnabled = true
+                }
                 
             }
         } else {

@@ -97,11 +97,15 @@ class ConfirmPasswordViewController: UIViewController {
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         ProgressHUD.show("Signing In...")
         AuthService.signInAndLinkWithFacebook(email: user!.email!, password: passwordTextField.text!, facebookCredential: credential, OnSuccess: {
-            ProgressHUD.showSuccess()
             self.success = true
-            self.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async {
+                ProgressHUD.showSuccess()
+                self.dismiss(animated: true, completion: nil)
+            }
         }) { (error) in
-            ProgressHUD.showError(error)
+            DispatchQueue.main.async {
+                ProgressHUD.showError(error)
+            }
         }
         
     }
