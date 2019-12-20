@@ -17,6 +17,11 @@ class NewTargetCell: UITableViewCell {
     @IBOutlet weak var targetImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cellBackgroundView: UIView!
+    @IBOutlet weak var commentsView: UIView!
+    @IBOutlet weak var commentsLabel: UILabel!
+    @IBOutlet weak var likesView: UIView!
+    @IBOutlet weak var likeImageView: UIImageView!
+    @IBOutlet weak var likesLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
