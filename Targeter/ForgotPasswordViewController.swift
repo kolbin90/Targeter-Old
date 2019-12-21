@@ -25,7 +25,6 @@ class ForgotPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         handleTextField()
-        // Do any additional setup after loading the view.
         if let email = email {
             emailTextField.text = email
         }

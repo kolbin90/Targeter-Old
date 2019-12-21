@@ -187,11 +187,7 @@ extension SignUpViewController: FBSDKLoginButtonDelegate {
             ProgressHUD.show("Loading...")
             Auth.auth().signIn(with: credential) { (result, error) in
                 
-                if let result = result {
-                    print(result)
-                }
                 if let error = error {
-                    print(error)
                     if error.localizedDescription == "An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address." {
                         let confirmPasswordVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "ConfirmPasswordViewController") as! ConfirmPasswordViewController
                         DispatchQueue.main.async {
