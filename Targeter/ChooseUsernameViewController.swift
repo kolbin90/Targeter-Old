@@ -86,7 +86,7 @@ class ChooseUsernameViewController: UIViewController {
     func logout(){
         let manager = FBSDKLoginManager()
         manager.logOut()
-        if let user = Api.user.currentUser {
+        if let _ = Api.user.currentUser {
             AuthService.firebaseLogOut()
         }
     }
