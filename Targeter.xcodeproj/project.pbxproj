@@ -53,6 +53,7 @@
 		8508BEC323A08B5E0094DD0C /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC223A08B5E0094DD0C /* SignUpViewController.swift */; };
 		8508BEC523A7538A0094DD0C /* ConfirmPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC423A7538A0094DD0C /* ConfirmPasswordViewController.swift */; };
 		8508BEC723A9E1B20094DD0C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */; };
+		853686C623B3229E0049957E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853686C523B3229E0049957E /* ProfileViewController.swift */; };
 		857F20A32399F4370057F144 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A22399F4370057F144 /* AuthService.swift */; };
 		857F20A7239A0E220057F144 /* ChooseUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */; };
 		85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */; };
@@ -137,6 +138,7 @@
 		8508BEC223A08B5E0094DD0C /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		8508BEC423A7538A0094DD0C /* ConfirmPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPasswordViewController.swift; sourceTree = "<group>"; };
 		8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		853686C523B3229E0049957E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		857F20A22399F4370057F144 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUsernameViewController.swift; sourceTree = "<group>"; };
 		85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Targeter-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				8508BEC223A08B5E0094DD0C /* SignUpViewController.swift */,
 				8508BEC423A7538A0094DD0C /* ConfirmPasswordViewController.swift */,
 				8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */,
+				853686C523B3229E0049957E /* ProfileViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -665,6 +668,7 @@
 				04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */,
 				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
 				044D572F1E788D7D00AF1545 /* Image+CoreDataProperties.swift in Sources */,
+				853686C623B3229E0049957E /* ProfileViewController.swift in Sources */,
 				04416CFE1E774541003BCDD3 /* FlickrClient.swift in Sources */,
 				04D4F3FF20A1286E00C462ED /* ProfileImage+CoreDataProperties.swift in Sources */,
 				8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */,
