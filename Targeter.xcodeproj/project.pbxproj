@@ -54,6 +54,7 @@
 		8508BEC523A7538A0094DD0C /* ConfirmPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC423A7538A0094DD0C /* ConfirmPasswordViewController.swift */; };
 		8508BEC723A9E1B20094DD0C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */; };
 		853686C623B3229E0049957E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853686C523B3229E0049957E /* ProfileViewController.swift */; };
+		853686C823B445020049957E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C723B445020049957E /* Profile.storyboard */; };
 		857F20A32399F4370057F144 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A22399F4370057F144 /* AuthService.swift */; };
 		857F20A7239A0E220057F144 /* ChooseUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */; };
 		85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */; };
@@ -139,6 +140,7 @@
 		8508BEC423A7538A0094DD0C /* ConfirmPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPasswordViewController.swift; sourceTree = "<group>"; };
 		8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		853686C523B3229E0049957E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		853686C723B445020049957E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		857F20A22399F4370057F144 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUsernameViewController.swift; sourceTree = "<group>"; };
 		85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Targeter-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				85CDFF9D23975CAC0083CF10 /* ProgressHUD.h */,
 				85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */,
 				85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */,
+				853686C723B445020049957E /* Profile.storyboard */,
 			);
 			path = Targeter;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 			files = (
 				85CDFF9F23975CAC0083CF10 /* ProgressHUD.bundle in Resources */,
 				04B526541FCE38BC00EDFD6D /* 13880327_1071710792884531_6739614795217912898_n.jpg in Resources */,
+				853686C823B445020049957E /* Profile.storyboard in Resources */,
 				041EE53A1E70C011006D623B /* LaunchScreen.storyboard in Resources */,
 				042493411FA81B4C000E45EA /* GoogleService-Info.plist in Resources */,
 				04DCC2D01FD25A4000680F34 /* image-2017-04-27-2.jpg in Resources */,
