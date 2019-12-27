@@ -214,6 +214,7 @@
 				041EE52F1E70C010006D623B /* AppDelegate.swift */,
 				041EE5331E70C011006D623B /* Main.storyboard */,
 				85CDFFA023976B730083CF10 /* Login.storyboard */,
+				853686C723B445020049957E /* Profile.storyboard */,
 				041EE5361E70C011006D623B /* Assets.xcassets */,
 				041EE5381E70C011006D623B /* LaunchScreen.storyboard */,
 				042493401FA81B4A000E45EA /* GoogleService-Info.plist */,
@@ -222,7 +223,6 @@
 				85CDFF9D23975CAC0083CF10 /* ProgressHUD.h */,
 				85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */,
 				85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */,
-				853686C723B445020049957E /* Profile.storyboard */,
 			);
 			path = Targeter;
 			sourceTree = "<group>";
