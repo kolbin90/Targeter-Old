@@ -10,9 +10,15 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var targetsLabel: UILabel!
+    @IBOutlet weak var followersLabel: UILabel!
+    @IBOutlet weak var followingLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setNavigationController()
         // Do any additional setup after loading the view.
     }
     
@@ -27,4 +33,6 @@ class ProfileViewController: UIViewController {
     }
     */
 
+    @IBAction func editButton_TchUpIns(_ sender: Any) {
+    }
 }

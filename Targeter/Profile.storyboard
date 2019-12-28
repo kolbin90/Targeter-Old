@@ -144,8 +144,19 @@
                         <viewLayoutGuide key="safeArea" id="Jk5-aB-4rz"/>
                     </view>
                     <navigationItem key="navigationItem" id="BXN-vw-dHO">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="X9b-bb-fBT"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="X9b-bb-fBT">
+                            <connections>
+                                <action selector="editButton_TchUpIns:" destination="k6e-76-mtO" id="abu-xh-Ywj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="followersLabel" destination="jmo-Tv-3Hr" id="Gfn-09-GnS"/>
+                        <outlet property="followingLabel" destination="OWx-hC-cp4" id="dfX-QX-NG5"/>
+                        <outlet property="fromLabel" destination="AEc-I5-8Oq" id="Si6-m3-bOr"/>
+                        <outlet property="nameLabel" destination="eoH-Yb-hXd" id="20H-AV-ATc"/>
+                        <outlet property="targetsLabel" destination="MHi-RC-WW4" id="RZw-Vl-5Lc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JEj-n3-vgG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
