@@ -36,3 +36,4 @@ class ProfileViewController: UIViewController {
     @IBAction func editButton_TchUpIns(_ sender: Any) {
     }
 }
+

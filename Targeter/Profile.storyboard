@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BLI-hc-PCS">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="vdP-ad-grZ">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="480"/>
@@ -107,7 +107,7 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" red="1" green="0.022732843419999999" blue="0.0801321324" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="jtj-ZB-OJ0" firstAttribute="leading" secondItem="vdP-ad-grZ" secondAttribute="leading" constant="20" id="6vC-EW-CNa"/>
                                         <constraint firstAttribute="trailing" secondItem="We0-rq-D2R" secondAttribute="trailing" id="B3j-t5-any"/>
@@ -143,6 +143,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jk5-aB-4rz"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="Profile" selectedImage="Profile_Selected" id="He7-z2-f56">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="BXN-vw-dHO">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="X9b-bb-fBT">
                             <connections>
@@ -150,6 +153,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="followersLabel" destination="jmo-Tv-3Hr" id="Gfn-09-GnS"/>
                         <outlet property="followingLabel" destination="OWx-hC-cp4" id="dfX-QX-NG5"/>
@@ -165,7 +169,7 @@
         <!--Navigation Controller-->
         <scene sceneID="WDp-er-eXy">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nrg-2G-P4W" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationProfile" automaticallyAdjustsScrollViewInsets="NO" id="nrg-2G-P4W" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="B9Y-VV-ilR">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -183,5 +187,7 @@
     </scenes>
     <resources>
         <image name="13880327_1071710792884531_6739614795217912898_n.jpg" width="960" height="960"/>
+        <image name="Profile" width="20" height="21"/>
+        <image name="Profile_Selected" width="20" height="21"/>
     </resources>
 </document>

@@ -35,8 +35,12 @@
         <!--Navigation Controller-->
         <scene sceneID="hz1-RL-MLb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="r0M-pI-Fzb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationTargets" automaticallyAdjustsScrollViewInsets="NO" id="r0M-pI-Fzb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" systemItem="more" id="AaR-x2-HK6">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                    </tabBarItem>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="21C-vL-FTf">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
