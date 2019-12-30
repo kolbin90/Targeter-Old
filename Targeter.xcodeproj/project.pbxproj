@@ -55,6 +55,7 @@
 		8508BEC723A9E1B20094DD0C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */; };
 		85135A2723B816AB00FDE496 /* TargetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2623B816AB00FDE496 /* TargetsViewController.swift */; };
 		85135A2923B817C900FDE496 /* TabBars.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85135A2823B817C900FDE496 /* TabBars.storyboard */; };
+		85135A2B23B9DC6C00FDE496 /* AddTargetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */; };
 		853686C623B3229E0049957E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853686C523B3229E0049957E /* ProfileViewController.swift */; };
 		853686C823B445020049957E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C723B445020049957E /* Profile.storyboard */; };
 		853686CA23B814290049957E /* Targets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C923B814290049957E /* Targets.storyboard */; };
@@ -144,6 +145,7 @@
 		8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		85135A2623B816AB00FDE496 /* TargetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetsViewController.swift; sourceTree = "<group>"; };
 		85135A2823B817C900FDE496 /* TabBars.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBars.storyboard; sourceTree = "<group>"; };
+		85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTargetTableViewController.swift; sourceTree = "<group>"; };
 		853686C523B3229E0049957E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		853686C723B445020049957E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		853686C923B814290049957E /* Targets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Targets.storyboard; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */,
 				853686C523B3229E0049957E /* ProfileViewController.swift */,
 				85135A2623B816AB00FDE496 /* TargetsViewController.swift */,
+				85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -677,6 +680,7 @@
 				041EE5301E70C010006D623B /* AppDelegate.swift in Sources */,
 				041EE56D1E70D05C006D623B /* Success+CoreDataProperties.swift in Sources */,
 				85CDFFA3239772E30083CF10 /* SignInViewController.swift in Sources */,
+				85135A2B23B9DC6C00FDE496 /* AddTargetTableViewController.swift in Sources */,
 				8508BEC723A9E1B20094DD0C /* ForgotPasswordViewController.swift in Sources */,
 				041EE56E1E70D05C006D623B /* Target+CoreDataClass.swift in Sources */,
 				041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */,
