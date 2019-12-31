@@ -12,7 +12,7 @@ struct Constants {
     struct UserData {
         static let Name = "name"
         static let City = "city"
-        static let Age = "age"
+        static let Age = "age" //dep
         static let About = "about"
         static let ImageURL = "imageURL"
         static let Username = "username"
@@ -23,18 +23,20 @@ struct Constants {
     struct Target {
         static let TargetID = "targetID"
         static let Title = "title"
-        static let Description = "description"
+        static let Description = "description" //dep
         static let Percentage = "percentage"
-        static let Started = "started"
+        static let Started = "started" //dep
         static let Completed = "completed"
-        static let ImageURL = "imageURL"
+        static let ImageURL = "imageURL" // dep
+        static let ImageUrlString = "imageUrlString"
         static let Checkins = "checkins"
-        static let DateBeginning = "dateBeginning"
-        static let DateEnding = "dateEnding"
+        static let DateBeginning = "dateBeginning" //dep
+        static let Start = "start"
+        static let DateEnding = "dateEnding" //dep
     }
     struct RootFolders {
         static let Users = "users"
-        static let Targets = "targets"
+        static let Targets = "targets" //dep
         static let NewTargets = "newtargets"
     }
 }
