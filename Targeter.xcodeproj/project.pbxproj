@@ -58,6 +58,7 @@
 		85135A2B23B9DC6C00FDE496 /* AddTargetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */; };
 		85135A2D23BAEA4400FDE496 /* TargetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2C23BAEA4400FDE496 /* TargetApi.swift */; };
 		85135A2F23BAFEBD00FDE496 /* User_TargetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2E23BAFEBD00FDE496 /* User_TargetApi.swift */; };
+		85135A3123BB249100FDE496 /* CropImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A3023BB249100FDE496 /* CropImageViewController.swift */; };
 		853686C623B3229E0049957E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853686C523B3229E0049957E /* ProfileViewController.swift */; };
 		853686C823B445020049957E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C723B445020049957E /* Profile.storyboard */; };
 		853686CA23B814290049957E /* Targets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C923B814290049957E /* Targets.storyboard */; };
@@ -150,6 +151,7 @@
 		85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTargetTableViewController.swift; sourceTree = "<group>"; };
 		85135A2C23BAEA4400FDE496 /* TargetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetApi.swift; sourceTree = "<group>"; };
 		85135A2E23BAFEBD00FDE496 /* User_TargetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User_TargetApi.swift; sourceTree = "<group>"; };
+		85135A3023BB249100FDE496 /* CropImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageViewController.swift; sourceTree = "<group>"; };
 		853686C523B3229E0049957E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		853686C723B445020049957E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		853686C923B814290049957E /* Targets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Targets.storyboard; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				853686C523B3229E0049957E /* ProfileViewController.swift */,
 				85135A2623B816AB00FDE496 /* TargetsViewController.swift */,
 				85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */,
+				85135A3023BB249100FDE496 /* CropImageViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				041EE5701E70D05C006D623B /* Schedule+CoreDataClass.swift in Sources */,
+				85135A3123BB249100FDE496 /* CropImageViewController.swift in Sources */,
 				04416CFF1E774541003BCDD3 /* FlickrConstants.swift in Sources */,
 				041EE5711E70D05C006D623B /* Schedule+CoreDataProperties.swift in Sources */,
 				04E470FE1FB668E5002C5D12 /* FriendsVC.swift in Sources */,

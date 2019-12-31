@@ -549,6 +549,21 @@
             </objects>
             <point key="canvasLocation" x="1698.5507246376812" y="60.9375"/>
         </scene>
+        <!--Crop Image View Controller-->
+        <scene sceneID="jGc-pB-NHB">
+            <objects>
+                <viewController storyboardIdentifier="CropImageViewController" id="vPi-J9-9XB" customClass="CropImageViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7DS-as-xPd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Dvc-1W-Gfy"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="daB-f1-opN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2491" y="61"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="hz1-RL-MLb">
             <objects>
