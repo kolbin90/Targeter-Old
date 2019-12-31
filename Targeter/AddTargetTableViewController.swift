@@ -17,6 +17,9 @@ class AddTargetTableViewController: UITableViewController {
     
     let dateFormatter = DateFormatter()
 
+    deinit {
+        print("______________________ DEINIT ________________________")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +112,19 @@ class AddTargetTableViewController: UITableViewController {
         navigationController?.popViewController(animated: true)
     }
     @IBAction func addTargetButton_TchUpIns(_ sender: Any) {
-        //Api.target.uploadTargetToServer(image: <#T##UIImage#>, title: <#T##String#>, start: <#T##Int#>, onSuccess: <#T##() -> Void#>, onError: <#T##(String) -> Void#>)
+        ProgressHUD.show("Adding...")
+        var startDate: Int?
+        if startTextField.text == "Today" {
+            startDate = Int(Date().timeIntervalSince1970)
+        } else {
+            startDate = Int(dateFormatter.date(from: startTextField.text!)!.timeIntervalSince1970)
+        }
+        Api.target.uploadTargetToServer(image: cell.targetImageView.image!, title: titleTextField.text!, start: startDate!, onSuccess: {
+            ProgressHUD.showSuccess()
+            self.navigationController?.popViewController(animated: true)
+        }) { (errorString) in
+            ProgressHUD.showError(errorString)
+        }
     }
     @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
         let pickerController = UIImagePickerController()
