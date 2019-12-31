@@ -35,5 +35,6 @@ struct Constants {
     struct RootFolders {
         static let Users = "users"
         static let Targets = "targets"
+        static let NewTargets = "newtargets"
     }
 }
