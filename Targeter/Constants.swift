@@ -33,10 +33,13 @@ struct Constants {
         static let DateBeginning = "dateBeginning" //dep
         static let Start = "start"
         static let DateEnding = "dateEnding" //dep
+        static let Uid = "uid"
+        static let Timestamp = "timestamp"
     }
     struct RootFolders {
         static let Users = "users"
         static let Targets = "targets" //dep
         static let NewTargets = "newtargets"
+        static let User_Target = "user_target"
     }
 }
