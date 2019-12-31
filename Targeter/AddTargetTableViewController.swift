@@ -23,6 +23,7 @@ class AddTargetTableViewController: UITableViewController {
         setNavigationController()
         handleTextField()
         textFieldDidChange()
+        cell.targetImageView.backgroundColor = UIColor.random()
         dateFormatter.dateFormat = "MM-dd-yyyy"
     }
     

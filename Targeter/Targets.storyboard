@@ -59,7 +59,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jiv-vQ-RVU">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zakat" translatesAutoresizingMaskIntoConstraints="NO" id="edF-zM-YOB">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edF-zM-YOB">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hBJ-6H-4ru">
@@ -521,6 +521,5 @@
     <resources>
         <image name="Comment" width="43" height="41"/>
         <image name="like" width="46" height="41"/>
-        <image name="zakat" width="349.5" height="218.5"/>
     </resources>
 </document>
