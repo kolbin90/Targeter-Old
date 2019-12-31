@@ -10,81 +10,115 @@ import UIKit
 
 class AddTargetTableViewController: UITableViewController {
 
+    @IBOutlet weak var addTargetButton: UIButton!
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var startTextField: UITextField!
+    @IBOutlet weak var cell: NewTargetCell!
+    
+    let dateFormatter = DateFormatter()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationController()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        handleTextField()
+        textFieldDidChange()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+    }
+    
+    func handleTextField() {
+        titleTextField.addTarget(self, action: #selector(AddTargetTableViewController.titleTextFieldDidChange), for: UIControl.Event.editingChanged)
+        startTextField.addTarget(self, action: #selector(AddTargetTableViewController.textFieldDidChange), for: UIControl.Event.editingChanged)
+    }
+    @objc func titleTextFieldDidChange() {
+        
+        guard let titleText = titleTextField.text, !titleText.isEmpty else {
+            cell.titleLabel.text = ""
+            return
+        }
+        cell.titleLabel.text = " \(titleText) "
+        
+        guard let startText = startTextField.text, !startText.isEmpty else {
+            addTargetButton.setTitleColor(.lightGray, for: .normal)
+            addTargetButton.isEnabled = false
+            return
+        }
+        addTargetButton.setTitleColor(.black, for: .normal)
+        addTargetButton.isEnabled = true
+    }
+    @objc func textFieldDidChange() {
+        guard let title = titleTextField.text, !title.isEmpty, let start = startTextField.text, !start.isEmpty else {
+            addTargetButton.setTitleColor(.lightGray, for: .normal)
+            addTargetButton.isEnabled = false
+            return
+        }
+        addTargetButton.setTitleColor(.black, for: .normal)
+        addTargetButton.isEnabled = true
+    }
+    
+    
+    
+    func setPickerView(forTextfield textField: UITextField ) {
+        let datePickerView = UIDatePickerWithSenderTag()
+        datePickerView.senderTag = textField.tag
+        datePickerView.datePickerMode = UIDatePicker.Mode.date
+        datePickerView.minimumDate = Date()
+        datePickerView.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())!
+        
+        textField.inputView = datePickerView
+        datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControl.Event.valueChanged)
+        
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 45))
+        let flexibleSeparator = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        toolbar.items = [flexibleSeparator, doneButton]
+        toolbar.barTintColor = .groupTableViewBackground
+        toolbar.tintColor = .black
+        textField.inputAccessoryView = toolbar
+    }
+    
+    @objc func datePickerValueChanged(sender:UIDatePickerWithSenderTag) {
+        if dateFormatter.string(from: sender.date) == dateFormatter.string(from: Date()) {
+            startTextField.text = "Today"
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        } else {
+            startTextField.text = dateFormatter.string(from: sender.date)
+        }
+    }
+    
+    class UIDatePickerWithSenderTag:UIDatePicker {
+        var senderTag: Int?
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+        }
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+        }
     }
 
-    // MARK: - Table view data source
+    
+    
 
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return 0
-//    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    @IBAction func startTextField_EditingDidBegin(_ sender: UITextField) {
+        setPickerView(forTextfield: sender)
+        
+        
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    @IBAction func addTargetButton_TchUpIns(_ sender: Any) {
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        present(pickerController, animated: true, completion: nil)
     }
-    */
+}
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+extension AddTargetTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            cell.targetImageView.image = image
+            //selectedImage = image
+        }
+        dismiss(animated: true, completion: nil)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
