@@ -39,7 +39,7 @@ class AddTargetTableViewController: UITableViewController {
         }
         cell.titleLabel.text = " \(titleText) "
         
-        guard let startText = startTextField.text, !startText.isEmpty else {
+        guard let startText = startTextField.text, !startText.isEmpty, let _ = cell.targetImageView.image else {
             addTargetButton.setTitleColor(.lightGray, for: .normal)
             addTargetButton.isEnabled = false
             return
@@ -48,7 +48,7 @@ class AddTargetTableViewController: UITableViewController {
         addTargetButton.isEnabled = true
     }
     @objc func textFieldDidChange() {
-        guard let title = titleTextField.text, !title.isEmpty, let start = startTextField.text, !start.isEmpty else {
+        guard let title = titleTextField.text, !title.isEmpty, let start = startTextField.text, !start.isEmpty, let _ = cell.targetImageView.image else {
             addTargetButton.setTitleColor(.lightGray, for: .normal)
             addTargetButton.isEnabled = false
             return
@@ -109,6 +109,7 @@ class AddTargetTableViewController: UITableViewController {
         navigationController?.popViewController(animated: true)
     }
     @IBAction func addTargetButton_TchUpIns(_ sender: Any) {
+        //Api.target.uploadTargetToServer(image: <#T##UIImage#>, title: <#T##String#>, start: <#T##Int#>, onSuccess: <#T##() -> Void#>, onError: <#T##(String) -> Void#>)
     }
     @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
         let pickerController = UIImagePickerController()
