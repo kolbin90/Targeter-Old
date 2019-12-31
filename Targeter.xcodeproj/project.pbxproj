@@ -56,6 +56,8 @@
 		85135A2723B816AB00FDE496 /* TargetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2623B816AB00FDE496 /* TargetsViewController.swift */; };
 		85135A2923B817C900FDE496 /* TabBars.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85135A2823B817C900FDE496 /* TabBars.storyboard */; };
 		85135A2B23B9DC6C00FDE496 /* AddTargetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */; };
+		85135A2D23BAEA4400FDE496 /* TargetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2C23BAEA4400FDE496 /* TargetApi.swift */; };
+		85135A2F23BAFEBD00FDE496 /* User_TargetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85135A2E23BAFEBD00FDE496 /* User_TargetApi.swift */; };
 		853686C623B3229E0049957E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853686C523B3229E0049957E /* ProfileViewController.swift */; };
 		853686C823B445020049957E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C723B445020049957E /* Profile.storyboard */; };
 		853686CA23B814290049957E /* Targets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C923B814290049957E /* Targets.storyboard */; };
@@ -146,6 +148,8 @@
 		85135A2623B816AB00FDE496 /* TargetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetsViewController.swift; sourceTree = "<group>"; };
 		85135A2823B817C900FDE496 /* TabBars.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBars.storyboard; sourceTree = "<group>"; };
 		85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTargetTableViewController.swift; sourceTree = "<group>"; };
+		85135A2C23BAEA4400FDE496 /* TargetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetApi.swift; sourceTree = "<group>"; };
+		85135A2E23BAFEBD00FDE496 /* User_TargetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User_TargetApi.swift; sourceTree = "<group>"; };
 		853686C523B3229E0049957E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		853686C723B445020049957E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		853686C923B814290049957E /* Targets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Targets.storyboard; sourceTree = "<group>"; };
@@ -347,6 +351,8 @@
 				857F20A22399F4370057F144 /* AuthService.swift */,
 				8508BEBE239A2C990094DD0C /* UserApi.swift */,
 				8508BEC0239A2CAD0094DD0C /* Api.swift */,
+				85135A2C23BAEA4400FDE496 /* TargetApi.swift */,
+				85135A2E23BAFEBD00FDE496 /* User_TargetApi.swift */,
 			);
 			name = Api;
 			sourceTree = "<group>";
@@ -702,6 +708,7 @@
 				044ED1441E77362800F61A33 /* ImageFromFlickerVC.swift in Sources */,
 				041EE5751E70FD6F006D623B /* AddTargetVC.swift in Sources */,
 				04416D011E77B915003BCDD3 /* ImageCell.swift in Sources */,
+				85135A2D23BAEA4400FDE496 /* TargetApi.swift in Sources */,
 				04E471001FB6720A002C5D12 /* FriendCell.swift in Sources */,
 				04B526561FD1037000EDFD6D /* EditProfileVC.swift in Sources */,
 				041EE5631E70C1CD006D623B /* Model.xcdatamodeld in Sources */,
@@ -709,6 +716,7 @@
 				044D572C1E788D7D00AF1545 /* ImageSearch+CoreDataClass.swift in Sources */,
 				041EE5651E70C23B006D623B /* CoreDataStack.swift in Sources */,
 				857F20A32399F4370057F144 /* AuthService.swift in Sources */,
+				85135A2F23BAFEBD00FDE496 /* User_TargetApi.swift in Sources */,
 				85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */,
 				8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */,
 				04A2EAB81FD4E55E000E82EE /* Constants.swift in Sources */,
