@@ -478,6 +478,35 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="" id="kii-7M-rZr">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lBP-Sl-0Ih">
+                                        <rect key="frame" x="0.0" y="415" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lBP-Sl-0Ih" id="DFy-yN-v1e">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ImD-sh-NLV">
+                                                    <rect key="frame" x="0.0" y="4" width="414" height="36"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                                    <state key="normal" title="Cancel">
+                                                        <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="cancelButton_TchUpIns:" destination="9xp-Gf-DaO" eventType="touchUpInside" id="aME-aB-JyV"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ImD-sh-NLV" firstAttribute="centerY" secondItem="DFy-yN-v1e" secondAttribute="centerY" id="Uhj-ez-JXs"/>
+                                                <constraint firstAttribute="trailing" secondItem="ImD-sh-NLV" secondAttribute="trailing" id="Yze-TX-Kss"/>
+                                                <constraint firstItem="ImD-sh-NLV" firstAttribute="leading" secondItem="DFy-yN-v1e" secondAttribute="leading" id="vpE-4X-C5E"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="9xp-Gf-DaO" id="r77-ed-qKB"/>

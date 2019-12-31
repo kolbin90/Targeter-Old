@@ -105,6 +105,9 @@ class AddTargetTableViewController: UITableViewController {
         
         
     }
+    @IBAction func cancelButton_TchUpIns(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
     @IBAction func addTargetButton_TchUpIns(_ sender: Any) {
     }
     @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
