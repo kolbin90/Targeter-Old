@@ -386,6 +386,9 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3e-t0-IRY">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="JE1-cN-hKF"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
                                                     <state key="normal" title="Choose image"/>
                                                     <connections>
