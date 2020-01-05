@@ -143,12 +143,12 @@ extension AddTargetTableViewController: UIImagePickerControllerDelegate, UINavig
                 let cropImageVC = UIStoryboard.init(name: "Targets", bundle: nil).instantiateViewController(withIdentifier: "CropImageViewController") as! CropImageViewController
                 cropImageVC.image = image
                 ProgressHUD.dismiss()
-                //self.navigationController?.show(cropImageVC, sender: nil)
+                self.navigationController?.show(cropImageVC, sender: nil)
                 
-                let navController = UINavigationController(rootViewController: cropImageVC)
-                self.present(navController, animated: true, completion: {
-                    ProgressHUD.dismiss()
-                })
+//                let navController = UINavigationController(rootViewController: cropImageVC)
+//                self.present(navController, animated: true, completion: {
+//                    ProgressHUD.dismiss()
+//                })
             }
         }
 
