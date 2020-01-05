@@ -13,13 +13,16 @@ class CropImageViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     
+    var image: UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationController()
         // Do any additional setup after loading the view.
     }
     
-
+    func setScrollView() {
+        
+    }
     /*
     // MARK: - Navigation
 

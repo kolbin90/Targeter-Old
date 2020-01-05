@@ -135,10 +135,19 @@ class AddTargetTableViewController: UITableViewController {
 
 extension AddTargetTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            cell.targetImageView.image = image
-            //selectedImage = image
+        dismiss(animated: true) {
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                //cell.targetImageView.image = image
+                //selectedImage = image
+                ProgressHUD.show("Loading...")
+                let cropImageVC = UIStoryboard.init(name: "Targets", bundle: nil).instantiateViewController(withIdentifier: "CropImageViewController") as! CropImageViewController
+                cropImageVC.image = image
+                ProgressHUD.dismiss()
+                self.navigationController?.show(cropImageVC, sender: nil)
+                
+                
+            }
         }
-        dismiss(animated: true, completion: nil)
+
     }
 }
