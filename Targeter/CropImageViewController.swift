@@ -10,6 +10,9 @@ import UIKit
 
 class CropImageViewController: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationController()
@@ -26,5 +29,7 @@ class CropImageViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func continueButton_TchUpIns(_ sender: Any) {
+    }
+    
 }

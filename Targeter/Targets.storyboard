@@ -596,18 +596,7 @@
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8d-pZ-ERS">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
-                                                        <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zakat" translatesAutoresizingMaskIntoConstraints="NO" id="kCp-Ps-i4l">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
-                                                            </imageView>
-                                                        </subviews>
                                                         <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstItem="kCp-Ps-i4l" firstAttribute="top" secondItem="b8d-pZ-ERS" secondAttribute="top" id="9RH-pY-WOS"/>
-                                                            <constraint firstItem="kCp-Ps-i4l" firstAttribute="leading" secondItem="b8d-pZ-ERS" secondAttribute="leading" id="ElQ-yp-U0C"/>
-                                                            <constraint firstAttribute="trailing" secondItem="kCp-Ps-i4l" secondAttribute="trailing" id="FpJ-JT-g5K"/>
-                                                            <constraint firstAttribute="bottom" secondItem="kCp-Ps-i4l" secondAttribute="bottom" id="heq-Pq-l7Z"/>
-                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <constraints>
@@ -642,6 +631,9 @@
                                         <state key="normal" title="Continue">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="continueButton_TchUpIns:" destination="vPi-J9-9XB" eventType="touchUpInside" id="z5x-OO-V2k"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -654,6 +646,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dvc-1W-Gfy"/>
                     </view>
+                    <connections>
+                        <outlet property="contentView" destination="b8d-pZ-ERS" id="KeW-oO-m2x"/>
+                        <outlet property="scrollView" destination="ywE-Cu-krs" id="GWx-dn-pw3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="daB-f1-opN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -685,6 +681,5 @@
     <resources>
         <image name="Comment" width="43" height="41"/>
         <image name="like" width="46" height="41"/>
-        <image name="zakat" width="349.5" height="218.5"/>
     </resources>
 </document>
