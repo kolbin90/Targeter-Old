@@ -15,18 +15,28 @@ class CropImageViewController: UIViewController {
     
     var image: UIImage?
     var imageView: UIImageView = UIImageView()
+    var imageViewIsShown = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationController()
+
         if #available(iOS 11.0, *) {
             self.navigationItem.largeTitleDisplayMode = .never
         } else {
             // Fallback on earlier versions
         }
-        setScrollView()
         // Do any additional setup after loading the view.
     }
-    
+
+    override func viewDidAppear(_ animated: Bool) {
+        if !imageViewIsShown {
+            setScrollView()
+        }
+
+        
+
+    }
     /*
     // MARK: - Navigation
 
@@ -45,18 +55,21 @@ class CropImageViewController: UIViewController {
 }
 
 extension CropImageViewController: UIScrollViewDelegate {
+    
     func setScrollView() {
         scrollView.delegate = self
         guard let image = image else {
             return
         }
         imageView.image = image
-        imageView.contentMode = .center
+        imageView.contentMode = .top
         imageView.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.width)
+
         imageView.isUserInteractionEnabled = true
         contentView.isUserInteractionEnabled = true
         
-        scrollView.contentSize = image.size
+        scrollView.contentSize.height = image.size.height
+        scrollView.contentSize.width = image.size.width
         
         let scaleWidth = scrollView.frame.size.width / scrollView.contentSize.width
         let scaleHeight = scrollView.frame.size.height / scrollView.contentSize.height
@@ -64,36 +77,31 @@ extension CropImageViewController: UIScrollViewDelegate {
         let maxScale = max(scaleWidth,scaleHeight)
         
         scrollView.minimumZoomScale = maxScale
-        scrollView.maximumZoomScale = 1
+        scrollView.maximumZoomScale = 2
         scrollView.zoomScale = maxScale
         scrollView.addSubview(imageView)
+        imageViewIsShown = true
 
-        //centerScrollViewContent()
+        
+        
+        centerScrollViewContent()
       
     }
     
     func centerScrollViewContent() {
-        let boundsSize = scrollView.bounds.size
-        var contentFrame = imageView.frame
-        
-        if contentFrame.width < boundsSize.width {
-            contentFrame.origin.x = (boundsSize.width - contentFrame.width) / 2
+        if #available(iOS 11.0, *) {
+            imageView.centerXAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerXAnchor)
+            imageView.centerYAnchor.constraint(equalTo: scrollView.contentLayoutGuide.centerYAnchor)
         } else {
-            contentFrame.origin.x = 0
+            let offsetX = max((scrollView.bounds.width - scrollView.contentSize.width) * 0.5, 0)
+            let offsetY = max((scrollView.bounds.height - scrollView.contentSize.height) * 0.5, 0)
+            scrollView.contentInset = UIEdgeInsets(top: offsetY, left: offsetX, bottom: 0, right: 0)
         }
-        
-        if contentFrame.height < boundsSize.height {
-            contentFrame.origin.y = (boundsSize.height - contentFrame.height) / 2
-        } else {
-            contentFrame.origin.y = 0
-        }
-        
-        imageView.frame = contentFrame
     }
     
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        //centerScrollViewContent()
+        centerScrollViewContent()
     }
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
