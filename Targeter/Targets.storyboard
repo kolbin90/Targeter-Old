@@ -623,7 +623,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="continueButton_TchUpIns:" destination="vPi-J9-9XB" eventType="touchUpInside" id="z5x-OO-V2k"/>
-                                                    <segue destination="B1i-9x-OeJ" kind="show" id="j4z-NN-tfT"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCQ-pt-I6B">

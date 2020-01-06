@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class CropImageViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -33,9 +35,18 @@ class CropImageViewController: UIViewController {
         if !imageViewIsShown {
             setScrollView()
         }
-
-        
-
+    }
+    
+    func cropImage() {
+        UIGraphicsBeginImageContextWithOptions(scrollView.bounds.size, true, UIScreen.main.scale)
+        //let offset = scrollView.contentOffset
+       // CGContextTranslateCTM(<#CGContext#>, <#CGFloat#>, <#CGFloat#>)
+        //CGContext.translateBy(x: -offset.x ,y: -offset.y)
+        scrollView.drawHierarchy(in: CGRect(x: 0, y: 0, width: scrollView.bounds.size.width, height: scrollView.bounds.size.height), afterScreenUpdates: true)
+        //scrollView.drawHierarchy(in: CGrect(in: <#T##CGRect#>, afterScreenUpdates: <#T##Bool#>)// CGRectMake(0,0,view.bounds.size.width,view.bounds.size.height), afterScreenUpdates: true)
+        if let image = UIGraphicsGetImageFromCurrentImageContext() {
+            print("__________ura___________")
+        }
     }
     /*
     // MARK: - Navigation
@@ -47,6 +58,7 @@ class CropImageViewController: UIViewController {
     }
     */
     @IBAction func continueButton_TchUpIns(_ sender: Any) {
+        cropImage()
     }
     @IBAction func cancelButton_TchUpIns(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
