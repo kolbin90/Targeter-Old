@@ -142,6 +142,7 @@ extension AddTargetTableViewController: UIImagePickerControllerDelegate, UINavig
                 ProgressHUD.show("Loading...")
                 let cropImageVC = UIStoryboard.init(name: "Targets", bundle: nil).instantiateViewController(withIdentifier: "CropImageViewController") as! CropImageViewController
                 cropImageVC.image = image
+                cropImageVC.delegate = self
                 ProgressHUD.dismiss()
                 self.navigationController?.show(cropImageVC, sender: nil)
                 
@@ -152,5 +153,12 @@ extension AddTargetTableViewController: UIImagePickerControllerDelegate, UINavig
             }
         }
 
+    }
+}
+
+extension AddTargetTableViewController: CropImageViewControllerDelegate {
+    func setImage(_ image: UIImage) {
+        cell.targetImageView.image = image
+        cell.updateFocusIfNeeded()
     }
 }

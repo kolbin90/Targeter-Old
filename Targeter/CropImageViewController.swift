@@ -8,13 +8,17 @@
 
 import UIKit
 
-
+protocol CropImageViewControllerDelegate {
+    func setImage(_ image: UIImage)
+    
+}
 
 class CropImageViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     
+    var delegate: CropImageViewControllerDelegate?
     var image: UIImage?
     var imageView: UIImageView = UIImageView()
     var imageViewIsShown = false
@@ -37,31 +41,26 @@ class CropImageViewController: UIViewController {
         }
     }
     
-    func cropImage() {
+    func cropImage(completion: @escaping () -> Void) {
         UIGraphicsBeginImageContextWithOptions(scrollView.bounds.size, true, UIScreen.main.scale)
-        //let offset = scrollView.contentOffset
-       // CGContextTranslateCTM(<#CGContext#>, <#CGFloat#>, <#CGFloat#>)
-        //CGContext.translateBy(x: -offset.x ,y: -offset.y)
-        scrollView.drawHierarchy(in: CGRect(x: 0, y: 0, width: scrollView.bounds.size.width, height: scrollView.bounds.size.height), afterScreenUpdates: true)
-        //scrollView.drawHierarchy(in: CGrect(in: <#T##CGRect#>, afterScreenUpdates: <#T##Bool#>)// CGRectMake(0,0,view.bounds.size.width,view.bounds.size.height), afterScreenUpdates: true)
-        if let image = UIGraphicsGetImageFromCurrentImageContext() {
-            print("__________ura___________")
+
+        let renderer = UIGraphicsImageRenderer(size: scrollView.frame.size)
+        let image = renderer.image { ctx in
+            scrollView.drawHierarchy(in: scrollView.frame, afterScreenUpdates: true)
+        }
+        delegate?.setImage(image)
+        completion()
+
+    }
+
+    @IBAction func continueButton_TchUpIns(_ sender: Any) {
+        cropImage() {
+            self.navigationController?.popViewController(animated: true)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    @IBAction func continueButton_TchUpIns(_ sender: Any) {
-        cropImage()
-    }
+    
     @IBAction func cancelButton_TchUpIns(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
