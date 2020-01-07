@@ -11,12 +11,22 @@ import UIKit
 class TargetsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    var targets: [TargetModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        observeTargets()
         
         // Do any additional setup after loading the view.
+    }
+    
+    func observeTargets() {
+        Api.target.observeTargets(completion: { (target) in
+            self.targets.append(target)
+        }) { (error) in
+            ProgressHUD.showError(error)
+        }
     }
     
 
