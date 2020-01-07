@@ -14,6 +14,18 @@ import FirebaseStorage
 class TargetApi {
     var targetsRef = Database.database().reference().child(Constants.RootFolders.NewTargets)
     
+    func observeTargets(completion: @escaping (TargetModel) -> Void,onError: @escaping (String) -> Void ){
+        targetsRef.observe(.childAdded) { (snapshot) in
+            if let dict = snapshot.value as? [String: Any] {
+                completion(TargetModel.transformDataToTarget(dict: dict, id: snapshot.key))
+            }
+        }
+    }
+
+    
+    
+    
+    
     func uploadTargetToServer(image: UIImage, title: String, start: Int, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
         guard let targetImageData = image.jpegData(compressionQuality: 0.3) else {
             onError("Failed uploading image to server")
