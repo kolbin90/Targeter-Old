@@ -13,7 +13,7 @@ class TargetModel {
     var imageURLString: String?
     var start: Int?
     var id: String?
-    var timestamp: String?
+    var timestamp: Int?
 }
 extension TargetModel {    
     static func transformDataToTarget(dict: [String:Any], id: String) -> TargetModel {
@@ -23,7 +23,8 @@ extension TargetModel {
         target.imageURLString = dict[Constants.Target.ImageUrlString] as? String
         target.start = dict[Constants.Target.Start] as? Int
         target.id = id
-        target.timestamp = dict[Constants.Target.Timestamp] as? String
+        target.timestamp = dict[Constants.Target.Timestamp] as? Int
+        
         return target
     }
 }
