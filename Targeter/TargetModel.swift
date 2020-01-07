@@ -13,24 +13,9 @@ class TargetModel {
     var imageURLString: String?
     var start: Int?
     var id: String?
+    var timestamp: String?
 }
-extension TargetModel {
-//    static func transformFaceBookDataToUser(dict: [String:Any]) -> TargetModel {
-//        let target = TargetModel()
-//        user.email = dict[Constants.UserData.Email] as? String
-//        user.name = dict[Constants.UserData.Name] as? String
-//        if let pictureDictionary = dict["picture"] as? [String:Any] {
-//            print(pictureDictionary)
-//            if let dataDictionary = pictureDictionary["data"] as? [String:Any] {
-//                print(dataDictionary)
-//                if let imageURLString = dataDictionary["url"] as? String {
-//                    user.imageURLString = imageURLString
-//                }
-//            }
-//        }
-//        return target
-//    }
-    
+extension TargetModel {    
     static func transformDataToTarget(dict: [String:Any], id: String) -> TargetModel {
         let target = TargetModel()
         
@@ -38,7 +23,7 @@ extension TargetModel {
         target.imageURLString = dict[Constants.Target.ImageUrlString] as? String
         target.start = dict[Constants.Target.Start] as? Int
         target.id = id
-        
+        target.timestamp = dict[Constants.Target.Timestamp] as? String
         return target
     }
 }
