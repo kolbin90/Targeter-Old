@@ -62,6 +62,7 @@
 		853686C623B3229E0049957E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853686C523B3229E0049957E /* ProfileViewController.swift */; };
 		853686C823B445020049957E /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C723B445020049957E /* Profile.storyboard */; };
 		853686CA23B814290049957E /* Targets.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853686C923B814290049957E /* Targets.storyboard */; };
+		856E0BD923C428DF007529FC /* TargetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856E0BD823C428DF007529FC /* TargetModel.swift */; };
 		857F20A32399F4370057F144 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A22399F4370057F144 /* AuthService.swift */; };
 		857F20A7239A0E220057F144 /* ChooseUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */; };
 		85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */; };
@@ -155,6 +156,7 @@
 		853686C523B3229E0049957E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		853686C723B445020049957E /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		853686C923B814290049957E /* Targets.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Targets.storyboard; sourceTree = "<group>"; };
+		856E0BD823C428DF007529FC /* TargetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetModel.swift; sourceTree = "<group>"; };
 		857F20A22399F4370057F144 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUsernameViewController.swift; sourceTree = "<group>"; };
 		85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Targeter-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				041EE55E1E70C0F6006D623B /* CoreData */,
 				04A2EAB71FD4E55E000E82EE /* Constants.swift */,
 				8508BEBB239A1F000094DD0C /* UserModel.swift */,
+				856E0BD823C428DF007529FC /* TargetModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				85135A3123BB249100FDE496 /* CropImageViewController.swift in Sources */,
 				04416CFF1E774541003BCDD3 /* FlickrConstants.swift in Sources */,
 				041EE5711E70D05C006D623B /* Schedule+CoreDataProperties.swift in Sources */,
+				856E0BD923C428DF007529FC /* TargetModel.swift in Sources */,
 				04E470FE1FB668E5002C5D12 /* FriendsVC.swift in Sources */,
 				044D572D1E788D7D00AF1545 /* ImageSearch+CoreDataProperties.swift in Sources */,
 				047A353E1E712CFB0084AD68 /* TargetCell.swift in Sources */,
