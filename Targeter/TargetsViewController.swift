@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 class TargetsViewController: UIViewController {
 
@@ -53,9 +54,25 @@ extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
         cell.cellTarget = targets[indexPath.row]
+        cell.delegate = self
         
         return cell
         
     }
     
+}
+
+extension TargetsViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            // handle action by updating model with deletion
+        }
+        
+        // customize the action appearance
+        deleteAction.image = UIImage(named: "delete")
+        
+        return [deleteAction]
+    }
 }
