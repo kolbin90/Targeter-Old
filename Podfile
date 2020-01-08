@@ -15,6 +15,8 @@ target 'Targeter' do
   pod 'FBSDKLoginKit'
   pod 'SwiftyJSON'
   pod 'SDWebImage'
+  pod 'SwipeCellKit', '2.6.0'
+
 
 	
 	target 'TargeterTests' do
