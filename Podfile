@@ -2,8 +2,8 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'Targeter' do
-    	pod 'FSCalendar'
-   	pod 'Firebase/Storage'
+  pod 'FSCalendar'
+  pod 'Firebase/Storage'
 	pod 'Firebase/Core'
 	pod 'Firebase/Database'
 	pod 'Firebase/RemoteConfig'
@@ -14,6 +14,8 @@ target 'Targeter' do
 	pod 'IQKeyboardManagerSwift'
   pod 'FBSDKLoginKit'
   pod 'SwiftyJSON'
+  pod 'SDWebImage'
+
 	
 	target 'TargeterTests' do
         	inherit! :search_paths

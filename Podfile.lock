@@ -237,6 +237,7 @@ DEPENDENCIES:
   - FSCalendar
   - GoogleSignIn
   - IQKeyboardManagerSwift
+  - SDWebImage
   - SwiftyJSON
 
 SPEC REPOS:
@@ -318,6 +319,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 054005edf5350aa9074af74b41456e5a61e3f322
 
-PODFILE CHECKSUM: 0f07bfedd001591741f7f572b7f37b70e60d1b0d
+PODFILE CHECKSUM: 82b25fc3594e7604c8cfab3f6217f6d2296beb8f
 
 COCOAPODS: 1.7.5
