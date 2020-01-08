@@ -56,13 +56,12 @@ class NewTargetCell: UITableViewCell {
     func updateView() {
         self.backgroundColor = UIColor.random()
         if let title = cellTarget.title {
-            titleLabel.text = cellTarget.title
+            titleLabel.text = " \(title) "
         }
         if let start = cellTarget.start {
             
         }
         if let imageUrlString = cellTarget.imageURLString {
-            //targetImageView!.sd_setImage(with: imageUrlString, placeholderImage: nil, options: [:]) { (image, error, imageCacheType, url) in
             targetImageView?.sd_setImage(with: URL(string: imageUrlString)) { (image, error, cacheType, url) in
                 
             }
