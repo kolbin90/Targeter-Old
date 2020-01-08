@@ -16,6 +16,8 @@ class TargetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
         observeTargets()
         
         // Do any additional setup after loading the view.
@@ -24,22 +26,29 @@ class TargetsViewController: UIViewController {
     func observeTargets() {
         Api.target.observeTargets(completion: { (target) in
             self.targets.append(target)
+            self.tableView.reloadData()
         }) { (error) in
             ProgressHUD.showError(error)
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     @IBAction func addTargetButton_TchUpIns(_ sender: Any) {
+    }
+    
+}
+
+extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return targets.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
+        cell.cellTarget = targets[indexPath.row]
+        
+        return cell
+        
     }
     
 }

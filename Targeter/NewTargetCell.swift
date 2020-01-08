@@ -32,7 +32,7 @@ class NewTargetCell: UITableViewCell {
     
     var cellTarget: TargetModel! {
         didSet {
-            //updateView()
+            updateView()
         }
     }
 
@@ -54,6 +54,7 @@ class NewTargetCell: UITableViewCell {
     
     
     func updateView() {
+        self.backgroundColor = UIColor.random()
         if let title = cellTarget.title {
             titleLabel.text = cellTarget.title
         }
