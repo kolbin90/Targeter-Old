@@ -22,9 +22,16 @@ class NewTargetCell: UITableViewCell {
     @IBOutlet weak var likesView: UIView!
     @IBOutlet weak var likeImageView: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    var cellTarget: TargetModel! {
+        didSet {
+            //updateView()
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -41,6 +48,20 @@ class NewTargetCell: UITableViewCell {
         for mark in marks {
             mark.alpha = 0
         }
+    }
+    
+    
+    func updateView() {
+        if let title = cellTarget.title {
+            titleLabel.text = cellTarget.title
+        }
+        if let start = cellTarget.start {
+            
+        }
+        if let imageUrlString = cellTarget.imageURLString {
+            
+        }
+        
     }
     
 }

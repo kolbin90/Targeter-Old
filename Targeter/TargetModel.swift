@@ -24,7 +24,7 @@ extension TargetModel {
         target.start = dict[Constants.Target.Start] as? Int
         target.id = id
         target.timestamp = dict[Constants.Target.Timestamp] as? Int
-        
+    
         return target
     }
 }
