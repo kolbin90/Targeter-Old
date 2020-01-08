@@ -54,6 +54,7 @@ class NewTargetCell: UITableViewCell {
     
     
     func updateView() {
+        percentage.isHidden = true
         self.backgroundColor = UIColor.random()
         if let title = cellTarget.title {
             titleLabel.text = " \(title) "
