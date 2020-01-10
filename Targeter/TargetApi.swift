@@ -83,22 +83,17 @@ class TargetApi {
 //            })
 //        }
         
-        let newTargerRef = Api.target.targetsRef.child(newTargetId)
+        let newTargetRef = Api.target.targetsRef.child(newTargetId)
         
         var dict = [Constants.Target.ImageUrlString: imageUrlString, Constants.Target.Title: title,Constants.Target.Start: start,Constants.Target.Uid: uid, Constants.Target.Timestamp: timestamp] as [String : Any]
         
-        newTargerRef.setValue(dict) { (error, ref) in
+        newTargetRef.setValue(dict) { (error, ref) in
             if let error = error {
                 onError(error.localizedDescription)
                 return
             }
-            Api.user_target.user_targetRef.child(uid).child(newTargetId).setValue(true, withCompletionBlock: { (error, ref) in
-                if let error = error {
-                    onError(error.localizedDescription)
-                    return
-                }
-                onSuccess()
-            })
+            Api.user_target.saveUserTargetReference(targetId: newTargetId, onSuccess: onSuccess, onError: onError)
+            
         }
     }
 }
