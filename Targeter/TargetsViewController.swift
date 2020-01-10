@@ -64,22 +64,25 @@ extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension TargetsViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else {
+        if orientation == .left  {
             let succeedAction = SwipeAction(style: .default, title: "Succeed") { action, indexPath in
                 // handle action by updating model with deletion
             }
             succeedAction.backgroundColor = UIColor.greenColor()
-            return [succeedAction] }
-        
-        let failedAction = SwipeAction(style: .default, title: "Failed") { action, indexPath in
-            // handle action by updating model with deletion
-            //self.targets.remove(at: indexPath.row)
+            return [succeedAction]
+            
+        } else {
+            
+            let failedAction = SwipeAction(style: .default, title: "Failed") { action, indexPath in
+                // handle action by updating model with deletion
+                //self.targets.remove(at: indexPath.row)
+            }
+            
+            // customize the action appearance
+            failedAction.backgroundColor = UIColor.redColor()
+            
+            return [failedAction]
         }
-        
-        // customize the action appearance
-        failedAction.backgroundColor = UIColor.redColor()
-
-        return [failedAction]
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
