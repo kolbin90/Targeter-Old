@@ -13,4 +13,18 @@ import FirebaseDatabase
 
 class User_TargetApi {
     let user_targetRef = Database.database().reference().child(Constants.RootFolders.User_Target)
+    
+    func saveUserTargetReference(targetId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        if let uid = Api.user.currentUser?.uid {
+            user_targetRef.child(Api.user.currentUser!.uid).child(targetId).setValue(true){ (error, ref) in
+                if let error = error {
+                    onError(error.localizedDescription)
+                    return
+                }
+                
+            }
+        }
+    }
 }
+
+
