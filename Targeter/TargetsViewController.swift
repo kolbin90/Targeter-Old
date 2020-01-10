@@ -69,6 +69,7 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
                 // handle action by updating model with deletion
             }
             succeedAction.backgroundColor = UIColor.greenColor()
+            succeedAction.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
             return [succeedAction]
             
         } else {
@@ -80,7 +81,7 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
             
             // customize the action appearance
             failedAction.backgroundColor = UIColor.redColor()
-            
+            failedAction.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
             return [failedAction]
         }
     }
