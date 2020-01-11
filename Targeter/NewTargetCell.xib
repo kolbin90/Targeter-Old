@@ -47,7 +47,7 @@
                                 <rect key="frame" x="0.0" y="32.5" width="288" height="23"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Wtf-BY-ZDZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="216" height="23"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="233.5" height="23"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Опусти водный епта" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rnj-W8-P8h">
                                                 <rect key="frame" x="0.0" y="0.0" width="191.5" height="23"/>
@@ -59,19 +59,12 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="kfc-HF-O6p">
-                                        <rect key="frame" x="221" y="0.0" width="67" height="23"/>
+                                        <rect key="frame" x="238.5" y="0.0" width="49.5" height="23"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2d-l0-6Cd">
                                                 <rect key="frame" x="0.0" y="0.0" width="49.5" height="23"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUf-aG-h2g">
-                                                <rect key="frame" x="54.5" y="0.0" width="12.5" height="23"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -273,6 +266,20 @@
                             </stackView>
                         </subviews>
                     </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUf-aG-h2g">
+                        <rect key="frame" x="309" y="43.5" width="9" height="23"/>
+                        <color key="backgroundColor" red="1" green="0.022732843419999999" blue="0.0801321324" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CrM-Wh-mVy">
+                        <rect key="frame" x="2" y="43" width="9" height="23"/>
+                        <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="z7H-gy-zV0" secondAttribute="bottom" id="5JH-cF-dY4"/>
@@ -281,11 +288,19 @@
                     <constraint firstItem="92N-5o-daz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="LEs-Mi-hw7"/>
                     <constraint firstItem="Jd9-ql-fVi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="OYr-Bj-gTu"/>
                     <constraint firstItem="Jd9-ql-fVi" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="Oen-fX-lFv"/>
+                    <constraint firstItem="qUf-aG-h2g" firstAttribute="leading" secondItem="Jd9-ql-fVi" secondAttribute="trailing" constant="5" id="S6K-Be-dFw"/>
+                    <constraint firstItem="CrM-Wh-mVy" firstAttribute="height" secondItem="Rnj-W8-P8h" secondAttribute="height" id="S84-ha-JuW"/>
                     <constraint firstItem="z7H-gy-zV0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SgH-jJ-WCc"/>
+                    <constraint firstItem="Rnj-W8-P8h" firstAttribute="centerY" secondItem="CrM-Wh-mVy" secondAttribute="centerY" constant="0.5" id="Typ-bj-Mwc"/>
+                    <constraint firstItem="Jd9-ql-fVi" firstAttribute="leading" secondItem="CrM-Wh-mVy" secondAttribute="trailing" constant="5" id="U4o-mo-X2r"/>
                     <constraint firstAttribute="trailing" secondItem="92N-5o-daz" secondAttribute="trailing" id="UDp-cp-kL9"/>
+                    <constraint firstItem="CrM-Wh-mVy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="2" id="WZr-UK-bS8"/>
                     <constraint firstItem="Jd9-ql-fVi" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="WdL-FO-GDY"/>
                     <constraint firstAttribute="bottom" secondItem="92N-5o-daz" secondAttribute="bottom" id="fAF-Bl-hrt"/>
+                    <constraint firstItem="qUf-aG-h2g" firstAttribute="centerY" secondItem="w2d-l0-6Cd" secondAttribute="centerY" id="gnD-pD-mJi"/>
+                    <constraint firstAttribute="trailing" secondItem="qUf-aG-h2g" secondAttribute="trailing" constant="2" id="mGJ-q3-cJI"/>
                     <constraint firstItem="Jd9-ql-fVi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="vtM-RZ-QoB"/>
+                    <constraint firstItem="qUf-aG-h2g" firstAttribute="height" secondItem="w2d-l0-6Cd" secondAttribute="height" id="z06-Vg-08k"/>
                     <constraint firstAttribute="trailing" secondItem="z7H-gy-zV0" secondAttribute="trailing" id="zzG-ew-s2X"/>
                 </constraints>
             </tableViewCellContentView>
@@ -294,6 +309,7 @@
                 <outlet property="cellBackgroundView" destination="z7H-gy-zV0" id="dEu-0B-X4E"/>
                 <outlet property="commentsLabel" destination="Ea2-HT-LQE" id="vEW-Tq-p4R"/>
                 <outlet property="commentsView" destination="F5s-7q-reT" id="1aT-1e-kMJ"/>
+                <outlet property="leftArrow" destination="CrM-Wh-mVy" id="G7R-2Z-xzH"/>
                 <outlet property="likeImageView" destination="xhk-RL-fJv" id="zAf-WZ-iVu"/>
                 <outlet property="likesLabel" destination="V3A-Ep-CQw" id="bHs-qf-NSV"/>
                 <outlet property="likesView" destination="x9j-K1-V0m" id="UDO-vu-5Hh"/>

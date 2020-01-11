@@ -68,6 +68,7 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
             let succeedAction = SwipeAction(style: .default, title: "Succeed") { action, indexPath in
                 // handle action by updating model with deletion
             }
+            // customize the action appearance
             succeedAction.backgroundColor = UIColor.greenColor()
             succeedAction.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
             return [succeedAction]
@@ -76,7 +77,6 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
             
             let failedAction = SwipeAction(style: .default, title: "Failed") { action, indexPath in
                 // handle action by updating model with deletion
-                //self.targets.remove(at: indexPath.row)
             }
             
             // customize the action appearance
@@ -85,6 +85,8 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
             return [failedAction]
         }
     }
+    
+    
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()

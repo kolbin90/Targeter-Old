@@ -16,6 +16,7 @@ class NewTargetCell: SwipeTableViewCell {
     @IBOutlet weak var percentage: UILabel!
     @IBOutlet weak var todayMark: UILabel!
     @IBOutlet weak var rightArror: UILabel!
+    @IBOutlet weak var leftArrow: UILabel!
     @IBOutlet var marks: [UIView]!
     @IBOutlet weak var targetImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -28,6 +29,9 @@ class NewTargetCell: SwipeTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        leftArrow.backgroundColor = UIColor.greenColor()
+        rightArror.backgroundColor = UIColor.redColor()
+
         // Initialization code
     }
     
