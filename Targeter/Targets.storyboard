@@ -106,7 +106,7 @@
                                                             <rect key="frame" x="0.0" y="39.5" width="374" height="29"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="gfp-2h-XdV">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="302" height="29"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="319.5" height="29"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3sy-eJ-fqS">
                                                                             <rect key="frame" x="0.0" y="0.0" width="0.0" height="29"/>
@@ -118,19 +118,12 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vaO-1X-Xhh">
-                                                                    <rect key="frame" x="307" y="0.0" width="67" height="29"/>
+                                                                    <rect key="frame" x="324.5" y="0.0" width="49.5" height="29"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRx-rz-yWC">
                                                                             <rect key="frame" x="0.0" y="0.0" width="49.5" height="29"/>
                                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
-                                                                            <nil key="textColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUK-aa-Zpt">
-                                                                            <rect key="frame" x="54.5" y="0.0" width="12.5" height="29"/>
-                                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="20"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -332,19 +325,41 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sUK-aa-Zpt">
+                                                    <rect key="frame" x="399" y="50.5" width="13" height="29"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ong-pS-gtF">
+                                                    <rect key="frame" x="2" y="50.5" width="13" height="29"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Jiv-vQ-RVU" secondAttribute="trailing" id="0s1-pw-inm"/>
                                                 <constraint firstItem="hBJ-6H-4ru" firstAttribute="trailing" secondItem="SpW-D4-gLR" secondAttribute="trailingMargin" id="4mM-lK-GGr"/>
+                                                <constraint firstItem="ong-pS-gtF" firstAttribute="height" secondItem="sUK-aa-Zpt" secondAttribute="height" id="6cw-yY-YLR"/>
+                                                <constraint firstItem="hBJ-6H-4ru" firstAttribute="leading" secondItem="ong-pS-gtF" secondAttribute="trailing" constant="5" id="BVG-d6-AYU"/>
                                                 <constraint firstAttribute="bottom" secondItem="Jiv-vQ-RVU" secondAttribute="bottom" id="Mic-ei-PEv"/>
                                                 <constraint firstItem="hBJ-6H-4ru" firstAttribute="top" secondItem="SpW-D4-gLR" secondAttribute="topMargin" id="Qad-o1-Ja4"/>
                                                 <constraint firstAttribute="trailing" secondItem="edF-zM-YOB" secondAttribute="trailing" id="Rwu-Cm-JKD"/>
                                                 <constraint firstItem="Jiv-vQ-RVU" firstAttribute="top" secondItem="SpW-D4-gLR" secondAttribute="top" id="TLp-tr-kGL"/>
                                                 <constraint firstItem="edF-zM-YOB" firstAttribute="leading" secondItem="SpW-D4-gLR" secondAttribute="leading" id="U8m-wp-GT2"/>
+                                                <constraint firstItem="sUK-aa-Zpt" firstAttribute="height" secondItem="dRx-rz-yWC" secondAttribute="height" id="Uo6-NY-z5R"/>
                                                 <constraint firstItem="hBJ-6H-4ru" firstAttribute="leading" secondItem="SpW-D4-gLR" secondAttribute="leadingMargin" id="XVv-g0-9kn"/>
+                                                <constraint firstItem="ong-pS-gtF" firstAttribute="centerY" secondItem="sUK-aa-Zpt" secondAttribute="centerY" id="XdK-fm-VBt"/>
+                                                <constraint firstItem="sUK-aa-Zpt" firstAttribute="centerY" secondItem="dRx-rz-yWC" secondAttribute="centerY" id="Yoa-0A-V0F"/>
                                                 <constraint firstItem="edF-zM-YOB" firstAttribute="top" secondItem="SpW-D4-gLR" secondAttribute="top" id="eq3-19-fye"/>
+                                                <constraint firstItem="ong-pS-gtF" firstAttribute="leading" secondItem="SpW-D4-gLR" secondAttribute="leading" constant="2" id="hi9-7s-fLw"/>
                                                 <constraint firstAttribute="bottom" secondItem="edF-zM-YOB" secondAttribute="bottom" id="mVp-cV-hKr"/>
+                                                <constraint firstAttribute="trailing" secondItem="sUK-aa-Zpt" secondAttribute="trailing" constant="2" id="mWt-cg-C5W"/>
                                                 <constraint firstItem="Jiv-vQ-RVU" firstAttribute="leading" secondItem="SpW-D4-gLR" secondAttribute="leading" id="q5D-os-tdK"/>
+                                                <constraint firstItem="sUK-aa-Zpt" firstAttribute="leading" secondItem="hBJ-6H-4ru" secondAttribute="trailing" constant="5" id="rsW-j7-rd4"/>
                                                 <constraint firstItem="hBJ-6H-4ru" firstAttribute="bottom" secondItem="SpW-D4-gLR" secondAttribute="bottomMargin" id="zjM-NA-51R"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -353,6 +368,7 @@
                                             <outlet property="cellBackgroundView" destination="Jiv-vQ-RVU" id="Obd-1g-loA"/>
                                             <outlet property="commentsLabel" destination="CfF-Wp-jco" id="a0S-wr-mTL"/>
                                             <outlet property="commentsView" destination="xxy-aI-Hn2" id="OZW-ru-pRV"/>
+                                            <outlet property="leftArrow" destination="ong-pS-gtF" id="FOO-lT-7Pf"/>
                                             <outlet property="likeImageView" destination="r2m-VW-dJn" id="XYl-Sc-9GG"/>
                                             <outlet property="likesLabel" destination="fqr-Oe-bHS" id="Pwx-d1-zAq"/>
                                             <outlet property="likesView" destination="fy8-WC-SzN" id="uy8-AV-eym"/>
