@@ -14,15 +14,16 @@ protocol CropImageViewControllerDelegate {
 }
 
 class CropImageViewController: UIViewController {
-
+    // MARK: Outlets
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
-    
+    // MARK: Variables
     var delegate: CropImageViewControllerDelegate?
     var image: UIImage?
     var imageView: UIImageView = UIImageView()
     var imageViewIsShown = false
 
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationController()
@@ -41,6 +42,9 @@ class CropImageViewController: UIViewController {
         }
     }
     
+    
+    // MARK: Assist methods
+
     func cropImage(completion: @escaping () -> Void) {
         UIGraphicsBeginImageContextWithOptions(scrollView.bounds.size, true, UIScreen.main.scale)
 
@@ -52,7 +56,7 @@ class CropImageViewController: UIViewController {
         completion()
 
     }
-
+    // MARK: Actions
     @IBAction func continueButton_TchUpIns(_ sender: Any) {
         cropImage() {
             self.navigationController?.popViewController(animated: true)
@@ -64,7 +68,8 @@ class CropImageViewController: UIViewController {
     }
     
 }
-
+// MARK: - Extensions
+// MARK: UIScrollViewDelegate
 extension CropImageViewController: UIScrollViewDelegate {
     
     func setScrollView() {
