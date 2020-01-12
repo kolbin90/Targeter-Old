@@ -7,12 +7,15 @@
 //
 
 import UIKit
+// MARK: - Protocols
+// MARK: CropImageViewControllerDelegate
 
 protocol CropImageViewControllerDelegate {
     func setImage(_ image: UIImage)
     
 }
 
+// MARK: - CropImageViewController
 class CropImageViewController: UIViewController {
     // MARK: Outlets
     @IBOutlet weak var scrollView: UIScrollView!
