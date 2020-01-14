@@ -27,6 +27,11 @@ class AddTargetTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationController()
+        if #available(iOS 11.0, *) {
+            self.navigationItem.largeTitleDisplayMode = .always
+        } else {
+            // Fallback on earlier versions
+        }
         handleTextField()
         textFieldDidChange()
         cell.targetImageView.backgroundColor = UIColor.random()
