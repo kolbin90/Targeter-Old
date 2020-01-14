@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK: - CropImageViewController
+// MARK: - AddTargetTableViewController
 class AddTargetTableViewController: UITableViewController {
     // MARK: Outlets
     @IBOutlet weak var addTargetButton: UIButton!

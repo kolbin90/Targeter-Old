@@ -8,13 +8,15 @@
 
 import UIKit
 import SwipeCellKit
-// MARK: - CropImageViewController
+// MARK: - TargetsViewController
 
 class TargetsViewController: UIViewController {
-
+    // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
+    // MARK: Variables
     var targets: [TargetModel] = []
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,7 +33,7 @@ class TargetsViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
+    // MARK: Assist methods
     func observeTargets() {
         Api.target.observeTargets(completion: { (target) in
             self.targets.append(target)
@@ -41,11 +43,13 @@ class TargetsViewController: UIViewController {
         }
     }
     
+    // MARK: Actions
     @IBAction func addTargetButton_TchUpIns(_ sender: Any) {
     }
     
 }
-
+// MARK: - Extensions
+// MARK: UITableViewDataSource, UITableViewDelegate
 extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return targets.count
@@ -62,7 +66,7 @@ extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
 }
-
+// MARK: SwipeTableViewCellDelegate
 extension TargetsViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         if orientation == .left  {
