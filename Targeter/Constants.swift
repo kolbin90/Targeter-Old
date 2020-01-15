@@ -36,6 +36,11 @@ struct Constants {
         static let Uid = "uid"
         static let Timestamp = "timestamp"
     }
+    struct CheckIn {
+        static let Result = "result"
+        static let Timestamp = "timestamp"
+    }
+    
     struct RootFolders {
         static let Users = "users"
         static let Targets = "targets" //dep
