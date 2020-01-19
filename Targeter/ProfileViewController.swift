@@ -8,8 +8,10 @@
 
 import UIKit
 
+// MARK: - ProfileViewController
 class ProfileViewController: UIViewController {
 
+    // MARK: Outlets
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var targetsLabel: UILabel!
@@ -17,7 +19,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    // MARK: Variables
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set up Navigation controller
@@ -33,10 +37,13 @@ class ProfileViewController: UIViewController {
     }
     
 
+    // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
     }
 }
 
+// MARK: - Extensions
+// MARK: UITableViewDataSource, UITableViewDelegate
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! UITableViewCell
