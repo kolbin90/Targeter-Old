@@ -46,5 +46,6 @@ struct Constants {
         static let Targets = "targets" //dep
         static let NewTargets = "newtargets"
         static let User_Target = "user_target"
+        static let CheckIns = "checkins"
     }
 }
