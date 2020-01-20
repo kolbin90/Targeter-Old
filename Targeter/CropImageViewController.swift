@@ -29,14 +29,7 @@ class CropImageViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationController()
-
-        if #available(iOS 11.0, *) {
-            self.navigationItem.largeTitleDisplayMode = .never
-        } else {
-            // Fallback on earlier versions
-        }
-        // Do any additional setup after loading the view.
+        setNavigationController(largeTitleDisplayMode: .never)
     }
 
     override func viewDidAppear(_ animated: Bool) {

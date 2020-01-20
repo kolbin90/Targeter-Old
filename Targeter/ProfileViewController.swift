@@ -25,12 +25,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set up Navigation controller
-        setNavigationController()
-        if #available(iOS 11.0, *) {
-            self.navigationItem.largeTitleDisplayMode = .never
-        } else {
-            // Fallback on earlier versions
-        }
+        setNavigationController(largeTitleDisplayMode: .never)
+
 
         tableView.dataSource = self
         // Do any additional setup after loading the view.

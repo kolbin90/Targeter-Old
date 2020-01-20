@@ -35,16 +35,7 @@ class SignInViewController: UIViewController {
         signInButton.isEnabled = false
         
         // Set up Navigation controller
-        setNavigationController()
-        if #available(iOS 11.0, *) {
-            self.navigationItem.largeTitleDisplayMode = .never
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        
-        
-        
+        setNavigationController(largeTitleDisplayMode: .never)
         
     }
     // MARK: Handle textfield

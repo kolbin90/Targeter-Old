@@ -24,7 +24,7 @@ extension UIViewController {
         return imageData
     }
     
-    func setNavigationController() {
+    func setNavigationController(largeTitleDisplayMode: UINavigationItem.LargeTitleDisplayMode) {
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 22)!]
         UIBarButtonItem.appearance().setTitleTextAttributes([ NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
@@ -35,9 +35,11 @@ extension UIViewController {
             navigationController?.navigationBar.largeTitleTextAttributes =
                 [NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 30) ??
                     UIFont.systemFont(ofSize: 30)]
+            self.navigationItem.largeTitleDisplayMode = largeTitleDisplayMode
         } else {
             // Use defailt om old iOS
         }
+
     }
     // Show activity indicator
     func activityIndicatoryShowing(showing: Bool, view: UIView) {

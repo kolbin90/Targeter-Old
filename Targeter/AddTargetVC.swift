@@ -48,13 +48,8 @@ class AddTargetVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        setNavigationController() // Set up Navigation controller
-        if #available(iOS 11.0, *) {
-            // Use large title for newer iOS
-            self.navigationItem.largeTitleDisplayMode = .always
-        } else {
-            // Use regular on older
-        }
+        setNavigationController(largeTitleDisplayMode: .always)
+
         // Set up Firebase
         configDatabase()
         configureStorage()

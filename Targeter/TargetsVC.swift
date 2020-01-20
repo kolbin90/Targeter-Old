@@ -71,12 +71,8 @@ class TargetsVC: UITableViewController {
         
         
         // Set up Navigation controller
-        setNavigationController()
-        if #available(iOS 11.0, *) {
-            self.navigationItem.largeTitleDisplayMode = .never
-        } else {
-            // Fallback on earlier versions
-        }
+        setNavigationController(largeTitleDisplayMode: .never)
+
 
         /*
         // Create a fetchrequest
