@@ -13,6 +13,7 @@ import FirebaseStorage
 
 class TargetApi {
     var targetsRef = Database.database().reference().child(Constants.RootFolders.NewTargets)
+    var checkInsRef = Database.database().reference().child(Constants.RootFolders.CheckIns)
     
     func observeTargets(completion: @escaping (TargetModel) -> Void,onError: @escaping (String) -> Void ){
         targetsRef.observe(.childAdded) { (snapshot) in
@@ -36,6 +37,20 @@ class TargetApi {
                 onSuccess()
             }, onError: onError)
         }, onError: onError)
+    }
+    
+    func saveCheckInToDatabase(result: String, targetId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        let timestamp = Int(Date().timeIntervalSince1970)
+        var dict = [Constants.CheckIn.Result: result, Constants.CheckIn.Timestamp: timestamp] as [String : Any]
+
+        checkInsRef.child(targetId).childByAutoId().setValue(dict) { (error, ref) in
+            if let error = error {
+                onError(error.localizedDescription)
+                return
+            }
+            onSuccess()
+        }
+    
     }
     
 
@@ -73,15 +88,6 @@ class TargetApi {
         guard let newTargetId = Api.target.targetsRef.childByAutoId().key else {
             return
         }
-        
-//        Api.feed.REF_FEED.child(Api.user.CURRENT_USER!.uid).child(newPostId).setValue(true)
-//        Api.follow.REF_FOLLOWERS.child(uid).observeSingleEvent(of: .value) { (snapshot) in
-//            let arraySnapshot = snapshot.children.allObjects as! [DataSnapshot]
-//            arraySnapshot.forEach({ (child) in
-//                Api.feed.REF_FEED.child(child.key).updateChildValues([newPostId: true])
-//                Api.notification.REF_NOTIFICATION.child(child.key).childByAutoId().setValue(["from": uid, "type": "feed", "objectId": newPostId, "timestamp": timestamp])
-//            })
-//        }
         
         let newTargetRef = Api.target.targetsRef.child(newTargetId)
         
