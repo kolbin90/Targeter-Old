@@ -68,6 +68,14 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
         if orientation == .left  {
             let succeedAction = SwipeAction(style: .default, title: "Succeed") { action, indexPath in
                 // handle action by updating model with deletion
+                guard let targetId = self.targets[indexPath.row].id else {
+                    return
+                }
+                Api.target.saveCheckInToDatabase(result: "S", targetId: targetId, onSuccess: {
+                    print("success")
+                }, onError: { (error) in
+                    ProgressHUD.showError(error)
+                })
             }
             // customize the action appearance
             succeedAction.backgroundColor = UIColor.greenColor()
