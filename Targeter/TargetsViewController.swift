@@ -86,6 +86,14 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
             
             let failedAction = SwipeAction(style: .default, title: "Failed") { action, indexPath in
                 // handle action by updating model with deletion
+                guard let targetId = self.targets[indexPath.row].id else {
+                    return
+                }
+                Api.target.saveCheckInToDatabase(result: "F", targetId: targetId, onSuccess: {
+                    print("success")
+                }, onError: { (error) in
+                    ProgressHUD.showError(error)
+                })
             }
             
             // customize the action appearance
