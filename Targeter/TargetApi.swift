@@ -19,18 +19,35 @@ class TargetApi {
         targetsRef.observe(.childAdded) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 var target = TargetModel.transformDataToTarget(dict: dict, id: snapshot.key)
-                target.checkIns = self.getCheckInsFor(targetId: target.id!)
                 
-                completion(target)
+                self.getCheckInsForLast15days(withTargetId: target.id!, completion: { (checkIns) in
+                    target.checkIns = checkIns
+                    completion(target)
+                }, onError: onError)
+            } else {
+                onError("Snapshot error")
             }
         }
     }
 
     
     
-    func getCheckInsFor(targetId id: String) -> [CheckInModel] {
+    fileprivate func getCheckInsForLast15days(withTargetId id: String,completion: @escaping ([CheckInModel]) -> Void,onError: @escaping (String) -> Void ) {
+        var checkIns = [CheckInModel]()
+        checkInsRef.child(id).queryOrdered(byChild: Constants.CheckIn.Timestamp).queryLimited(toFirst: 15).observeSingleEvent(of: .value) {(snapshot) in
+            for child in snapshot.children {
+                guard let child = child as? DataSnapshot else {
+                    onError("Error")
+                    return
+                }
+                if let dict = child.value as? [String: Any] {
+                    checkIns.append(CheckInModel.transformDataToCheckIn(dict: dict, id: child.key))
+                }
+            }
+            
+            completion(checkIns)
+        }
         
-        return [CheckInModel]
     }
     
     func uploadTargetToServer(image: UIImage, title: String, start: Int, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
