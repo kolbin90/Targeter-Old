@@ -8,6 +8,10 @@
 
 import UIKit
 import SwipeCellKit
+protocol TargetsViewControllerDelegate {
+    func cellSwiped(withResult result: CheckInModel.CheckInResult)
+}
+
 // MARK: - TargetsViewController
 
 class TargetsViewController: UIViewController {
@@ -15,6 +19,7 @@ class TargetsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     // MARK: Variables
     var targets: [TargetModel] = []
+    var delegates = [String: TargetsViewControllerDelegate]()
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -56,6 +61,7 @@ extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
         cell.cellTarget = targets[indexPath.row]
         cell.delegate = self
+        delegates["\(indexPath.row)"] = cell
         
         return cell
         
@@ -71,8 +77,11 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
                 guard let targetId = self.targets[indexPath.row].id else {
                     return
                 }
+                tableView.cellForRow(at: indexPath)
                 Api.target.saveCheckInToDatabase(result: "S", targetId: targetId, onSuccess: {
-                    print("success")
+                    if let delegate = self.delegates["\(indexPath.row)"] {
+                        delegate.cellSwiped(withResult: .succeed)
+                    }
                 }, onError: { (error) in
                     ProgressHUD.showError(error)
                 })
@@ -90,7 +99,9 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
                     return
                 }
                 Api.target.saveCheckInToDatabase(result: "F", targetId: targetId, onSuccess: {
-                    print("success")
+                    if let delegate = self.delegates["\(indexPath.row)"] {
+                        delegate.cellSwiped(withResult: .failed)
+                    }
                 }, onError: { (error) in
                     ProgressHUD.showError(error)
                 })

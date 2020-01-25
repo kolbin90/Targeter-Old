@@ -41,6 +41,12 @@ class NewTargetCell: SwipeTableViewCell {
         }
     }
     
+    var todaysCheckInResult: CheckInModel.CheckInResult? {
+        didSet {
+            updateViewForTodaysCheckIn()
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
 
         // Configure the view for the selected state
@@ -71,10 +77,39 @@ class NewTargetCell: SwipeTableViewCell {
             targetImageView?.sd_setImage(with: URL(string: imageUrlString)) { (image, error, cacheType, url) in
                 
             }
-            
         }
+        
         
     }
     
+    func updateViewForTodaysCheckIn() {
+        if let todaysCheckInResult = todaysCheckInResult {
+            switch todaysCheckInResult {
+            case .noResult:
+                leftArrow.isHidden = false
+                rightArror.isHidden = false
+                todayMark.backgroundColor = .white
+                todayMark.textColor = .black
+            case .failed:
+                leftArrow.isHidden = true
+                rightArror.isHidden = true
+                todayMark.backgroundColor = UIColor.redColor()
+                todayMark.textColor = .white
+            case .succeed:
+                leftArrow.isHidden = true
+                rightArror.isHidden = true
+                todayMark.backgroundColor = UIColor.greenColor()
+                todayMark.textColor = .white
+            }
+        }
+    }
+    
+    
+}
+
+extension NewTargetCell: TargetsViewControllerDelegate {
+    func cellSwiped(withResult result: CheckInModel.CheckInResult) {
+        todaysCheckInResult = result
+    }
 }
 
