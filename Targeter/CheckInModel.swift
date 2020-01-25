@@ -22,4 +22,10 @@ extension CheckInModel {
 
         return checkIn
     }
+    
+    enum CheckInResult {
+        case succeed
+        case failed
+        case noResult
+    }
 }
