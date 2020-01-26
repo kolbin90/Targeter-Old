@@ -8,6 +8,7 @@
 
 import UIKit
 import SwipeCellKit
+// MARK: - TargetsViewControllerDelegate
 protocol TargetsViewControllerDelegate {
     func cellSwiped(withResult result: CheckInModel.CheckInResult)
 }
