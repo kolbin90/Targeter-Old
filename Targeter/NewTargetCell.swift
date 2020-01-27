@@ -70,16 +70,13 @@ class NewTargetCell: SwipeTableViewCell {
         if let title = cellTarget.title {
             titleLabel.text = " \(title) "
         }
-        if let start = cellTarget.start {
-            
-        }
+
         if let imageUrlString = cellTarget.imageURLString {
             targetImageView?.sd_setImage(with: URL(string: imageUrlString)) { (image, error, cacheType, url) in
-                
+                // TODO: Save image to core data
             }
         }
-        
-        
+        fillCheckInsHistory()
     }
     
     func updateViewForTodaysCheckIn() {
@@ -104,7 +101,27 @@ class NewTargetCell: SwipeTableViewCell {
         }
     }
     
-    
+    func fillCheckInsHistory() {
+        guard let checkIns = cellTarget.checkIns else {
+            return
+        }
+        for (index, mark) in marks.reversed().enumerated() {
+            if checkIns.count >= (index + 1) {
+                let checkIn = checkIns[index]
+                guard let checkInResult = checkIn.result else {return}
+                switch checkInResult {
+                case .succeed:
+                    mark.backgroundColor = .greenColor()
+                    mark.alpha = 1
+                case .failed:
+                    mark.backgroundColor = .redColor()
+                    mark.alpha = 1
+                case .noResult:
+                    mark.alpha = 0
+                }
+            }
+        }
+    }
 }
 
 extension NewTargetCell: TargetsViewControllerDelegate {
