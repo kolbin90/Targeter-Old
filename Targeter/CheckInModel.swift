@@ -9,7 +9,7 @@
 import Foundation
 
 class CheckInModel {
-    var result: String?
+    var result: CheckInResult?
     var timestamp: Int?
 }
 
@@ -17,7 +17,14 @@ extension CheckInModel {
     static func transformDataToCheckIn(dict: [String:Any], id: String) -> CheckInModel {
         
         let checkIn = CheckInModel()
-        checkIn.result = dict[Constants.CheckIn.Result] as? String
+        if let resultString = dict[Constants.CheckIn.Result] as? String {
+            if resultString == Constants.CheckIn.SucceedResult {
+                checkIn.result = CheckInResult.succeed
+            } else if resultString == Constants.CheckIn.FailedResult {
+                checkIn.result = CheckInResult.failed
+            }
+        }
+        
         checkIn.timestamp = dict[Constants.CheckIn.Timestamp] as? Int
 
         return checkIn
