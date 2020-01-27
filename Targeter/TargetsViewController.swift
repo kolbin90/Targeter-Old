@@ -79,7 +79,7 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
                     return
                 }
                 tableView.cellForRow(at: indexPath)
-                Api.target.saveCheckInToDatabase(result: "S", targetId: targetId, onSuccess: {
+                Api.target.saveCheckInToDatabase(result: Constants.CheckIn.SucceedResult, targetId: targetId, onSuccess: {
                     if let delegate = self.delegates["\(indexPath.row)"] {
                         delegate.cellSwiped(withResult: .succeed)
                     }
@@ -99,7 +99,7 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
                 guard let targetId = self.targets[indexPath.row].id else {
                     return
                 }
-                Api.target.saveCheckInToDatabase(result: "F", targetId: targetId, onSuccess: {
+                Api.target.saveCheckInToDatabase(result: Constants.CheckIn.FailedResult, targetId: targetId, onSuccess: {
                     if let delegate = self.delegates["\(indexPath.row)"] {
                         delegate.cellSwiped(withResult: .failed)
                     }
