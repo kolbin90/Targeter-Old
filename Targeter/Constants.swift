@@ -39,6 +39,8 @@ struct Constants {
     struct CheckIn {
         static let Result = "result"
         static let Timestamp = "timestamp"
+        static let SucceedResult = "S"
+        static let FailedResult = "F"
     }
     
     struct RootFolders {
