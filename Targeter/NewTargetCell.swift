@@ -10,9 +10,10 @@ import UIKit
 import SDWebImage
 import SwipeCellKit
 
+// MARK: - NewTargetCell
 
 class NewTargetCell: SwipeTableViewCell {
-
+    // MARK: Outlets
     @IBOutlet weak var percentage: UILabel!
     @IBOutlet weak var todayMark: UILabel!
     @IBOutlet weak var rightArror: UILabel!
@@ -27,14 +28,7 @@ class NewTargetCell: SwipeTableViewCell {
     @IBOutlet weak var likeImageView: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        leftArrow.backgroundColor = UIColor.greenColor()
-        rightArror.backgroundColor = UIColor.redColor()
-
-        // Initialization code
-    }
-    
+    // MARK: Variables
     var cellTarget: TargetModel! {
         didSet {
             updateView()
@@ -47,6 +41,22 @@ class NewTargetCell: SwipeTableViewCell {
         }
     }
     
+    // MARK: Lifecycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        leftArrow.backgroundColor = UIColor.greenColor()
+        rightArror.backgroundColor = UIColor.redColor()
+
+        // Initialization code
+    }
+    override func prepareForReuse() {
+        targetImageView.image = nil
+        for mark in marks {
+            mark.alpha = 0
+        }
+    }
+    
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
 
         // Configure the view for the selected state
@@ -56,12 +66,7 @@ class NewTargetCell: SwipeTableViewCell {
         
     }
     
-    override func prepareForReuse() {
-        targetImageView.image = nil
-        for mark in marks {
-            mark.alpha = 0
-        }
-    }
+    
     
     
     func updateView() {
