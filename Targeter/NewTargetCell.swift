@@ -56,7 +56,8 @@ class NewTargetCell: SwipeTableViewCell {
         }
     }
     
-    
+    // MARK: Assist functions
+
     override func setSelected(_ selected: Bool, animated: Bool) {
 
         // Configure the view for the selected state
@@ -128,7 +129,8 @@ class NewTargetCell: SwipeTableViewCell {
         }
     }
 }
-
+// MARK: - Extensions
+// MARK: TargetsViewControllerDelegate
 extension NewTargetCell: TargetsViewControllerDelegate {
     func cellSwiped(withResult result: CheckInModel.CheckInResult) {
         todaysCheckInResult = result
