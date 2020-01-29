@@ -72,47 +72,69 @@ extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: SwipeTableViewCellDelegate
 extension TargetsViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        if orientation == .left  {
-            let succeedAction = SwipeAction(style: .default, title: "Succeed") { action, indexPath in
-                // handle action by updating model with deletion
-                guard let targetId = self.targets[indexPath.row].id else {
-                    return
-                }
-                tableView.cellForRow(at: indexPath)
-                Api.target.saveCheckInToDatabase(result: Constants.CheckIn.SucceedResult, targetId: targetId, onSuccess: {
-                    if let delegate = self.delegates["\(indexPath.row)"] {
-                        delegate.cellSwiped(withResult: .succeed)
+        if let checkInResult = (tableView.cellForRow(at: indexPath) as! NewTargetCell).todaysCheckInResult, checkInResult == .noResult {
+            if orientation == .left  {
+                let succeedAction = SwipeAction(style: .default, title: "Succeed") { action, indexPath in
+                    // handle action by updating model with deletion
+                    guard let targetId = self.targets[indexPath.row].id else {
+                        return
                     }
-                }, onError: { (error) in
-                    ProgressHUD.showError(error)
-                })
+                    tableView.cellForRow(at: indexPath)
+                    Api.target.saveCheckInToDatabase(result: Constants.CheckIn.SucceedResult, targetId: targetId, onSuccess: {
+                        if let delegate = self.delegates["\(indexPath.row)"] {
+                            delegate.cellSwiped(withResult: .succeed)
+                        }
+                    }, onError: { (error) in
+                        ProgressHUD.showError(error)
+                    })
+                }
+                // customize the action appearance
+                succeedAction.backgroundColor = UIColor.greenColor()
+                succeedAction.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
+                return [succeedAction]
+                
+            } else {
+                
+                let failedAction = SwipeAction(style: .default, title: "Failed") { action, indexPath in
+                    // handle action by updating model with deletion
+                    guard let targetId = self.targets[indexPath.row].id else {
+                        return
+                    }
+                    Api.target.saveCheckInToDatabase(result: Constants.CheckIn.FailedResult, targetId: targetId, onSuccess: {
+                        if let delegate = self.delegates["\(indexPath.row)"] {
+                            delegate.cellSwiped(withResult: .failed)
+                        }
+                    }, onError: { (error) in
+                        ProgressHUD.showError(error)
+                    })
+                }
+                
+                // customize the action appearance
+                failedAction.backgroundColor = UIColor.redColor()
+                failedAction.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
+                return [failedAction]
             }
-            // customize the action appearance
-            succeedAction.backgroundColor = UIColor.greenColor()
-            succeedAction.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
-            return [succeedAction]
-            
         } else {
-            
-            let failedAction = SwipeAction(style: .default, title: "Failed") { action, indexPath in
+            let undoAction = SwipeAction(style: .default, title: "Undo") { action, indexPath in
                 // handle action by updating model with deletion
-                guard let targetId = self.targets[indexPath.row].id else {
-                    return
-                }
-                Api.target.saveCheckInToDatabase(result: Constants.CheckIn.FailedResult, targetId: targetId, onSuccess: {
-                    if let delegate = self.delegates["\(indexPath.row)"] {
-                        delegate.cellSwiped(withResult: .failed)
-                    }
-                }, onError: { (error) in
-                    ProgressHUD.showError(error)
-                })
+//                guard let targetId = self.targets[indexPath.row].id else {
+//                    return
+//                }
+//                Api.target.saveCheckInToDatabase(result: Constants.CheckIn.FailedResult, targetId: targetId, onSuccess: {
+//                    if let delegate = self.delegates["\(indexPath.row)"] {
+//                        delegate.cellSwiped(withResult: .failed)
+//                    }
+//                }, onError: { (error) in
+//                    ProgressHUD.showError(error)
+//                })
             }
             
             // customize the action appearance
-            failedAction.backgroundColor = UIColor.redColor()
-            failedAction.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
-            return [failedAction]
+            undoAction.backgroundColor = .gray
+            undoAction.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
+            return [undoAction]
         }
+        
     }
     
     
@@ -121,11 +143,14 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
         var options = SwipeOptions()
         options.expansionStyle = SwipeExpansionStyle.selection
         options.transitionStyle = .border
-        if orientation == .left {
-            options.backgroundColor = UIColor.greenColor()
+        if let checkInResult = (tableView.cellForRow(at: indexPath) as! NewTargetCell).todaysCheckInResult, checkInResult == .noResult {
+            if orientation == .left {
+                options.backgroundColor = UIColor.greenColor()
+            } else {
+                options.backgroundColor = UIColor.redColor()
+            }
         } else {
-            options.backgroundColor = UIColor.redColor()
-
+            options.backgroundColor = .gray
         }
         return options
     }
