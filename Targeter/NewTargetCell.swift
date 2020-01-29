@@ -111,10 +111,18 @@ class NewTargetCell: SwipeTableViewCell {
         guard let checkIns = cellTarget.checkIns else {
             return
         }
+        let dateStart = Date(timeIntervalSince1970: Double(cellTarget.start!))
+        //if Calendar.current.compare(Date(), to: dateStart, toGranularity: .day).rawValue <= 0  {
+            todaysCheckInResult = findCheckInResultFor(date: Date(), checkIns: checkIns)
+        //}
         for (index, mark) in marks.reversed().enumerated() {
-            if checkIns.count >= (index + 1) {
-                let checkIn = checkIns[index]
-                guard let checkInResult = checkIn.result else {return}
+            let dateToCheck = Calendar.current.date(byAdding: .day, value: -(index + 1), to: Date())!
+            // findCheckInResultFor(date: dateToCheck, checkIns: checkIns)
+            
+            //let checkIn = checkIns[index]
+            if Calendar.current.compare(dateToCheck, to: dateStart, toGranularity: .day).rawValue >= 0 {
+                let checkInResult = findCheckInResultFor(date: dateToCheck, checkIns: checkIns)
+                print(Calendar.current.compare(dateToCheck, to: dateStart, toGranularity: .day).rawValue)
                 switch checkInResult {
                 case .succeed:
                     mark.backgroundColor = .greenColor()
@@ -123,11 +131,31 @@ class NewTargetCell: SwipeTableViewCell {
                     mark.backgroundColor = .redColor()
                     mark.alpha = 1
                 case .noResult:
-                    mark.alpha = 0
+                    mark.backgroundColor = .redColor()
+                    mark.alpha = 1
                 }
+            } else {
+                mark.alpha = 0
             }
         }
     }
+    
+    func findCheckInResultFor(date date: Date, checkIns: [CheckInModel] ) -> CheckInModel.CheckInResult {
+        for checkIn in checkIns {
+            guard let timestamp = checkIn.timestamp else {
+                return CheckInModel.CheckInResult.noResult
+            }
+            let dateFromTimestamp = Date(timeIntervalSince1970: Double(timestamp))
+            if Calendar.current.isDate(date, inSameDayAs: dateFromTimestamp ) {
+                guard let result = checkIn.result else {
+                    return CheckInModel.CheckInResult.noResult
+                }
+                return result
+            }
+        }
+        return CheckInModel.CheckInResult.noResult
+    }
+    
 }
 // MARK: - Extensions
 // MARK: TargetsViewControllerDelegate
