@@ -34,7 +34,7 @@ class TargetApi {
     
     fileprivate func getCheckInsForLast15days(withTargetId id: String,completion: @escaping ([CheckInModel]) -> Void,onError: @escaping (String) -> Void ) {
         var checkIns = [CheckInModel]()
-        checkInsRef.child(id).queryOrdered(byChild: Constants.CheckIn.Timestamp).queryLimited(toFirst: 15).observeSingleEvent(of: .value) {(snapshot) in
+        checkInsRef.child(id).queryOrdered(byChild: Constants.CheckIn.Timestamp).queryLimited(toLast: 15).observeSingleEvent(of: .value) {(snapshot) in
             for child in snapshot.children {
                 guard let child = child as? DataSnapshot else {
                     onError("Error")
