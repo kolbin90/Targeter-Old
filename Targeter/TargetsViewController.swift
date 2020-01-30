@@ -10,7 +10,7 @@ import UIKit
 import SwipeCellKit
 // MARK: - TargetsViewControllerDelegate
 protocol TargetsViewControllerDelegate {
-    func cellSwiped(withResult result: CheckInModel.CheckInResult)
+    func cellSwiped(withResult result: CheckInModel.CheckInResult, for checkIn: CheckInModel?)
 }
 
 // MARK: - TargetsViewController
@@ -79,10 +79,10 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
                     guard let targetId = self.targets[indexPath.row].id else {
                         return
                     }
-                    tableView.cellForRow(at: indexPath)
-                    Api.target.saveCheckInToDatabase(result: Constants.CheckIn.SucceedResult, targetId: targetId, onSuccess: {
+                    Api.target.saveCheckInToDatabase(result: Constants.CheckIn.SucceedResult, targetId: targetId, onSuccess: { (checkIn) in
+                        self.targets[indexPath.row].checkIns?.append(checkIn)
                         if let delegate = self.delegates["\(indexPath.row)"] {
-                            delegate.cellSwiped(withResult: .succeed)
+                            delegate.cellSwiped(withResult: .succeed, for: checkIn)
                         }
                     }, onError: { (error) in
                         ProgressHUD.showError(error)
@@ -100,9 +100,10 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
                     guard let targetId = self.targets[indexPath.row].id else {
                         return
                     }
-                    Api.target.saveCheckInToDatabase(result: Constants.CheckIn.FailedResult, targetId: targetId, onSuccess: {
+                    Api.target.saveCheckInToDatabase(result: Constants.CheckIn.FailedResult, targetId: targetId, onSuccess: {(checkIn) in
+                        self.targets[indexPath.row].checkIns?.append(checkIn)
                         if let delegate = self.delegates["\(indexPath.row)"] {
-                            delegate.cellSwiped(withResult: .failed)
+                            delegate.cellSwiped(withResult: .failed, for: checkIn)
                         }
                     }, onError: { (error) in
                         ProgressHUD.showError(error)
@@ -117,16 +118,27 @@ extension TargetsViewController: SwipeTableViewCellDelegate {
         } else {
             let undoAction = SwipeAction(style: .default, title: "Undo") { action, indexPath in
                 // handle action by updating model with deletion
-//                guard let targetId = self.targets[indexPath.row].id else {
-//                    return
-//                }
-//                Api.target.saveCheckInToDatabase(result: Constants.CheckIn.FailedResult, targetId: targetId, onSuccess: {
-//                    if let delegate = self.delegates["\(indexPath.row)"] {
-//                        delegate.cellSwiped(withResult: .failed)
-//                    }
-//                }, onError: { (error) in
-//                    ProgressHUD.showError(error)
-//                })
+                guard let targetId = self.targets[indexPath.row].id else {
+                    return
+                }
+                if let todayCheckIn = (tableView.cellForRow(at: indexPath) as! NewTargetCell).todaysCheckIn, let checkInsId = todayCheckIn.id  {
+                    Api.target.deleteCheckInFromDatabase(targetId: targetId, checkInId: checkInsId, onSuccess: {
+                        guard let _ = self.targets[indexPath.row].checkIns else {
+                            return
+                        }
+                        for (index, checkIn) in self.targets[indexPath.row].checkIns!.enumerated()  {
+                            if checkIn.id == checkInsId {
+                                self.targets[indexPath.row].checkIns!.remove(at: index)
+                                break
+                            }
+                        }
+                        if let delegate = self.delegates["\(indexPath.row)"] {
+                            delegate.cellSwiped(withResult: .noResult, for: nil)
+                        }
+                    }, onError: { (error) in
+                        ProgressHUD.showError(error)
+                    })
+                }
             }
             
             // customize the action appearance

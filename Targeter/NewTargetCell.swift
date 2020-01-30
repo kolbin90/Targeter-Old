@@ -40,6 +40,7 @@ class NewTargetCell: SwipeTableViewCell {
             updateViewForTodaysCheckIn()
         }
     }
+    var todaysCheckIn: CheckInModel?
     
     // MARK: Lifecycle
     override func awakeFromNib() {
@@ -54,6 +55,8 @@ class NewTargetCell: SwipeTableViewCell {
         for mark in marks {
             mark.alpha = 0
         }
+        todaysCheckInResult = nil
+        todaysCheckIn = nil
     }
     
     // MARK: Assist functions
@@ -112,9 +115,10 @@ class NewTargetCell: SwipeTableViewCell {
             return
         }
         let dateStart = Date(timeIntervalSince1970: Double(cellTarget.start!))
-        //if Calendar.current.compare(Date(), to: dateStart, toGranularity: .day).rawValue <= 0  {
-            todaysCheckInResult = findCheckInResultFor(date: Date(), checkIns: checkIns)
-        //}
+        if Calendar.current.compare(Date(), to: dateStart, toGranularity: .day).rawValue >= 0  {
+            todaysCheckIn = getTodaysCheckIn(checkIns: checkIns)
+            todaysCheckInResult = todaysCheckIn?.result ?? .noResult
+        }
         for (index, mark) in marks.reversed().enumerated() {
             let dateToCheck = Calendar.current.date(byAdding: .day, value: -(index + 1), to: Date())!
             // findCheckInResultFor(date: dateToCheck, checkIns: checkIns)
@@ -156,12 +160,28 @@ class NewTargetCell: SwipeTableViewCell {
         return CheckInModel.CheckInResult.noResult
     }
     
+    func getTodaysCheckIn(checkIns: [CheckInModel]) -> CheckInModel? {
+        for checkIn in checkIns {
+            guard let timestamp = checkIn.timestamp else {
+                return nil
+            }
+            let dateFromTimestamp = Date(timeIntervalSince1970: Double(timestamp))
+            if Calendar.current.isDate(Date(), inSameDayAs: dateFromTimestamp ) {
+                return checkIn
+            }
+        }
+        return nil
+    }
+    
 }
+
 // MARK: - Extensions
 // MARK: TargetsViewControllerDelegate
 extension NewTargetCell: TargetsViewControllerDelegate {
-    func cellSwiped(withResult result: CheckInModel.CheckInResult) {
+    func cellSwiped(withResult result: CheckInModel.CheckInResult, for checkIn: CheckInModel?) {
         todaysCheckInResult = result
+        todaysCheckIn = checkIn
     }
+
 }
 
