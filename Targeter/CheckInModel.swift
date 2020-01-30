@@ -11,6 +11,7 @@ import Foundation
 class CheckInModel {
     var result: CheckInResult?
     var timestamp: Int?
+    var id: String?
 }
 
 extension CheckInModel {
@@ -25,6 +26,7 @@ extension CheckInModel {
             }
         }
         
+        checkIn.id = id
         checkIn.timestamp = dict[Constants.CheckIn.Timestamp] as? Int
 
         return checkIn
