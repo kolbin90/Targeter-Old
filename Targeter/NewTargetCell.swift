@@ -57,6 +57,9 @@ class NewTargetCell: SwipeTableViewCell {
         }
         todaysCheckInResult = nil
         todaysCheckIn = nil
+        
+        leftArrow.layer.removeAllAnimations()
+        rightArror.layer.removeAllAnimations()
     }
     
     // MARK: Assist functions
@@ -94,13 +97,24 @@ class NewTargetCell: SwipeTableViewCell {
             case .noResult:
                 leftArrow.isHidden = false
                 rightArror.isHidden = false
+                leftArrow.alpha = 0
+                rightArror.alpha = 0
                 todayMark.backgroundColor = .white
                 todayMark.textColor = .black
+                
+                
+                
+                UIView.animate(withDuration: 1.5, delay: 4.0, options: [.repeat, .autoreverse, .curveEaseOut], animations: {
+                    self.leftArrow.alpha = 1
+                    self.rightArror.alpha = 1
+                })
+                
             case .failed:
                 leftArrow.isHidden = true
                 rightArror.isHidden = true
                 todayMark.backgroundColor = UIColor.redColor()
                 todayMark.textColor = .white
+                
             case .succeed:
                 leftArrow.isHidden = true
                 rightArror.isHidden = true
