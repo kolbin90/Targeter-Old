@@ -62,18 +62,28 @@ class TargetApi {
         }, onError: onError)
     }
     
-    func saveCheckInToDatabase(result: String, targetId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+    func saveCheckInToDatabase(result: String, targetId: String, onSuccess: @escaping (CheckInModel) -> Void, onError: @escaping (String) -> Void) {
         let timestamp = Int(Date().timeIntervalSince1970)
         var dict = [Constants.CheckIn.Result: result, Constants.CheckIn.Timestamp: timestamp] as [String : Any]
-
-        checkInsRef.child(targetId).childByAutoId().setValue(dict) { (error, ref) in
+        let checkInId = checkInsRef.child(targetId).childByAutoId().key!
+        let checkIn = CheckInModel.transformDataToCheckIn(dict: dict, id: checkInId)
+        checkInsRef.child(targetId).child(checkInId).setValue(dict) { (error, ref) in
+            if let error = error {
+                onError(error.localizedDescription)
+                return
+            }
+            onSuccess(checkIn)
+        }
+    }
+    
+    func deleteCheckInFromDatabase(targetId: String, checkInId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        checkInsRef.child(targetId).child(checkInId).removeValue { (error, ref) in
             if let error = error {
                 onError(error.localizedDescription)
                 return
             }
             onSuccess()
         }
-    
     }
     
 
