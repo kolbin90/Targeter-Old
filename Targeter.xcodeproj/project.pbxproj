@@ -66,6 +66,7 @@
 		856E0BD923C428DF007529FC /* TargetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856E0BD823C428DF007529FC /* TargetModel.swift */; };
 		857F20A32399F4370057F144 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A22399F4370057F144 /* AuthService.swift */; };
 		857F20A7239A0E220057F144 /* ChooseUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */; };
+		85AD2D4423E406C000EE8FF3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AD2D4323E406C000EE8FF3 /* ProfileCell.swift */; };
 		85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */; };
 		85CDFF9F23975CAC0083CF10 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 85CDFF9B23975CAB0083CF10 /* ProgressHUD.bundle */; };
 		85CDFFA123976B730083CF10 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85CDFFA023976B730083CF10 /* Login.storyboard */; };
@@ -161,6 +162,7 @@
 		856E0BD823C428DF007529FC /* TargetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetModel.swift; sourceTree = "<group>"; };
 		857F20A22399F4370057F144 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseUsernameViewController.swift; sourceTree = "<group>"; };
+		85AD2D4323E406C000EE8FF3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		85CDFF9923975CA70083CF10 /* Targeter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Targeter-Bridging-Header.h"; sourceTree = "<group>"; };
 		85CDFF9A23975CAA0083CF10 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		85CDFF9B23975CAB0083CF10 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				04E470FF1FB6720A002C5D12 /* FriendCell.swift */,
 				04DCC2CB1FD257A400680F34 /* NewTargetCell.swift */,
 				04DCC2CC1FD257A400680F34 /* NewTargetCell.xib */,
+				85AD2D4323E406C000EE8FF3 /* ProfileCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 				041EE56E1E70D05C006D623B /* Target+CoreDataClass.swift in Sources */,
 				041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */,
 				04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */,
+				85AD2D4423E406C000EE8FF3 /* ProfileCell.swift in Sources */,
 				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
 				044D572F1E788D7D00AF1545 /* Image+CoreDataProperties.swift in Sources */,
 				853686C623B3229E0049957E /* ProfileViewController.swift in Sources */,
