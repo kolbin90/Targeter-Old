@@ -20,7 +20,7 @@ class TargetApi {
             if let dict = snapshot.value as? [String: Any] {
                 var target = TargetModel.transformDataToTarget(dict: dict, id: snapshot.key)
                 
-                self.getCheckInsForLast15days(withTargetId: target.id!, completion: { (checkIns) in
+                self.getCheckIns(forTargetId: target.id!, completion: { (checkIns) in
                     target.checkIns = checkIns
                     completion(target)
                 }, onError: onError)
@@ -32,9 +32,9 @@ class TargetApi {
 
     
     
-    fileprivate func getCheckInsForLast15days(withTargetId id: String,completion: @escaping ([CheckInModel]) -> Void,onError: @escaping (String) -> Void ) {
+    fileprivate func getCheckIns(forTargetId id: String,completion: @escaping ([CheckInModel]) -> Void,onError: @escaping (String) -> Void ) {
         var checkIns = [CheckInModel]()
-        checkInsRef.child(id).queryOrdered(byChild: Constants.CheckIn.Timestamp).queryLimited(toLast: 15).observeSingleEvent(of: .value) {(snapshot) in
+        checkInsRef.child(id)/*.queryOrdered(byChild: Constants.CheckIn.Timestamp).queryLimited(toLast: 16)*/.observeSingleEvent(of: .value) {(snapshot) in
             for child in snapshot.children {
                 guard let child = child as? DataSnapshot else {
                     onError("Error")

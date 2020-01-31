@@ -101,9 +101,7 @@ class NewTargetCell: SwipeTableViewCell {
                 rightArror.alpha = 0
                 todayMark.backgroundColor = .white
                 todayMark.textColor = .black
-                
-                
-                
+
                 UIView.animate(withDuration: 1.5, delay: 4.0, options: [.repeat, .autoreverse, .curveEaseOut], animations: {
                     self.leftArrow.alpha = 1
                     self.rightArror.alpha = 1
