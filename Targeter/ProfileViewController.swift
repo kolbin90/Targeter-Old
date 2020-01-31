@@ -19,20 +19,34 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+
     // MARK: Variables
-    
+    var targets: [TargetModel] = []
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set up Navigation controller
+        //headerView.size = UIScreen.main.bounds.height
         setNavigationController(largeTitleDisplayMode: .never)
-
-
+        //headerViewHeightConstraint.constant = UIScreen.main.bounds.height
         tableView.dataSource = self
-        // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
+        observeTargets() // replace with observe single event
     }
     
-
+    deinit {
+        // Stop observing targets
+    }
+    
+    // MARK: Assist methods
+    func observeTargets() {
+        Api.target.observeTargets(completion: { (target) in
+            self.targets.append(target)
+            self.tableView.reloadData()
+        }) { (error) in
+            ProgressHUD.showError(error)
+        }
+    }
     // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
     }
@@ -41,13 +55,28 @@ class ProfileViewController: UIViewController {
 // MARK: - Extensions
 // MARK: UITableViewDataSource, UITableViewDelegate
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return targets.count
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! UITableViewCell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
+        cell.cellTarget = targets[indexPath.row]
         return cell
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
+        return cell.contentView
     }
 
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return UIScreen.main.bounds.width + 60
+    }
+    
 }
+
+
