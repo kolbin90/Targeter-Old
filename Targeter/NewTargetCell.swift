@@ -138,7 +138,6 @@ class NewTargetCell: SwipeTableViewCell {
             //let checkIn = checkIns[index]
             if Calendar.current.compare(dateToCheck, to: dateStart, toGranularity: .day).rawValue >= 0 {
                 let checkInResult = findCheckInResultFor(date: dateToCheck, checkIns: checkIns)
-                print(Calendar.current.compare(dateToCheck, to: dateStart, toGranularity: .day).rawValue)
                 switch checkInResult {
                 case .succeed:
                     mark.backgroundColor = .greenColor()

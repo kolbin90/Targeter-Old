@@ -21,7 +21,7 @@ class AddTargetTableViewController: UITableViewController {
    
     // MARK: Lifecycle
     deinit {
-        print("______________________ DEINIT ________________________")
+        
     }
     
     override func viewDidLoad() {

@@ -25,9 +25,7 @@ class ProfileViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //headerView.size = UIScreen.main.bounds.height
         setNavigationController(largeTitleDisplayMode: .never)
-        //headerViewHeightConstraint.constant = UIScreen.main.bounds.height
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
