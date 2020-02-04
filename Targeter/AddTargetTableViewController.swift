@@ -169,5 +169,6 @@ extension AddTargetTableViewController: CropImageViewControllerDelegate {
     func setImage(_ image: UIImage) {
         cell.targetImageView.image = image
         cell.updateFocusIfNeeded()
+        textFieldDidChange()
     }
 }
