@@ -19,11 +19,7 @@ class AddTargetTableViewController: UITableViewController {
     
     let dateFormatter = DateFormatter()
    
-    // MARK: Lifecycle
-    deinit {
-        
-    }
-    
+    // MARK: Lifecycle   
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationController(largeTitleDisplayMode: .always)
