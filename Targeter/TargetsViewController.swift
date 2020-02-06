@@ -35,6 +35,8 @@ class TargetsViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+    
+    
     // MARK: Assist methods
     func observeTargets() {
         Api.target.observeTargets(completion: { (target) in
@@ -47,6 +49,7 @@ class TargetsViewController: UIViewController {
     
     // MARK: Actions
     @IBAction func addTargetButton_TchUpIns(_ sender: Any) {
+        // set in storyboard
     }
     
 }
