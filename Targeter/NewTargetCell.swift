@@ -41,12 +41,15 @@ class NewTargetCell: SwipeTableViewCell {
         }
     }
     var todaysCheckIn: CheckInModel?
+    var showArrows = true
     
     // MARK: Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         leftArrow.backgroundColor = UIColor.greenColor()
         rightArror.backgroundColor = UIColor.redColor()
+        leftArrow.isHidden = true
+        rightArror.isHidden = true
 
         // Initialization code
     }
@@ -95,17 +98,20 @@ class NewTargetCell: SwipeTableViewCell {
         if let todaysCheckInResult = todaysCheckInResult {
             switch todaysCheckInResult {
             case .noResult:
-                leftArrow.isHidden = false
-                rightArror.isHidden = false
-                leftArrow.alpha = 0
-                rightArror.alpha = 0
+                if showArrows {
+                    leftArrow.isHidden = false
+                    rightArror.isHidden = false
+                    leftArrow.alpha = 0
+                    rightArror.alpha = 0
+                    UIView.animate(withDuration: 1.5, delay: 4.0, options: [.repeat, .autoreverse, .curveEaseOut], animations: {
+                        self.leftArrow.alpha = 1
+                        self.rightArror.alpha = 1
+                    })
+                }
                 todayMark.backgroundColor = .white
                 todayMark.textColor = .black
 
-                UIView.animate(withDuration: 1.5, delay: 4.0, options: [.repeat, .autoreverse, .curveEaseOut], animations: {
-                    self.leftArrow.alpha = 1
-                    self.rightArror.alpha = 1
-                })
+                
                 
             case .failed:
                 leftArrow.isHidden = true
