@@ -10,13 +10,14 @@ import UIKit
 
 // MARK: - AddTargetTableViewController
 class AddTargetTableViewController: UITableViewController {
+    
     // MARK: Outlets
     @IBOutlet weak var addTargetButton: UIButton!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var startTextField: UITextField!
     @IBOutlet weak var cell: NewTargetCell!
-    // MARK: Variables
     
+    // MARK: Variables
     let dateFormatter = DateFormatter()
    
     // MARK: Lifecycle
@@ -29,8 +30,8 @@ class AddTargetTableViewController: UITableViewController {
         cell.targetImageView.backgroundColor = UIColor.random()
         dateFormatter.dateFormat = "MM-dd-yyyy"
     }
+    
     // MARK: Handle textfield
-
     func handleTextField() {
         titleTextField.addTarget(self, action: #selector(AddTargetTableViewController.titleTextFieldDidChange), for: UIControl.Event.editingChanged)
         startTextField.addTarget(self, action: #selector(AddTargetTableViewController.textFieldDidChange), for: UIControl.Event.editingChanged)
@@ -63,7 +64,6 @@ class AddTargetTableViewController: UITableViewController {
     
     
     // MARK: Set date picker
-
     func setPickerView(forTextfield textField: UITextField ) {
         let datePickerView = UIDatePickerWithSenderTag()
         datePickerView.senderTag = textField.tag
@@ -105,7 +105,6 @@ class AddTargetTableViewController: UITableViewController {
     
     
     // MARK: Actions
-
     @IBAction func startTextField_EditingDidBegin(_ sender: UITextField) {
         setPickerView(forTextfield: sender)
         
@@ -159,8 +158,8 @@ extension AddTargetTableViewController: UIImagePickerControllerDelegate, UINavig
 
     }
 }
-// MARK: AddTargetTableViewController
 
+// MARK: AddTargetTableViewController
 extension AddTargetTableViewController: CropImageViewControllerDelegate {
     func setImage(_ image: UIImage) {
         cell.targetImageView.image = image
