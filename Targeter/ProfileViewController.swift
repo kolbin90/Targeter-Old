@@ -45,6 +45,10 @@ class ProfileViewController: UIViewController {
             ProgressHUD.showError(error)
         }
     }
+    
+    func getUser(withID id: String) {
+        
+    }
     // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
     }
