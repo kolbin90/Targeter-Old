@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
 
     // MARK: Variables
     var targets: [TargetModel] = []
+    var userId: String?
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,9 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
-        observeTargets() // replace with observe single event
+        guard let userId = userId else {return}
+        getUser(withID: userId)
+        
     }
     
     deinit {
@@ -47,7 +50,7 @@ class ProfileViewController: UIViewController {
     }
     
     func getUser(withID id: String) {
-        
+        observeTargets()
     }
     // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
