@@ -21,7 +21,7 @@ class AuthService {
     static func firebaseLogOut() {
         do {
             // Trying to sign out from Firebase
-            let manager = FBSDKLoginManager()
+            let manager = LoginManager()
             manager.logOut()
             try Auth.auth().signOut()
         } catch {
@@ -30,8 +30,11 @@ class AuthService {
     }
     
     static func getUserInfoDictionaryFromFacebook(completion: @escaping  ([String: Any]) -> Void) {
-        let graphRequestConnection = FBSDKGraphRequestConnection()
-        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture.type(large)"], tokenString: FBSDKAccessToken.current().tokenString, version: FBSDKSettings.graphAPIVersion(), httpMethod: "GET")
+        let graphRequestConnection = GraphRequestConnection()
+        guard let accessTokenString = AccessToken.current?.tokenString else {
+            return
+        }
+        let graphRequest = GraphRequest(graphPath: "me", parameters: ["fields":"email, name, picture.type(large)"], tokenString: accessTokenString, version: Settings.graphAPIVersion, httpMethod: HTTPMethod.get)
         graphRequestConnection.add(graphRequest) { (requestConnection, data, error) in
             
             if let dict = data as? [String: Any] {

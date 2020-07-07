@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         // Configure Facebook login
-        let _ = FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        let _ = ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Configure IQKeyboardManager
         IQKeyboardManager.shared.enable = true
@@ -71,9 +71,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     }
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        let appId: String = FBSDKSettings.appID()
+            guard let appId: String = Settings.appID else {
+                return false
+            }
         if url.scheme != nil && url.scheme!.hasPrefix("fb\(appId)") && url.host ==  "authorize" {
-            return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+            return ApplicationDelegate.shared.application(app, open: url, options: options)
         }
         return false
     }

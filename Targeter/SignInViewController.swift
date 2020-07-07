@@ -18,7 +18,7 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var passwordLineView: UIView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailLineView: UIView!
-    @IBOutlet weak var facebookButton: FBSDKLoginButton!
+    @IBOutlet weak var facebookButton: FBLoginButton!
     @IBOutlet weak var signInButton: UIButton!
     
     // MARK: Variables
@@ -27,7 +27,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         facebookButton.delegate = self
-        facebookButton.readPermissions = ["public_profile", "email"]
+        facebookButton.permissions  = ["public_profile", "email"]
         
         hideKeyboardWhenTappedAround()
         
@@ -132,14 +132,17 @@ class SignInViewController: UIViewController {
 
 // MARK: - Extensions
 // MARK: FBSDKLoginButtonDelegate
-extension SignInViewController: FBSDKLoginButtonDelegate {
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+extension SignInViewController: LoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
         
     }
     
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+    func loginButton(_ loginButton: FBLoginButton!, didCompleteWith result: LoginManagerLoginResult!, error: Error!) {
         if result?.grantedPermissions != nil {
-            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            guard let accessTokenString = AccessToken.current?.tokenString else {
+                return
+            }
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
             ProgressHUD.show("Loading...")
             Auth.auth().signInAndRetrieveData(with: credential) { (result, error) in
                   if let error = error {

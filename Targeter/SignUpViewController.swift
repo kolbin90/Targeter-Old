@@ -22,7 +22,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailLineView: UIView!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordLineView: UIView!
-    @IBOutlet weak var facebookButton: FBSDKLoginButton!
+    @IBOutlet weak var facebookButton: FBLoginButton!
     @IBOutlet weak var signUpButton: UIButton!
     
     // MARK: Lifecycle
@@ -176,14 +176,17 @@ class SignUpViewController: UIViewController {
 }
 // MARK: - Extensions
 // MARK: FBSDKLoginButtonDelegate
-extension SignUpViewController: FBSDKLoginButtonDelegate {
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+extension SignUpViewController: LoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton!) {
         
     }
     
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+    func loginButton(_ loginButton: FBLoginButton!, didCompleteWith result: LoginManagerLoginResult!, error: Error!) {
         if result?.grantedPermissions != nil {
-            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            guard let accessTokenString = AccessToken.current?.tokenString else {
+                return
+            }
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
             ProgressHUD.show("Loading...")
             Auth.auth().signInAndRetrieveData(with: credential) { (result, error) in
                 

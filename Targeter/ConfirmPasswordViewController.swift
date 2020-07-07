@@ -80,7 +80,7 @@ class ConfirmPasswordViewController: UIViewController {
     
     // MARK: Assist methods
     func logout(){
-        let manager = FBSDKLoginManager()
+        let manager = LoginManager()
         manager.logOut()
         if let user = Api.user.currentUser {
             AuthService.firebaseLogOut()
@@ -90,7 +90,10 @@ class ConfirmPasswordViewController: UIViewController {
 
     // MARK: Actions
     @IBAction func confirmButton_TchUpIns(_ sender: Any) {
-        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        guard let accessTokenString = AccessToken.current?.tokenString else {
+            return
+        }
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
         ProgressHUD.show("Signing In...")
         AuthService.signInAndLinkWithFacebook(email: user!.email!, password: passwordTextField.text!, facebookCredential: credential, OnSuccess: {
             self.success = true
