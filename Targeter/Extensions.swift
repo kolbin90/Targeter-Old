@@ -29,6 +29,17 @@ extension UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [ NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 22)!]
         UIBarButtonItem.appearance().setTitleTextAttributes([ NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 17)!], for: .normal)
         navigationController?.navigationBar.tintColor = .black
+        
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "Avenir Next", size: 22) ?? UIFont.systemFont(ofSize: 22) ]
+            navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "AvenirNext-Medium", size: 30) ??
+            UIFont.systemFont(ofSize: 30)]
+            navBarAppearance.backgroundColor = .white
+            navigationController?.navigationBar.standardAppearance = navBarAppearance
+            navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        }
         if #available(iOS 11.0, *) {
             // Set large title and custom font for newer iOS
             navigationController?.navigationBar.prefersLargeTitles = true
