@@ -223,6 +223,7 @@ class TargetsVC: UITableViewController {
         
         let signInVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
         let signInNavController = UINavigationController(rootViewController: signInVC)
+        signInNavController.modalPresentationStyle = .fullScreen
         self.present(signInNavController, animated: true, completion: nil)
     }
     
