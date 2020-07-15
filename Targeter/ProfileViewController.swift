@@ -30,7 +30,11 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
-        guard let userId = userId else {return}
+        guard let userId = userId else { 
+            observeTargets()
+            return
+            
+        }
         getUser(withID: userId)
         
     }
