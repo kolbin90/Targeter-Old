@@ -32,7 +32,10 @@ class TargetApi {
     
     func getTarget(withTargetId targetId: String, completion: @escaping (TargetModel) -> Void,onError: @escaping (String) -> Void ) {
         targetsRef.child(targetId).observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot.value)
+            if let dict = snapshot.value as? [String: Any] {
+                let target = TargetModel.transformDataToTarget(dict: dict, id: snapshot.key)
+                completion(target)
+            }
         }
     }
 
