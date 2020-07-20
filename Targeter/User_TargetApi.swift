@@ -25,6 +25,12 @@ class User_TargetApi {
             }
         }
     }
+    
+    func getTargetsIdForUser(withID id: String, completion: @escaping (String) -> Void) {
+        user_targetRef.child(id).observe(.childAdded) { (snapshot) in
+            completion(snapshot.key)
+        }
+    }
 }
 
 
