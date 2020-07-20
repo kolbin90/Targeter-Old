@@ -30,12 +30,23 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
-        guard let userId = userId else { 
-            observeTargets()
-            return
-            
+//        Check if there is a user ID. If there is none, it means it's Users own profile
+        if let userId = userId  {
+            getUser(withID: userId)
+        } else {
+            guard let userId = Api.user.currentUser?.uid else {
+                return
+            }
+            getUser(withID: userId)
         }
-        getUser(withID: userId)
+//        guard let userId = userId else {
+////          If ita uaer's own profile then get userID and then gwt user info and targets for this ID
+//            //observeTargets() // REPLACE TO getUser(withID)
+//            return
+//
+//        }
+//        If uaerID not nil, it means it was profided by another VC and we are going to use it
+        
         
     }
     
@@ -44,17 +55,24 @@ class ProfileViewController: UIViewController {
     }
     
     // MARK: Assist methods
-    func observeTargets() {
-        Api.target.observeTargets(completion: { (target) in
-            self.targets.append(target)
-            self.tableView.reloadData()
-        }) { (error) in
-            ProgressHUD.showError(error)
+    func observeTargetsForUser(withID id: String) {
+        Api.user_target.getTargetsIdForUser(withID: id) { (targetId) in
+            Api.target.getTarget(withTargetId: targetId, completion: { (target) in
+                self.targets.append(target)
+                self.tableView.reloadData()
+            }) { (error) in
+                ProgressHUD.showError(error)
+            }
         }
     }
     
     func getUser(withID id: String) {
-        observeTargets()
+        fillHeader()
+        observeTargetsForUser(withID: id) // REPLACE WITH observeTargets for UserID
+    }
+    
+    func fillHeader() {
+        
     }
     // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
