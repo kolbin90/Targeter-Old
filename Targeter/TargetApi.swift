@@ -34,7 +34,15 @@ class TargetApi {
         targetsRef.child(targetId).observeSingleEvent(of: .value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let target = TargetModel.transformDataToTarget(dict: dict, id: snapshot.key)
-                completion(target)
+                
+                
+                
+                self.getCheckIns(forTargetId: target.id!, completion: { (checkIns) in
+                    target.checkIns = checkIns
+                    completion(target)
+                }, onError: onError)
+            } else {
+                onError("Snapshot error")
             }
         }
     }
