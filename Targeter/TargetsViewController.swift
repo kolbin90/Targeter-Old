@@ -31,7 +31,9 @@ class TargetsViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
-        observeTargets()
+        
+        observeTargetsForCurrentUser()
+//        observeTargets()
         
         // Do any additional setup after loading the view.
     }
@@ -44,6 +46,20 @@ class TargetsViewController: UIViewController {
             self.tableView.reloadData()
         }) { (error) in
             ProgressHUD.showError(error)
+        }
+    }
+    
+    func observeTargetsForCurrentUser() {
+        guard let userId = Api.user.currentUser?.uid else {
+            return
+        }
+        Api.user_target.getTargetsIdForUser(withID: userId) { (targetId) in
+            Api.target.getTarget(withTargetId: targetId, completion: { (target) in
+                self.targets.append(target)
+                self.tableView.reloadData()
+            }) { (error) in
+                ProgressHUD.showError(error)
+            }
         }
     }
     
