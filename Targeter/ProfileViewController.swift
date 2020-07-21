@@ -55,6 +55,8 @@ class ProfileViewController: UIViewController {
     }
     
     // MARK: Assist methods
+    
+//    observe target changes in real time
     func observeTargetsForUser(withID id: String) {
         Api.user_target.getTargetsIdForUser(withID: id) { (targetId) in
             Api.target.getTarget(withTargetId: targetId, completion: { (target) in
