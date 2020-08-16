@@ -12,7 +12,7 @@ import Firebase
 import FirebaseUI
 import CoreData
 
-class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditProfileViewControllerDepr: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     var userID = Auth.auth().currentUser?.uid
