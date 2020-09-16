@@ -244,11 +244,38 @@
                                                         <constraint firstAttribute="width" secondItem="Nps-Uc-Nf8" secondAttribute="height" multiplier="1:1" id="m4g-KM-f11"/>
                                                     </constraints>
                                                 </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="u7D-Kc-yHY">
+                                                    <rect key="frame" x="16" y="312" width="167" height="70"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Alexander Kolbin " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YsH-Dj-var">
+                                                            <rect key="frame" x="0.0" y="0.0" width="167" height="30"/>
+                                                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="yvy-iZ-bpM"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Philadelphia " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Xw-rn-k0M">
+                                                            <rect key="frame" x="0.0" y="40" width="123.5" height="30"/>
+                                                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="0Xw-rn-k0M" firstAttribute="height" secondItem="YsH-Dj-var" secondAttribute="height" id="hEF-J3-IyH"/>
+                                                    </constraints>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Nps-Uc-Nf8" firstAttribute="leading" secondItem="GpC-hf-uGZ" secondAttribute="leading" id="6zg-Wj-FX6"/>
                                                 <constraint firstItem="Nps-Uc-Nf8" firstAttribute="top" secondItem="GpC-hf-uGZ" secondAttribute="top" id="Exk-1K-ksw"/>
+                                                <constraint firstAttribute="bottom" secondItem="u7D-Kc-yHY" secondAttribute="bottom" constant="32" id="iYR-hx-9m0"/>
                                                 <constraint firstAttribute="trailing" secondItem="Nps-Uc-Nf8" secondAttribute="trailing" id="kJB-md-c70"/>
+                                                <constraint firstItem="u7D-Kc-yHY" firstAttribute="leading" secondItem="GpC-hf-uGZ" secondAttribute="leading" constant="16" id="r9c-7a-xef"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <viewLayoutGuide key="safeArea" id="8Wg-pZ-U1G"/>
@@ -267,6 +294,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
                                                     <state key="normal" title="Choose image"/>
+                                                    <connections>
+                                                        <action selector="chooseImageButton_TchUpIns:" destination="crY-nD-KLI" eventType="touchUpInside" id="geN-VV-o4u"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -360,6 +390,9 @@
                                                     <state key="normal" title="Save">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="saveButton_TchUpIns:" destination="crY-nD-KLI" eventType="touchUpInside" id="3iR-wS-RCf"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -386,6 +419,9 @@
                                                     <state key="normal" title="Cancel">
                                                         <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="cancelButton_TchUpIns:" destination="crY-nD-KLI" eventType="touchUpInside" id="RCv-UW-lLT"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -404,10 +440,129 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Edit Profile" id="vax-wi-gq0"/>
+                    <connections>
+                        <outlet property="cancellButton_TchUpIns" destination="cyw-IA-FEw" id="VO1-zj-6kO"/>
+                        <outlet property="chooseImageButton_TchUpIns" destination="L57-8V-VbE" id="gsp-Xi-IeD"/>
+                        <outlet property="locationLabel" destination="0Xw-rn-k0M" id="gzD-41-tNf"/>
+                        <outlet property="locationTextField" destination="xKb-0R-BCQ" id="jwY-Tc-jRa"/>
+                        <outlet property="nameLabel" destination="YsH-Dj-var" id="ZAm-Sd-0LK"/>
+                        <outlet property="nameTextField" destination="rHR-Ih-v6n" id="zTl-du-8PM"/>
+                        <outlet property="profileImageView" destination="Nps-Uc-Nf8" id="Qjb-GX-7nN"/>
+                        <outlet property="saveButton_TchUpIns" destination="iOz-LS-cfJ" id="Qgv-cL-Z3o"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2z1-GP-uSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1698.5507246376812" y="26.785714285714285"/>
+        </scene>
+        <!--Crop Image-->
+        <scene sceneID="TpF-5Z-s14">
+            <objects>
+                <viewController storyboardIdentifier="CropImageViewController" title="Crop Image" id="O3V-YX-Ur7" customClass="CropImageViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Njf-gX-AF4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="70" translatesAutoresizingMaskIntoConstraints="NO" id="psn-gk-SL0">
+                                <rect key="frame" x="0.0" y="44" width="414" height="646"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="6ZC-uQ-rWN">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="458"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9E-2p-038">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                                                <subviews>
+                                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CW6-w7-gmX">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4s-vO-mfq">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="414" id="4jh-Wd-k2n"/>
+                                                            <constraint firstItem="k4s-vO-mfq" firstAttribute="leading" secondItem="CW6-w7-gmX" secondAttribute="leading" id="KXl-zD-AJU"/>
+                                                            <constraint firstItem="k4s-vO-mfq" firstAttribute="top" secondItem="CW6-w7-gmX" secondAttribute="top" id="PtZ-Ch-3GP"/>
+                                                            <constraint firstAttribute="bottom" secondItem="k4s-vO-mfq" secondAttribute="bottom" id="Yvf-RP-5Rv"/>
+                                                            <constraint firstAttribute="trailing" secondItem="k4s-vO-mfq" secondAttribute="trailing" id="aQZ-hw-R94"/>
+                                                            <constraint firstItem="k4s-vO-mfq" firstAttribute="centerX" secondItem="CW6-w7-gmX" secondAttribute="centerX" id="hqg-4X-uZs"/>
+                                                            <constraint firstItem="k4s-vO-mfq" firstAttribute="centerY" secondItem="CW6-w7-gmX" secondAttribute="centerY" id="o9p-1C-EEt"/>
+                                                        </constraints>
+                                                    </scrollView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="CW6-w7-gmX" secondAttribute="trailing" id="DcE-dE-1if"/>
+                                                    <constraint firstItem="CW6-w7-gmX" firstAttribute="leading" secondItem="k9E-2p-038" secondAttribute="leading" id="Tt3-8F-ayF"/>
+                                                    <constraint firstItem="CW6-w7-gmX" firstAttribute="top" secondItem="k9E-2p-038" secondAttribute="top" id="XBe-go-1fd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="CW6-w7-gmX" secondAttribute="bottom" id="gPG-gf-eXI"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resize and crop image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0X-Hm-qe9">
+                                                <rect key="frame" x="0.0" y="414" width="414" height="44"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="HeW-Aw-qPR"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="bam-O8-ZYD">
+                                        <rect key="frame" x="0.0" y="528" width="414" height="118"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ja-ce-S4S">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="fwo-OC-UGq"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                                <state key="normal" title="Continue">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="continueButton_TchUpIns:" destination="O3V-YX-Ur7" eventType="touchUpInside" id="iF0-CS-f2Z"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMY-Zm-VC3">
+                                                <rect key="frame" x="0.0" y="74" width="414" height="44"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="xHg-Hk-hUn"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" red="1" green="0.022732843419999999" blue="0.0801321324" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelButton_TchUpIns:" destination="O3V-YX-Ur7" eventType="touchUpInside" id="59t-pg-MtH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="psn-gk-SL0" firstAttribute="trailing" secondItem="Y00-Wz-Jeo" secondAttribute="trailing" id="5vk-aj-fqd"/>
+                            <constraint firstItem="psn-gk-SL0" firstAttribute="top" secondItem="Y00-Wz-Jeo" secondAttribute="top" id="Fj7-93-C5c"/>
+                            <constraint firstItem="psn-gk-SL0" firstAttribute="leading" secondItem="Y00-Wz-Jeo" secondAttribute="leading" id="X2m-xF-TGg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Y00-Wz-Jeo"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hXa-xV-5fW"/>
+                    <connections>
+                        <outlet property="contentView" destination="k4s-vO-mfq" id="0v6-oZ-vyj"/>
+                        <outlet property="scrollView" destination="CW6-w7-gmX" id="LuM-wt-shk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9FL-fF-8FX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2668" y="27"/>
         </scene>
     </scenes>
     <resources>
