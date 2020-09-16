@@ -25,7 +25,8 @@ class EditProfileViewController: UITableViewController {
         
         handleTextField()
     }
-    
+    // MARK: Variables
+    var profileImagesHasChanged = false
     
     // MARK: Handle textfield
     func handleTextField() {
@@ -105,6 +106,9 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
 extension EditProfileViewController: CropProfileImageViewControllerDelegate {
     func setImage(_ image: UIImage) {
         profileImageView.image = image
+        profileImagesHasChanged = true
+        
+        
         //cell.updateFocusIfNeeded()
         //textFieldDidChange()
     }
