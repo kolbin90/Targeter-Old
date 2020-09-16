@@ -64,6 +64,9 @@ class EditProfileViewController: UITableViewController {
     
     
     @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        present(pickerController, animated: true, completion: nil)
     }
     @IBAction func saveButton_TchUpIns(_ sender: Any) {
     }
@@ -71,4 +74,38 @@ class EditProfileViewController: UITableViewController {
     @IBAction func cancelButton_TchUpIns(_ sender: Any) {
     }
     
+}
+
+// MARK: - Extensions
+// MARK: UIImagePickerControllerDelegate, AddTargetTableViewController
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true) {
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                //cell.targetImageView.image = image
+                //selectedImage = image
+                ProgressHUD.show("Loading...")
+                let cropImageVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "CropProfileImageViewController") as! CropProfileImageViewController
+                cropImageVC.image = image
+                cropImageVC.delegate = self
+                ProgressHUD.dismiss()
+                self.navigationController?.show(cropImageVC, sender: nil)
+                
+//                let navController = UINavigationController(rootViewController: cropImageVC)
+//                self.present(navController, animated: true, completion: {
+//                    ProgressHUD.dismiss()
+//                })
+            }
+        }
+
+    }
+}
+
+// MARK: EditProfileViewController
+extension EditProfileViewController: CropProfileImageViewControllerDelegate {
+    func setImage(_ image: UIImage) {
+        profileImageView.image = image
+        //cell.updateFocusIfNeeded()
+        //textFieldDidChange()
+    }
 }

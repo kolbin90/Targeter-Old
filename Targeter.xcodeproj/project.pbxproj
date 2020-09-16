@@ -47,6 +47,7 @@
 		04E471001FB6720A002C5D12 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E470FF1FB6720A002C5D12 /* FriendCell.swift */; };
 		04ED2B02209BA8BB00DDB9A5 /* TargetImages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B00209BA8BA00DDB9A5 /* TargetImages+CoreDataClass.swift */; };
 		04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */; };
+		112B44082512C3BE00B39033 /* CropProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */; };
 		11E9DBE324E8C7CA00C05FF6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */; };
 		8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBB239A1F000094DD0C /* UserModel.swift */; };
 		8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBE239A2C990094DD0C /* UserApi.swift */; };
@@ -140,6 +141,7 @@
 		04E470FF1FB6720A002C5D12 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		04ED2B00209BA8BA00DDB9A5 /* TargetImages+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetImages+CoreDataClass.swift"; sourceTree = "<group>"; };
 		04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetImages+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropProfileImageViewController.swift; sourceTree = "<group>"; };
 		11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TargeterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		432E3006C9673D5E81EC8F3E /* Pods-TargeterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */,
 				85135A3023BB249100FDE496 /* CropImageViewController.swift */,
 				11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */,
+				112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				8508BEC723A9E1B20094DD0C /* ForgotPasswordViewController.swift in Sources */,
 				041EE56E1E70D05C006D623B /* Target+CoreDataClass.swift in Sources */,
 				041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */,
+				112B44082512C3BE00B39033 /* CropProfileImageViewController.swift in Sources */,
 				04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */,
 				85AD2D4423E406C000EE8FF3 /* ProfileCell.swift in Sources */,
 				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
