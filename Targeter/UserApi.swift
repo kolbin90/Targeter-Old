@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 class UserApi {
     
@@ -58,6 +59,81 @@ class UserApi {
             
         }
     }
+    
+    
+    func uploadProfileToServer(image: UIImage?, name: String?, location: String?, userId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        
+        if let targetImageData = image?.jpegData(compressionQuality: 0.5) {
+            uploadImageToServer(imageData: targetImageData, onSuccess: { (imageUrlString) in
+                
+                self.saveProfileDataToDatabase(imageUrlString: imageUrlString, name: name, location: location, userId: userId, onSuccess: {
+                    onSuccess()
+                }) { (error) in
+                    onError(error)
+                }
+                    }, onError: onError)
+        } else {
+            self.saveProfileDataToDatabase(imageUrlString: nil, name: name, location: location, userId: userId, onSuccess: {
+                onSuccess()
+            }) { (error) in
+                onError(error)
+            }
+        }
+        
+    }
+    
+    
+    
+    fileprivate func uploadImageToServer(imageData: Data, onSuccess: @escaping (String) -> Void, onError: @escaping (String) -> Void) {
+        let photoID = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child(Constants.RootFolders.Users).child(photoID)
+        let profileImgMetadata = StorageMetadata()
+        profileImgMetadata.contentType = "image/jpg"
+        storageRef.putData(imageData, metadata: profileImgMetadata, completion: { (metadata, error) in
+            if let error = error {
+                onError(error.localizedDescription)
+                return
+            }
+            storageRef.downloadURL(completion: { (profileImgUrl, error) in
+                guard error == nil else {
+                    onError(error!.localizedDescription)
+                    return
+                }
+                guard let profileImgUrlString = profileImgUrl?.absoluteString else {
+                    onError("Failed uploading image to server")
+                    return
+                }
+                onSuccess(profileImgUrlString)
+                
+            })
+        })
+    }
+    
+    fileprivate func saveProfileDataToDatabase(imageUrlString: String?, name: String?, location: String?, userId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void){
+        
+        var dict: [String: String] = [:]
+        let userRef = usersRef.child(userId)
+        if imageUrlString != nil {
+            dict[Constants.UserData.ImageURL] = imageUrlString!
+        }
+        if name != nil {
+            dict[Constants.UserData.Name] = name!
+        }
+        if location != nil {
+            dict[Constants.UserData.Location] = location!
+        }
+        
+        
+        userRef.updateChildValues(dict){ (error, ref) in
+            if let error = error {
+                onError(error.localizedDescription)
+                return
+            } else {
+                onSuccess()
+            }
+        }
+    }
+    
     
     
     
