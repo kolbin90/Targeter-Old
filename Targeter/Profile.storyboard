@@ -30,7 +30,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ydF-A8-trT">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13880327_1071710792884531_6739614795217912898_n.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6S3-yg-IjF">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar-1577909_960_720" translatesAutoresizingMaskIntoConstraints="NO" id="6S3-yg-IjF">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="6S3-yg-IjF" secondAttribute="height" multiplier="1:1" id="h09-BF-hmb"/>
@@ -162,6 +162,9 @@
                                         <connections>
                                             <outlet property="headerView" destination="ydF-A8-trT" id="Ghb-yD-Rnp"/>
                                             <outlet property="headerViewHeightConstraint" destination="ZZp-sY-gk7" id="5at-gc-0Dy"/>
+                                            <outlet property="locationLabel" destination="JEh-Vk-QZS" id="Ui7-1s-oMV"/>
+                                            <outlet property="nameLabel" destination="62c-C6-Ut2" id="5Fe-KI-VQ7"/>
+                                            <outlet property="profileImageView" destination="6S3-yg-IjF" id="gvF-lM-iw5"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -551,7 +554,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="13880327_1071710792884531_6739614795217912898_n.jpg" width="960" height="960"/>
         <image name="Profile" width="20" height="21"/>
         <image name="Profile_Selected" width="20" height="21"/>
         <image name="avatar-1577909_960_720" width="720" height="720"/>

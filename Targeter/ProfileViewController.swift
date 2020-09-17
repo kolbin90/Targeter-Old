@@ -12,21 +12,20 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     // MARK: Outlets
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var targetsLabel: UILabel!
-    @IBOutlet weak var pointsLabel: UILabel!
-    @IBOutlet weak var followersLabel: UILabel!
-    @IBOutlet weak var followingLabel: UILabel!
+
+    @IBOutlet weak var profileCell: ProfileCell!
     @IBOutlet weak var tableView: UITableView!
 
     // MARK: Variables
     var targets: [TargetModel] = []
     var userId: String?
+    var name = ""
+    var location = ""
+    var profileImageUrlString = ""
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationController(largeTitleDisplayMode: .never)
+        setNavigationController(largeTitleDisplayMode: .always)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
@@ -68,13 +67,32 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func getUser(withID id: String) {
-        fillHeader()
-        observeTargetsForUser(withID: id) // REPLACE WITH observeTargets for UserID
+    func getUser(withID userid: String) {
+        fillProfileData()
+        observeTargetsForUser(withID: userid) // REPLACE WITH observeTargets for UserID
     }
     
-    func fillHeader() {
-        
+    func fillProfileData() {
+        Api.user.singleObserveCurrentUser(completion: { (user) in
+            if let uaername = user.username {
+                self.title = uaername
+            }
+            if let name = user.name {
+                self.name = " \(name) "
+            }
+            if let location = user.location {
+                self.location = " \(location) "
+            }
+            
+            if let profileImageUrlString = user.imageURLString {
+                self.profileImageUrlString = profileImageUrlString
+            }
+            
+            self.tableView.reloadData()
+            
+        }) { (error) in
+            ProgressHUD.showError(error)
+        }
     }
     // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
@@ -98,6 +116,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
+        cell.nameLabel.text = name
+        cell.locationLabel.text = location
+        cell.profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
+            // TODO: Save image to core data
+        }
+        
         return cell.contentView
     }
 
