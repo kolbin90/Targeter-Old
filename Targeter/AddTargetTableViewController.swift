@@ -128,6 +128,7 @@ class AddTargetTableViewController: UITableViewController {
             ProgressHUD.showError(errorString)
         }
     }
+    
     @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self

@@ -94,8 +94,6 @@ extension CropProfileImageViewController: UIScrollViewDelegate {
         scrollView.zoomScale = maxScale
         scrollView.addSubview(imageView)
         imageViewIsShown = true
-
-        
         
         centerScrollViewContent()
       
