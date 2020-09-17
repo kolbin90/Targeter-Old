@@ -70,9 +70,23 @@ class EditProfileViewController: UITableViewController {
         present(pickerController, animated: true, completion: nil)
     }
     @IBAction func saveButton_TchUpIns(_ sender: Any) {
+        ProgressHUD.show("Saving")
+        let name = nameTextField.text
+        let location = locationTextField.text
+        guard let userId = Api.user.currentUser?.uid  else {
+            ProgressHUD.showError()
+            return
+        }
+        Api.user.uploadProfileToServer(image: profileImageView.image, name: name, location: location, userId: userId, onSuccess: {
+            ProgressHUD.showSuccess()
+            self.navigationController?.popViewController(animated: true)
+        }) { (error) in
+            ProgressHUD.showError(error)
+        }
     }
     
     @IBAction func cancelButton_TchUpIns(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
