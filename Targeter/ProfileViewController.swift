@@ -75,7 +75,7 @@ class ProfileViewController: UIViewController {
     func fillProfileData() {
         Api.user.singleObserveCurrentUser(completion: { (user) in
             if let uaername = user.username {
-                self.title = uaername
+                self.navigationItem.title = uaername
             }
             if let name = user.name {
                 self.name = " \(name) "

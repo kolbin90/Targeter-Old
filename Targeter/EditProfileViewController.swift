@@ -23,6 +23,7 @@ class EditProfileViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fillProfileData()
         handleTextField()
     }
     // MARK: Variables
@@ -63,6 +64,32 @@ class EditProfileViewController: UITableViewController {
         
     }
     
+    // MARK: Assist methods
+    func fillProfileData() {
+        Api.user.singleObserveCurrentUser(completion: { (user) in
+            if let name = user.name {
+                self.nameLabel.text = " \(name) "
+                self.nameTextField.text = name
+                self.nameLabel.isHidden = false
+
+            }
+            if let location = user.location {
+                self.locationLabel.text = " \(location) "
+                self.locationTextField.text = location
+                self.locationLabel.isHidden = false
+
+            }
+            
+            if let profileImageUrlString = user.imageURLString {
+                self.profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
+                    // TODO: Save image to core data
+                }
+            }
+                        
+        }) { (error) in
+            ProgressHUD.showError(error)
+        }
+    }
     
     @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
         let pickerController = UIImagePickerController()
@@ -121,6 +148,7 @@ extension EditProfileViewController: CropProfileImageViewControllerDelegate {
     func setImage(_ image: UIImage) {
         profileImageView.image = image
         profileImagesHasChanged = true
+        
         
         
         //cell.updateFocusIfNeeded()
