@@ -16,6 +16,7 @@ class EditProfileViewController: UITableViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
+    @IBOutlet weak var saveButton: UIButton!
     
     
     
@@ -28,6 +29,8 @@ class EditProfileViewController: UITableViewController {
     }
     // MARK: Variables
     var profileImagesHasChanged = false
+    var originalName = ""
+    var originalLocation = ""
     
     // MARK: Handle textfield
     func handleTextField() {
@@ -43,14 +46,7 @@ class EditProfileViewController: UITableViewController {
         }
         locationLabel.text = " \(locationText) "
         locationLabel.isHidden = false
-        
-//        guard let startText = startTextField.text, !startText.isEmpty, let _ = cell.targetImageView.image else {
-//            addTargetButton.setTitleColor(.lightGray, for: .normal)
-//            addTargetButton.isEnabled = false
-//            return
-//        }
-//        addTargetButton.setTitleColor(.black, for: .normal)
-//        addTargetButton.isEnabled = true
+        checkSaveButtonAvailability()
     }
     
     @objc func nameTextFieldDidChange() {
@@ -61,6 +57,7 @@ class EditProfileViewController: UITableViewController {
         }
         nameLabel.text = " \(nameText) "
         nameLabel.isHidden = false
+        checkSaveButtonAvailability()
         
     }
     
@@ -71,12 +68,14 @@ class EditProfileViewController: UITableViewController {
                 self.nameLabel.text = " \(name) "
                 self.nameTextField.text = name
                 self.nameLabel.isHidden = false
+                self.originalName = name
 
             }
             if let location = user.location {
                 self.locationLabel.text = " \(location) "
                 self.locationTextField.text = location
                 self.locationLabel.isHidden = false
+                self.originalLocation = location
 
             }
             
@@ -91,11 +90,39 @@ class EditProfileViewController: UITableViewController {
         }
     }
     
+    func checkSaveButtonAvailability() {
+        if profileImagesHasChanged {
+            saveButton.isEnabled = true
+            saveButton.setTitleColor(.black, for: .normal)
+            return
+        }
+        
+        if originalName != nameTextField.text {
+            saveButton.isEnabled = true
+            saveButton.setTitleColor(.black, for: .normal)
+            return
+        }
+        
+        if originalLocation != locationTextField.text {
+            saveButton.isEnabled = true
+            saveButton.setTitleColor(.black, for: .normal)
+            return
+        }
+        
+        saveButton.isEnabled = false
+        if #available(iOS 13.0, *) {
+            saveButton.setTitleColor(.systemGray4, for: .normal)
+        } else {
+            saveButton.setTitleColor(.gray, for: .normal)
+        }
+    }
+    
     @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         present(pickerController, animated: true, completion: nil)
     }
+    
     @IBAction func saveButton_TchUpIns(_ sender: Any) {
         ProgressHUD.show("Saving")
         let name = nameTextField.text
@@ -104,7 +131,11 @@ class EditProfileViewController: UITableViewController {
             ProgressHUD.showError()
             return
         }
-        Api.user.uploadProfileToServer(image: profileImageView.image, name: name, location: location, userId: userId, onSuccess: {
+        var profileImage:UIImage?
+        if profileImagesHasChanged {
+            profileImage = profileImageView.image
+        }
+        Api.user.uploadProfileToServer(image: profileImage, name: name, location: location, userId: userId, onSuccess: {
             ProgressHUD.showSuccess()
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
@@ -148,6 +179,7 @@ extension EditProfileViewController: CropProfileImageViewControllerDelegate {
     func setImage(_ image: UIImage) {
         profileImageView.image = image
         profileImagesHasChanged = true
+        checkSaveButtonAvailability()
         
         
         
