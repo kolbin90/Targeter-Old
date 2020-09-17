@@ -19,6 +19,7 @@ struct Constants {
         static let UsernameLowercased = "username_lowercased"
         static let Percentage = "percentage"
         static let Email = "email"
+        static let Location = "location"
     }
     struct Target {
         static let TargetID = "targetID"
