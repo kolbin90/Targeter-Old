@@ -14,6 +14,7 @@ class UserModel {
     var usernameLowercased: String?
     var email: String?
     var id: String?
+    var location: String?
 }
 extension UserModel {
     static func transformFaceBookDataToUser(dict: [String:Any]) -> UserModel {
@@ -38,7 +39,7 @@ extension UserModel {
         user.username = dict[Constants.UserData.Username] as? String
         user.usernameLowercased = dict[Constants.UserData.UsernameLowercased] as? String
         user.id = id
-
+        user.location = dict[Constants.UserData.Location] as? String
         user.name = dict[Constants.UserData.Name] as? String
         user.imageURLString = dict[Constants.UserData.ImageURL] as? String
         return user
