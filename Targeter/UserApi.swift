@@ -61,12 +61,23 @@ class UserApi {
     }
     
     
-    func uploadProfileToServer(image: UIImage?, name: String?, location: String?, userId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+    func uploadProfileToServer(image: UIImage?, oldImageUrlString: String?, name: String?, location: String?, userId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
         
         if let targetImageData = image?.jpegData(compressionQuality: 0.5) {
             uploadImageToServer(imageData: targetImageData, onSuccess: { (imageUrlString) in
                 
                 self.saveProfileDataToDatabase(imageUrlString: imageUrlString, name: name, location: location, userId: userId, onSuccess: {
+                    
+                    if let oldImageUrlString = oldImageUrlString {
+                        let storageRef = Storage.storage().reference(forURL: oldImageUrlString)
+                        storageRef.delete { error in
+                            if let error = error {
+                                print(error)
+                            } else {
+                                onSuccess()
+                            }
+                        }
+                    }
                     onSuccess()
                 }) { (error) in
                     onError(error)

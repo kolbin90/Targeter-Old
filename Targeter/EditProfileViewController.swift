@@ -31,6 +31,7 @@ class EditProfileViewController: UITableViewController {
     var profileImagesHasChanged = false
     var originalName = ""
     var originalLocation = ""
+    var oldImageUrlString: String?
     
     // MARK: Handle textfield
     func handleTextField() {
@@ -80,6 +81,7 @@ class EditProfileViewController: UITableViewController {
             }
             
             if let profileImageUrlString = user.imageURLString {
+                self.oldImageUrlString = profileImageUrlString
                 self.profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
                     // TODO: Save image to core data
                 }
@@ -135,7 +137,7 @@ class EditProfileViewController: UITableViewController {
         if profileImagesHasChanged {
             profileImage = profileImageView.image
         }
-        Api.user.uploadProfileToServer(image: profileImage, name: name, location: location, userId: userId, onSuccess: {
+        Api.user.uploadProfileToServer(image: profileImage, oldImageUrlString: oldImageUrlString, name: name, location: location, userId: userId, onSuccess: {
             ProgressHUD.showSuccess()
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
