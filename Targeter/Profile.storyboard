@@ -375,11 +375,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOz-LS-cfJ">
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOz-LS-cfJ">
                                                     <rect key="frame" x="0.0" y="4" width="414" height="36"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                     <state key="normal" title="Save">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="saveButton_TchUpIns:" destination="crY-nD-KLI" eventType="touchUpInside" id="3iR-wS-RCf"/>
@@ -437,6 +437,7 @@
                         <outlet property="nameLabel" destination="YsH-Dj-var" id="ZAm-Sd-0LK"/>
                         <outlet property="nameTextField" destination="rHR-Ih-v6n" id="zTl-du-8PM"/>
                         <outlet property="profileImageView" destination="Nps-Uc-Nf8" id="Qjb-GX-7nN"/>
+                        <outlet property="saveButton" destination="iOz-LS-cfJ" id="WcN-bd-CeB"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2z1-GP-uSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
