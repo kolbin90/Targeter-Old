@@ -20,6 +20,7 @@ struct Constants {
         static let Percentage = "percentage"
         static let Email = "email"
         static let Location = "location"
+        static let TargetsCount = "targetsCount"
     }
     struct Target {
         static let TargetID = "targetID"

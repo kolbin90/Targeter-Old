@@ -15,6 +15,7 @@ class UserModel {
     var email: String?
     var id: String?
     var location: String?
+    var targetsCount: Int?
 }
 extension UserModel {
     static func transformFaceBookDataToUser(dict: [String:Any]) -> UserModel {
