@@ -8,6 +8,11 @@
 
 import Foundation
 
+
+protocol EditProfileViewControllerDelegate {
+    func updateProfile(_ profileImage: UIImage?, _ name: String?, _ location: String?)
+}
+
 class EditProfileViewController: UITableViewController {
     
     // MARK: Outlets
@@ -32,6 +37,8 @@ class EditProfileViewController: UITableViewController {
     var originalName = ""
     var originalLocation = ""
     var oldImageUrlString: String?
+    
+    var delegate: EditProfileViewControllerDelegate?
     
     // MARK: Handle textfield
     func handleTextField() {
@@ -138,6 +145,7 @@ class EditProfileViewController: UITableViewController {
             profileImage = profileImageView.image
         }
         Api.user.uploadProfileToServer(image: profileImage, oldImageUrlString: oldImageUrlString, name: name, location: location, userId: userId, onSuccess: {
+            self.delegate?.updateProfile(profileImage, name, location)
             ProgressHUD.showSuccess()
             self.navigationController?.popViewController(animated: true)
         }) { (error) in

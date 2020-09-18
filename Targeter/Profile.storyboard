@@ -187,7 +187,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="X9b-bb-fBT">
                             <connections>
                                 <action selector="editButton_TchUpIns:" destination="k6e-76-mtO" id="abu-xh-Ywj"/>
-                                <segue destination="crY-nD-KLI" kind="show" id="QOn-7O-wDd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -221,7 +220,7 @@
         <!--Add Target-->
         <scene sceneID="JGl-Bh-EKX">
             <objects>
-                <tableViewController storyboardIdentifier="AddTargetTableViewController" title="Add Target" id="crY-nD-KLI" customClass="EditProfileViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="EditProfileViewController" title="Add Target" id="crY-nD-KLI" customClass="EditProfileViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="HKa-wa-npp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

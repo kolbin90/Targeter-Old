@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
     var name = ""
     var location = ""
     var profileImageUrlString = ""
+    var newProfileImage: UIImage?
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,10 +79,10 @@ class ProfileViewController: UIViewController {
                 self.navigationItem.title = uaername
             }
             if let name = user.name {
-                self.name = " \(name) "
+                self.name = name
             }
             if let location = user.location {
-                self.location = " \(location) "
+                self.location = location
             }
             
             if let profileImageUrlString = user.imageURLString {
@@ -96,6 +97,9 @@ class ProfileViewController: UIViewController {
     }
     // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
+        let editProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController
+        editProfileVC.delegate = self
+        self.navigationController?.show(editProfileVC, sender: nil)
     }
 }
 
@@ -116,10 +120,14 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
-        cell.nameLabel.text = name
-        cell.locationLabel.text = location
-        cell.profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
-            // TODO: Save image to core data
+        cell.nameLabel.text = " \(name) "
+        cell.locationLabel.text = " \(location) "
+        if let newProfileImage = newProfileImage {
+            cell.profileImageView.image = newProfileImage
+        } else {
+            cell.profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
+                // TODO: Save image to core data
+            }
         }
         
         return cell.contentView
@@ -133,4 +141,20 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+extension ProfileViewController: EditProfileViewControllerDelegate {
+    func updateProfile(_ profileImage: UIImage?, _ name: String?, _ location: String?) {
+        if let profileImage = profileImage {
+            newProfileImage = profileImage
+        }
+        if let name = name {
+            self.name = name
+        }
+        if let location = location {
+            self.location = location
+        }
+        
+        tableView.reloadData()
+    }
+
+}
 
