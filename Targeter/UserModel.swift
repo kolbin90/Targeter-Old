@@ -43,6 +43,7 @@ extension UserModel {
         user.location = dict[Constants.UserData.Location] as? String
         user.name = dict[Constants.UserData.Name] as? String
         user.imageURLString = dict[Constants.UserData.ImageURL] as? String
+        user.targetsCount = dict[Constants.UserData.TargetsCount] as? Int
         return user
     }
 }
