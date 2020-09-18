@@ -145,6 +145,37 @@ class UserApi {
         }
     }
     
+    func increaseTargetsCount(onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        if let userId = currentUser?.uid {
+            singleObserveUser(withUid: userId, completion: { (user) in
+                var newTargetsCount: Int!
+                if let targetsCount = user.targetsCount {
+                    newTargetsCount = targetsCount + 1
+                    self.usersRef.child(userId).updateChildValues([Constants.UserData.TargetsCount : newTargetsCount]){ (error, ref) in
+                        if let error = error {
+                            onError(error.localizedDescription)
+                            return
+                        } else {
+                            onSuccess()
+                        }
+                    }
+                } else {
+                    newTargetsCount = 1
+                    self.usersRef.child(userId).updateChildValues([Constants.UserData.TargetsCount : newTargetsCount]){ (error, ref) in
+                        if let error = error {
+                            onError(error.localizedDescription)
+                            return
+                        } else {
+                            onSuccess()
+                        }
+                    }
+                }
+            }) { (error) in
+                 onError(error)
+            }
+        }
+    }
+    
     
     
     

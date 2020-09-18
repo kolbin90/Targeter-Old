@@ -74,6 +74,7 @@ class TargetApi {
         }
         uploadImageToServer(imageData: targetImageData, onSuccess: { (imageUrlString) in
             self.savePostInfoToDatabase(imageUrlString: imageUrlString, title: title, start: start, onSuccess: {
+                Api.user.increaseTargetsCount(onSuccess: onSuccess, onError: onError)
                 onSuccess()
             }, onError: onError)
         }, onError: onError)
