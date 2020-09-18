@@ -160,11 +160,14 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="followersLabel" destination="50I-gw-BbO" id="nXa-sa-rSq"/>
+                                            <outlet property="followingLabel" destination="Pfo-IS-NGT" id="j0q-dw-oSe"/>
                                             <outlet property="headerView" destination="ydF-A8-trT" id="Ghb-yD-Rnp"/>
                                             <outlet property="headerViewHeightConstraint" destination="ZZp-sY-gk7" id="5at-gc-0Dy"/>
                                             <outlet property="locationLabel" destination="JEh-Vk-QZS" id="Ui7-1s-oMV"/>
                                             <outlet property="nameLabel" destination="62c-C6-Ut2" id="5Fe-KI-VQ7"/>
                                             <outlet property="profileImageView" destination="6S3-yg-IjF" id="gvF-lM-iw5"/>
+                                            <outlet property="targetsLabel" destination="bIS-kg-gIg" id="yIy-p2-t72"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

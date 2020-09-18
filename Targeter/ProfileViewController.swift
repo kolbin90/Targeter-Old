@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
     var name = ""
     var location = ""
     var profileImageUrlString = ""
+    var targetsCountString = ""
     var newProfileImage: UIImage?
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -88,6 +89,9 @@ class ProfileViewController: UIViewController {
             if let profileImageUrlString = user.imageURLString {
                 self.profileImageUrlString = profileImageUrlString
             }
+            if let targetsCount = user.targetsCount {
+                self.targetsCountString = String(targetsCount)
+            }
             
             self.tableView.reloadData()
             
@@ -120,6 +124,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
+        cell.targetsLabel.text = targetsCountString
         cell.nameLabel.text = " \(name) "
         cell.locationLabel.text = " \(location) "
         if let newProfileImage = newProfileImage {
