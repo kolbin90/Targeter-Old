@@ -47,6 +47,7 @@
 		04E471001FB6720A002C5D12 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E470FF1FB6720A002C5D12 /* FriendCell.swift */; };
 		04ED2B02209BA8BB00DDB9A5 /* TargetImages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B00209BA8BA00DDB9A5 /* TargetImages+CoreDataClass.swift */; };
 		04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */; };
+		112679992516A1F300F5C88B /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112679982516A1F300F5C88B /* OtherProfileViewController.swift */; };
 		112B44082512C3BE00B39033 /* CropProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */; };
 		11E9DBE324E8C7CA00C05FF6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */; };
 		8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBB239A1F000094DD0C /* UserModel.swift */; };
@@ -141,6 +142,7 @@
 		04E470FF1FB6720A002C5D12 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		04ED2B00209BA8BA00DDB9A5 /* TargetImages+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetImages+CoreDataClass.swift"; sourceTree = "<group>"; };
 		04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetImages+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		112679982516A1F300F5C88B /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropProfileImageViewController.swift; sourceTree = "<group>"; };
 		11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TargeterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -337,6 +339,7 @@
 				85135A3023BB249100FDE496 /* CropImageViewController.swift */,
 				11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */,
 				112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */,
+				112679982516A1F300F5C88B /* OtherProfileViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				04416CFE1E774541003BCDD3 /* FlickrClient.swift in Sources */,
 				04D4F3FF20A1286E00C462ED /* ProfileImage+CoreDataProperties.swift in Sources */,
 				8522916823CFAF1900F2D0AB /* CheckInModel.swift in Sources */,
+				112679992516A1F300F5C88B /* OtherProfileViewController.swift in Sources */,
 				8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */,
 				857F20A7239A0E220057F144 /* ChooseUsernameViewController.swift in Sources */,
 				04A417141FB60F4A007DD07B /* UserVC.swift in Sources */,
