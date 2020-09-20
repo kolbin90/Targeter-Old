@@ -265,10 +265,11 @@ class TargetsVC: UITableViewController {
             guard let target = targets[num] as? [String:AnyObject] else {
                 return 0
             }
-            guard let checkIns = target[Constants.Target.Checkins] else {
+            guard let checkIns = target[Constants.Target.Checkins] as? [String:String] else {
                 return 0
             }
-            if let todayResult = checkIns[self.dateFormatter.string(from: Date())] {
+            let date = self.dateFormatter.string(from: Date())
+            if let todayResult = checkIns[date] {
                 toMark -= 1
             } else {
                 print("nothing")
