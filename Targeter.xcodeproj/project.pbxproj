@@ -49,6 +49,8 @@
 		04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */; };
 		112679992516A1F300F5C88B /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112679982516A1F300F5C88B /* OtherProfileViewController.swift */; };
 		112B44082512C3BE00B39033 /* CropProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */; };
+		1145E50B251801C8006805FA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1145E50A251801C8006805FA /* Search.storyboard */; };
+		1145E510251803BE006805FA /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E50F251803BE006805FA /* SearchResultsViewController.swift */; };
 		11E9DBE324E8C7CA00C05FF6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */; };
 		8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBB239A1F000094DD0C /* UserModel.swift */; };
 		8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBE239A2C990094DD0C /* UserApi.swift */; };
@@ -144,6 +146,8 @@
 		04ED2B01209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TargetImages+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		112679982516A1F300F5C88B /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropProfileImageViewController.swift; sourceTree = "<group>"; };
+		1145E50A251801C8006805FA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		1145E50F251803BE006805FA /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TargeterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		432E3006C9673D5E81EC8F3E /* Pods-TargeterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 				853686C723B445020049957E /* Profile.storyboard */,
 				853686C923B814290049957E /* Targets.storyboard */,
 				85135A2823B817C900FDE496 /* TabBars.storyboard */,
+				1145E50A251801C8006805FA /* Search.storyboard */,
 				041EE5361E70C011006D623B /* Assets.xcassets */,
 				041EE5381E70C011006D623B /* LaunchScreen.storyboard */,
 				042493401FA81B4A000E45EA /* GoogleService-Info.plist */,
@@ -340,6 +345,7 @@
 				11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */,
 				112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */,
 				112679982516A1F300F5C88B /* OtherProfileViewController.swift */,
+				1145E50F251803BE006805FA /* SearchResultsViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -520,6 +526,7 @@
 				041EE5351E70C011006D623B /* Main.storyboard in Resources */,
 				85CDFFA123976B730083CF10 /* Login.storyboard in Resources */,
 				853686CA23B814290049957E /* Targets.storyboard in Resources */,
+				1145E50B251801C8006805FA /* Search.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +705,7 @@
 				856E0BD923C428DF007529FC /* TargetModel.swift in Sources */,
 				04E470FE1FB668E5002C5D12 /* FriendsVC.swift in Sources */,
 				044D572D1E788D7D00AF1545 /* ImageSearch+CoreDataProperties.swift in Sources */,
+				1145E510251803BE006805FA /* SearchResultsViewController.swift in Sources */,
 				047A353E1E712CFB0084AD68 /* TargetCell.swift in Sources */,
 				041EE5731E70E4A7006D623B /* TargetsVC.swift in Sources */,
 				04DCC2CD1FD257A400680F34 /* NewTargetCell.swift in Sources */,
