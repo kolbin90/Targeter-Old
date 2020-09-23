@@ -51,6 +51,7 @@
 		112B44082512C3BE00B39033 /* CropProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */; };
 		1145E50B251801C8006805FA /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1145E50A251801C8006805FA /* Search.storyboard */; };
 		1145E515251AA106006805FA /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E514251AA106006805FA /* SearchResultViewController.swift */; };
+		1145E51D251BE8B3006805FA /* SearchProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E51C251BE8B3006805FA /* SearchProfileCell.swift */; };
 		11E9DBE324E8C7CA00C05FF6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */; };
 		8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBB239A1F000094DD0C /* UserModel.swift */; };
 		8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBE239A2C990094DD0C /* UserApi.swift */; };
@@ -148,6 +149,7 @@
 		112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropProfileImageViewController.swift; sourceTree = "<group>"; };
 		1145E50A251801C8006805FA /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		1145E514251AA106006805FA /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		1145E51C251BE8B3006805FA /* SearchProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProfileCell.swift; sourceTree = "<group>"; };
 		11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TargeterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		432E3006C9673D5E81EC8F3E /* Pods-TargeterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 				04DCC2CB1FD257A400680F34 /* NewTargetCell.swift */,
 				04DCC2CC1FD257A400680F34 /* NewTargetCell.xib */,
 				85AD2D4323E406C000EE8FF3 /* ProfileCell.swift */,
+				1145E51C251BE8B3006805FA /* SearchProfileCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				856E0BD923C428DF007529FC /* TargetModel.swift in Sources */,
 				04E470FE1FB668E5002C5D12 /* FriendsVC.swift in Sources */,
 				044D572D1E788D7D00AF1545 /* ImageSearch+CoreDataProperties.swift in Sources */,
+				1145E51D251BE8B3006805FA /* SearchProfileCell.swift in Sources */,
 				047A353E1E712CFB0084AD68 /* TargetCell.swift in Sources */,
 				041EE5731E70E4A7006D623B /* TargetsVC.swift in Sources */,
 				04DCC2CD1FD257A400680F34 /* NewTargetCell.swift in Sources */,

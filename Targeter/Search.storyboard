@@ -44,13 +44,52 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell1" id="nSa-Ya-kkt">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchProfileCell" rowHeight="75" id="nSa-Ya-kkt" customClass="SearchProfileCell" customModule="Targeter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nSa-Ya-kkt" id="RCh-fu-XnJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FEO-F5-anP">
+                                                    <rect key="frame" x="15" y="8" width="60" height="59"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="PSi-oc-Lrh"/>
+                                                        <constraint firstAttribute="width" constant="60" id="iEz-2A-sCD"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uqf-6c-qdt">
+                                                    <rect key="frame" x="90" y="27" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mn1-4D-Cv5">
+                                                    <rect key="frame" x="299" y="22.5" width="100" height="30"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="yqk-Gx-RpK"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Follow">
+                                                        <color key="titleColor" systemColor="labelColor"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Mn1-4D-Cv5" firstAttribute="centerY" secondItem="FEO-F5-anP" secondAttribute="centerY" id="0SJ-PU-lNq"/>
+                                                <constraint firstAttribute="bottom" secondItem="FEO-F5-anP" secondAttribute="bottom" constant="8" id="2kp-lZ-WoL"/>
+                                                <constraint firstItem="Uqf-6c-qdt" firstAttribute="leading" secondItem="FEO-F5-anP" secondAttribute="trailing" constant="15" id="Pls-WR-XEs"/>
+                                                <constraint firstItem="FEO-F5-anP" firstAttribute="leading" secondItem="RCh-fu-XnJ" secondAttribute="leading" constant="15" id="g7A-nZ-UH7"/>
+                                                <constraint firstItem="FEO-F5-anP" firstAttribute="top" secondItem="RCh-fu-XnJ" secondAttribute="top" constant="8" id="iz9-9Z-wPa"/>
+                                                <constraint firstItem="Uqf-6c-qdt" firstAttribute="centerY" secondItem="FEO-F5-anP" secondAttribute="centerY" id="yO8-n5-sTP"/>
+                                                <constraint firstAttribute="trailing" secondItem="Mn1-4D-Cv5" secondAttribute="trailing" constant="15" id="ypz-LY-fOD"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="followButton" destination="Mn1-4D-Cv5" id="Fhy-Oa-ECo"/>
+                                            <outlet property="profileImageView" destination="FEO-F5-anP" id="p8q-0T-lad"/>
+                                            <outlet property="usernameLabel" destination="Uqf-6c-qdt" id="svr-bT-6R2"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -71,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fem-1L-eZO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1572" y="-177"/>
+            <point key="canvasLocation" x="1571.0144927536232" y="-177.45535714285714"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hGh-Nz-eCc">
@@ -97,8 +136,14 @@
     </scenes>
     <resources>
         <image name="Search" width="23" height="22"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

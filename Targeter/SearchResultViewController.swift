@@ -77,7 +77,7 @@ extension SearchResultViewController:  UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let user = users[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell1", for: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchProfileCell", for: indexPath) as! SearchProfileCell
 //        cell.user = user
 //        cell.delegate = self
 //
