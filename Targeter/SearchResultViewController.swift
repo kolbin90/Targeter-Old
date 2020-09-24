@@ -82,8 +82,18 @@ extension SearchResultViewController:  UITableViewDataSource {
         let user = users[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchProfileCell", for: indexPath) as! SearchProfileCell
         cell.user = user
-//        cell.delegate = self
+        cell.delegate = self
 //
         return cell
     }
+}
+
+extension SearchResultViewController: SearchProfileCellDelegate {
+    func goToOtherProfileUserVC(withUser user: UserModel) {
+        let otherProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+        otherProfileVC.user = user
+        navigationController?.show(otherProfileVC, sender: nil)
+    }
+    
+
 }

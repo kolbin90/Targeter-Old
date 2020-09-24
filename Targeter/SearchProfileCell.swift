@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SearchProfileCellDelegate {
+    func goToOtherProfileUserVC(withUser user: UserModel)
+}
+
 class SearchProfileCell: UITableViewCell {
 
     @IBOutlet weak var usernameLabel: UILabel!
@@ -15,6 +19,7 @@ class SearchProfileCell: UITableViewCell {
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var cellView: UIView!
     
+    var delegate: SearchProfileCellDelegate?
     var user: UserModel? {
         didSet {
             updateView()
@@ -32,7 +37,7 @@ class SearchProfileCell: UITableViewCell {
     
     @objc func cellView_TchUpIns() {
         if let user = user {
-          //  delegate?.goToProfileUserVC(withUser: user)
+            delegate?.goToOtherProfileUserVC(withUser: user)
         }
     }
     override func prepareForReuse() {

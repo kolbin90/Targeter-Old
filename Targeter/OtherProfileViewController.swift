@@ -19,6 +19,7 @@ class OtherProfileViewController: UIViewController {
 
     // MARK: Variables
     var targets: [TargetModel] = []
+    var user: UserModel!
     var userId: String?
     var name = ""
     var location = ""
@@ -32,15 +33,30 @@ class OtherProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
-//        Check if there is a user ID. If there is none, it means it's Users own profile
-        if let userId = userId  {
-            getUser(withID: userId)
-        } else {
-            guard let userId = Api.user.currentUser?.uid else {
-                return
-            }
-            getUser(withID: userId)
+        
+        fillProfileData()
+        guard let uId = user.id else {
+            ProgressHUD.showError()
+            return
         }
+        guard let userId = Api.user.currentUser?.uid else {
+            return
+        }
+        if userId == uID {
+            // hide follow button
+        }
+        observeTargetsForUser(withID: uId)
+
+        
+//        Check if there is a user ID. If there is none, it means it's Users own profile
+//        if let userId = userId  {
+//            getUser(withID: userId)
+//        } else {
+//            guard let userId = Api.user.currentUser?.uid else {
+//                return
+//            }
+//            getUser(withID: userId)
+//        }
 //        guard let userId = userId else {
 ////          If ita uaer's own profile then get userID and then gwt user info and targets for this ID
 //            //observeTargets() // REPLACE TO getUser(withID)
@@ -70,13 +86,9 @@ class OtherProfileViewController: UIViewController {
         }
     }
     
-    func getUser(withID userid: String) {
-        fillProfileData()
-        observeTargetsForUser(withID: userid) // REPLACE WITH observeTargets for UserID
-    }
+
     
     func fillProfileData() {
-        Api.user.singleObserveCurrentUser(completion: { (user) in
             if let uaername = user.username {
                 self.navigationItem.title = uaername
             }
@@ -95,10 +107,7 @@ class OtherProfileViewController: UIViewController {
             }
             
             self.tableView.reloadData()
-            
-        }) { (error) in
-            ProgressHUD.showError(error)
-        }
+
     }
     // MARK: Actions
 
