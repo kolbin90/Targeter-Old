@@ -13,6 +13,7 @@ class SearchResultViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var searchBar = UISearchBar()
+    var users: [UserModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,44 +42,46 @@ class SearchResultViewController: UIViewController {
     }
     
     func doSearch() {
-//        if let searchText = searchBar.text?.lowercased() {
-//            users.removeAll()
-//            tableView.reloadData()
-//            Api.user.queryUsers(withText: searchText) { (user) in
-//                if !self.users.contains(where: { $0.id == user.id }) {
+        if let searchText = searchBar.text?.lowercased() {
+            users.removeAll()
+            tableView.reloadData()
+            Api.user.queryUsers(withText: searchText) { (user) in
+                if !self.users.contains(where: { $0.id == user.id }) {
 //                    self.isFollowing(withUserId: user.id!, completed: { (value) in
 //                        user.isFollowing = value
 //                        self.users.append(user)
 //                        self.tableView.reloadData()
 //                    })
-//                }
-//
-//            }
-//        }
+                    self.users.append(user)
+                    self.tableView.reloadData()
+                }
+
+            }
+        }
     }
     
 }
 
 extension SearchResultViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        doSearch()
+        doSearch()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        doSearch()
+        doSearch()
     }
     
 }
 
 extension SearchResultViewController:  UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 //users.count
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let user = users[indexPath.row]
+        let user = users[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchProfileCell", for: indexPath) as! SearchProfileCell
-//        cell.user = user
+        cell.user = user
 //        cell.delegate = self
 //
         return cell

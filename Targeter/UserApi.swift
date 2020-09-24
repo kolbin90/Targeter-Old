@@ -21,6 +21,19 @@ class UserApi {
         return nil
     }
     
+    func queryUsers(withText text: String, completion: @escaping (UserModel) -> Void) {
+        usersRef.queryOrdered(byChild: Constants.UserData.UsernameLowercased).queryStarting(atValue: text).queryEnding(atValue: text + "\u{f8ff}").queryLimited(toFirst: 10).observeSingleEvent(of: .value) { (snapshot) in
+            snapshot.children.forEach({ (snapshotChild) in
+                guard let child = snapshotChild as? DataSnapshot else {
+                    return
+                }
+                if let dict = child.value as? [String: Any] {
+                    let user = UserModel.transformDataToUser(dict: dict, id: child.key)
+                    completion(user)
+                }
+            })
+        }
+    }
   
     
     func singleObserveCurrentUser(completion: @escaping (UserModel) -> Void,onError: @escaping (String) -> Void ){
