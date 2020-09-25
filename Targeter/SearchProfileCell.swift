@@ -59,6 +59,12 @@ class SearchProfileCell: UITableViewCell {
         }
         usernameLabel.text = user?.username
         
+        if user!.id! == Api.user.currentUser?.uid {
+            followButton.isHidden = true
+        } else {
+            
+        }
+        
         
 //        if user!.isFollowing! {
 //            configureUnfollowButton()
