@@ -66,5 +66,11 @@ class SearchProfileCell: UITableViewCell {
 //            configureFollowButton()
 //        }
     }
+    
+    
+    @IBAction func followButton_TchUpIns(_ sender: Any) {
+    }
+    
+    
 
 }

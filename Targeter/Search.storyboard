@@ -74,6 +74,9 @@
                                                     <state key="normal" title="Follow">
                                                         <color key="titleColor" systemColor="labelColor"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="followButton_TchUpIns:" destination="nSa-Ya-kkt" eventType="touchUpInside" id="XbO-rt-Rj6"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
