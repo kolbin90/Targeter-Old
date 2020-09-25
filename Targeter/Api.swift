@@ -12,4 +12,5 @@ struct Api {
     static let user = UserApi()
     static let target = TargetApi()
     static let user_target = User_TargetApi()
+    static let follow = FollowApi()
 }

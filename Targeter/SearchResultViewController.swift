@@ -47,17 +47,19 @@ class SearchResultViewController: UIViewController {
             tableView.reloadData()
             Api.user.queryUsers(withText: searchText) { (user) in
                 if !self.users.contains(where: { $0.id == user.id }) {
-//                    self.isFollowing(withUserId: user.id!, completed: { (value) in
-//                        user.isFollowing = value
-//                        self.users.append(user)
-//                        self.tableView.reloadData()
-//                    })
-                    self.users.append(user)
-                    self.tableView.reloadData()
+                    self.isFollowing(withUserId: user.id!, completed: { (value) in
+                        user.isFollowing = value
+                        self.users.append(user)
+                        self.tableView.reloadData()
+                    })
                 }
 
             }
         }
+    }
+    
+    func isFollowing(withUserId id: String, completed: @escaping (Bool) -> Void) {
+        Api.follow.isFollowing(withUserId: id, completed: completed)
     }
     
 }

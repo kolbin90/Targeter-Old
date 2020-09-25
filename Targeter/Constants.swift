@@ -52,4 +52,9 @@ struct Constants {
         static let User_Target = "user_target"
         static let CheckIns = "checkins"
     }
+    
+    struct Follow {
+        static let Followers = "followers"
+        static let Following = "following"
+    }
 }
