@@ -16,7 +16,8 @@ class OtherProfileViewController: UIViewController {
 
     @IBOutlet weak var profileCell: ProfileCell!
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var followButton: UIBarButtonItem!
+    
     // MARK: Variables
     var targets: [TargetModel] = []
     var user: UserModel!
@@ -42,8 +43,8 @@ class OtherProfileViewController: UIViewController {
         guard let userId = Api.user.currentUser?.uid else {
             return
         }
-        if userId == uID {
-            // hide follow button
+        if userId == uId {
+            self.navigationItem.rightBarButtonItem = nil
         }
         observeTargetsForUser(withID: uId)
 

@@ -736,6 +736,7 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="followButton" destination="FFx-4E-5fT" id="ltr-MZ-D2d"/>
                         <outlet property="tableView" destination="wFo-X1-H7t" id="ss2-bJ-PKr"/>
                     </connections>
                 </viewController>
