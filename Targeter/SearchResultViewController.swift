@@ -17,7 +17,9 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = .black
+        
+        setNavigationController(largeTitleDisplayMode: .never)
+//        navigationController?.navigationBar.tintColor = .black
 
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder = "Search"
