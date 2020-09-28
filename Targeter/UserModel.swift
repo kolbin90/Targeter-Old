@@ -16,6 +16,8 @@ class UserModel {
     var id: String?
     var location: String?
     var targetsCount: Int?
+    var followers: Int?
+    var following: Int?
     var isFollowing: Bool?
 }
 extension UserModel {
