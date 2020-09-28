@@ -47,6 +47,8 @@ extension UserModel {
         user.name = dict[Constants.UserData.Name] as? String
         user.imageURLString = dict[Constants.UserData.ImageURL] as? String
         user.targetsCount = dict[Constants.UserData.TargetsCount] as? Int
+        user.followers = dict[Constants.Follow.Followers] as? Int
+        user.following = dict[Constants.Follow.Following] as? Int
         return user
     }
 }

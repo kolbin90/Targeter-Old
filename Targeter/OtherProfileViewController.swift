@@ -26,6 +26,8 @@ class OtherProfileViewController: UIViewController {
     var location = ""
     var profileImageUrlString = ""
     var targetsCountString = ""
+    var followers = ""
+    var following = ""
     var newProfileImage: UIImage?
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -90,25 +92,41 @@ class OtherProfileViewController: UIViewController {
 
     
     func fillProfileData() {
-            if let uaername = user.username {
-                self.navigationItem.title = uaername
-            }
-            if let name = user.name {
-                self.name = name
-            }
-            if let location = user.location {
-                self.location = location
-            }
-            
-            if let profileImageUrlString = user.imageURLString {
-                self.profileImageUrlString = profileImageUrlString
-            }
-            if let targetsCount = user.targetsCount {
-                self.targetsCountString = String(targetsCount)
-            }
-            
-            self.tableView.reloadData()
-
+        if let uaername = user.username {
+            self.navigationItem.title = uaername
+        }
+        if let name = user.name {
+            self.name = name
+        }
+        if let location = user.location {
+            self.location = location
+        }
+        
+        if let profileImageUrlString = user.imageURLString {
+            self.profileImageUrlString = profileImageUrlString
+        }
+        if let targetsCount = user.targetsCount {
+            self.targetsCountString = String(targetsCount)
+        } else {
+            self.targetsCountString = "0"
+        }
+        
+        if let followers = user.followers {
+            self.followers = String(followers)
+        } else {
+            self.followers = "0"
+        }
+        
+        if let following = user.following {
+            self.following = String(following)
+        } else {
+            self.following = "0"
+        }
+        
+        
+        
+        self.tableView.reloadData()
+        
     }
     // MARK: Actions
 
@@ -132,6 +150,8 @@ extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
         cell.targetsLabel.text = targetsCountString
+        cell.followersLabel.text = followers
+        cell.followingLabel.text = following
         cell.nameLabel.text = " \(name) "
         cell.locationLabel.text = " \(location) "
         if let newProfileImage = newProfileImage {
