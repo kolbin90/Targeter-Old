@@ -26,6 +26,12 @@ class FollowApi {
 //        }
         Api.follow.followersRef.child(id).child(Api.user.currentUser!.uid).setValue(true)
         Api.follow.followingRef.child(Api.user.currentUser!.uid).child(id).setValue(true)
+        Api.user.increaseFollowers(forUserId: id) {
+             
+        } onError: { (error) in
+             
+        }
+
     }
     func unfollowAction(withUserId id: String) {
 //        Api.user_posts.REF_USER_POSTS.child(id).observeSingleEvent(of: .value) { (snapshot) in
@@ -37,6 +43,11 @@ class FollowApi {
 //        }
         Api.follow.followersRef.child(id).child(Api.user.currentUser!.uid).setValue(NSNull())
         Api.follow.followingRef.child(Api.user.currentUser!.uid).child(id).setValue(NSNull())
+        Api.user.decreaseFollowers(forUserId: id) {
+             
+        } onError: { (error) in
+             
+        }
     }
     
     func isFollowing(withUserId id: String, completed: @escaping (Bool) -> Void) {

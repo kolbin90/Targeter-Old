@@ -189,7 +189,53 @@ class UserApi {
         }
     }
     
+    func increaseFollowers(forUserId id: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        let ref = Api.user.usersRef.child(id)
+        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if var user = currentData.value as? [String : AnyObject] {
+                var followers = user[Constants.Follow.Followers] as? Int ?? 0
+               
+                followers += 1
+                
+                user[Constants.Follow.Followers] = followers as AnyObject?
+                
+                // Set value and report transaction success
+                currentData.value = user
+                
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                onError(error.localizedDescription)
+            }
+            onSuccess()
+        }
+    }
     
+    func decreaseFollowers(forUserId id: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        let ref = Api.user.usersRef.child(id)
+        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if var user = currentData.value as? [String : AnyObject] {
+                var followers = user[Constants.Follow.Followers] as? Int ?? 0
+               
+                followers -= 1
+                
+                user[Constants.Follow.Followers] = followers as AnyObject?
+                
+                // Set value and report transaction success
+                currentData.value = user
+                
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                onError(error.localizedDescription)
+            }
+            onSuccess()
+        }
+    }
     
     
     
