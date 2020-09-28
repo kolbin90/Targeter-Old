@@ -27,10 +27,12 @@ class FollowApi {
         Api.follow.followersRef.child(id).child(Api.user.currentUser!.uid).setValue(true)
         Api.follow.followingRef.child(Api.user.currentUser!.uid).child(id).setValue(true)
         Api.user.increaseFollowers(forUserId: id) {
-             
         } onError: { (error) in
-             
         }
+        Api.user.increaseFollowing {
+        } onError: { (error) in
+        }
+
 
     }
     func unfollowAction(withUserId id: String) {
@@ -44,9 +46,10 @@ class FollowApi {
         Api.follow.followersRef.child(id).child(Api.user.currentUser!.uid).setValue(NSNull())
         Api.follow.followingRef.child(Api.user.currentUser!.uid).child(id).setValue(NSNull())
         Api.user.decreaseFollowers(forUserId: id) {
-             
         } onError: { (error) in
-             
+        }
+        Api.user.decreaseFollowing {
+        } onError: { (error) in
         }
     }
     
