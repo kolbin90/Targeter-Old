@@ -57,6 +57,7 @@
 		11F5BF532522AFEB00FB8350 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5BF512522AFEB00FB8350 /* FeedCell.swift */; };
 		11F5BF542522AFEB00FB8350 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11F5BF522522AFEB00FB8350 /* FeedCell.xib */; };
 		11F5BF592525461D00FB8350 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11F5BF582525461D00FB8350 /* Feed.storyboard */; };
+		11F5BF622525484A00FB8350 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5BF612525484A00FB8350 /* FeedViewController.swift */; };
 		8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBB239A1F000094DD0C /* UserModel.swift */; };
 		8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBE239A2C990094DD0C /* UserApi.swift */; };
 		8508BEC1239A2CAD0094DD0C /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC0239A2CAD0094DD0C /* Api.swift */; };
@@ -159,6 +160,7 @@
 		11F5BF512522AFEB00FB8350 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		11F5BF522522AFEB00FB8350 /* FeedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		11F5BF582525461D00FB8350 /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
+		11F5BF612525484A00FB8350 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TargeterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		432E3006C9673D5E81EC8F3E /* Pods-TargeterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.release.xcconfig"; sourceTree = "<group>"; };
 		536F5F43C4671A59853753D7 /* Pods-Targeter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -337,26 +339,13 @@
 		041EE5601E70C11A006D623B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				041EE5721E70E4A7006D623B /* TargetsVC.swift */,
-				041EE5741E70FD6F006D623B /* AddTargetVC.swift */,
-				044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */,
+				11F5BF5D252547BD00FB8350 /* Old */,
 				0493A3A31E7F5FAA0018C5BE /* Extensions.swift */,
-				04A417131FB60F4A007DD07B /* UserVC.swift */,
-				04E470FD1FB668E5002C5D12 /* FriendsVC.swift */,
-				04B526551FD1037000EDFD6D /* EditProfileVC.swift */,
-				85CDFFA2239772E30083CF10 /* SignInViewController.swift */,
-				857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */,
-				8508BEC223A08B5E0094DD0C /* SignUpViewController.swift */,
-				8508BEC423A7538A0094DD0C /* ConfirmPasswordViewController.swift */,
-				8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */,
-				853686C523B3229E0049957E /* ProfileViewController.swift */,
-				85135A2623B816AB00FDE496 /* TargetsViewController.swift */,
-				85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */,
-				85135A3023BB249100FDE496 /* CropImageViewController.swift */,
-				11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */,
-				112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */,
-				112679982516A1F300F5C88B /* OtherProfileViewController.swift */,
+				11F5BF5E252547CE00FB8350 /* Login */,
+				11F5BF5F252547E100FB8350 /* Profile */,
+				11F5BF602525482900FB8350 /* Targets */,
 				1145E514251AA106006805FA /* SearchResultViewController.swift */,
+				11F5BF612525484A00FB8350 /* FeedViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -375,6 +364,52 @@
 				11F5BF522522AFEB00FB8350 /* FeedCell.xib */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		11F5BF5D252547BD00FB8350 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				041EE5721E70E4A7006D623B /* TargetsVC.swift */,
+				041EE5741E70FD6F006D623B /* AddTargetVC.swift */,
+				044ED1431E77362800F61A33 /* ImageFromFlickerVC.swift */,
+				04A417131FB60F4A007DD07B /* UserVC.swift */,
+				04E470FD1FB668E5002C5D12 /* FriendsVC.swift */,
+				04B526551FD1037000EDFD6D /* EditProfileVC.swift */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
+		11F5BF5E252547CE00FB8350 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				85CDFFA2239772E30083CF10 /* SignInViewController.swift */,
+				857F20A6239A0E220057F144 /* ChooseUsernameViewController.swift */,
+				8508BEC223A08B5E0094DD0C /* SignUpViewController.swift */,
+				8508BEC423A7538A0094DD0C /* ConfirmPasswordViewController.swift */,
+				8508BEC623A9E1B20094DD0C /* ForgotPasswordViewController.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		11F5BF5F252547E100FB8350 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				853686C523B3229E0049957E /* ProfileViewController.swift */,
+				11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */,
+				112679982516A1F300F5C88B /* OtherProfileViewController.swift */,
+				112B44072512C3BE00B39033 /* CropProfileImageViewController.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		11F5BF602525482900FB8350 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				85135A2623B816AB00FDE496 /* TargetsViewController.swift */,
+				85135A3023BB249100FDE496 /* CropImageViewController.swift */,
+				85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */,
+			);
+			name = Targets;
 			sourceTree = "<group>";
 		};
 		3B6BEEB3E51D04B610E83BCA /* Frameworks */ = {
@@ -733,6 +768,7 @@
 				85CDFFA3239772E30083CF10 /* SignInViewController.swift in Sources */,
 				85135A2B23B9DC6C00FDE496 /* AddTargetTableViewController.swift in Sources */,
 				8508BEC723A9E1B20094DD0C /* ForgotPasswordViewController.swift in Sources */,
+				11F5BF622525484A00FB8350 /* FeedViewController.swift in Sources */,
 				041EE56E1E70D05C006D623B /* Target+CoreDataClass.swift in Sources */,
 				041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */,
 				112B44082512C3BE00B39033 /* CropProfileImageViewController.swift in Sources */,
