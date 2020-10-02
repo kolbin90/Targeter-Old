@@ -10,6 +10,25 @@ import UIKit
 
 class FeedCell: UITableViewCell {
 
+    
+    // MARK: Outlets
+//    @IBOutlet weak var percentage: UILabel!
+    @IBOutlet weak var todayMark: UILabel!
+//    @IBOutlet weak var rightArror: UILabel!
+//    @IBOutlet weak var leftArrow: UILabel!
+    @IBOutlet var marks: [UIView]!
+    @IBOutlet weak var targetImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var cellBackgroundView: UIView!
+    @IBOutlet weak var commentsView: UIView!
+    @IBOutlet weak var commentsLabel: UILabel!
+    @IBOutlet weak var likesView: UIView!
+    @IBOutlet weak var likeImageView: UIImageView!
+    @IBOutlet weak var likesLabel: UILabel!
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
