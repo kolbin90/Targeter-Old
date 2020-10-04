@@ -29,6 +29,8 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -42,6 +44,20 @@ class FeedCell: UITableViewCell {
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         
+    }
+    
+    func updateView() {
+//        self.backgroundColor = UIColor.random()
+//        if let title = cellTarget.title {
+//            titleLabel.text = " \(title) "
+//        }
+//
+//        if let imageUrlString = cellTarget.imageURLString {
+//            targetImageView?.sd_setImage(with: URL(string: imageUrlString)) { (image, error, cacheType, url) in
+//                // TODO: Save image to core data
+//            }
+//        }
+//        fillCheckInsHistory()
     }
     
 }
