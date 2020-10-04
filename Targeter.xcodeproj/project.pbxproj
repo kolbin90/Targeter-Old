@@ -53,6 +53,7 @@
 		1145E515251AA106006805FA /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E514251AA106006805FA /* SearchResultViewController.swift */; };
 		1145E51D251BE8B3006805FA /* SearchProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E51C251BE8B3006805FA /* SearchProfileCell.swift */; };
 		1145E522251E8C39006805FA /* FollowApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E521251E8C39006805FA /* FollowApi.swift */; };
+		116AE37F252A6847008F3833 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116AE37E252A6847008F3833 /* PostModel.swift */; };
 		11E9DBE324E8C7CA00C05FF6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */; };
 		11F5BF532522AFEB00FB8350 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5BF512522AFEB00FB8350 /* FeedCell.swift */; };
 		11F5BF542522AFEB00FB8350 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11F5BF522522AFEB00FB8350 /* FeedCell.xib */; };
@@ -156,6 +157,7 @@
 		1145E514251AA106006805FA /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		1145E51C251BE8B3006805FA /* SearchProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProfileCell.swift; sourceTree = "<group>"; };
 		1145E521251E8C39006805FA /* FollowApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowApi.swift; sourceTree = "<group>"; };
+		116AE37E252A6847008F3833 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		11F5BF512522AFEB00FB8350 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		11F5BF522522AFEB00FB8350 /* FeedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				8508BEBB239A1F000094DD0C /* UserModel.swift */,
 				856E0BD823C428DF007529FC /* TargetModel.swift */,
 				8522916723CFAF1900F2D0AB /* CheckInModel.swift */,
+				116AE37E252A6847008F3833 /* PostModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 				04A417141FB60F4A007DD07B /* UserVC.swift in Sources */,
 				8508BEC523A7538A0094DD0C /* ConfirmPasswordViewController.swift in Sources */,
 				8508BEC1239A2CAD0094DD0C /* Api.swift in Sources */,
+				116AE37F252A6847008F3833 /* PostModel.swift in Sources */,
 				04D4F3FE20A1286E00C462ED /* ProfileImage+CoreDataClass.swift in Sources */,
 				8508BEC323A08B5E0094DD0C /* SignUpViewController.swift in Sources */,
 				85135A2723B816AB00FDE496 /* TargetsViewController.swift in Sources */,
