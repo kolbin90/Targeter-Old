@@ -29,6 +29,12 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     
+    // MARK: Variables
+    var cellPost: PostModel! {
+        didSet {
+            updateView()
+        }
+    }
     
     
     override func awakeFromNib() {
