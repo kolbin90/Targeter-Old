@@ -18,6 +18,13 @@ class FeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
         // Do any additional setup after loading the view.
+        
+        Api.target.observeTargets { (target) in
+            Api.user.singleObserveUser(withUid: target.ui, completion: <#T##(UserModel) -> Void#>, onError: <#T##(String) -> Void#>)
+        } onError: { (error) in
+            <#code#>
+        }
+
     }
     
 
