@@ -13,6 +13,7 @@ class TargetModel {
     var imageURLString: String?
     var start: Int?
     var id: String?
+    var uid: String?
     var timestamp: Int?
     var checkIns: [CheckInModel]?
 }
@@ -24,6 +25,7 @@ extension TargetModel {
         target.imageURLString = dict[Constants.Target.ImageUrlString] as? String
         target.start = dict[Constants.Target.Start] as? Int
         target.id = id
+        target.uid = dict[Constants.Target.Uid] as? String
         target.timestamp = dict[Constants.Target.Timestamp] as? Int
     
         return target
