@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - FeedCell
+
 class FeedCell: UITableViewCell {
 
     
@@ -43,7 +45,8 @@ class FeedCell: UITableViewCell {
     }
     var todaysCheckIn: CheckInModel?
     
-    
+    // MARK: Lifecycle
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

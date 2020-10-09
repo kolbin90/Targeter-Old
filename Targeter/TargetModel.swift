@@ -17,6 +17,7 @@ class TargetModel {
     var timestamp: Int?
     var checkIns: [CheckInModel]?
 }
+
 extension TargetModel {    
     static func transformDataToTarget(dict: [String:Any], id: String) -> TargetModel {
         let target = TargetModel()
