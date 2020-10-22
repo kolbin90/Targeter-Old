@@ -264,16 +264,16 @@
                             <constraint firstAttribute="height" constant="25" id="yVu-24-iCb"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TextTest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFL-NB-aph">
-                        <rect key="frame" x="57" y="140" width="64" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TextTest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFL-NB-aph">
+                        <rect key="frame" x="49" y="141" width="239" height="19.5"/>
+                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="zTf-hz-Brs" firstAttribute="top" secondItem="6cr-kW-ccB" secondAttribute="bottom" constant="8" id="2zE-dP-xQH"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="fFL-NB-aph" secondAttribute="trailing" constant="16" id="Bf7-h6-y8q"/>
                     <constraint firstItem="thS-2Q-q2T" firstAttribute="top" secondItem="6cr-kW-ccB" secondAttribute="top" id="EG8-cJ-uuZ"/>
                     <constraint firstItem="6cr-kW-ccB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="L7r-mt-twF"/>
                     <constraint firstItem="vOb-bb-sbk" firstAttribute="trailing" secondItem="6cr-kW-ccB" secondAttribute="trailing" constant="-16" id="QmZ-k5-yY3"/>
@@ -283,8 +283,10 @@
                     <constraint firstItem="thS-2Q-q2T" firstAttribute="leading" secondItem="6cr-kW-ccB" secondAttribute="leading" id="WeY-o6-dWP"/>
                     <constraint firstItem="thS-2Q-q2T" firstAttribute="trailing" secondItem="6cr-kW-ccB" secondAttribute="trailing" id="Xr0-PA-Gq8"/>
                     <constraint firstItem="zTf-hz-Brs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="dXW-25-xDE"/>
+                    <constraint firstItem="fFL-NB-aph" firstAttribute="centerY" secondItem="zTf-hz-Brs" secondAttribute="centerY" id="fwh-eo-Obd"/>
                     <constraint firstAttribute="bottom" secondItem="zTf-hz-Brs" secondAttribute="bottom" constant="8" id="gBV-LS-nwL"/>
                     <constraint firstItem="vOb-bb-sbk" firstAttribute="top" secondItem="6cr-kW-ccB" secondAttribute="top" constant="11" id="n9E-T2-8G8"/>
+                    <constraint firstItem="fFL-NB-aph" firstAttribute="leading" secondItem="zTf-hz-Brs" secondAttribute="trailing" constant="8" id="wa4-fv-g4a"/>
                     <constraint firstItem="vOb-bb-sbk" firstAttribute="leading" secondItem="6cr-kW-ccB" secondAttribute="leading" constant="16" id="xR9-Us-Rlp"/>
                     <constraint firstItem="vOb-bb-sbk" firstAttribute="bottom" secondItem="6cr-kW-ccB" secondAttribute="bottom" constant="-11" id="zWN-Bw-Jud"/>
                 </constraints>

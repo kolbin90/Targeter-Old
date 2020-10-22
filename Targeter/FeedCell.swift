@@ -69,10 +69,21 @@ class FeedCell: UITableViewCell {
         }
 
         if let imageUrlString = cellPost.target.imageURLString {
-            targetImageView?.sd_setImage(with: URL(string: imageUrlString)) { (image, error, cacheType, url) in
+            targetImageView.sd_setImage(with: URL(string: imageUrlString)) { (image, error, cacheType, url) in
                 // TODO: Save image to core data
             }
         }
+        
+        if let username = cellPost.user.username {
+            usernameLabel.text = username
+        }
+        
+        if let profileImageUrlString = cellPost.user.imageURLString {
+            profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
+                // TODO: Save image to core data
+            }
+        }
+        
         fillCheckInsHistory()
     }
     
