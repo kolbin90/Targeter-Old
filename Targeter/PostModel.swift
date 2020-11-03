@@ -11,4 +11,6 @@ import Foundation
 class PostModel {
     var user: UserModel!
     var target: TargetModel!
+    var timestamp: Int!
+    var action: String!
 }
