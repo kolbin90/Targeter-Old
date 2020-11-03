@@ -51,6 +51,7 @@ struct Constants {
         static let NewTargets = "newtargets"
         static let User_Target = "user_target"
         static let CheckIns = "checkins"
+        static let Feed = "feed"
     }
     
     struct Follow {
