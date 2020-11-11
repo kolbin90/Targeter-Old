@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -304,20 +304,20 @@
                 <outlet property="titleLabel" destination="Ag3-1q-mC9" id="ACm-PJ-GKp"/>
                 <outlet property="todayMark" destination="TGH-1w-bKL" id="o5J-mg-jhJ"/>
                 <outlet property="usernameLabel" destination="fFL-NB-aph" id="a0Z-ee-35F"/>
-                <outletCollection property="marks" destination="Xv0-Xe-cbH" collectionClass="NSMutableArray" id="7pF-12-Dzb"/>
-                <outletCollection property="marks" destination="Bmf-PA-0Ks" collectionClass="NSMutableArray" id="S9l-ax-dzw"/>
-                <outletCollection property="marks" destination="eqH-zU-rxD" collectionClass="NSMutableArray" id="zf1-9T-gJm"/>
-                <outletCollection property="marks" destination="8Dk-Ux-DOq" collectionClass="NSMutableArray" id="2Hi-oX-mBg"/>
-                <outletCollection property="marks" destination="H5J-8v-ugd" collectionClass="NSMutableArray" id="YMt-1a-5iG"/>
-                <outletCollection property="marks" destination="2E9-7w-u3J" collectionClass="NSMutableArray" id="SEK-T3-5k7"/>
-                <outletCollection property="marks" destination="bOo-AA-x7O" collectionClass="NSMutableArray" id="EgW-US-x3p"/>
-                <outletCollection property="marks" destination="ewO-HL-e1b" collectionClass="NSMutableArray" id="ok1-eh-Z2J"/>
-                <outletCollection property="marks" destination="h5B-Sb-E91" collectionClass="NSMutableArray" id="tmQ-qa-zFF"/>
-                <outletCollection property="marks" destination="Jmb-Cd-XgZ" collectionClass="NSMutableArray" id="9GU-6x-O5B"/>
-                <outletCollection property="marks" destination="8JP-Ft-x6Q" collectionClass="NSMutableArray" id="4wt-Vo-ZB6"/>
-                <outletCollection property="marks" destination="IXO-Vb-UgH" collectionClass="NSMutableArray" id="hl2-YD-JAS"/>
-                <outletCollection property="marks" destination="zE3-Kd-0EF" collectionClass="NSMutableArray" id="iSj-BT-IyX"/>
-                <outletCollection property="marks" destination="UQL-Se-6IO" collectionClass="NSMutableArray" id="cpL-gb-gET"/>
+                <outletCollection property="marks" destination="UQL-Se-6IO" collectionClass="NSMutableArray" id="8tC-y3-idm"/>
+                <outletCollection property="marks" destination="zE3-Kd-0EF" collectionClass="NSMutableArray" id="cbJ-Ca-dJ1"/>
+                <outletCollection property="marks" destination="IXO-Vb-UgH" collectionClass="NSMutableArray" id="93e-kI-ki2"/>
+                <outletCollection property="marks" destination="8JP-Ft-x6Q" collectionClass="NSMutableArray" id="k3M-4x-zZ5"/>
+                <outletCollection property="marks" destination="Jmb-Cd-XgZ" collectionClass="NSMutableArray" id="Kgs-zY-9DK"/>
+                <outletCollection property="marks" destination="h5B-Sb-E91" collectionClass="NSMutableArray" id="8bR-S6-ZFx"/>
+                <outletCollection property="marks" destination="ewO-HL-e1b" collectionClass="NSMutableArray" id="pUI-PW-jB3"/>
+                <outletCollection property="marks" destination="bOo-AA-x7O" collectionClass="NSMutableArray" id="MmQ-eU-DXl"/>
+                <outletCollection property="marks" destination="2E9-7w-u3J" collectionClass="NSMutableArray" id="EnV-nn-dzb"/>
+                <outletCollection property="marks" destination="H5J-8v-ugd" collectionClass="NSMutableArray" id="XSS-WV-nX1"/>
+                <outletCollection property="marks" destination="8Dk-Ux-DOq" collectionClass="NSMutableArray" id="QfJ-Z7-JnK"/>
+                <outletCollection property="marks" destination="eqH-zU-rxD" collectionClass="NSMutableArray" id="lHW-2N-gWm"/>
+                <outletCollection property="marks" destination="Bmf-PA-0Ks" collectionClass="NSMutableArray" id="qsV-UX-Uiv"/>
+                <outletCollection property="marks" destination="Xv0-Xe-cbH" collectionClass="NSMutableArray" id="20Y-f5-tpY"/>
             </connections>
             <point key="canvasLocation" x="121.73913043478262" y="139.95535714285714"/>
         </tableViewCell>

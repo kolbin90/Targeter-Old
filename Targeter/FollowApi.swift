@@ -17,13 +17,13 @@ class FollowApi {
     let followingRef = Database.database().reference().child(Constants.Follow.Following)
     
     func followAction(withUserId id: String) {
-//        Api.user_posts.REF_USER_POSTS.child(id).observeSingleEvent(of: .value) { (snapshot) in
-//            if let dict = snapshot.value as? [String: Any] {
-//                for key in dict.keys {
-//                    Database.database().reference().child("feed").child(Api.user.CURRENT_USER!.uid).child(key).setValue(true)
-//                }
-//            }
-//        }
+        Api.user_target.user_targetRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
+            if let dict = snapshot.value as? [String: Any] {
+                for key in dict.keys {
+                    Database.database().reference().child(Constants.RootFolders.Feed).child(Api.user.currentUser!.uid).child(key).setValue(true)
+                }
+            }
+        }
         Api.follow.followersRef.child(id).child(Api.user.currentUser!.uid).setValue(true)
         Api.follow.followingRef.child(Api.user.currentUser!.uid).child(id).setValue(true)
         Api.user.increaseFollowers(forUserId: id) {
@@ -36,13 +36,13 @@ class FollowApi {
 
     }
     func unfollowAction(withUserId id: String) {
-//        Api.user_posts.REF_USER_POSTS.child(id).observeSingleEvent(of: .value) { (snapshot) in
-//            if let dict = snapshot.value as? [String: Any] {
-//                for key in dict.keys {
-//                    Database.database().reference().child("feed").child(Api.user.CURRENT_USER!.uid).child(key).removeValue()
-//                }
-//            }
-//        }
+        Api.user_target.user_targetRef.child(id).observeSingleEvent(of: .value) { (snapshot) in
+            if let dict = snapshot.value as? [String: Any] {
+                for key in dict.keys {
+                    Database.database().reference().child("feed").child(Api.user.currentUser!.uid).child(key).removeValue()
+                }
+            }
+        }
         Api.follow.followersRef.child(id).child(Api.user.currentUser!.uid).setValue(NSNull())
         Api.follow.followingRef.child(Api.user.currentUser!.uid).child(id).setValue(NSNull())
         Api.user.decreaseFollowers(forUserId: id) {
