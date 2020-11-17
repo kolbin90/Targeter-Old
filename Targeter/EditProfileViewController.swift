@@ -126,6 +126,17 @@ class EditProfileViewController: UITableViewController {
         }
     }
     
+    func loginSession() {
+        // Show auth view controller
+//        let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
+//        self.present(authViewController, animated: true, completion: nil)
+        
+        let signInVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+        let signInNavController = UINavigationController(rootViewController: signInVC)
+        signInNavController.modalPresentationStyle = .fullScreen
+        self.present(signInNavController, animated: true, completion: nil)
+    }
+    
     @IBAction func chooseImageButton_TchUpIns(_ sender: Any) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
@@ -155,6 +166,10 @@ class EditProfileViewController: UITableViewController {
     
     @IBAction func cancelButton_TchUpIns(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func logOutButton_TchUpIns(_ sender: Any) {
+        AuthService.firebaseLogOut()
+        loginSession()
     }
     
 }
