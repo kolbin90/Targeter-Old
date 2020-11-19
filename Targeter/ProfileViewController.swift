@@ -141,8 +141,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
         cell.targetsLabel.text = targetsCountString
-        cell.nameLabel.text = " \(name) "
-        cell.locationLabel.text = " \(location) "
+        if name != "" {
+            cell.nameLabel.text = " \(name) "
+        } else {
+            cell.nameLabel.isHidden = true
+        }
+        
+        if location != "" {
+            cell.locationLabel.text = " \(location) "
+        } else {
+            cell.locationLabel.isHidden = true
+        }
         cell.followersLabel.text = followers
         cell.followingLabel.text = following
         if let newProfileImage = newProfileImage {
