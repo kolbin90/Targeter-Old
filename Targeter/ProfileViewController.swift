@@ -148,8 +148,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         if let newProfileImage = newProfileImage {
             cell.profileImageView.image = newProfileImage
         } else {
-            cell.profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
-                // TODO: Save image to core data
+            if profileImageUrlString != "" {
+                cell.profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
+                    // TODO: Save image to core data
+                }
             }
         }
         
