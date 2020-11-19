@@ -21,21 +21,24 @@ class FeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
         // Do any additional setup after loading the view.
-        
-        Api.target.observeTargets { (target) in
-            Api.user.singleObserveUser(withUid: target.uid!) { (user) in
-                let post = PostModel()
-                post.target = target
-                post.user = user
-                self.posts.append(post)
-                self.tableView.reloadData()
-            } onError: { (error) in
-                ProgressHUD.showError(error)
-            }
-
-        } onError: { (error) in
-            ProgressHUD.showError(error)
+        Api.feed.observeFeed(forUid: Api.user.currentUser!.uid) { (post) in
+            self.posts.append(post)
+            self.tableView.reloadData()
         }
+//        Api.target.observeTargets { (target) in
+//            Api.user.singleObserveUser(withUid: target.uid!) { (user) in
+//                let post = PostModel()
+//                post.target = target
+//                post.user = user
+//                self.posts.append(post)
+//                self.tableView.reloadData()
+//            } onError: { (error) in
+//                ProgressHUD.showError(error)
+//            }
+//
+//        } onError: { (error) in
+//            ProgressHUD.showError(error)
+//        }
 
     }
     

@@ -13,4 +13,5 @@ struct Api {
     static let target = TargetApi()
     static let user_target = User_TargetApi()
     static let follow = FollowApi()
+    static let feed = FeedApi()
 }
