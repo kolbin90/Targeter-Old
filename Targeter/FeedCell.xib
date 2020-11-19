@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -257,7 +257,7 @@
                             </stackView>
                         </subviews>
                     </stackView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13880327_1071710792884531_6739614795217912898_n.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="zTf-hz-Brs">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar-1577909_960_720" translatesAutoresizingMaskIntoConstraints="NO" id="zTf-hz-Brs">
                         <rect key="frame" x="16" y="138" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="25" id="p09-FP-zgA"/>
@@ -323,8 +323,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="13880327_1071710792884531_6739614795217912898_n.jpg" width="960" height="960"/>
         <image name="Comment" width="43" height="41"/>
+        <image name="avatar-1577909_960_720" width="720" height="720"/>
         <image name="image-2017-04-27-2.jpg" width="1080" height="1080"/>
         <image name="like" width="46" height="41"/>
         <systemColor name="linkColor">
