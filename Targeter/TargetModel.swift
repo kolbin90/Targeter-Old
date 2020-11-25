@@ -16,6 +16,8 @@ class TargetModel {
     var uid: String?
     var timestamp: Int?
     var checkIns: [CheckInModel]?
+    var lastAction: String?
+    var lastActionTimeStamp: Int?
 }
 
 extension TargetModel {    
@@ -28,7 +30,8 @@ extension TargetModel {
         target.id = id
         target.uid = dict[Constants.Target.Uid] as? String
         target.timestamp = dict[Constants.Target.Timestamp] as? Int
-    
+        target.lastAction = dict[Constants.Target.LastAction] as? String
+        target.lastActionTimeStamp = dict[Constants.Target.LastActionTimestamp] as? Int
         return target
     }
 }

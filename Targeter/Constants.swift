@@ -37,6 +37,8 @@ struct Constants {
         static let DateEnding = "dateEnding" //dep
         static let Uid = "uid"
         static let Timestamp = "timestamp"
+        static let LastAction = "lastAction"
+        static let LastActionTimestamp = "LastActionTimestamp"
     }
     struct CheckIn {
         static let Result = "result"
