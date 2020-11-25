@@ -73,7 +73,7 @@ class TargetApi {
             return
         }
         uploadImageToServer(imageData: targetImageData, onSuccess: { (imageUrlString) in
-            self.savePostInfoToDatabase(imageUrlString: imageUrlString, title: title, start: start, onSuccess: {
+            self.saveTargetInfoToDatabase(imageUrlString: imageUrlString, title: title, start: start, onSuccess: {
                 Api.user.increaseTargetsCount(onSuccess: onSuccess, onError: onError)
                 onSuccess()
             }, onError: onError)
@@ -130,7 +130,7 @@ class TargetApi {
         })
     }
     
-    fileprivate func savePostInfoToDatabase(imageUrlString: String, title: String, start: Int, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void){
+    fileprivate func saveTargetInfoToDatabase(imageUrlString: String, title: String, start: Int, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void){
         
         let timestamp = Int(Date().timeIntervalSince1970)
         guard let uid = Api.user.currentUser?.uid else {
