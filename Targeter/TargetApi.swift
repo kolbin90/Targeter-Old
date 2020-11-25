@@ -90,7 +90,12 @@ class TargetApi {
                 onError(error.localizedDescription)
                 return
             }
-            onSuccess(checkIn)
+            self.updateTargetStatus(targetId: targetId, lastAction: "Checked In", lastActionTimestamp: timestamp) {
+                onSuccess(checkIn)
+            } onError: { (error) in
+                onError(error)
+            }
+
         }
     }
     
@@ -102,6 +107,20 @@ class TargetApi {
             }
             onSuccess()
         }
+    }
+    
+    fileprivate func updateTargetStatus(targetId: String, lastAction: String, lastActionTimestamp: Int, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        
+        let targetRef = targetsRef.child(targetId)
+        let dict = [Constants.Target.LastAction: lastAction, Constants.Target.LastActionTimestamp: lastActionTimestamp] as [String : Any]
+        targetRef.updateChildValues(dict) { (error, ref) in
+            if let error = error {
+                onError(error.localizedDescription)
+            } else {
+                onSuccess()
+            }
+        }
+            
     }
     
 
