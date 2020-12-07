@@ -30,6 +30,8 @@ class FeedCell: UITableViewCell {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var lastActionLabel: UILabel!
+    @IBOutlet weak var lastActionTimestampLabel: UILabel!
     
     // MARK: Variables
     var cellPost: PostModel! {
@@ -82,6 +84,45 @@ class FeedCell: UITableViewCell {
             profileImageView.sd_setImage(with: URL(string: profileImageUrlString)) { (image, error, cacheType, url) in
                 // TODO: Save image to core data
             }
+        }
+        if let lastAction = cellPost.target.lastAction {
+            lastActionLabel.text = lastAction
+        }
+        if let timestamp = cellPost.target.lastActionTimeStamp {
+            let now = Date()
+            let timestampDate = Date(timeIntervalSince1970: Double(timestamp))
+            let components = Set<Calendar.Component>([.second, .minute, .hour, .day, .weekOfMonth, .month, .year])
+            let diff = Calendar.current.dateComponents(components, from: timestampDate, to: now)
+            
+            var timeText = ""
+            
+            if let second = diff.second, second <= 0, let minute = diff.minute, minute == 0 {
+                timeText = "Now"
+            }
+            if let second = diff.second, second > 0, let minute = diff.minute, minute == 0  {
+                timeText = (second == 1) ? "\(second) second ago" : "\(second) seconds ago"
+            }
+            if let minute = diff.minute, minute > 0, let hour = diff.hour, hour == 0 {
+                timeText = (minute == 1) ? "\(minute) minute ago" : "\(minute) minutes ago"
+            }
+            if let hour = diff.hour, hour > 0, let day = diff.day, day == 0 {
+                timeText = (hour == 1) ? "\(hour) hour ago" : "\(hour) hours ago"
+            }
+            if let day = diff.day, day > 0, let week = diff.weekOfMonth, week == 0 {
+                timeText = (day == 1) ? "\(day) day ago" : "\(day) days ago"
+            }
+            
+            if let week = diff.weekOfMonth, week > 0, let month = diff.month, month == 0 {
+                timeText = (week == 1) ? "\(week) week ago" : "\(week) weeks ago"
+            }
+            if let month = diff.month, month > 0, let year = diff.year, year == 0 {
+                timeText = (month == 1) ? "\(month) month ago" : "\(month) monthes ago"
+            }
+            if let year = diff.year, year > 0{
+                timeText = (year == 1) ? "\(year) year ago" : "\(year) years ago"
+            }
+            
+            lastActionTimestampLabel.text = timeText
         }
         
         fillCheckInsHistory()
