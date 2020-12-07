@@ -100,12 +100,17 @@ class TargetApi {
     }
     
     func deleteCheckInFromDatabase(targetId: String, checkInId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        let timestamp = Int(Date().timeIntervalSince1970)
         checkInsRef.child(targetId).child(checkInId).removeValue { (error, ref) in
             if let error = error {
                 onError(error.localizedDescription)
                 return
             }
-            onSuccess()
+            self.updateTargetStatus(targetId: targetId, lastAction: "Removed check in", lastActionTimestamp: timestamp) {
+                onSuccess()
+            } onError: { (error) in
+                onError(error)
+            }
         }
     }
     
