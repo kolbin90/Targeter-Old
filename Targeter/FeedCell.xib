@@ -227,7 +227,7 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZT-o5-Dy0">
-                        <rect key="frame" x="5" y="208" width="310" height="2"/>
+                        <rect key="frame" x="0.0" y="208" width="320" height="2"/>
                         <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="2" id="so3-aQ-oPT"/>
@@ -279,7 +279,7 @@
                     <constraint firstAttribute="bottom" secondItem="dZT-o5-Dy0" secondAttribute="bottom" constant="7" id="0ZX-MX-BvV"/>
                     <constraint firstItem="zTf-hz-Brs" firstAttribute="top" secondItem="6cr-kW-ccB" secondAttribute="bottom" constant="8" id="2zE-dP-xQH"/>
                     <constraint firstItem="thS-2Q-q2T" firstAttribute="top" secondItem="6cr-kW-ccB" secondAttribute="top" id="EG8-cJ-uuZ"/>
-                    <constraint firstAttribute="trailing" secondItem="dZT-o5-Dy0" secondAttribute="trailing" constant="5" id="FqL-AA-JbY"/>
+                    <constraint firstAttribute="trailing" secondItem="dZT-o5-Dy0" secondAttribute="trailing" id="FqL-AA-JbY"/>
                     <constraint firstItem="qgE-nQ-ffs" firstAttribute="centerY" secondItem="zTf-hz-Brs" secondAttribute="centerY" id="GXb-03-vrp"/>
                     <constraint firstItem="dZT-o5-Dy0" firstAttribute="top" secondItem="id5-yg-YpF" secondAttribute="bottom" constant="4" id="J0e-de-LlP"/>
                     <constraint firstItem="6cr-kW-ccB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="L7r-mt-twF"/>
@@ -293,7 +293,7 @@
                     <constraint firstItem="thS-2Q-q2T" firstAttribute="trailing" secondItem="6cr-kW-ccB" secondAttribute="trailing" id="Xr0-PA-Gq8"/>
                     <constraint firstItem="zTf-hz-Brs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="dXW-25-xDE"/>
                     <constraint firstItem="qgE-nQ-ffs" firstAttribute="height" secondItem="zTf-hz-Brs" secondAttribute="height" multiplier="1.1" id="lyq-Y8-gRW"/>
-                    <constraint firstItem="dZT-o5-Dy0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="mz0-ta-4A4"/>
+                    <constraint firstItem="dZT-o5-Dy0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="mz0-ta-4A4"/>
                     <constraint firstItem="vOb-bb-sbk" firstAttribute="top" secondItem="6cr-kW-ccB" secondAttribute="top" constant="11" id="n9E-T2-8G8"/>
                     <constraint firstItem="otU-pu-7it" firstAttribute="leading" secondItem="zTf-hz-Brs" secondAttribute="trailing" constant="8" symbolic="YES" id="wrm-ze-P2I"/>
                     <constraint firstItem="vOb-bb-sbk" firstAttribute="leading" secondItem="6cr-kW-ccB" secondAttribute="leading" constant="8" id="xR9-Us-Rlp"/>
