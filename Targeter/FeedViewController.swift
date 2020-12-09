@@ -25,6 +25,7 @@ class FeedViewController: UIViewController {
             self.posts.append(post)
             self.tableView.reloadData()
         }
+        setNavigationController(largeTitleDisplayMode: .always)
 //        Api.target.observeTargets { (target) in
 //            Api.user.singleObserveUser(withUid: target.uid!) { (user) in
 //                let post = PostModel()
