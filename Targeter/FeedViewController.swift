@@ -66,6 +66,16 @@ extension FeedViewController:  UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         cell.cellPost = posts[indexPath.row]
         cell.selectionStyle = .none
+        cell.delegate = self
         return cell
+    }
+}
+
+extension FeedViewController: FeedCellDelegate {
+    func goToCommentsVC(withTargetId id: String) {
+        let commentsVC = UIStoryboard.init(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController
+        commentsVC.targetId = id
+        //editProfileVC.delegate = self
+        self.navigationController?.show(commentsVC, sender: nil)
     }
 }

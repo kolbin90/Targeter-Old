@@ -10,6 +10,10 @@ import UIKit
 
 // MARK: - FeedCell
 
+protocol FeedCellDelegate: class {
+    func goToCommentsVC(withTargetId id: String)
+}
+
 class FeedCell: UITableViewCell {
 
     
@@ -22,9 +26,8 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var targetImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cellBackgroundView: UIView!
-    @IBOutlet weak var commentsView: UIView!
+    @IBOutlet weak var commentsImageView: UIImageView!
     @IBOutlet weak var commentsLabel: UILabel!
-    @IBOutlet weak var likesView: UIView!
     @IBOutlet weak var likeImageView: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
     
@@ -46,6 +49,8 @@ class FeedCell: UITableViewCell {
         }
     }
     var todaysCheckIn: CheckInModel?
+    weak var delegate: FeedCellDelegate?
+
     
     // MARK: Lifecycle
 
@@ -62,6 +67,9 @@ class FeedCell: UITableViewCell {
             
         }
         profileImageView.layer.cornerRadius = 15
+        let tapGestureForComments = UITapGestureRecognizer(target: self, action: #selector(self.commentImageView_TchUpIns))
+        commentsImageView.addGestureRecognizer(tapGestureForComments)
+        commentsImageView.isUserInteractionEnabled = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -217,6 +225,13 @@ class FeedCell: UITableViewCell {
             }
         }
         return nil
+    }
+    
+    @objc func commentImageView_TchUpIns() {
+        if let id = cellPost.target.id {
+          //  let commentsVC =
+            delegate?.goToCommentsVC(withTargetId: id)
+        }
     }
     
 }

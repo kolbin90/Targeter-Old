@@ -303,8 +303,12 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="cellBackgroundView" destination="thS-2Q-q2T" id="xMp-0I-6Kz"/>
+                <outlet property="commentsImageView" destination="edX-Ea-m8F" id="hV9-v9-zqQ"/>
+                <outlet property="commentsLabel" destination="AtH-dG-yT7" id="HvR-I9-UtU"/>
                 <outlet property="lastActionLabel" destination="otU-pu-7it" id="YCT-RO-6au"/>
                 <outlet property="lastActionTimestampLabel" destination="g3v-97-MUo" id="E9R-jd-fYU"/>
+                <outlet property="likeImageView" destination="Sre-Af-rmf" id="Rbs-ri-p0C"/>
+                <outlet property="likesLabel" destination="fXf-ro-mXC" id="td0-Lr-E5n"/>
                 <outlet property="profileImageView" destination="zTf-hz-Brs" id="1i9-cf-jFQ"/>
                 <outlet property="targetImageView" destination="6cr-kW-ccB" id="ooc-Q1-gl0"/>
                 <outlet property="titleLabel" destination="Ag3-1q-mC9" id="ACm-PJ-GKp"/>

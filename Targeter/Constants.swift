@@ -60,4 +60,11 @@ struct Constants {
         static let Followers = "followers"
         static let Following = "following"
     }
+    
+    struct Comment {
+        static let Comments = "comments"
+        static let CommentText = "commentText"
+        static let Uid = "uid"
+        static let target_comments = "target_comments"
+    }
 }
