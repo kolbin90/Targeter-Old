@@ -143,7 +143,8 @@ class FeedCell: UITableViewCell {
             switch todaysCheckInResult {
             case .noResult:
                 todayMark.backgroundColor = .white
-                todayMark.textColor = .black                
+                todayMark.textColor = .black
+                todayMark.text = "  Today?  "
                 
             case .failed:
                 todayMark.backgroundColor = UIColor.redColor()
