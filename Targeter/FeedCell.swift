@@ -52,6 +52,16 @@ class FeedCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        titleLabel.layer.cornerRadius = 10
+        titleLabel.layer.masksToBounds = true
+        todayMark.layer.cornerRadius = 10
+        todayMark.layer.masksToBounds = true
+        for mark in marks {
+            mark.layer.cornerRadius = 5
+            mark.layer.masksToBounds = true
+            
+        }
+        profileImageView.layer.cornerRadius = 15
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -67,7 +77,7 @@ class FeedCell: UITableViewCell {
     func updateView() {
         cellBackgroundView.backgroundColor = UIColor.random()
         if let title = cellPost.target.title {
-            titleLabel.text = " \(title) "
+            titleLabel.text = "  \(title)  "
         }
 
         if let imageUrlString = cellPost.target.imageURLString {
