@@ -166,7 +166,7 @@ class TargetApi {
         
         let newTargetRef = Api.target.targetsRef.child(newTargetId)
         
-        var dict = [Constants.Target.ImageUrlString: imageUrlString, Constants.Target.Title: title,Constants.Target.Start: start,Constants.Target.Uid: uid, Constants.Target.Timestamp: timestamp] as [String : Any]
+        var dict = [Constants.Target.ImageUrlString: imageUrlString, Constants.Target.Title: title,Constants.Target.Start: start,Constants.Target.Uid: uid, Constants.Target.Timestamp: timestamp, Constants.Target.LastAction: "Created target", Constants.Target.LastActionTimestamp: timestamp] as [String : Any]
         
         newTargetRef.setValue(dict) { (error, ref) in
             if let error = error {
