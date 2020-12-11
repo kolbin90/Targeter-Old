@@ -29,6 +29,15 @@ class FeedApi {
         }
     }
     
+    func addNewTargetToFeed(withTargetId targetid: String, userId uid: String) {
+        Api.follow.followersRef.child(uid).observeSingleEvent(of: .value) { (snapshot) in
+            let arraySnapshot = snapshot.children.allObjects as! [DataSnapshot]
+            arraySnapshot.forEach({ (child) in
+                Api.feed.feedRef.child(child.key).updateChildValues([targetid: true])
+            })
+        }
+    }
+    
     
     
 }
