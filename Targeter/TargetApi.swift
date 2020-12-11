@@ -174,7 +174,7 @@ class TargetApi {
                 return
             }
             Api.user_target.saveUserTargetReference(targetId: newTargetId, onSuccess: onSuccess, onError: onError)
-            
+            Api.feed.addNewTargetToFeed(withTargetId: newTargetId, userId: uid)
         }
     }
 }
