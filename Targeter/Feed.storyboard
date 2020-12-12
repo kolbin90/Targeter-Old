@@ -73,7 +73,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L6T-ev-erZ">
                                         <rect key="frame" x="8" y="8" width="345" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0na-Xc-lwZ">
                                         <rect key="frame" x="361" y="8" width="45" height="34"/>
@@ -111,10 +111,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar-1577909_960_720" translatesAutoresizingMaskIntoConstraints="NO" id="jJE-Pc-nmx">
-                                                    <rect key="frame" x="15" y="15" width="36" height="36"/>
+                                                    <rect key="frame" x="15" y="15" width="50" height="47"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="36" id="mfx-Ha-UDe"/>
-                                                        <constraint firstAttribute="width" constant="36" id="xij-HY-3cn"/>
+                                                        <constraint firstAttribute="height" constant="50" id="mfx-Ha-UDe"/>
+                                                        <constraint firstAttribute="width" constant="50" id="xij-HY-3cn"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -123,13 +123,13 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C7E-Le-ZpL">
-                                                    <rect key="frame" x="59" y="15" width="36" height="24"/>
+                                                    <rect key="frame" x="73" y="15" width="36" height="16"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQM-kV-3qS">
-                                                    <rect key="frame" x="59" y="47" width="347" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQM-kV-3qS">
+                                                    <rect key="frame" x="73" y="39" width="333" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -149,8 +149,8 @@
                                                 <constraint firstItem="jJE-Pc-nmx" firstAttribute="leading" secondItem="cLz-51-U08" secondAttribute="leading" constant="15" id="FNA-nG-967"/>
                                                 <constraint firstItem="C7E-Le-ZpL" firstAttribute="top" secondItem="cLz-51-U08" secondAttribute="top" constant="15" id="OOp-yJ-9sn"/>
                                                 <constraint firstItem="PQM-kV-3qS" firstAttribute="leading" secondItem="jJE-Pc-nmx" secondAttribute="trailing" constant="8" id="QTn-bL-Cv0"/>
-                                                <constraint firstItem="jJE-Pc-nmx" firstAttribute="top" secondItem="cLz-51-U08" secondAttribute="top" constant="15" id="aWI-Gj-cKH"/>
-                                                <constraint firstItem="RuN-ke-QSo" firstAttribute="top" secondItem="PQM-kV-3qS" secondAttribute="bottom" constant="12" id="bpq-wL-o2U"/>
+                                                <constraint firstItem="RuN-ke-QSo" firstAttribute="top" secondItem="PQM-kV-3qS" secondAttribute="bottom" constant="20" id="W1o-zL-PXW"/>
+                                                <constraint firstItem="jJE-Pc-nmx" firstAttribute="centerY" secondItem="cLz-51-U08" secondAttribute="centerY" id="mKy-pH-GAm"/>
                                                 <constraint firstAttribute="bottom" secondItem="RuN-ke-QSo" secondAttribute="bottom" id="mpL-Jc-QRT"/>
                                                 <constraint firstItem="RuN-ke-QSo" firstAttribute="leading" secondItem="cLz-51-U08" secondAttribute="leading" constant="15" id="sKH-bI-laS"/>
                                                 <constraint firstItem="PQM-kV-3qS" firstAttribute="top" secondItem="C7E-Le-ZpL" secondAttribute="bottom" constant="8" id="sSu-8L-xC0"/>

@@ -37,6 +37,7 @@ class CommentCell: UITableViewCell {
         super.awakeFromNib()
         usernameLabel.text = ""
         commentLabel.text = ""
+        profileImageView.layer.cornerRadius = 13
         let tapGestureForUsername = UITapGestureRecognizer(target: self, action: #selector(self.user_TchUpIns))
         usernameLabel.addGestureRecognizer(tapGestureForUsername)
         usernameLabel.isUserInteractionEnabled = true
