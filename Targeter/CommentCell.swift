@@ -8,8 +8,12 @@
 
 import UIKit
 
-class CommentCell: UITableViewCell {
+protocol CommentCellDelegate {
+    func goToProfileUserVC(withUser user: UserModel)
+}
 
+class CommentCell: UITableViewCell {
+    
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
@@ -25,6 +29,8 @@ class CommentCell: UITableViewCell {
             setupUserInfo()
         }
     }
+    
+    var delegate: CommentCellDelegate?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -49,7 +55,7 @@ class CommentCell: UITableViewCell {
     
     @objc func user_TchUpIns() {
         if let user = user {
-       //     delegate?.goToProfileUserVC(withUser: user)
+            delegate?.goToProfileUserVC(withUser: user)
         }
     }
 

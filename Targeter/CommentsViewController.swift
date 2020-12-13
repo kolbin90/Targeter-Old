@@ -136,21 +136,18 @@ extension CommentsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentCell
         cell.comment = comment
         cell.user = user
-   //     cell.delegate = self
+        cell.delegate = self
         return cell
     }
 }
 
 
 
-//extension CommentsViewController: CommentCellDelegate {
-//    func goToProfileUserVC(withUser user: UserModel) {
-//        performSegue(withIdentifier: "CommentsToProfileUserSegue", sender: user)
-//    }
-//    func goToHashtagVC(withHashtag hashtag: String) {
-//        let storyboard = UIStoryboard.init(name: "Home", bundle: nil)
-//        let hashtagVC = storyboard.instantiateViewController(withIdentifier: "HashtagViewController") as! HashtagViewController
-//        hashtagVC.hashtag = hashtag
-//        self.show(hashtagVC, sender: nil)
-//    }
-//}
+extension CommentsViewController: CommentCellDelegate {
+    func goToProfileUserVC(withUser user: UserModel) {
+        let otherProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+        otherProfileVC.user = user
+        navigationController?.show(otherProfileVC, sender: nil)
+    }
+
+}
