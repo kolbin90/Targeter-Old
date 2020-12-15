@@ -39,7 +39,11 @@ class CommentApi {
                 if let error = error {
                     onError(error.localizedDescription)
                 } else {
-                    onSuccess()
+                    Api.target.increaseCommentsCount(forTarget: targetId) {
+                        onSuccess()
+                    } onError: { (error) in
+                        onError(error)
+                    }
                 }
             })
             

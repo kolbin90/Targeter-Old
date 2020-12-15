@@ -114,6 +114,30 @@ class TargetApi {
         }
     }
     
+    func increaseCommentsCount(forTarget targetId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        let ref = Api.target.targetsRef.child(targetId)
+        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if var target = currentData.value as? [String : AnyObject] {
+                var commentsCount = target[Constants.Target.commentsCount] as? Int ?? 0
+               
+                commentsCount += 1
+                
+                target[Constants.Target.commentsCount] = commentsCount as AnyObject?
+                
+                // Set value and report transaction success
+                currentData.value = target
+                
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                onError(error.localizedDescription)
+            }
+            onSuccess()
+        }
+    }
+    
     fileprivate func updateTargetStatus(targetId: String, lastAction: String, lastActionTimestamp: Int, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
         
         let targetRef = targetsRef.child(targetId)
