@@ -123,9 +123,15 @@ class CommentsViewController: UIViewController {
             self.sendButton.setTitleColor(.lightGray, for: .normal)
             self.sendButton.isEnabled = false
             self.view.endEditing(true)
+            self.scrollDown()
         } onError: { (error) in
             ProgressHUD.showError(error)
         }
+    }
+    
+    fileprivate func scrollDown() {
+        let lastRow = comments.count - 1
+        tableView.scrollToRow(at: IndexPath(row: lastRow, section: 0), at: .bottom, animated: true)
     }
     
     @IBAction func sendBtn_TchUpIns(_ sender: Any) {
