@@ -75,7 +75,21 @@ extension FeedViewController: FeedCellDelegate {
     func goToCommentsVC(withTargetId id: String) {
         let commentsVC = UIStoryboard.init(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController
         commentsVC.targetId = id
+        commentsVC.delegate = self
         //editProfileVC.delegate = self
         self.navigationController?.show(commentsVC, sender: nil)
     }
 }
+
+extension FeedViewController: CommentsViewControllerDelegate {
+    func increaseCommentsCount(newNumber: Int, targetId: String) {
+        for post in  posts {
+            if post.target.id == targetId {
+                post.target.commentsCount = newNumber
+                tableView.reloadData()
+                return
+            }
+        }
+    }
+}
+    

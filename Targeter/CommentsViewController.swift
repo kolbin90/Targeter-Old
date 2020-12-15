@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CommentsViewControllerDelegate {
+    func increaseCommentsCount(newNumber: Int, targetId: String)
+}
+
 class CommentsViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -18,6 +22,7 @@ class CommentsViewController: UIViewController {
     var targetId: String!
     var users = [UserModel]()
     var comments = [CommentModel]()
+    var delegate: CommentsViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +116,9 @@ class CommentsViewController: UIViewController {
 
     
     func sendCommentInfoToDatabase(){
+        let newCommentsCount = comments.count + 1
         Api.comment.saveCommentToDatabase(targetId: targetId, commentText: commentTextField.text!) {
+            self.delegate?.increaseCommentsCount(newNumber: newCommentsCount, targetId: self.targetId)
             self.commentTextField.text = ""
             self.sendButton.setTitleColor(.lightGray, for: .normal)
             self.sendButton.isEnabled = false
