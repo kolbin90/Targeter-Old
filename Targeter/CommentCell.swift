@@ -17,7 +17,8 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
-
+    @IBOutlet weak var timestampLabel: UILabel!
+    
 //    var delegate: CommentCellDelegate?
     var comment: CommentModel? {
         didSet {
