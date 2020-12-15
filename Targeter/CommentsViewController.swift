@@ -23,7 +23,7 @@ class CommentsViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = .black
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 77
+        tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableView.automaticDimension
         sendButton.isEnabled = false
         handleTextField()
