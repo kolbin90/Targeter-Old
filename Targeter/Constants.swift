@@ -39,6 +39,8 @@ struct Constants {
         static let Timestamp = "timestamp"
         static let LastAction = "lastAction"
         static let LastActionTimestamp = "LastActionTimestamp"
+        static let commentsCount = "commentsCount"
+        static let likesCount = "likesCount"
     }
     struct CheckIn {
         static let Result = "result"

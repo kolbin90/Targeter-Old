@@ -18,6 +18,8 @@ class TargetModel {
     var checkIns: [CheckInModel]?
     var lastAction: String?
     var lastActionTimeStamp: Int?
+    var commentsCount: Int?
+    var likesCount: Int?
 }
 
 extension TargetModel {    
@@ -32,6 +34,7 @@ extension TargetModel {
         target.timestamp = dict[Constants.Target.Timestamp] as? Int
         target.lastAction = dict[Constants.Target.LastAction] as? String
         target.lastActionTimeStamp = dict[Constants.Target.LastActionTimestamp] as? Int
+        target.commentsCount = dict[Constants.Target.commentsCount] as? Int
         return target
     }
 }
