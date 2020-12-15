@@ -106,6 +106,12 @@ class FeedCell: UITableViewCell {
         if let lastAction = cellPost.target.lastAction {
             lastActionLabel.text = lastAction
         }
+        
+        if let commentsCount = cellPost.target.commentsCount {
+            commentsLabel.text = String(commentsCount)
+        } else {
+            commentsLabel.text = "0"
+        }
         if let timestamp = cellPost.target.lastActionTimeStamp {
             let now = Date()
             let timestampDate = Date(timeIntervalSince1970: Double(timestamp))
