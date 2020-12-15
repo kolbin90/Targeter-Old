@@ -66,5 +66,6 @@ struct Constants {
         static let CommentText = "commentText"
         static let Uid = "uid"
         static let target_comments = "target_comments"
+        static let timestamp = "timestamp"
     }
 }

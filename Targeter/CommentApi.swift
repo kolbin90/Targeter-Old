@@ -22,6 +22,7 @@ class CommentApi {
     }
     
     func saveCommentToDatabase(targetId: String, commentText: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        let timestamp = Int(Date().timeIntervalSince1970)
         guard let newCommentId = Api.comment.commentRef.childByAutoId().key else {
             return
         }
@@ -30,7 +31,7 @@ class CommentApi {
             onError("Couldn't get user onfo")
             return
         }
-        newCommentRef.setValue([Constants.Comment.CommentText: commentText,Constants.Comment.Uid: uid]) { (error, ref) in
+        newCommentRef.setValue([Constants.Comment.CommentText: commentText,Constants.Comment.Uid: uid, Constants.Comment.timestamp: timestamp]) { (error, ref) in
             if error != nil {
                 onError(error!.localizedDescription)
             }
