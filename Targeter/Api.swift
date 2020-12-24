@@ -16,4 +16,5 @@ struct Api {
     static let feed = FeedApi()
     static let comment = CommentApi()
     static let target_comment = Target_CommentsApi()
+    static let likes = LikesApi()
 }

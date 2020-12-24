@@ -65,6 +65,7 @@
 		11F5BF542522AFEB00FB8350 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11F5BF522522AFEB00FB8350 /* FeedCell.xib */; };
 		11F5BF592525461D00FB8350 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11F5BF582525461D00FB8350 /* Feed.storyboard */; };
 		11F5BF622525484A00FB8350 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5BF612525484A00FB8350 /* FeedViewController.swift */; };
+		11FE3A8D259553D50022680D /* LikesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FE3A8C259553D50022680D /* LikesApi.swift */; };
 		8508BEBC239A1F000094DD0C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBB239A1F000094DD0C /* UserModel.swift */; };
 		8508BEBF239A2C990094DD0C /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEBE239A2C990094DD0C /* UserApi.swift */; };
 		8508BEC1239A2CAD0094DD0C /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508BEC0239A2CAD0094DD0C /* Api.swift */; };
@@ -175,6 +176,7 @@
 		11F5BF522522AFEB00FB8350 /* FeedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		11F5BF582525461D00FB8350 /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		11F5BF612525484A00FB8350 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		11FE3A8C259553D50022680D /* LikesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesApi.swift; sourceTree = "<group>"; };
 		3FA9F9F8210215E130DC73A0 /* Pods_TargeterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TargeterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		432E3006C9673D5E81EC8F3E /* Pods-TargeterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TargeterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TargeterTests/Pods-TargeterTests.release.xcconfig"; sourceTree = "<group>"; };
 		536F5F43C4671A59853753D7 /* Pods-Targeter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Targeter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Targeter/Pods-Targeter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				1176A21125671BA0005B68DD /* FeedApi.swift */,
 				11C4760A2581726B00E7DB54 /* CommentApi.swift */,
 				11C4760F2581736A00E7DB54 /* Target_CommentsApi.swift */,
+				11FE3A8C259553D50022680D /* LikesApi.swift */,
 			);
 			name = Api;
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
 				044D572F1E788D7D00AF1545 /* Image+CoreDataProperties.swift in Sources */,
 				853686C623B3229E0049957E /* ProfileViewController.swift in Sources */,
+				11FE3A8D259553D50022680D /* LikesApi.swift in Sources */,
 				04416CFE1E774541003BCDD3 /* FlickrClient.swift in Sources */,
 				04D4F3FF20A1286E00C462ED /* ProfileImage+CoreDataProperties.swift in Sources */,
 				8522916823CFAF1900F2D0AB /* CheckInModel.swift in Sources */,
