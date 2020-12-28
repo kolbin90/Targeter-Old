@@ -112,6 +112,11 @@ class FeedCell: UITableViewCell {
         } else {
             commentsLabel.text = "0"
         }
+        
+        if let likesCount = cellPost.target.likesCount {
+            likesLabel.text = String(likesCount)
+        }
+        
         if let timestamp = cellPost.target.lastActionTimeStamp {
             let now = Date()
             let timestampDate = Date(timeIntervalSince1970: Double(timestamp))

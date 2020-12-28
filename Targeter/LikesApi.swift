@@ -10,5 +10,9 @@ import Foundation
 import FirebaseDatabase
 
 class LikesApi {
+    let likesRef = Database.database().reference().child(Constants.RootFolders.likes)
     
+    func saveLikeToDatabase(targetId: String, userId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        
+    }
 }

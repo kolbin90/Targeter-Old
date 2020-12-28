@@ -34,7 +34,8 @@ extension TargetModel {
         target.timestamp = dict[Constants.Target.Timestamp] as? Int
         target.lastAction = dict[Constants.Target.LastAction] as? String
         target.lastActionTimeStamp = dict[Constants.Target.LastActionTimestamp] as? Int
-        target.commentsCount = dict[Constants.Target.commentsCount] as? Int
+        target.commentsCount = dict[Constants.Target.commentsCount] as? Int ?? 0
+        target.likesCount = dict[Constants.Target.likesCount] as? Int ?? 0
         return target
     }
 }
