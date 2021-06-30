@@ -72,6 +72,17 @@ extension FeedViewController:  UITableViewDataSource {
 }
 
 extension FeedViewController: FeedCellDelegate {
+    func updateLikes(withTargetId id: String) {
+        if let userId = Api.user.currentUser?.uid {
+            Api.likes.updateUsersLikesFor(targetId: id, userId: userId) {
+                 
+            } onError: { error in
+                 
+            }
+
+        }
+    }
+    
     func goToCommentsVC(withTargetId id: String) {
         let commentsVC = UIStoryboard.init(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController
         commentsVC.targetId = id

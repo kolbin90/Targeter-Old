@@ -20,9 +20,10 @@ class TargetModel {
     var lastActionTimeStamp: Int?
     var commentsCount: Int?
     var likesCount: Int?
+    var isLiked: Bool?
 }
 
-extension TargetModel {    
+extension TargetModel {
     static func transformDataToTarget(dict: [String:Any], id: String) -> TargetModel {
         let target = TargetModel()
         

@@ -54,4 +54,17 @@ class LikesApi {
             }
         }
     }
+    
+    func isTagetLikedBy(userId uid: String, targetId: String, result: @escaping (Bool) -> Void ) {
+        likesRef.child(uid).observeSingleEvent(of: .value) { snapshot in
+            if let dict = snapshot.value as? [String: Any] {
+                let like = UsersLikeModel.transformToLikeModel(dict: dict, uid: snapshot.key)
+                if let timestamp = like.timestamp {
+                    let dateFromTimestamp = Date(timeIntervalSince1970: Double(timestamp))
+                    result(Calendar.current.isDate(Date(), inSameDayAs: dateFromTimestamp))
+                }
+            }
+        }
+    }
+    
 }

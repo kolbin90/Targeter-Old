@@ -12,6 +12,7 @@ import UIKit
 
 protocol FeedCellDelegate: class {
     func goToCommentsVC(withTargetId id: String)
+    func updateLikes(withTargetId id: String)
 }
 
 class FeedCell: UITableViewCell {
@@ -67,9 +68,14 @@ class FeedCell: UITableViewCell {
             
         }
         profileImageView.layer.cornerRadius = 15
+        
         let tapGestureForComments = UITapGestureRecognizer(target: self, action: #selector(self.commentImageView_TchUpIns))
         commentsImageView.addGestureRecognizer(tapGestureForComments)
         commentsImageView.isUserInteractionEnabled = true
+        
+        let tapGestureForLike = UITapGestureRecognizer(target: self, action: #selector(self.likeImageView_TchUpIns))
+        likeImageView.addGestureRecognizer(tapGestureForLike)
+        likeImageView.isUserInteractionEnabled = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -242,6 +248,13 @@ class FeedCell: UITableViewCell {
         if let id = cellPost.target.id {
           //  let commentsVC =
             delegate?.goToCommentsVC(withTargetId: id)
+        }
+    }
+    
+    @objc func likeImageView_TchUpIns() {
+        if let id = cellPost.target.id {
+          //  let commentsVC =
+            delegate?.updateLikes(withTargetId: id)
         }
     }
     

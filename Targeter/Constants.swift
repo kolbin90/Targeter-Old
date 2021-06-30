@@ -71,4 +71,10 @@ struct Constants {
         static let target_comments = "target_comments"
         static let timestamp = "timestamp"
     }
+    
+    struct Like {
+        static let uid = "uid"
+        static let likesCount = "likesCount"
+        static let lastLikeTimestamp = "lastLikeTimestamp"
+    }
 }
