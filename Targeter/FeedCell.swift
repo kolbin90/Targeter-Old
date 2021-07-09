@@ -273,6 +273,8 @@ class FeedCell: UITableViewCell {
                 cellPost.target.isLiked = true
                 likesLabel.text = "\(cellPost.target.likesCount! + 1)"
                 cellPost.target.likesCount! += 1
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.impactOccurred()
                 delegate?.updateLikes(withTargetId: id, isLiked: true)
             }
             
