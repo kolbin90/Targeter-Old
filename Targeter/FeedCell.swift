@@ -12,7 +12,7 @@ import UIKit
 
 protocol FeedCellDelegate: class {
     func goToCommentsVC(withTargetId id: String)
-    func updateLikes(withTargetId id: String)
+    func updateLikes(withTargetId id: String, isLiked: Bool)
 }
 
 class FeedCell: UITableViewCell {
@@ -121,6 +121,14 @@ class FeedCell: UITableViewCell {
         
         if let likesCount = cellPost.target.likesCount {
             likesLabel.text = String(likesCount)
+        }
+        
+        if let isLiked = cellPost.target.isLiked {
+            if isLiked {
+                likeImageView.image = UIImage(imageLiteralResourceName: "likeSelected")
+            } else {
+                likeImageView.image = UIImage(imageLiteralResourceName: "like")
+            }
         }
         
         if let timestamp = cellPost.target.lastActionTimeStamp {
@@ -254,7 +262,16 @@ class FeedCell: UITableViewCell {
     @objc func likeImageView_TchUpIns() {
         if let id = cellPost.target.id {
           //  let commentsVC =
-            delegate?.updateLikes(withTargetId: id)
+            if cellPost.target.isLiked! {
+                likeImageView.image = UIImage(imageLiteralResourceName: "like")
+                cellPost.target.isLiked = false
+                delegate?.updateLikes(withTargetId: id, isLiked: false)
+            } else {
+                likeImageView.image = UIImage(imageLiteralResourceName: "likeSelected")
+                cellPost.target.isLiked = true
+                delegate?.updateLikes(withTargetId: id, isLiked: true)
+            }
+            
         }
     }
     

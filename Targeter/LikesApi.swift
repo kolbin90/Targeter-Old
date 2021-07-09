@@ -13,14 +13,29 @@ class LikesApi {
     let likesRef = Database.database().reference().child(Constants.RootFolders.likes)
     let targetsRef = Database.database().reference().child(Constants.RootFolders.Targets)
     
-    func updateUsersLikesFor(targetId: String, userId: String, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
-        let timestamp = Int(Date().timeIntervalSince1970)
-        likesRef.child(targetId).child(userId).observeSingleEvent(of: .value) { (snapshot) in
+    func updateUsersLikesFor(targetId: String, userId: String, isLiked: Bool, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
+        var timestamp = Int(Date().timeIntervalSince1970)
+        likesRef.child(targetId).child(userId).observeSingleEvent(of: .value) { snapshot in
             if let dict = snapshot.value as? [String: Any] {
+                print("Liked")
+                let like = UsersLikeModel.transformToLikeModel(dict: dict, uid: userId)
+                guard var likesCount = like.likesCount else {
+                    return
+                }
                 
+                if isLiked {
+                    likesCount += 1
+                } else {
+                    likesCount -= 1
+                    timestamp = 0
+                }
+                let newData = [Constants.Like.likesCount: likesCount, Constants.Like.lastLikeTimestamp: timestamp]
+                self.likesRef.child(targetId).child(userId).updateChildValues(newData)
+            } else {
+                let newData = [Constants.Like.likesCount: 1, Constants.Like.lastLikeTimestamp: timestamp]
+                self.likesRef.child(targetId).child(userId).updateChildValues(newData)
+                print("no snapshot")
             }
-        } withCancel: { (error) in
-            onError(error.localizedDescription)
         }
 
     }
@@ -63,6 +78,8 @@ class LikesApi {
                     let dateFromTimestamp = Date(timeIntervalSince1970: Double(timestamp))
                     result(Calendar.current.isDate(Date(), inSameDayAs: dateFromTimestamp))
                 }
+            } else {
+                result(false)
             }
         }
     }

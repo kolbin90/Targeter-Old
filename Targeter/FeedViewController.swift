@@ -72,9 +72,9 @@ extension FeedViewController:  UITableViewDataSource {
 }
 
 extension FeedViewController: FeedCellDelegate {
-    func updateLikes(withTargetId id: String) {
+    func updateLikes(withTargetId id: String, isLiked: Bool) {
         if let userId = Api.user.currentUser?.uid {
-            Api.likes.updateUsersLikesFor(targetId: id, userId: userId) {
+            Api.likes.updateUsersLikesFor(targetId: id, userId: userId, isLiked: isLiked) {
                  
             } onError: { error in
                  

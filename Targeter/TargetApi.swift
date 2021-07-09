@@ -34,13 +34,17 @@ class TargetApi {
         targetsRef.child(targetId).observeSingleEvent(of: .value) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let target = TargetModel.transformDataToTarget(dict: dict, id: snapshot.key)
-                
-                
-                
-                self.getCheckIns(forTargetId: target.id!, completion: { (checkIns) in
-                    target.checkIns = checkIns
-                    completion(target)
-                }, onError: onError)
+                if let uid = Api.user.currentUser?.uid {
+                    Api.likes.isTagetLikedBy(userId: uid, targetId: target.id!) { isLiked in
+                        target.isLiked = isLiked
+                        self.getCheckIns(forTargetId: target.id!, completion: { (checkIns) in
+                            target.checkIns = checkIns
+                            completion(target)
+                        }, onError: onError)
+                    }
+                } else {
+                    onError("Login error")
+                }
             } else {
                 onError("Snapshot error")
             }
