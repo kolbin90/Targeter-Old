@@ -265,10 +265,14 @@ class FeedCell: UITableViewCell {
             if cellPost.target.isLiked! {
                 likeImageView.image = UIImage(imageLiteralResourceName: "like")
                 cellPost.target.isLiked = false
+                likesLabel.text = "\(cellPost.target.likesCount! - 1)"
+                cellPost.target.likesCount! -= 1
                 delegate?.updateLikes(withTargetId: id, isLiked: false)
             } else {
                 likeImageView.image = UIImage(imageLiteralResourceName: "likeSelected")
                 cellPost.target.isLiked = true
+                likesLabel.text = "\(cellPost.target.likesCount! + 1)"
+                cellPost.target.likesCount! += 1
                 delegate?.updateLikes(withTargetId: id, isLiked: true)
             }
             
