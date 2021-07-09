@@ -58,7 +58,6 @@ class UserApi {
     func singleObserveUser(withUsername username: String, completion: @escaping (UserModel) -> Void, onError: @escaping (String) -> Void)  {
         let queryUsername = username.lowercased().trimmingCharacters(in: .whitespaces)
         usersRef.queryOrdered(byChild: Constants.UserData.UsernameLowercased).queryEqual(toValue: queryUsername).observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot.value)
             if let _ = snapshot.value as? NSNull {
                 onError("No userdata found")
             } else {

@@ -17,7 +17,6 @@ class LikesApi {
         var timestamp = Int(Date().timeIntervalSince1970)
         likesRef.child(targetId).child(userId).observeSingleEvent(of: .value) { snapshot in
             if let dict = snapshot.value as? [String: Any] {
-                print("Liked")
                 let like = UsersLikeModel.transformToLikeModel(dict: dict, uid: userId)
                 guard var likesCount = like.likesCount else {
                     return
@@ -40,7 +39,6 @@ class LikesApi {
             } else {
                 let newData = [Constants.Like.likesCount: 1, Constants.Like.lastLikeTimestamp: timestamp]
                 self.likesRef.child(targetId).child(userId).updateChildValues(newData)
-                print("no snapshot")
                 self.incrementLikes(targetId: targetId, isLiked: isLiked) { Target in
                      
                 } onError: { Error in
@@ -69,7 +67,7 @@ class LikesApi {
                 
                 return TransactionResult.success(withValue: currentData)
             } else {
-                print("nikhuya")
+                onError("Problem with loading likes")
             }
             return TransactionResult.success(withValue: currentData)
         }) { (error, committed, snapshot) in
