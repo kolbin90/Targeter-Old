@@ -38,8 +38,13 @@ class LikesApi {
                     likesCount -= 1
                     timestamp = 0
                 }
-                let newData = [Constants.Like.likesCount: likesCount, Constants.Like.lastLikeTimestamp: timestamp]
-                self.likesRef.child(targetId).child(userId).updateChildValues(newData)
+                if likesCount > 0 {
+                    let newData = [Constants.Like.likesCount: likesCount, Constants.Like.lastLikeTimestamp: timestamp]
+                    self.likesRef.child(targetId).child(userId).updateChildValues(newData)
+                } else {
+                    self.likesRef.child(targetId).child(userId).removeValue()
+                }
+                
                 self.incrementLikes(targetId: targetId, isLiked: isLiked) { target in
                      onSuccess()
                 } onError: { error in
