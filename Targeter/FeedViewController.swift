@@ -77,7 +77,7 @@ extension FeedViewController: FeedCellDelegate {
             Api.likes.updateUsersLikesFor(targetId: id, userId: userId, isLiked: isLiked) {
                  
             } onError: { error in
-                 
+                ProgressHUD.showError(error)
             }
 
         }

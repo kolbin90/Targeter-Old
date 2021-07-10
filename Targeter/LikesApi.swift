@@ -30,19 +30,19 @@ class LikesApi {
                 }
                 let newData = [Constants.Like.likesCount: likesCount, Constants.Like.lastLikeTimestamp: timestamp]
                 self.likesRef.child(targetId).child(userId).updateChildValues(newData)
-                self.incrementLikes(targetId: targetId, isLiked: isLiked) { Target in
-                     
-                } onError: { Error in
-                     
+                self.incrementLikes(targetId: targetId, isLiked: isLiked) { target in
+                     onSuccess()
+                } onError: { error in
+                     onError(error)
                 }
 
             } else {
                 let newData = [Constants.Like.likesCount: 1, Constants.Like.lastLikeTimestamp: timestamp]
                 self.likesRef.child(targetId).child(userId).updateChildValues(newData)
-                self.incrementLikes(targetId: targetId, isLiked: isLiked) { Target in
-                     
-                } onError: { Error in
-                     
+                self.incrementLikes(targetId: targetId, isLiked: isLiked) { target in
+                    onSuccess()
+                } onError: { error in
+                    onError(error)
                 }
             }
         }
