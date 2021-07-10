@@ -201,10 +201,10 @@
             </objects>
             <point key="canvasLocation" x="-1201.449275362319" y="813.61607142857144"/>
         </scene>
-        <!--Likes View Controller-->
+        <!--Likes-->
         <scene sceneID="9oM-Nx-TSO">
             <objects>
-                <viewController storyboardIdentifier="LikesViewController" id="je1-0m-osi" customClass="LikesViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LikesViewController" title="Likes" id="je1-0m-osi" customClass="LikesViewController" customModule="Targeter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Alg-tn-rQK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -213,7 +213,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="76" id="SGR-8M-64n">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LikeCell" rowHeight="76" id="SGR-8M-64n" customClass="LikeCell" customModule="Targeter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SGR-8M-64n" id="HIE-Ay-5Ko">
@@ -233,17 +233,17 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hKp-Mu-rl1">
-                                                    <rect key="frame" x="77" y="28.5" width="302" height="19.5"/>
+                                                    <rect key="frame" x="77" y="27" width="302" height="22"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="llg-pF-7dZ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="151" height="19.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="151" height="22"/>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oan-4D-fuL">
-                                                            <rect key="frame" x="151" y="0.0" width="151" height="19.5"/>
-                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                            <rect key="frame" x="151" y="0.0" width="151" height="22"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -259,6 +259,11 @@
                                                 <constraint firstItem="wCr-hi-6NR" firstAttribute="top" secondItem="HIE-Ay-5Ko" secondAttribute="top" constant="12" id="yJ9-Km-PJb"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="likesCountLabel" destination="oan-4D-fuL" id="W8Q-oT-l7v"/>
+                                            <outlet property="profileImageView" destination="wCr-hi-6NR" id="yQd-kE-W3Q"/>
+                                            <outlet property="usernameLabel" destination="llg-pF-7dZ" id="d92-O9-fBY"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -272,6 +277,9 @@
                             <constraint firstItem="bnK-zq-0qR" firstAttribute="trailing" secondItem="Ehq-qF-zQK" secondAttribute="trailing" id="QMq-25-z0B"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Ehq-qF-zQK" id="5fk-eb-WLO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eDZ-yP-HGO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

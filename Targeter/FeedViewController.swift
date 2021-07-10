@@ -72,6 +72,7 @@ extension FeedViewController:  UITableViewDataSource {
 }
 
 extension FeedViewController: FeedCellDelegate {
+    
     func updateLikes(withTargetId id: String, isLiked: Bool) {
         if let userId = Api.user.currentUser?.uid {
             Api.likes.updateUsersLikesFor(targetId: id, userId: userId, isLiked: isLiked) {
@@ -82,6 +83,13 @@ extension FeedViewController: FeedCellDelegate {
 
         }
     }
+    
+    func goToLikesVC(withTargetId id: String) {
+        let likesVC = UIStoryboard.init(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "LikesViewController") as! LikesViewController
+        likesVC.targetId = id
+        self.navigationController?.show(likesVC, sender: self)
+    }
+    
     
     func goToCommentsVC(withTargetId id: String) {
         let commentsVC = UIStoryboard.init(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController

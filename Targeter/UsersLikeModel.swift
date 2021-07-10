@@ -18,7 +18,7 @@ extension UsersLikeModel {
     static func transformToLikeModel(dict: [String:Any], uid: String) -> UsersLikeModel {
         let like = UsersLikeModel()
         like.likesCount = dict[Constants.Like.likesCount] as? Int
-        like.uid = dict[Constants.Like.uid] as? String
+        like.uid = uid
         like.timestamp = dict[Constants.Like.lastLikeTimestamp] as? Int
 
         return like

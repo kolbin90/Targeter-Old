@@ -13,6 +13,16 @@ class LikesApi {
     let likesRef = Database.database().reference().child(Constants.RootFolders.likes)
     let targetsRef = Database.database().reference().child(Constants.RootFolders.NewTargets)
     
+    func getLikesFor(targetId: String, onSuccess: @escaping (UsersLikeModel) -> Void) {
+        likesRef.child(targetId).observe(.childAdded) { snapshot in
+            if let dict = snapshot.value as? [String: AnyObject] {
+                let uid = snapshot.key
+                let like = UsersLikeModel.transformToLikeModel(dict: dict, uid: uid)
+                onSuccess(like)
+            }
+        }
+    }
+    
     func updateUsersLikesFor(targetId: String, userId: String, isLiked: Bool, onSuccess: @escaping () -> Void, onError: @escaping (String) -> Void) {
         var timestamp = Int(Date().timeIntervalSince1970)
         likesRef.child(targetId).child(userId).observeSingleEvent(of: .value) { snapshot in
@@ -49,7 +59,7 @@ class LikesApi {
 
     }
     
-    func incrementLikes(targetId: String, isLiked: Bool, onSuccess: @escaping (TargetModel) -> Void, onError: @escaping (String) -> Void) {
+    fileprivate func incrementLikes(targetId: String, isLiked: Bool, onSuccess: @escaping (TargetModel) -> Void, onError: @escaping (String) -> Void) {
         targetsRef.child(targetId).runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
             if var target = currentData.value as? [String : AnyObject], let uid = Api.user.currentUser?.uid {
                 var likeCount = target[Constants.Target.likesCount] as? Int ?? 0
