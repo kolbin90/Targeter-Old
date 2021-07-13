@@ -72,6 +72,12 @@ extension FeedViewController:  UITableViewDataSource {
 }
 
 extension FeedViewController: FeedCellDelegate {
+    func goToProfileUserVC(withUser user: UserModel) {
+        let otherProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+        otherProfileVC.user = user
+        navigationController?.show(otherProfileVC, sender: nil)
+    }
+    
     
     func updateLikes(withTargetId id: String, isLiked: Bool) {
         if let userId = Api.user.currentUser?.uid {

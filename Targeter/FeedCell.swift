@@ -13,6 +13,7 @@ import UIKit
 protocol FeedCellDelegate: class {
     func goToCommentsVC(withTargetId id: String)
     func goToLikesVC(withTargetId id: String)
+    func goToProfileUserVC(withUser user: UserModel)
     func updateLikes(withTargetId id: String, isLiked: Bool)
 }
 
@@ -81,6 +82,14 @@ class FeedCell: UITableViewCell {
         let tapGestureForLikesLabel = UITapGestureRecognizer(target: self, action: #selector(self.likesLabel_TchUpIns))
         likesLabel.addGestureRecognizer(tapGestureForLikesLabel)
         likesLabel.isUserInteractionEnabled = true
+        
+        let tapGestureForUsername = UITapGestureRecognizer(target: self, action: #selector(self.user_TchUpIns))
+        usernameLabel.addGestureRecognizer(tapGestureForUsername)
+        usernameLabel.isUserInteractionEnabled = true
+        
+        let tapGestureForProfileImage = UITapGestureRecognizer(target: self, action: #selector(self.user_TchUpIns))
+        profileImageView.addGestureRecognizer(tapGestureForProfileImage)
+        profileImageView.isUserInteractionEnabled = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -267,6 +276,12 @@ class FeedCell: UITableViewCell {
     @objc func likesLabel_TchUpIns() {
         if let id = cellPost.target.id {
             delegate?.goToLikesVC(withTargetId: id)
+        }
+    }
+    
+    @objc func user_TchUpIns() {
+        if let user = cellPost.user {
+            delegate?.goToProfileUserVC(withUser: user)
         }
     }
     
