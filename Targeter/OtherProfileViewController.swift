@@ -29,6 +29,8 @@ class OtherProfileViewController: UIViewController {
     var followers = ""
     var following = ""
     var newProfileImage: UIImage?
+    var isFollowing = false
+    var uId = ""
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,23 +40,18 @@ class OtherProfileViewController: UIViewController {
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
         
         fillProfileData()
-        guard let uId = user.id else {
+        guard let _ = user.id else {
             ProgressHUD.showError()
             return
         }
+        uId = user.id!
         guard let userId = Api.user.currentUser?.uid else {
             return
         }
         if userId == uId {
             self.navigationItem.rightBarButtonItem = nil
         }
-        isFollowing(withUserId: uId) { isFollowing in
-            if isFollowing {
-                self.navigationItem.rightBarButtonItem?.title = "Following"
-            } else {
-                self.navigationItem.rightBarButtonItem?.tintColor = .blue
-            }
-        }
+        updateFollowingStatus()
         observeTargetsForUser(withID: uId)
 
         
@@ -140,8 +137,30 @@ class OtherProfileViewController: UIViewController {
         Api.follow.isFollowing(withUserId: id, completed: completed)
     }
     
+    func updateFollowingStatus() {
+        isFollowing(withUserId: uId) { isFollowing in
+            if isFollowing {
+                self.navigationItem.rightBarButtonItem?.title = "Following"
+                self.navigationItem.rightBarButtonItem?.tintColor = .black
+            } else {
+                self.navigationItem.rightBarButtonItem?.title = "Follow"
+                self.navigationItem.rightBarButtonItem?.tintColor = .blue
+            }
+            self.isFollowing = isFollowing
+        }
+    }
+    
     // MARK: Actions
-
+    @IBAction func followButton_TchUpIns(_ sender: Any) {
+        if isFollowing {
+            Api.follow.unfollowAction(withUserId: uId)
+            updateFollowingStatus()
+        } else {
+            Api.follow.followAction(withUserId: uId)
+            updateFollowingStatus()
+        }
+    }
+    
 }
 
 // MARK: - Extensions

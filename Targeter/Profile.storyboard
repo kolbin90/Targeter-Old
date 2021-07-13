@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nrg-2G-P4W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nrg-2G-P4W">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,7 +22,7 @@
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfileCell" rowHeight="500" id="Oer-08-1nF" customClass="ProfileCell" customModule="Targeter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="500"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="414" height="500"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Oer-08-1nF" id="pah-a1-vBh">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
@@ -306,7 +306,7 @@
                             <tableViewSection headerTitle="" id="5Cj-w7-45n">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lRf-Ig-n9C">
-                                        <rect key="frame" x="0.0" y="473" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="468.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lRf-Ig-n9C" id="7X2-ZQ-Sa1">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -337,7 +337,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="d4n-gi-J9A">
-                                        <rect key="frame" x="0.0" y="517" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="512.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d4n-gi-J9A" id="irG-E5-JrW">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -372,7 +372,7 @@
                             <tableViewSection headerTitle="" id="Unf-0y-TEa">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="JXD-bi-e6f">
-                                        <rect key="frame" x="0.0" y="601" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="592" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JXD-bi-e6f" id="FJ2-P0-ZV3">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -401,7 +401,7 @@
                             <tableViewSection headerTitle="" id="c5O-Vp-9dV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="FOh-np-4Ri">
-                                        <rect key="frame" x="0.0" y="685" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="671.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FOh-np-4Ri" id="v1a-Tu-7Q5">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -430,7 +430,7 @@
                             <tableViewSection headerTitle="" id="2ow-1u-Eou">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="riV-2z-7LO">
-                                        <rect key="frame" x="0.0" y="769" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="751" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="riV-2z-7LO" id="DMK-rx-UuB">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -598,7 +598,7 @@
                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfileCell" rowHeight="500" id="jMv-pL-Ypb" customClass="ProfileCell" customModule="Targeter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="500"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="414" height="500"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jMv-pL-Ypb" id="EPX-1v-yQe">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
@@ -761,7 +761,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Username" id="qez-YC-yhf">
-                        <barButtonItem key="rightBarButtonItem" title="Follow" id="FFx-4E-5fT"/>
+                        <barButtonItem key="rightBarButtonItem" title="Follow" id="FFx-4E-5fT">
+                            <connections>
+                                <action selector="followButton_TchUpIns:" destination="juw-KO-0fv" id="1R1-Th-9fq"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -799,15 +803,6 @@
         <image name="Profile" width="20" height="21"/>
         <image name="Profile_Selected" width="20" height="21"/>
         <image name="avatar-1577909_960_720" width="720" height="720"/>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
