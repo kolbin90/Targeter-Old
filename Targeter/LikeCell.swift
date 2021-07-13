@@ -6,7 +6,11 @@
 //  Copyright © 2021 Alder. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+protocol LikeCellDelegate {
+    func goToProfileUserVC(withUser user: UserModel)
+}
 
 class LikeCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
@@ -33,6 +37,8 @@ class LikeCell: UITableViewCell {
         }
     }
     
+    var delegate: LikeCellDelegate?
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         profileImageView.image = UIImage(named: "placeholderImg")
@@ -45,21 +51,20 @@ class LikeCell: UITableViewCell {
         usernameLabel.text = ""
         likesCountLabel.text = ""
         profileImageView.layer.cornerRadius = 13
-//        let tapGestureForUsername = UITapGestureRecognizer(target: self, action: #selector(self.user_TchUpIns))
-//        usernameLabel.addGestureRecognizer(tapGestureForUsername)
-//        usernameLabel.isUserInteractionEnabled = true
-//        let tapGestureForProfileImage = UITapGestureRecognizer(target: self, action: #selector(self.user_TchUpIns))
-//        profileImageView.addGestureRecognizer(tapGestureForProfileImage)
-//        profileImageView.isUserInteractionEnabled = true
+        let tapGestureForUsername = UITapGestureRecognizer(target: self, action: #selector(self.user_TchUpIns))
+        usernameLabel.addGestureRecognizer(tapGestureForUsername)
+        usernameLabel.isUserInteractionEnabled = true
+        let tapGestureForProfileImage = UITapGestureRecognizer(target: self, action: #selector(self.user_TchUpIns))
+        profileImageView.addGestureRecognizer(tapGestureForProfileImage)
+        profileImageView.isUserInteractionEnabled = true
         
     }
     
-    
-    
-    
-    
-    
-    
+    @objc func user_TchUpIns() {
+        if let user = user {
+            delegate?.goToProfileUserVC(withUser: user)
+        }
+    }
     
     
     func setupUserInfo() {

@@ -88,7 +88,16 @@ extension LikesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LikeCell", for: indexPath) as! LikeCell
         cell.like = like
         cell.user = user
-//        cell.delegate = self
+        cell.selectionStyle = .none
+        cell.delegate = self
         return cell
+    }
+}
+
+extension LikesViewController: LikeCellDelegate {
+    func goToProfileUserVC(withUser user: UserModel) {
+        let otherProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+        otherProfileVC.user = user
+        navigationController?.show(otherProfileVC, sender: nil)
     }
 }
