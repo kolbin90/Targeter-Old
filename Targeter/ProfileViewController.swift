@@ -145,6 +145,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         cell.cellPost = posts[indexPath.row]
+        cell.delegate = self
+        cell.selectionStyle = .none
 //        cell.showArrows = false
 //        cell.cellTarget = targets[indexPath.row]
         return cell
@@ -153,14 +155,18 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
         cell.targetsLabel.text = targetsCountString
+        cell.nameLabel.layer.cornerRadius = 10
+        cell.nameLabel.layer.masksToBounds = true
+        cell.locationLabel.layer.cornerRadius = 10
+        cell.locationLabel.layer.masksToBounds = true
         if name != "" {
-            cell.nameLabel.text = " \(name) "
+            cell.nameLabel.text = "  \(name)  "
         } else {
             cell.nameLabel.isHidden = true
         }
         
         if location != "" {
-            cell.locationLabel.text = " \(location) "
+            cell.locationLabel.text = "  \(location)  "
         } else {
             cell.locationLabel.isHidden = true
         }
@@ -206,5 +212,52 @@ extension ProfileViewController: EditProfileViewControllerDelegate {
         tableView.reloadData()
     }
 
+}
+
+extension ProfileViewController: FeedCellDelegate {
+    func goToProfileUserVC(withUser user: UserModel) {
+        let otherProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
+        otherProfileVC.user = user
+        navigationController?.show(otherProfileVC, sender: nil)
+    }
+    
+    
+    func updateLikes(withTargetId id: String, isLiked: Bool) {
+        if let userId = Api.user.currentUser?.uid {
+            Api.likes.updateUsersLikesFor(targetId: id, userId: userId, isLiked: isLiked) {
+                 
+            } onError: { error in
+                ProgressHUD.showError(error)
+            }
+
+        }
+    }
+    
+    func goToLikesVC(withTargetId id: String) {
+        let likesVC = UIStoryboard.init(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "LikesViewController") as! LikesViewController
+        likesVC.targetId = id
+        self.navigationController?.show(likesVC, sender: self)
+    }
+    
+    
+    func goToCommentsVC(withTargetId id: String) {
+        let commentsVC = UIStoryboard.init(name: "Feed", bundle: nil).instantiateViewController(withIdentifier: "CommentsViewController") as! CommentsViewController
+        commentsVC.targetId = id
+        commentsVC.delegate = self
+        //editProfileVC.delegate = self
+        self.navigationController?.show(commentsVC, sender: nil)
+    }
+}
+
+extension ProfileViewController: CommentsViewControllerDelegate {
+    func increaseCommentsCount(newNumber: Int, targetId: String) {
+        for post in  posts {
+            if post.target.id == targetId {
+                post.target.commentsCount = newNumber
+                tableView.reloadData()
+                return
+            }
+        }
+    }
 }
 

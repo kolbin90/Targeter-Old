@@ -112,7 +112,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="iDZ-Sp-7d3">
-                                                            <rect key="frame" x="16" y="312" width="167" height="70"/>
+                                                            <rect key="frame" x="8" y="328" width="167" height="70"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Alexander Kolbin " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62c-C6-Ut2">
                                                                     <rect key="frame" x="0.0" y="0.0" width="167" height="30"/>
@@ -145,8 +145,8 @@
                                                         <constraint firstItem="6S3-yg-IjF" firstAttribute="leading" secondItem="ydF-A8-trT" secondAttribute="leading" id="jAi-la-WRt"/>
                                                         <constraint firstAttribute="trailing" secondItem="6S3-yg-IjF" secondAttribute="trailing" id="k1V-MR-nAQ"/>
                                                         <constraint firstItem="6S3-yg-IjF" firstAttribute="top" secondItem="ydF-A8-trT" secondAttribute="top" id="oDH-AK-9et"/>
-                                                        <constraint firstItem="urP-QV-e53" firstAttribute="top" secondItem="iDZ-Sp-7d3" secondAttribute="bottom" constant="32" id="scO-Cz-gS7"/>
-                                                        <constraint firstItem="iDZ-Sp-7d3" firstAttribute="leading" secondItem="ydF-A8-trT" secondAttribute="leading" constant="16" id="usx-1l-9qh"/>
+                                                        <constraint firstItem="urP-QV-e53" firstAttribute="top" secondItem="iDZ-Sp-7d3" secondAttribute="bottom" constant="16" id="scO-Cz-gS7"/>
+                                                        <constraint firstItem="iDZ-Sp-7d3" firstAttribute="leading" secondItem="ydF-A8-trT" secondAttribute="leading" constant="8" id="usx-1l-9qh"/>
                                                         <constraint firstItem="urP-QV-e53" firstAttribute="leading" secondItem="ydF-A8-trT" secondAttribute="leading" constant="55" id="wdL-uG-pAR"/>
                                                         <constraint firstAttribute="bottom" secondItem="urP-QV-e53" secondAttribute="bottom" id="yae-gb-0pG"/>
                                                     </constraints>
