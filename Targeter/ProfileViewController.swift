@@ -18,6 +18,8 @@ class ProfileViewController: UIViewController {
 
     // MARK: Variables
     var targets: [TargetModel] = []
+    var posts: [PostModel] = []
+    var user: UserModel?
     var userId: String?
     var name = ""
     var location = ""
@@ -32,6 +34,7 @@ class ProfileViewController: UIViewController {
         setNavigationController(largeTitleDisplayMode: .always)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
         tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
 //        Check if there is a user ID. If there is none, it means it's Users own profile
         if let userId = userId  {
@@ -63,6 +66,10 @@ class ProfileViewController: UIViewController {
     func observeTargetsForUser(withID id: String) {
         Api.user_target.getTargetsIdForUser(withID: id) { (targetId) in
             Api.target.getTarget(withTargetId: targetId, completion: { (target) in
+                let post = PostModel()
+                post.target = target
+                post.user = self.user
+                self.posts.append(post)
                 self.targets.append(target)
                 self.tableView.reloadData()
             }) { (error) in
@@ -72,12 +79,15 @@ class ProfileViewController: UIViewController {
     }
     
     func getUser(withID userid: String) {
-        fillProfileData()
-        observeTargetsForUser(withID: userid) // REPLACE WITH observeTargets for UserID
+        fillProfileData(withID: userid)
+       // observeTargetsForUser(withID: userid) // REPLACE WITH observeTargets for UserID
     }
     
-    func fillProfileData() {
+    func fillProfileData(withID userid: String) {
         Api.user.singleObserveCurrentUser(completion: { (user) in
+            self.user = user
+            self.observeTargetsForUser(withID: userid)
+            
             if let uaername = user.username {
                 self.navigationItem.title = uaername
             }
@@ -127,14 +137,16 @@ class ProfileViewController: UIViewController {
 // MARK: UITableViewDataSource, UITableViewDelegate
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return targets.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
-        cell.showArrows = false
-        cell.cellTarget = targets[indexPath.row]
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
+        cell.cellPost = posts[indexPath.row]
+//        cell.showArrows = false
+//        cell.cellTarget = targets[indexPath.row]
         return cell
     }
     
@@ -171,6 +183,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return UIScreen.main.bounds.width + 64
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 217
     }
     
 }

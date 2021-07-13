@@ -201,7 +201,6 @@ extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate
         
         return UIScreen.main.bounds.width + 64
     }
-    
 }
 
 
