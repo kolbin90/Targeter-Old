@@ -48,6 +48,13 @@ class OtherProfileViewController: UIViewController {
         if userId == uId {
             self.navigationItem.rightBarButtonItem = nil
         }
+        isFollowing(withUserId: uId) { isFollowing in
+            if isFollowing {
+                self.navigationItem.rightBarButtonItem?.title = "Following"
+            } else {
+                self.navigationItem.rightBarButtonItem?.tintColor = .blue
+            }
+        }
         observeTargetsForUser(withID: uId)
 
         
@@ -128,6 +135,11 @@ class OtherProfileViewController: UIViewController {
         self.tableView.reloadData()
         
     }
+    
+    func isFollowing(withUserId id: String, completed: @escaping (Bool) -> Void) {
+        Api.follow.isFollowing(withUserId: id, completed: completed)
+    }
+    
     // MARK: Actions
 
 }
