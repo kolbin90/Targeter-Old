@@ -21,6 +21,7 @@ class OtherProfileViewController: UIViewController {
     // MARK: Variables
     var targets: [TargetModel] = []
     var user: UserModel!
+    var posts: [PostModel] = []
     var userId: String?
     var name = ""
     var location = ""
@@ -37,7 +38,9 @@ class OtherProfileViewController: UIViewController {
         setNavigationController(largeTitleDisplayMode: .always)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
+//        tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
+        tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
+
         
         fillProfileData()
         guard let _ = user.id else {
@@ -85,7 +88,11 @@ class OtherProfileViewController: UIViewController {
     func observeTargetsForUser(withID id: String) {
         Api.user_target.getTargetsIdForUser(withID: id) { (targetId) in
             Api.target.getTarget(withTargetId: targetId, completion: { (target) in
-                self.targets.append(target)
+                let post = PostModel()
+                post.target = target
+                post.user = self.user
+                self.posts.append(post)
+//                self.targets.append(target)
                 self.tableView.reloadData()
             }) { (error) in
                 ProgressHUD.showError(error)
@@ -167,14 +174,16 @@ class OtherProfileViewController: UIViewController {
 // MARK: UITableViewDataSource, UITableViewDelegate
 extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return targets.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
-        cell.showArrows = false
-        cell.cellTarget = targets[indexPath.row]
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
+        cell.cellPost = posts[indexPath.row]
+//        cell.showArrows = false
+//        cell.cellTarget = targets[indexPath.row]
         return cell
     }
     
@@ -200,6 +209,10 @@ extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return UIScreen.main.bounds.width + 64
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 217
     }
 }
 
