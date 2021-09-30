@@ -26,33 +26,11 @@ class FeedViewController: UIViewController {
             self.tableView.reloadData()
         }
         setNavigationController(largeTitleDisplayMode: .always)
-//        Api.target.observeTargets { (target) in
-//            Api.user.singleObserveUser(withUid: target.uid!) { (user) in
-//                let post = PostModel()
-//                post.target = target
-//                post.user = user
-//                self.posts.append(post)
-//                self.tableView.reloadData()
-//            } onError: { (error) in
-//                ProgressHUD.showError(error)
-//            }
-//
-//        } onError: { (error) in
-//            ProgressHUD.showError(error)
-//        }
-
     }
     
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -73,9 +51,9 @@ extension FeedViewController:  UITableViewDataSource {
 
 extension FeedViewController: FeedCellDelegate {
     func goToProfileUserVC(withUser user: UserModel) {
-        let otherProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
-        otherProfileVC.user = user
-        navigationController?.show(otherProfileVC, sender: nil)
+        let profileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        profileVC.user = user
+        navigationController?.show(profileVC, sender: nil)
     }
     
     

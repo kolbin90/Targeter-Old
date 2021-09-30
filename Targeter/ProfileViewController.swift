@@ -35,16 +35,26 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
-        tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
 //        Check if there is a user ID. If there is none, it means it's Users own profile
-        if let userId = userId  {
-            getUser(withID: userId)
+        
+        if let uid = user?.id {
+            fillProfileData()
         } else {
             guard let userId = Api.user.currentUser?.uid else {
                 return
             }
             getUser(withID: userId)
         }
+        
+        
+//        if let userId = userId  {
+//            getUser(withID: userId)
+//        } else {
+//            guard let userId = Api.user.currentUser?.uid else {
+//                return
+//            }
+//            getUser(withID: userId)
+//        }
 //        guard let userId = userId else {
 ////          If ita uaer's own profile then get userID and then gwt user info and targets for this ID
 //            //observeTargets() // REPLACE TO getUser(withID)
@@ -79,14 +89,20 @@ class ProfileViewController: UIViewController {
     }
     
     func getUser(withID userid: String) {
-        fillProfileData(withID: userid)
+        
+        Api.user.singleObserveCurrentUser { user in
+            self.user = user
+            self.fillProfileData()
+        } onError: { error in
+            ProgressHUD.showError(error)
+        }
+
        // observeTargetsForUser(withID: userid) // REPLACE WITH observeTargets for UserID
     }
     
-    func fillProfileData(withID userid: String) {
-        Api.user.singleObserveCurrentUser(completion: { (user) in
-            self.user = user
-            self.observeTargetsForUser(withID: userid)
+    func fillProfileData() {
+        if let user = user {
+            self.observeTargetsForUser(withID: user.id!)
             
             if let uaername = user.username {
                 self.navigationItem.title = uaername
@@ -120,10 +136,8 @@ class ProfileViewController: UIViewController {
             }
             
             self.tableView.reloadData()
-            
-        }) { (error) in
-            ProgressHUD.showError(error)
         }
+ 
     }
     // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
