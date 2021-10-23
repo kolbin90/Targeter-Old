@@ -64,6 +64,11 @@ class FeedCell: UITableViewCell {
         titleLabel.layer.masksToBounds = true
         todayMark.layer.cornerRadius = 10
         todayMark.layer.masksToBounds = true
+        targetImageView.layer.cornerRadius = 20
+        targetImageView.layer.masksToBounds = true
+        cellBackgroundView.layer.cornerRadius = 20
+        cellBackgroundView.layer.masksToBounds = true
+        
         for mark in marks {
             mark.layer.cornerRadius = 5
             mark.layer.masksToBounds = true

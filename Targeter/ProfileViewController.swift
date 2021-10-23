@@ -208,6 +208,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         cell.nameLabel.layer.masksToBounds = true
         cell.locationLabel.layer.cornerRadius = 10
         cell.locationLabel.layer.masksToBounds = true
+        cell.profileImageView.layer.cornerRadius = 20
+        cell.profileImageView.layer.masksToBounds = true
         if name != "" {
             cell.nameLabel.text = "  \(name)  "
         } else {

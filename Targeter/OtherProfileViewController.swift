@@ -192,11 +192,17 @@ extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
+        cell.nameLabel.layer.cornerRadius = 10
+        cell.nameLabel.layer.masksToBounds = true
+        cell.locationLabel.layer.cornerRadius = 10
+        cell.locationLabel.layer.masksToBounds = true
+        cell.profileImageView.layer.cornerRadius = 20
+        cell.profileImageView.layer.masksToBounds = true
         cell.targetsLabel.text = targetsCountString
         cell.followersLabel.text = followers
         cell.followingLabel.text = following
-        cell.nameLabel.text = " \(name) "
-        cell.locationLabel.text = " \(location) "
+        cell.nameLabel.text = "  \(name)  "
+        cell.locationLabel.text = "  \(location)  "
         if let newProfileImage = newProfileImage {
             cell.profileImageView.image = newProfileImage
         } else {
