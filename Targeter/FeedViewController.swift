@@ -102,7 +102,7 @@ extension FeedViewController:  UITableViewDataSource {
 
 extension FeedViewController: FeedCellDelegate {
     func goToProfileUserVC(withUser user: UserModel) {
-        let profileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        let profileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
         profileVC.user = user
         navigationController?.show(profileVC, sender: nil)
     }
