@@ -169,7 +169,8 @@ class EditProfileViewController: UITableViewController {
     }
     @IBAction func logOutButton_TchUpIns(_ sender: Any) {
         AuthService.firebaseLogOut()
-        loginSession()
+        navigationController?.popViewController(animated: true)
+//        loginSession()
     }
     
 }

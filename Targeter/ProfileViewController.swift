@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 // MARK: - ProfileViewController
 class ProfileViewController: UIViewController {
@@ -28,6 +29,9 @@ class ProfileViewController: UIViewController {
     var followers = ""
     var following = ""
     var newProfileImage: UIImage?
+    fileprivate var _authHandle: AuthStateDidChangeListenerHandle! // Listens when Firebase Auth changed status
+    var firebaseUser: User?
+    
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,14 +41,16 @@ class ProfileViewController: UIViewController {
         tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
 //        Check if there is a user ID. If there is none, it means it's Users own profile
         
-        if let uid = user?.id {
-            fillProfileData()
-        } else {
-            guard let userId = Api.user.currentUser?.uid else {
-                return
-            }
-            getUser(withID: userId)
-        }
+        configureAuth()
+        
+//        if let uid = user?.id {
+//            fillProfileData()
+//        } else {
+//            guard let userId = Api.user.currentUser?.uid else {
+//                return
+//            }
+//            getUser(withID: userId)
+//        }
         
         
 //        if let userId = userId  {
@@ -139,6 +145,35 @@ class ProfileViewController: UIViewController {
         }
  
     }
+    
+    func configureAuth() {
+//        let provider = [FUIGoogleAuth()]
+//        FUIAuth.defaultAuthUI()?.providers = provider
+        
+        // Create a listener to observe if auth status changed
+        _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
+            if let activeUser = user {
+                if self.firebaseUser != activeUser {
+                    self.firebaseUser = activeUser
+                    guard let userId = Api.user.currentUser?.uid else {
+                        return
+                    }
+                    self.getUser(withID: userId)
+                    
+                }
+            } else {
+                //                if let userID = self.userID {
+                //                    self.databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: self._refHandle)
+                //                }
+//                self.targets = []
+//                self.tableView.reloadData()
+//                self.userID = nil
+//                self.signedInStatus(isSignedIn: false)
+                self.posts = []
+            }
+        }
+    }
+    
     // MARK: Actions
     @IBAction func editButton_TchUpIns(_ sender: Any) {
         let editProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController

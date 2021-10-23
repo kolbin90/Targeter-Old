@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class FeedViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     var posts: [PostModel] = []
+
+    
+    fileprivate var _authHandle: AuthStateDidChangeListenerHandle! // Listens when Firebase Auth changed status
+    var user: User?
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,15 +28,59 @@ class FeedViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
         // Do any additional setup after loading the view.
-        Api.feed.observeFeed(forUid: Api.user.currentUser!.uid) { (post) in
-            self.posts.append(post)
-            self.tableView.reloadData()
-        }
+        configureAuth()
         setNavigationController(largeTitleDisplayMode: .always)
     }
     
 
     // MARK: - Navigation
+    
+    func configureAuth() {
+//        let provider = [FUIGoogleAuth()]
+//        FUIAuth.defaultAuthUI()?.providers = provider
+        
+        // Create a listener to observe if auth status changed
+        _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
+            if let activeUser = user {
+                if self.user != activeUser {
+                    self.user = activeUser
+                    //                    self.signedInStatus(isSignedIn: true)
+                    var name = ""
+                    if let email = activeUser.email {
+                        name = email.components(separatedBy: "@")[0]
+                    }
+                    //                    self.displayName = name
+                    //                    self.userID = Auth.auth().currentUser?.uid
+                    //                    self.downloadTargets()
+                    Api.feed.observeFeed(forUid: Api.user.currentUser!.uid) { (post) in
+                        self.posts.append(post)
+                        self.tableView.reloadData()
+                    }
+                }
+            } else {
+                //                if let userID = self.userID {
+                //                    self.databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: self._refHandle)
+                //                }
+//                self.targets = []
+//                self.tableView.reloadData()
+//                self.userID = nil
+//                self.signedInStatus(isSignedIn: false)
+                self.posts = []
+                self.loginSession()
+            }
+        }
+    }
+    
+    func loginSession() {
+        // Show auth view controller
+//        let authViewController = FUIAuth.defaultAuthUI()!.authViewController()
+//        self.present(authViewController, animated: true, completion: nil)
+        
+        let signInVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+        let signInNavController = UINavigationController(rootViewController: signInVC)
+        signInNavController.modalPresentationStyle = .fullScreen
+        self.present(signInNavController, animated: true, completion: nil)
+    }
 
 
 }
