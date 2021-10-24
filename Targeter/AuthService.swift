@@ -17,6 +17,7 @@ import CoreData
 class AuthService {
     
     let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+
     
     static func firebaseLogOut() {
         do {
@@ -150,6 +151,12 @@ class AuthService {
             }
             onSuccess()
         }
+    }
+    
+    static func listenToAuthChanges(competion: @escaping (_ auth: Auth, _ user: User?) -> Void) {
+        let _ = Auth.auth().addStateDidChangeListener({ auth, user in
+            competion(auth, user)
+        })
     }
     
 }
