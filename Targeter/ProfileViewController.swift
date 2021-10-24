@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 // MARK: - ProfileViewController
 class ProfileViewController: UIViewController {
@@ -29,8 +28,7 @@ class ProfileViewController: UIViewController {
     var followers = ""
     var following = ""
     var newProfileImage: UIImage?
-    fileprivate var _authHandle: AuthStateDidChangeListenerHandle! // Listens when Firebase Auth changed status
-    var firebaseUser: User?
+    var currentUserId: String!
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -39,37 +37,7 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
-//        Check if there is a user ID. If there is none, it means it's Users own profile
-        
         configureAuth()
-        
-//        if let uid = user?.id {
-//            fillProfileData()
-//        } else {
-//            guard let userId = Api.user.currentUser?.uid else {
-//                return
-//            }
-//            getUser(withID: userId)
-//        }
-        
-        
-//        if let userId = userId  {
-//            getUser(withID: userId)
-//        } else {
-//            guard let userId = Api.user.currentUser?.uid else {
-//                return
-//            }
-//            getUser(withID: userId)
-//        }
-//        guard let userId = userId else {
-////          If ita uaer's own profile then get userID and then gwt user info and targets for this ID
-//            //observeTargets() // REPLACE TO getUser(withID)
-//            return
-//
-//        }
-//        If uaerID not nil, it means it was profided by another VC and we are going to use it
-        
-        
     }
     
     deinit {
@@ -147,29 +115,17 @@ class ProfileViewController: UIViewController {
     }
     
     func configureAuth() {
-//        let provider = [FUIGoogleAuth()]
-//        FUIAuth.defaultAuthUI()?.providers = provider
-        
         // Create a listener to observe if auth status changed
-        _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
+        AuthService.listenToAuthChanges { auth, user in
             if let activeUser = user {
-                if self.firebaseUser != activeUser {
-                    self.firebaseUser = activeUser
-                    guard let userId = Api.user.currentUser?.uid else {
-                        return
-                    }
-                    self.getUser(withID: userId)
-                    
+                guard let userId = Api.user.currentUser?.uid else {
+                    return
                 }
+                self.currentUserId = userId
+                self.getUser(withID: userId)
             } else {
-                //                if let userID = self.userID {
-                //                    self.databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: self._refHandle)
-                //                }
-//                self.targets = []
-//                self.tableView.reloadData()
-//                self.userID = nil
-//                self.signedInStatus(isSignedIn: false)
                 self.posts = []
+                Api.user_target.stopObservingTargetsIdForUser(withId: self.currentUserId)
             }
         }
     }
