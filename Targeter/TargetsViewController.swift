@@ -21,6 +21,7 @@ class TargetsViewController: UIViewController {
     // MARK: Variables
     var targets: [TargetModel] = []
     var delegates = [String: TargetsViewControllerDelegate]()
+    var currentUserId: String!
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -33,6 +34,7 @@ class TargetsViewController: UIViewController {
         tableView.register(UINib(nibName: "CheckInCell", bundle: nil), forCellReuseIdentifier: "CheckInCell")
         
         observeTargetsForCurrentUser()
+        configureAuth()
 //        observeTargets()
         
         // Do any additional setup after loading the view.
@@ -53,12 +55,24 @@ class TargetsViewController: UIViewController {
         guard let userId = Api.user.currentUser?.uid else {
             return
         }
+        currentUserId = userId
         Api.user_target.getTargetsIdForUser(withID: userId) { (targetId) in
             Api.target.getTarget(withTargetId: targetId, completion: { (target) in
                 self.targets.append(target)
                 self.tableView.reloadData()
             }) { (error) in
                 ProgressHUD.showError(error)
+            }
+        }
+    }
+    
+    func configureAuth() {
+        AuthService.listenToAuthChanges { auth, user in
+            if let activeUser = user {
+                self.observeTargetsForCurrentUser()
+            } else {
+                self.targets = []
+                Api.user_target.stopObservingTargetsIdForUser(withId: self.currentUserId)
             }
         }
     }
