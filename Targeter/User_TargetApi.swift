@@ -31,6 +31,10 @@ class User_TargetApi {
             completion(snapshot.key)
         }
     }
+    
+    func stopObservingTargetsIdForUser(withId id: String) {
+        user_targetRef.child(id).removeAllObservers()
+    }
 }
 
 
