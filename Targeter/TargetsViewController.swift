@@ -30,7 +30,7 @@ class TargetsViewController: UIViewController {
 
         
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "NewTargetCell", bundle: nil), forCellReuseIdentifier: "NewTargetCell")
+        tableView.register(UINib(nibName: "CheckInCell", bundle: nil), forCellReuseIdentifier: "CheckInCell")
         
         observeTargetsForCurrentUser()
 //        observeTargets()
@@ -78,7 +78,7 @@ extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CheckInCell", for: indexPath) as! NewTargetCell
         cell.cellTarget = targets[indexPath.row]
         cell.delegate = self
         delegates["\(indexPath.row)"] = cell

@@ -406,8 +406,8 @@ extension TargetsVC {
         // Presetting outfit for cell before it's filled with data
         cell.todayMark.backgroundColor = .white
         cell.todayMark.textColor = .black
-        cell.rightArror.isHidden = false
-        cell.percentage.alpha = 0
+//        cell.rightArror.isHidden = false
+//        cell.percentage.alpha = 0
         cell.cellBackgroundView.backgroundColor = UIColor.random()
         // Check if Target excists
         let targetSnapshot = targets[indexPath.row]
@@ -482,16 +482,16 @@ extension TargetsVC {
                 if todayResult == "F" {
                     cell.todayMark.backgroundColor = redColor
                     cell.todayMark.textColor = .white
-                    cell.rightArror.isHidden = true
+//                    cell.rightArror.isHidden = true
                 } else if todayResult == "S" {
                     cell.todayMark.backgroundColor = greenColor
                     cell.todayMark.textColor = .white
-                    cell.rightArror.isHidden = true
+//                    cell.rightArror.isHidden = true
                 }
             } else {
                 cell.todayMark.backgroundColor = .white
                 cell.todayMark.textColor = .black
-                cell.rightArror.isHidden = false
+//                cell.rightArror.isHidden = false
             }
             var dayForChecking = Calendar.current.date(byAdding: .day, value: -14, to: Date())!
             let dateBeginning = dateFormatter.date(from:(target[Constants.Target.DateBeginning] as! String))!
@@ -520,8 +520,8 @@ extension TargetsVC {
                     databaseRef.child(Constants.RootFolders.Users).child(userID).child(Constants.UserData.Percentage).setValue(userPercentage)
                 }
             }
-            cell.percentage.text = " \(targetPercentage)% "
-            cell.percentage.alpha = 1
+//            cell.percentage.text = " \(targetPercentage)% "
+//            cell.percentage.alpha = 1
             
             for mark in cell.marks {
                 if dayForChecking >= dateBeginning {
