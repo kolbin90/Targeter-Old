@@ -16,8 +16,10 @@ protocol TargetsViewControllerDelegate {
 // MARK: - TargetsViewController
 
 class TargetsViewController: UIViewController {
+    
     // MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
+    
     // MARK: Variables
     var targets: [TargetModel] = []
     var delegates = [String: TargetsViewControllerDelegate]()
@@ -33,11 +35,7 @@ class TargetsViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "CheckInCell", bundle: nil), forCellReuseIdentifier: "CheckInCell")
         
-        observeTargetsForCurrentUser()
         configureAuth()
-//        observeTargets()
-        
-        // Do any additional setup after loading the view.
     }
     
     
