@@ -7,17 +7,12 @@
 //
 
 import UIKit
-import FirebaseAuth
-
 class FeedViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     var posts: [PostModel] = []
-
-    
-    fileprivate var _authHandle: AuthStateDidChangeListenerHandle! // Listens when Firebase Auth changed status
-    var user: User?
+    var currentUserId: String!
 
 
     
@@ -40,32 +35,21 @@ class FeedViewController: UIViewController {
 //        FUIAuth.defaultAuthUI()?.providers = provider
         
         // Create a listener to observe if auth status changed
-        _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
+        AuthService.listenToAuthChanges { auth, user in
             if let activeUser = user {
-                if self.user != activeUser {
-                    self.user = activeUser
-                    //                    self.signedInStatus(isSignedIn: true)
-                    var name = ""
-                    if let email = activeUser.email {
-                        name = email.components(separatedBy: "@")[0]
-                    }
-                    //                    self.displayName = name
-                    //                    self.userID = Auth.auth().currentUser?.uid
-                    //                    self.downloadTargets()
-                    Api.feed.observeFeed(forUid: Api.user.currentUser!.uid) { (post) in
-                        self.posts.append(post)
-                        self.tableView.reloadData()
-                    }
+                guard let userId = Api.user.currentUser?.uid else {
+                    return
+                }
+                self.currentUserId = userId
+                Api.feed.observeFeed(forUid: Api.user.currentUser!.uid) { (post) in
+                    self.posts.append(post)
+                    self.tableView.reloadData()
                 }
             } else {
-                //                if let userID = self.userID {
-                //                    self.databaseRef.child(Constants.RootFolders.Targets).child(userID).removeObserver(withHandle: self._refHandle)
-                //                }
-//                self.targets = []
-//                self.tableView.reloadData()
-//                self.userID = nil
-//                self.signedInStatus(isSignedIn: false)
                 self.posts = []
+                if let currentUserId = self.currentUserId {
+                    Api.feed.stopObservingFeed(forId: currentUserId)
+                }
                 self.loginSession()
             }
         }
