@@ -29,6 +29,10 @@ class FeedApi {
         }
     }
     
+    func stopObservingFeed(forId id: String) {
+        feedRef.child(id).removeAllObservers()
+    }
+    
     func addNewTargetToFeed(withTargetId targetid: String, userId uid: String) {
         Api.follow.followersRef.child(uid).observeSingleEvent(of: .value) { (snapshot) in
             let arraySnapshot = snapshot.children.allObjects as! [DataSnapshot]
