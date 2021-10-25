@@ -52,7 +52,7 @@ class EditProfileViewController: UITableViewController {
             locationLabel.isHidden = true
             return
         }
-        locationLabel.text = " \(locationText) "
+        locationLabel.text = "  \(locationText)  "
         locationLabel.isHidden = false
         checkSaveButtonAvailability()
     }
@@ -63,7 +63,7 @@ class EditProfileViewController: UITableViewController {
             nameLabel.isHidden = true
             return
         }
-        nameLabel.text = " \(nameText) "
+        nameLabel.text = "  \(nameText)  "
         nameLabel.isHidden = false
         checkSaveButtonAvailability()
         
@@ -72,19 +72,24 @@ class EditProfileViewController: UITableViewController {
     // MARK: Assist methods
     func fillProfileData() {
         Api.user.singleObserveCurrentUser(completion: { (user) in
-            if let name = user.name {
-                self.nameLabel.text = " \(name) "
+            if let name = user.name, !name.isEmpty {
+                self.nameLabel.text = "  \(name)  "
                 self.nameTextField.text = name
                 self.nameLabel.isHidden = false
                 self.originalName = name
-
+            } else {
+                self.nameLabel.text = ""
+                self.nameLabel.isHidden = true
             }
-            if let location = user.location {
-                self.locationLabel.text = " \(location) "
+            
+            if let location = user.location, !location.isEmpty {
+                self.locationLabel.text = "  \(location)  "
                 self.locationTextField.text = location
                 self.locationLabel.isHidden = false
                 self.originalLocation = location
-
+            } else {
+                self.locationLabel.text = ""
+                self.locationLabel.isHidden = true
             }
             
             if let profileImageUrlString = user.imageURLString {
