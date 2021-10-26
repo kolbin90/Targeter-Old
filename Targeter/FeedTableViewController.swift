@@ -14,16 +14,10 @@ class FeedTableViewController: UITableViewController {
         
         //tableView.delegate = self
         tableView.dataSource = self
-        extendedLayoutIncludesOpaqueBars = true
         tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
         // Do any additional setup after loading the view.
         configureAuth()
         setNavigationController(largeTitleDisplayMode: .always)
-        if tableView.contentOffset.y > 0 {
-          if self.navigationController!.navigationBar.frame.size.height > 44.0 {
-              tableView.contentOffset.y = tableView.contentOffset.y * 0.5
-          }
-        }
     }
     
 
