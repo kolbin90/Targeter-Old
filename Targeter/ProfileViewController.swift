@@ -9,12 +9,11 @@
 import UIKit
 
 // MARK: - ProfileViewController
-class ProfileViewController: UIViewController {
+class ProfileViewController: UITableViewController {
 
     // MARK: Outlets
 
-    @IBOutlet weak var profileCell: ProfileCell!
-    @IBOutlet weak var tableView: UITableView!
+ //   @IBOutlet weak var profileCell: ProfileCell!
 
     // MARK: Variables
     var targets: [TargetModel] = []
@@ -34,8 +33,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationController(largeTitleDisplayMode: .always)
-        tableView.dataSource = self
-        tableView.delegate = self
         tableView.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: "FeedCell")
         configureAuth()
     }
@@ -136,16 +133,13 @@ class ProfileViewController: UIViewController {
         editProfileVC.delegate = self
         self.navigationController?.show(editProfileVC, sender: nil)
     }
-}
-
-// MARK: - Extensions
-// MARK: UITableViewDataSource, UITableViewDelegate
-extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    // MARK: UITableViewDataSource, UITableViewDelegate
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
@@ -157,7 +151,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
         cell.targetsLabel.text = targetsCountString
         cell.nameLabel.layer.cornerRadius = 10
@@ -193,16 +187,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return UIScreen.main.bounds.width + 64
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 217
     }
-    
 }
+
+// MARK: - Extensions
 
 extension ProfileViewController: EditProfileViewControllerDelegate {
     func updateProfile(_ profileImage: UIImage?, _ name: String?, _ location: String?) {
