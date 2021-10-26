@@ -15,10 +15,9 @@ protocol TargetsViewControllerDelegate {
 
 // MARK: - TargetsViewController
 
-class TargetsViewController: UIViewController {
+class TargetsViewController: UITableViewController {
     
     // MARK: Outlets
-    @IBOutlet weak var tableView: UITableView!
     
     // MARK: Variables
     var targets: [TargetModel] = []
@@ -29,10 +28,7 @@ class TargetsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setNavigationController(largeTitleDisplayMode: .never)
-
-        
-        tableView.dataSource = self
+        setNavigationController(largeTitleDisplayMode: .automatic)
         tableView.register(UINib(nibName: "CheckInCell", bundle: nil), forCellReuseIdentifier: "CheckInCell")
         
         configureAuth()
@@ -80,15 +76,12 @@ class TargetsViewController: UIViewController {
         // set in storyboard
     }
     
-}
-// MARK: - Extensions
-// MARK: UITableViewDataSource, UITableViewDelegate
-extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return targets.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    // MARK: UITableViewDataSource, UITableViewDelegate
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CheckInCell", for: indexPath) as! NewTargetCell
         cell.cellTarget = targets[indexPath.row]
@@ -100,6 +93,7 @@ extension TargetsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
 }
+// MARK: - Extensions
 // MARK: SwipeTableViewCellDelegate
 extension TargetsViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
