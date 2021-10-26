@@ -42,12 +42,6 @@ class CommentsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ : )), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = true
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
 //        if segue.identifier == "CommentsToProfileUserSegue" {
