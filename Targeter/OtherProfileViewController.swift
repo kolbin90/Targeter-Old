@@ -10,12 +10,10 @@ import Foundation
 import UIKit
 
 // MARK: - ProfileViewController
-class OtherProfileViewController: UIViewController {
+class OtherProfileViewController: UITableViewController {
 
     // MARK: Outlets
 
-    @IBOutlet weak var profileCell: ProfileCell!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var followButton: UIBarButtonItem!
     
     // MARK: Variables
@@ -168,29 +166,20 @@ class OtherProfileViewController: UIViewController {
         }
     }
     
-}
-
-// MARK: - Extensions
-// MARK: UITableViewDataSource, UITableViewDelegate
-extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // MARK: UITableViewDataSource, UITableViewDelegate
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "NewTargetCell", for: indexPath) as! NewTargetCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
         cell.cellPost = posts[indexPath.row]
         cell.delegate = self
         cell.selectionStyle = .none
-        
-//        cell.showArrows = false
-//        cell.cellTarget = targets[indexPath.row]
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
         cell.nameLabel.layer.cornerRadius = 10
         cell.nameLabel.layer.masksToBounds = true
@@ -224,15 +213,19 @@ extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate
     }
 
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return UIScreen.main.bounds.width + 64
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 217
     }
+    
 }
+
+// MARK: - Extensions
+
 
 extension OtherProfileViewController: FeedCellDelegate {
     func goToProfileUserVC(withUser user: UserModel) {
