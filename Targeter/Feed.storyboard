@@ -83,13 +83,13 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="" image="Home" selectedImage="Home_Selected" id="DLa-72-0pF">
-                        <inset key="imageInsets" minX="0.0" minY="-5" maxX="0.0" maxY="-5"/>
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="Targeter" id="Pe1-zo-cXK"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yp8-oB-13a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2074" y="1521"/>
+            <point key="canvasLocation" x="-1165.217391304348" y="1520.7589285714284"/>
         </scene>
         <!--Comments-->
         <scene sceneID="q5c-hb-GKo">
@@ -328,7 +328,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="DVU-z1-ZqC" kind="relationship" relationship="rootViewController" id="HDX-OJ-OUp"/>
+                        <segue destination="DVU-z1-ZqC" kind="relationship" relationship="rootViewController" id="JcW-x7-ADv"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vwi-gg-Wfu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

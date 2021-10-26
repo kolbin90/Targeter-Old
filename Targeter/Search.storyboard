@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="99c-1I-7to">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="99c-1I-7to">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,6 +19,9 @@
                         <viewLayoutGuide key="safeArea" id="yCV-tX-BGg"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="Search" selectedImage="Search_Selected" id="uDM-XB-siA">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="QWC-Mu-BPF">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="SbV-d6-8qv">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -30,7 +33,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ua-Tg-C4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="799" y="-177"/>
+            <point key="canvasLocation" x="1840.5797101449277" y="-177.45535714285714"/>
         </scene>
         <!--Search Result View Controller-->
         <scene sceneID="xcq-zd-Mvn">
@@ -45,7 +48,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchProfileCell" rowHeight="75" id="nSa-Ya-kkt" customClass="SearchProfileCell" customModule="Targeter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nSa-Ya-kkt" id="RCh-fu-XnJ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
@@ -115,13 +118,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fem-1L-eZO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1571.0144927536232" y="-177.45535714285714"/>
+            <point key="canvasLocation" x="2613.04347826087" y="-177.45535714285714"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hGh-Nz-eCc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="99c-1I-7to" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Search" id="prp-5x-X9l">
+                    <tabBarItem key="tabBarItem" title="" image="Search" selectedImage="Search_Selected" id="prp-5x-X9l">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -131,16 +134,17 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="YOM-Cp-ZVa" kind="relationship" relationship="rootViewController" id="IDU-PK-mLI"/>
+                        <segue destination="YOM-Cp-ZVa" kind="relationship" relationship="rootViewController" id="4mQ-FR-Lwb"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2uP-IX-jwA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32" y="-177"/>
+            <point key="canvasLocation" x="942.02898550724649" y="-177.45535714285714"/>
         </scene>
     </scenes>
     <resources>
         <image name="Search" width="23" height="22"/>
+        <image name="Search_Selected" width="23" height="22"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

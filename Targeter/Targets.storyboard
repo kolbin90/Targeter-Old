@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,6 +41,9 @@
                             <constraint firstItem="9us-r8-yuP" firstAttribute="leading" secondItem="brh-qg-Eac" secondAttribute="leading" id="xAn-BL-eHv"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="Tabbar_Targets" selectedImage="Tabbar_Targets_Selected" id="Sl9-kL-PVP">
+                        <inset key="imageInsets" minX="-5" minY="0.0" maxX="-5" maxY="-10"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" title="Targets" id="kaZ-4b-Ga2">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DwI-0a-TXz">
                             <connections>
@@ -56,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jx3-8C-VIG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="886.95652173913049" y="60.9375"/>
+            <point key="canvasLocation" x="1797.1014492753625" y="60.9375"/>
         </scene>
         <!--Add Target-->
         <scene sceneID="exK-WX-9K9">
@@ -459,6 +461,7 @@
                             <outlet property="delegate" destination="9xp-Gf-DaO" id="jpo-Se-VIK"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="rgz-sh-2fg"/>
                     <connections>
                         <outlet property="addTargetButton" destination="Yix-4Z-ZGk" id="6SG-gr-Ecr"/>
                         <outlet property="cell" destination="tZz-ql-FB0" id="IPZ-mD-xTy"/>
@@ -468,7 +471,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="93T-HY-id8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1698.5507246376812" y="60.9375"/>
+            <point key="canvasLocation" x="2608.6956521739135" y="60.9375"/>
         </scene>
         <!--Crop Image-->
         <scene sceneID="jGc-pB-NHB">
@@ -577,16 +580,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="daB-f1-opN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2489.8550724637685" y="60.9375"/>
+            <point key="canvasLocation" x="3400.0000000000005" y="60.9375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hz1-RL-MLb">
             <objects>
                 <navigationController storyboardIdentifier="NavigationTargets" automaticallyAdjustsScrollViewInsets="NO" id="r0M-pI-Fzb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="AaR-x2-HK6">
-                        <imageReference key="image" image="t.circle" catalog="system" symbolScale="large"/>
-                        <imageReference key="selectedImage" image="t.circle.fill" catalog="system" symbolScale="large"/>
-                    </tabBarItem>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="21C-vL-FTf">
@@ -595,7 +594,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="duZ-ZZ-eTu" kind="relationship" relationship="rootViewController" id="MYz-rw-Ldb"/>
+                        <segue destination="duZ-ZZ-eTu" kind="relationship" relationship="rootViewController" id="hDd-2T-oRS"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q1a-Pe-rF1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -604,9 +603,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Tabbar_Targets" width="25" height="25"/>
+        <image name="Tabbar_Targets_Selected" width="25" height="25"/>
         <image name="image-2017-04-27-2.jpg" width="1080" height="1080"/>
-        <image name="t.circle" catalog="system" width="128" height="121"/>
-        <image name="t.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

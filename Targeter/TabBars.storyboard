@@ -83,7 +83,7 @@
         <scene sceneID="of3-CU-oxC">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rRw-fc-lve" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="Activity" id="kkv-2j-pgc">
+                    <tabBarItem key="tabBarItem" title="" image="Activity" selectedImage="Activity_Selected" id="kkv-2j-pgc">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -123,5 +123,6 @@
     </scenes>
     <resources>
         <image name="Activity" width="22" height="20"/>
+        <image name="Activity_Selected" width="22" height="20"/>
     </resources>
 </document>
