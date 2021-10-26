@@ -50,6 +50,7 @@ extension UIViewController {
         } else {
             // Use defailt om old iOS
         }
+        extendedLayoutIncludesOpaqueBars = true
 
     }
     // Show activity indicator
