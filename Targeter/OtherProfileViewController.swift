@@ -201,8 +201,17 @@ extension OtherProfileViewController: UITableViewDataSource, UITableViewDelegate
         cell.targetsLabel.text = targetsCountString
         cell.followersLabel.text = followers
         cell.followingLabel.text = following
-        cell.nameLabel.text = "  \(name)  "
-        cell.locationLabel.text = "  \(location)  "
+        if name != "" {
+            cell.nameLabel.text = "  \(name)  "
+        } else {
+            cell.nameLabel.isHidden = true
+        }
+        
+        if location != "" {
+            cell.locationLabel.text = "  \(location)  "
+        } else {
+            cell.locationLabel.isHidden = true
+        }
         if let newProfileImage = newProfileImage {
             cell.profileImageView.image = newProfileImage
         } else {
