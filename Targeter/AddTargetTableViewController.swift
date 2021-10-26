@@ -42,7 +42,7 @@ class AddTargetTableViewController: UITableViewController {
             cell.titleLabel.text = ""
             return
         }
-        cell.titleLabel.text = " \(titleText) "
+        cell.titleLabel.text = "  \(titleText)  "
         
         guard let startText = startTextField.text, !startText.isEmpty, let _ = cell.targetImageView.image else {
             addTargetButton.setTitleColor(.lightGray, for: .normal)
@@ -164,6 +164,7 @@ extension AddTargetTableViewController: UIImagePickerControllerDelegate, UINavig
 extension AddTargetTableViewController: CropImageViewControllerDelegate {
     func setImage(_ image: UIImage) {
         cell.targetImageView.image = image
+        cell.targetImageView.contentMode = .scaleAspectFill
         cell.updateFocusIfNeeded()
         textFieldDidChange()
     }

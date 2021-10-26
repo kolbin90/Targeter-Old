@@ -29,7 +29,7 @@ class CropImageViewController: UIViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationController(largeTitleDisplayMode: .never)
+        setNavigationController(largeTitleDisplayMode: .always)
     }
 
     override func viewDidAppear(_ animated: Bool) {
