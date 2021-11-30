@@ -50,6 +50,34 @@ class TargetApi {
             }
         }
     }
+    
+    func getPopularTargets(completion: @escaping (PostModel) -> Void, onError: @escaping (String) -> Void ) {
+        targetsRef.queryOrdered(byChild: Constants.Target.likesCount).observe(.childAdded) { snapshot in
+            if let dict = snapshot.value as? [String: Any] {
+                let target = TargetModel.transformDataToTarget(dict: dict, id: snapshot.key)
+                if let uid = Api.user.currentUser?.uid {
+                    Api.likes.isTagetLikedBy(userId: uid, targetId: target.id!) { isLiked in
+                        target.isLiked = isLiked
+                        self.getCheckIns(forTargetId: target.id!, completion: { (checkIns) in
+                            target.checkIns = checkIns
+                            Api.user.singleObserveUser(withUid: target.uid!) { (user) in
+                                let post = PostModel()
+                                post.target = target
+                                post.user = user
+                                completion(post)
+                            } onError: { (error) in
+                                ProgressHUD.showError(error)
+                            }
+                        }, onError: onError)
+                    }
+                } else {
+                    onError("Login error")
+                }
+            } else {
+                onError("Snapshot error")
+            }
+        }
+    }
 
     
     

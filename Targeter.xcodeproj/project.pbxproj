@@ -64,6 +64,7 @@
 		11C476102581736A00E7DB54 /* Target_CommentsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C4760F2581736A00E7DB54 /* Target_CommentsApi.swift */; };
 		11C476182581801900E7DB54 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C476172581801900E7DB54 /* CommentCell.swift */; };
 		11E996BF27277656006FAB72 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E996BE27277656006FAB72 /* FeedTableViewController.swift */; };
+		11E996C12755B7F1006FAB72 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E996C02755B7F1006FAB72 /* PopularViewController.swift */; };
 		11E9DBE324E8C7CA00C05FF6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */; };
 		11F5BF532522AFEB00FB8350 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F5BF512522AFEB00FB8350 /* FeedCell.swift */; };
 		11F5BF542522AFEB00FB8350 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11F5BF522522AFEB00FB8350 /* FeedCell.xib */; };
@@ -181,6 +182,7 @@
 		11C4760F2581736A00E7DB54 /* Target_CommentsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target_CommentsApi.swift; sourceTree = "<group>"; };
 		11C476172581801900E7DB54 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		11E996BE27277656006FAB72 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
+		11E996C02755B7F1006FAB72 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		11F5BF512522AFEB00FB8350 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		11F5BF522522AFEB00FB8350 /* FeedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				11E996BE27277656006FAB72 /* FeedTableViewController.swift */,
 				11C476002581703600E7DB54 /* CommentsViewController.swift */,
 				113AA5A82698E91D00E3ACC1 /* LikesViewController.swift */,
+				11E996C02755B7F1006FAB72 /* PopularViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -859,6 +862,7 @@
 				11E9DBE324E8C7CA00C05FF6 /* EditProfileViewController.swift in Sources */,
 				041EE5651E70C23B006D623B /* CoreDataStack.swift in Sources */,
 				857F20A32399F4370057F144 /* AuthService.swift in Sources */,
+				11E996C12755B7F1006FAB72 /* PopularViewController.swift in Sources */,
 				85135A2F23BAFEBD00FDE496 /* User_TargetApi.swift in Sources */,
 				85CDFF9E23975CAC0083CF10 /* ProgressHUD.m in Sources */,
 				1145E515251AA106006805FA /* SearchResultViewController.swift in Sources */,
