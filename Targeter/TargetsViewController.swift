@@ -29,8 +29,8 @@ class TargetsViewController: UITableViewController {
         super.viewDidLoad()
         
         setNavigationController(largeTitleDisplayMode: .automatic)
+        self.tableView.contentInset.bottom = self.tabBarController?.tabBar.frame.height ?? 0
         tableView.register(UINib(nibName: "CheckInCell", bundle: nil), forCellReuseIdentifier: "CheckInCell")
-        
         configureAuth()
     }
     

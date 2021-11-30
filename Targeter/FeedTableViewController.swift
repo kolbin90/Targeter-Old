@@ -18,6 +18,7 @@ class FeedTableViewController: UITableViewController {
         // Do any additional setup after loading the view.
         configureAuth()
         setNavigationController(largeTitleDisplayMode: .always)
+        self.tableView.contentInset.bottom = self.tabBarController?.tabBar.frame.height ?? 0
     }
     
 
