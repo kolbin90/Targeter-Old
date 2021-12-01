@@ -33,6 +33,7 @@ class SearchResultViewController: UIViewController {
         tapGesture.cancelsTouchesInView = true
         tableView.addGestureRecognizer(tapGesture)
         tableView.dataSource = self
+        self.tableView.contentInset.bottom = self.tabBarController?.tabBar.frame.height ?? 0
         
         doSearch()
     }

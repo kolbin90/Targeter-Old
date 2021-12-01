@@ -30,9 +30,14 @@ class SearchProfileCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        let tapGestureForCellView = UITapGestureRecognizer(target: self, action: #selector(self.cellView_TchUpIns))
-        cellView.addGestureRecognizer(tapGestureForCellView)
-        cellView.isUserInteractionEnabled = true
+        let tapGestureForImageView = UITapGestureRecognizer(target: self, action: #selector(self.cellView_TchUpIns))
+        profileImageView.addGestureRecognizer(tapGestureForImageView)
+        profileImageView.isUserInteractionEnabled = true
+        let tapGestureForLabel = UITapGestureRecognizer(target: self, action: #selector(self.cellView_TchUpIns))
+        usernameLabel.addGestureRecognizer(tapGestureForLabel)
+        usernameLabel.isUserInteractionEnabled = true
+        
+        profileImageView.layer.cornerRadius = 15
     }
     
     @objc func cellView_TchUpIns() {
@@ -56,6 +61,8 @@ class SearchProfileCell: UITableViewCell {
         if let profileUrlString = user?.imageURLString {
             let profileUrl = URL(string: profileUrlString)
             profileImageView.sd_setImage(with: profileUrl, placeholderImage: UIImage(named: "avatar-1577909_960_720"), options: [], completed: nil)
+        } else {
+            profileImageView.image = UIImage(named: "avatar-1577909_960_720")
         }
         usernameLabel.text = user?.username
         
