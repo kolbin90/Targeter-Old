@@ -63,6 +63,7 @@
 		11C4760B2581726B00E7DB54 /* CommentApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C4760A2581726B00E7DB54 /* CommentApi.swift */; };
 		11C476102581736A00E7DB54 /* Target_CommentsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C4760F2581736A00E7DB54 /* Target_CommentsApi.swift */; };
 		11C476182581801900E7DB54 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C476172581801900E7DB54 /* CommentCell.swift */; };
+		11D6F376286C1F41004C33E2 /* TargetDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D6F375286C1F41004C33E2 /* TargetDetailsViewController.swift */; };
 		11E996BF27277656006FAB72 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E996BE27277656006FAB72 /* FeedTableViewController.swift */; };
 		11E996C12755B7F1006FAB72 /* PopularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E996C02755B7F1006FAB72 /* PopularViewController.swift */; };
 		11E9DBE324E8C7CA00C05FF6 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */; };
@@ -181,6 +182,7 @@
 		11C4760A2581726B00E7DB54 /* CommentApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentApi.swift; sourceTree = "<group>"; };
 		11C4760F2581736A00E7DB54 /* Target_CommentsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target_CommentsApi.swift; sourceTree = "<group>"; };
 		11C476172581801900E7DB54 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		11D6F375286C1F41004C33E2 /* TargetDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDetailsViewController.swift; sourceTree = "<group>"; };
 		11E996BE27277656006FAB72 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		11E996C02755B7F1006FAB72 /* PopularViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularViewController.swift; sourceTree = "<group>"; };
 		11E9DBE224E8C7CA00C05FF6 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				85135A2623B816AB00FDE496 /* TargetsViewController.swift */,
 				85135A3023BB249100FDE496 /* CropImageViewController.swift */,
 				85135A2A23B9DC6C00FDE496 /* AddTargetTableViewController.swift */,
+				11D6F375286C1F41004C33E2 /* TargetDetailsViewController.swift */,
 			);
 			name = Targets;
 			sourceTree = "<group>";
@@ -825,6 +828,7 @@
 				041EE56F1E70D05C006D623B /* Target+CoreDataProperties.swift in Sources */,
 				112B44082512C3BE00B39033 /* CropProfileImageViewController.swift in Sources */,
 				04ED2B03209BA8BB00DDB9A5 /* TargetImages+CoreDataProperties.swift in Sources */,
+				11D6F376286C1F41004C33E2 /* TargetDetailsViewController.swift in Sources */,
 				113AA5A92698E91D00E3ACC1 /* LikesViewController.swift in Sources */,
 				85AD2D4423E406C000EE8FF3 /* ProfileCell.swift in Sources */,
 				041EE56C1E70D05C006D623B /* Success+CoreDataClass.swift in Sources */,
