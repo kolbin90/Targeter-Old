@@ -15,6 +15,7 @@ protocol FeedCellDelegate: class {
     func goToLikesVC(withTargetId id: String)
     func goToProfileUserVC(withUser user: UserModel)
     func updateLikes(withTargetId id: String, isLiked: Bool)
+    func goToTargetDetailsVC(withTargetId id: String)
 }
 
 class FeedCell: UITableViewCell {
@@ -34,6 +35,7 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var likeImageView: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
     
+    @IBOutlet weak var profileImageStackView: UIStackView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var lastActionLabel: UILabel!
@@ -95,6 +97,12 @@ class FeedCell: UITableViewCell {
         let tapGestureForProfileImage = UITapGestureRecognizer(target: self, action: #selector(self.user_TchUpIns))
         profileImageView.addGestureRecognizer(tapGestureForProfileImage)
         profileImageView.isUserInteractionEnabled = true
+        
+//        let tapGestureForTargetDetail = UITapGestureRecognizer(target: self, action: #selector(self.targetDetails_TchUpIns))
+//        DispatchQueue.main.async {
+//            self.profileImageStackView.addGestureRecognizer(tapGestureForTargetDetail)
+//            self.profileImageStackView.isUserInteractionEnabled = true
+//        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -309,6 +317,12 @@ class FeedCell: UITableViewCell {
                 delegate?.updateLikes(withTargetId: id, isLiked: true)
             }
             
+        }
+    }
+    
+    @objc func targetDetails_TchUpIns() {
+        if let id = cellPost.target.id {
+            delegate?.goToTargetDetailsVC(withTargetId: id)
         }
     }
     

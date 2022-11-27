@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -309,6 +309,7 @@
                 <outlet property="lastActionTimestampLabel" destination="g3v-97-MUo" id="E9R-jd-fYU"/>
                 <outlet property="likeImageView" destination="Sre-Af-rmf" id="Rbs-ri-p0C"/>
                 <outlet property="likesLabel" destination="fXf-ro-mXC" id="td0-Lr-E5n"/>
+                <outlet property="profileImageStackView" destination="vOb-bb-sbk" id="Sal-MB-aOs"/>
                 <outlet property="profileImageView" destination="zTf-hz-Brs" id="1i9-cf-jFQ"/>
                 <outlet property="targetImageView" destination="6cr-kW-ccB" id="ooc-Q1-gl0"/>
                 <outlet property="titleLabel" destination="Ag3-1q-mC9" id="ACm-PJ-GKp"/>

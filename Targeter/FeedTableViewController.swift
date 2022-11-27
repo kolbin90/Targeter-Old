@@ -110,6 +110,11 @@ extension FeedTableViewController: FeedCellDelegate {
         //editProfileVC.delegate = self
         self.navigationController?.show(commentsVC, sender: nil)
     }
+    
+    func goToTargetDetailsVC(withTargetId id: String) {
+        let targetDetailVC = UIStoryboard.init(name: "Targets", bundle: nil).instantiateViewController(withIdentifier: "TargetDetailsViewController")
+        self.navigationController?.show(targetDetailVC, sender: nil)
+    }
 }
 
 extension FeedTableViewController: CommentsViewControllerDelegate {

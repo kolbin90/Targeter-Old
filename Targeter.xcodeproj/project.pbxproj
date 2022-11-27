@@ -566,7 +566,7 @@
 				TargetAttributes = {
 					041EE52B1E70C010006D623B = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = J5D465HM4Z;
+						DevelopmentTeam = M42UQ7H3R2;
 						LastSwiftMigration = 1030;
 						ProvisioningStyle = Automatic;
 					};
@@ -1037,7 +1037,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = J5D465HM4Z;
+				DEVELOPMENT_TEAM = M42UQ7H3R2;
 				INFOPLIST_FILE = Targeter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akdev.Targeter;
@@ -1054,7 +1054,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = J5D465HM4Z;
+				DEVELOPMENT_TEAM = M42UQ7H3R2;
 				INFOPLIST_FILE = Targeter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akdev.Targeter;

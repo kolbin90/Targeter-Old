@@ -53,6 +53,10 @@ class PopularViewController: UITableViewController {
 
 
 extension PopularViewController: FeedCellDelegate {
+    func goToTargetDetailsVC(withTargetId id: String) {
+         
+    }
+    
     func goToProfileUserVC(withUser user: UserModel) {
         let profileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
         profileVC.user = user

@@ -228,6 +228,10 @@ class OtherProfileViewController: UITableViewController {
 
 
 extension OtherProfileViewController: FeedCellDelegate {
+    func goToTargetDetailsVC(withTargetId id: String) {
+        
+    }
+    
     func goToProfileUserVC(withUser user: UserModel) {
         let otherProfileVC = UIStoryboard.init(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "OtherProfileViewController") as! OtherProfileViewController
         otherProfileVC.user = user

@@ -8,6 +8,7 @@
 
 import Foundation
 
-class TargetDetailsViewController: UIViewController {
+class TargetDetailsViewController: UITableViewController {
     
 }
+
