@@ -49,11 +49,11 @@ class AuthService {
         let storageRef = Storage.storage().reference()
         let databaseRef = Database.database().reference()
         if let profileImageUrl = profileImageUrl {
-
-            let imagePath = "users/" + Auth.auth().currentUser!.uid + "/profileImage/\(Date())"
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/jpeg"
-            
+//
+//            let imagePath = "users/" + Auth.auth().currentUser!.uid + "/profileImage/\(Date())"
+//            let metadata = StorageMetadata()
+//            metadata.contentType = "image/jpeg"
+//
             // Download image from Facebook, Upload it to Firevase storage, save imageURL to database
             guard let url = URL(string: profileImageUrl) else {
                 return
@@ -67,18 +67,23 @@ class AuthService {
                 guard let data = data else {
                     return
                 }
-                
-                DispatchQueue.main.async {
-                    storageRef.child(imagePath).putData(data, metadata: metadata, completion: { (storageMetafata, error) in
-                        guard (error == nil) else {
-                            print("error saving image to storage")
-                            return
-                        }
-                        
-                        let imageURL = storageRef.child((storageMetafata?.path)!).description
-                        databaseRef.child("users").child(Auth.auth().currentUser!.uid).updateChildValues([Constants.UserData.ImageURL:imageURL])  //child(Constants.UserData.ImageURL).setValue(imageURL)
-                    })
+                uploadImageToServer(imageData: data) { imageUrl in
+                    databaseRef.child("users").child(Auth.auth().currentUser!.uid).updateChildValues([Constants.UserData.ImageURL:imageUrl])
+                } onError: { error in
+                    print("error")
                 }
+
+//                DispatchQueue.main.async {
+//                    storageRef.child(imagePath).putData(data, metadata: metadata, completion: { (storageMetafata, error) in
+//                        guard (error == nil) else {
+//                            print("error saving image to storage")
+//                            return
+//                        }
+//
+//                        let imageURL = storageRef.child((storageMetafata?.path)!).description
+//                        databaseRef.child("users").child(Auth.auth().currentUser!.uid).updateChildValues([Constants.UserData.ImageURL:imageURL])  //child(Constants.UserData.ImageURL).setValue(imageURL)
+//                    })
+//                }
                 }.resume()
         }
         // Save username and name to database
@@ -156,6 +161,31 @@ class AuthService {
     static func listenToAuthChanges(competion: @escaping (_ auth: Auth, _ user: User?) -> Void) {
         let _ = Auth.auth().addStateDidChangeListener({ auth, user in
             competion(auth, user)
+        })
+    }
+    
+    static func uploadImageToServer(imageData: Data, onSuccess: @escaping (String) -> Void, onError: @escaping (String) -> Void) {
+        let photoID = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child(Constants.RootFolders.Users).child(photoID)
+        let profileImgMetadata = StorageMetadata()
+        profileImgMetadata.contentType = "image/jpg"
+        storageRef.putData(imageData, metadata: profileImgMetadata, completion: { (metadata, error) in
+            if let error = error {
+                onError(error.localizedDescription)
+                return
+            }
+            storageRef.downloadURL(completion: { (profileImgUrl, error) in
+                guard error == nil else {
+                    onError(error!.localizedDescription)
+                    return
+                }
+                guard let profileImgUrlString = profileImgUrl?.absoluteString else {
+                    onError("Failed uploading image to server")
+                    return
+                }
+                onSuccess(profileImgUrlString)
+                
+            })
         })
     }
     
